@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4728353247755917326
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1016452794598542657}
+  - component: {fileID: 6499278964942958248}
+  m_Layer: 0
+  m_Name: CalculatingTool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1016452794598542657
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4728353247755917326}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -13.440666, y: -3.5182252, z: -0.006033981}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6499278964942958248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4728353247755917326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b58efb4d65cd074a8e8cdbae8539d43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteImageArray:
+  - {fileID: 6577660633780936046, guid: 6b8e515c5e2b38a469da78185f592ee5, type: 3}
+  - {fileID: 1516495579, guid: 6b8e515c5e2b38a469da78185f592ee5, type: 3}
+  - {fileID: -531194606, guid: 6b8e515c5e2b38a469da78185f592ee5, type: 3}
+  - {fileID: 982119838, guid: 6b8e515c5e2b38a469da78185f592ee5, type: 3}
+  - {fileID: -1673604244, guid: 6b8e515c5e2b38a469da78185f592ee5, type: 3}
+  - {fileID: -324558010, guid: 6b8e515c5e2b38a469da78185f592ee5, type: 3}
+  - {fileID: -1981992534, guid: 6b8e515c5e2b38a469da78185f592ee5, type: 3}
+  - {fileID: -1907765409, guid: 6b8e515c5e2b38a469da78185f592ee5, type: 3}
+  - {fileID: -2047599249, guid: 6b8e515c5e2b38a469da78185f592ee5, type: 3}
+  spriteObject:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
