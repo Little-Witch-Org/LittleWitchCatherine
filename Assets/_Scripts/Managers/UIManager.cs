@@ -30,10 +30,8 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-        Debug.Log(TimeManager.Instance);
         if (TimeManager.Instance != null)
         {
-            Debug.Log(TimeManager.Instance);
             TimeManager.Instance.OnTimeOfDayChange += ChangeTimeOfDayText;
             TimeManager.Instance.OnTimeChange += ChangeTimeText;
             TimeManager.Instance.OnDateChange += ChangeDateText;

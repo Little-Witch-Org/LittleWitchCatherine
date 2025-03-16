@@ -13,7 +13,7 @@ public class ClickTrigger : MonoBehaviour
     public UnityEvent OnEnter;
     public UnityEvent OnExit;
 
-    private bool _isClicked; //handle double click 
+    private bool _isClicked; //handle double click
 
     private void OnMouseDown()
     {
