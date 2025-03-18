@@ -148,8 +148,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e7a0d6fc7ad4f24f9e6ab56c8f8fe7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Stopwatch: 
+  seconds: 0
+  minutes: 0
+  hours: 0
+  days: 0
+  months: 0
   timeOfDay: 0
+  formattedDate: 
+  formattedTime: 
 --- !u!4 &489704090
 Transform:
   m_ObjectHideFlags: 0

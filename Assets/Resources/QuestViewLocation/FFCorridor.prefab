@@ -1372,6 +1372,7 @@ GameObject:
   - component: {fileID: 3298863882008346815}
   - component: {fileID: 712120078470885451}
   - component: {fileID: 2392302352006647187}
+  - component: {fileID: 7231589691442046331}
   m_Layer: 0
   m_Name: FFCorridor
   m_TagString: Untagged
@@ -1498,6 +1499,26 @@ MonoBehaviour:
   - {fileID: -1513337470438484083, guid: 48019e56801b1994a8f2b40c0486008e, type: 3}
   - {fileID: 170545468854105644, guid: 65df0b9343af59245ad24b615f52f9b5, type: 3}
   - {fileID: 1498616468413056109, guid: 4d861b733ed7f614f934e332b389d45c, type: 3}
+  spriteRendererCurrent: {fileID: 3760628456369157125}
+  spriteRendererToChange: {fileID: 0}
+  transitionDuration: 2
+  timeOfDay: 0
+--- !u!114 &7231589691442046331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7132937731223879731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CategoryHash: 0
+  m_labelHash: 0
+  m_SpriteKey: 0
+  m_SpriteHash: 0
 --- !u!1 &7299240430955962556
 GameObject:
   m_ObjectHideFlags: 0

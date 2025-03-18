@@ -19,16 +19,15 @@ namespace _Scripts
         
         public SpawnPointsNamesCatherineHouseMap previousSpawnPointName;
         
-        public bool isInitialSceneHandled;
         
         private void OnEnable()
         {
-            SceneManager.sceneLoaded += OnSceneLoaded;
+            SceneManager.sceneLoaded += OnSceneLoadedSpawnPlayer;
         }
 
         private void OnDisable()
         {
-            SceneManager.sceneLoaded -= OnSceneLoaded;
+            SceneManager.sceneLoaded -= OnSceneLoadedSpawnPlayer;
         }
         
 
@@ -50,19 +49,14 @@ namespace _Scripts
                 return;  //handle double load scene for second copy of script
             }
             
-            //handle load from location scene
-            //Debug.Log("code block");
-            if (!isInitialSceneHandled)
-            {
-                Scene currentScene = SceneManager.GetActiveScene();
-                OnSceneLoaded(currentScene, LoadSceneMode.Single);
-                isInitialSceneHandled = true;
-            }
+            //Spawn character only after scene loaded and scene check (in method)
+            Scene currentScene = SceneManager.GetActiveScene();
+            OnSceneLoadedSpawnPlayer(currentScene, LoadSceneMode.Single); //SceneManager.sceneLoaded needs two parameters
             
         }
 
 
-        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        private void OnSceneLoadedSpawnPlayer(Scene scene, LoadSceneMode mode)
         {
             if (Instance != this) return; //handle double spawn (spawn only for first copy of this script (Instance))
             

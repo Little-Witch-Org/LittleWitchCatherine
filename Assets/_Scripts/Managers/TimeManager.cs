@@ -3,6 +3,7 @@ using _Scripts.Components.TimeManagement.Enums;
 using Unity.VisualScripting;
 using UnityEngine;
 
+//todo make time turn based ?
 public class TimeManager : MonoBehaviour
 {
     
