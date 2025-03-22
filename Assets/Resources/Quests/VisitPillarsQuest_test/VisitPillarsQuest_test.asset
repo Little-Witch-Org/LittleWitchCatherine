@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e75bf351b6e3484c88b138e18175d24d, type: 3}
+  m_Name: VisitPillarsQuest_test
+  m_EditorClassIdentifier: 
+  <Id>k__BackingField: VisitPillarsQuest_test
+  displayName: "Visit \u0435\u0440\u0443 Pillars !"
+  levelRequirement: 1
+  questPrerequisites:
+  - {fileID: 11400000, guid: 080042370b6f7b644aa5973c83b4aa40, type: 2}
+  questStepPrefabs:
+  - {fileID: 2005763344290812928, guid: f7d8c701c1d30454c9f5eedf5943c60a, type: 3}
+  - {fileID: 2005763344290812928, guid: 32a556cd84dd95548a0dbd8443c60486, type: 3}
+  - {fileID: 2005763344290812928, guid: f7569de900ee97a42b69bfceada7e0dd, type: 3}
+  goldReward: 200
+  expReward: 1000

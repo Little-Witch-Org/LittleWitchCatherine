@@ -55,12 +55,12 @@ namespace _Scripts
             
         }
 
-
+        //todo char spawn in other (map) scenes need to be handled
         private void OnSceneLoadedSpawnPlayer(Scene scene, LoadSceneMode mode)
         {
             if (Instance != this) return; //handle double spawn (spawn only for first copy of this script (Instance))
             
-            if (scene.name == SceneNames.CatherineHouseMap.ToString())
+            if (scene.name == SceneNames.CatherineHouseMap.ToString()|| scene.name.Contains("Test"))
             {
                 //Debug.LogFormat("Scene loaded: {0}. Current spawn point: {1}", scene.name, previousSpawnPointName);
                 SpawnCharacter();
