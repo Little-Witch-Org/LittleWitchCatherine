@@ -1,21 +1,22 @@
-using _Scripts;
 using _Scripts.Enums;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-/// <summary>
-/// Enter trigger sets spawn point to SpawnPointsManager using this component (uses for future spawn when the character returns from quest view)
-/// </summary>
-public class StorePreviousPositionPointComponent : MonoBehaviour
+namespace _Scripts.Components.SpawnComponents
 {
-
-
-    [SerializeField] private SpawnPointsNamesCatherineHouseMap pointNamesName;
-
-
-    public void setPreviousPositionPointNameToPlayerSpawner()
+    /// <summary>
+    /// Enter trigger sets previous spawn point to Player Char Manager. (uses for future spawn when the character returns from novel view)
+    /// </summary>
+    public class StorePreviousPositionPointComponent : MonoBehaviour
     {
-        PlayerSpawnerManager.Instance.SetPreviousSpawnPositionPoint(pointNamesName);
-        //Debug.LogFormat("Saved point name from trigger = {0}", pointNamesName);
+
+
+        [SerializeField] private SpawnPointsNamesCatherineHouseMap pointNamesName;
+
+
+        public void SetPreviousPositionPointName()
+        {
+            PlayerCharacterManager.Instance.SetPreviousSpawnPositionPoint(pointNamesName); 
+            //Debug.LogFormat("Saved point name from trigger = {0}", pointNamesName);
+        }
     }
 }

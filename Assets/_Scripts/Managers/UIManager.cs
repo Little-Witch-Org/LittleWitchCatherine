@@ -1,3 +1,6 @@
+using System;
+using _Scripts.Components.TimeManagement.Enums;
+using _Scripts.Managers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -27,18 +30,30 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        EventManager.Instance.timeEvents.OnTimeOfDayChange += ChangeTimeOfDayText;
+        EventManager.Instance.timeEvents.OnTimeChange += ChangeTimeText;
+        EventManager.Instance.timeEvents.OnDateChange += ChangeDateText;
+    }
+    
+    private void OnDisable()
+    {
+        EventManager.Instance.timeEvents.OnTimeOfDayChange -= ChangeTimeOfDayText;
+        EventManager.Instance.timeEvents.OnTimeChange -= ChangeTimeText;
+        EventManager.Instance.timeEvents.OnDateChange -= ChangeDateText;
+    }
+
 
     void Start()
     {
-        if (TimeManager.Instance != null)
+        if (TimeManagerTurnBased.Instance != null)
         {
-            TimeManager.Instance.OnTimeOfDayChange += ChangeTimeOfDayText;
-            TimeManager.Instance.OnTimeChange += ChangeTimeText;
-            TimeManager.Instance.OnDateChange += ChangeDateText;
+            TimeManagerTurnBased.Instance.AddSeconds(0);//handle first ui update
         }
         else
         {
-            Debug.LogError("TimeManager instance is null!");
+            Debug.LogError("TimeManagerTurnBased instance is null!");
         }
 
 
@@ -49,7 +64,7 @@ public class UIManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Debug.Log("escape is clicked");
+            //Debug.Log("escape is clicked");
             if (!isMenuOpen)
             {
                 OpenMenu();
@@ -60,14 +75,6 @@ public class UIManager : MonoBehaviour
             }
 
         }
-
-    }
-
-    void OnDisable()
-    {
-        TimeManager.Instance.OnTimeOfDayChange -= ChangeTimeOfDayText;
-        TimeManager.Instance.OnTimeChange -= ChangeTimeText;
-        TimeManager.Instance.OnDateChange -= ChangeDateText;
 
     }
 
@@ -87,9 +94,9 @@ public class UIManager : MonoBehaviour
         yearText.text = text;
     }
 
-    private void ChangeTimeOfDayText(string text)
+    private void ChangeTimeOfDayText(TimeOfDay timeOfDay)
     {
-        timeOfDayText.SetText(text);
+        timeOfDayText.SetText(timeOfDay.ToString());
     }
 
     public void OpenMenu()

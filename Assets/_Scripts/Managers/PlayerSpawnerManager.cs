@@ -6,15 +6,15 @@ using UnityEngine.SceneManagement;
 namespace _Scripts
 {
     /// <summary>
-    /// Component is used to spawn player, store previous position.  todo dont like realization, refactor with script obj\state machine ? need to handle spawn in quest view
+    /// Component is used to spawn player, store previous position.  todo dont like realization, refactor with script obj\stateTest machine ? need to handle spawn in quest view
     /// </summary>
     public class PlayerSpawnerManager : MonoBehaviour
     {
         //[SerializeField] private Transform previousSpawnPointPosition;
         public static PlayerSpawnerManager Instance { get; private set; }
     
-        public bool IsFirstInstance { get; private set; } = true;
-        public SpawnComponent spawnComponent { get; private set; }
+        //public bool IsFirstInstance { get; private set; } = true;
+        public SpawnComponent SpawnComponent { get; private set; }
         public GameObject CharacterPrefab { get; private set; }
         
         public SpawnPointsNamesCatherineHouseMap previousSpawnPointName;
@@ -69,18 +69,13 @@ namespace _Scripts
             }
         }
 
-        public void SetPreviousSpawnPositionPoint(SpawnPointsNamesCatherineHouseMap spawnPoint)
-        {
-            previousSpawnPointName = spawnPoint;
-            //Debug.LogFormat("Point name saved in PlayerSpawnerManager = {0}",spawnPoint);
-        }
-
         private void SpawnCharacter()
         {
+            previousSpawnPointName = PlayerCharacterManager.Instance.GetPreviousSpawnPositionPoint();
             //Debug.LogFormat("Prepare to spawn Player to {0}", previousSpawnPointName);
             CharacterPrefab = Resources.Load("Witch") as GameObject;
-            spawnComponent = GetComponent<SpawnComponent>();
-            spawnComponent.Spawn(CharacterPrefab, SpawnPointsManager.Instance.getSpawnPosition(previousSpawnPointName).position);
+            SpawnComponent = GetComponent<SpawnComponent>();
+            SpawnComponent.Spawn(CharacterPrefab, SpawnPointsManager.Instance.getSpawnPosition(previousSpawnPointName).position);
         }
     }
 }

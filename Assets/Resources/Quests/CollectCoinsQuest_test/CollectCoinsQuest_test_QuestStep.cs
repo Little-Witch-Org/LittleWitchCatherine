@@ -2,7 +2,7 @@ using System;
 using _Scripts.test.QuestSystem;
 using UnityEngine;
 
-public class CollectCoinsQuest_test_QuestStep : QuestStep
+public class CollectCoinsQuest_test_QuestStep : QuestStep_Test
 {
 
     //quest step conditions

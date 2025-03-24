@@ -16,7 +16,7 @@ public class GameEventsManager_Test : MonoBehaviour
     public ExpEvents_Test ExpEventsTest;
     public InputEvents_Test InputEventsTest;
     
-    public QuestEvents QuestEvents;
+    public QuestEvents_Test QuestEventsTest;
     public DialogueEvents DialogueEvents;
     
 
@@ -39,7 +39,7 @@ public class GameEventsManager_Test : MonoBehaviour
         ExpEventsTest = new ExpEvents_Test();
         InputEventsTest = new InputEvents_Test();
         
-        QuestEvents = new QuestEvents();
+        QuestEventsTest = new QuestEvents_Test();
         DialogueEvents = new DialogueEvents();
     }
 }
