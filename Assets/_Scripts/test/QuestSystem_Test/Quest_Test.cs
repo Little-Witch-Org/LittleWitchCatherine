@@ -6,8 +6,8 @@ public class Quest_Test
     //static info
     public QuestInfoSo_Test info;
     
-    //stateTest info
-    public QuestState_Test StateTest;
+    //stateEnumTest info
+    public QuestStateEnum_Test StateEnumTest;
     
     private int _currentQuestStepIndex;
     
@@ -16,7 +16,7 @@ public class Quest_Test
     public Quest_Test(QuestInfoSo_Test questInfo)
     {
         this.info = questInfo;
-        this.StateTest = QuestState_Test.RequirementsNotMet;
+        this.StateEnumTest = QuestStateEnum_Test.RequirementsNotMet;
         this._currentQuestStepIndex = 0;
         this._questStepStates = new QuestStepState_Test[info.questStepPrefabs.Length];
 
@@ -27,10 +27,10 @@ public class Quest_Test
     }
     
     //for load needs
-    public Quest_Test(QuestInfoSo_Test questInfo, QuestState_Test questStateTest, int currentQuestStepIndex, QuestStepState_Test[] questStepStates)
+    public Quest_Test(QuestInfoSo_Test questInfo, QuestStateEnum_Test questStateEnumTest, int currentQuestStepIndex, QuestStepState_Test[] questStepStates)
     {
         this.info = questInfo;
-        this.StateTest = questStateTest;
+        this.StateEnumTest = questStateEnumTest;
         this._currentQuestStepIndex = currentQuestStepIndex;
         this._questStepStates = questStepStates;
 
@@ -86,6 +86,7 @@ public class Quest_Test
         if (stepIndex < _questStepStates.Length)
         {
             _questStepStates[stepIndex].state = questStepStateTest.state;
+            _questStepStates[stepIndex].status = questStepStateTest.status;
             
         }
         else 
@@ -97,6 +98,44 @@ public class Quest_Test
     
     public QuestData_Test GetQuestData()
     {
-        return new QuestData_Test(StateTest, _currentQuestStepIndex, _questStepStates);
+        return new QuestData_Test(StateEnumTest, _currentQuestStepIndex, _questStepStates);
+    }
+    
+    public string GetFullStatusText()
+    {
+        string fullStatus = "";
+
+        if (StateEnumTest == QuestStateEnum_Test.RequirementsNotMet)
+        {
+            fullStatus = "Requirements are not yet met to start this quest.";
+        }
+        else if (StateEnumTest == QuestStateEnum_Test.CanStart)
+        {
+            fullStatus = "This quest can be started!";
+        }
+        else 
+        {
+            // display all previous quests with strikethroughs
+            for (int i = 0; i < _currentQuestStepIndex; i++)
+            {
+                fullStatus += "<s>" + _questStepStates[i].status + "</s>\n";
+            }
+            // display the current step, if it exists
+            if (IsCurrentStepExists())
+            {
+                fullStatus += _questStepStates[_currentQuestStepIndex].status;
+            }
+            // when the quest is completed or turned in
+            if (StateEnumTest == QuestStateEnum_Test.CanFinish)
+            {
+                fullStatus += "The quest is ready to be turned in.";
+            }
+            else if (StateEnumTest == QuestStateEnum_Test.Finished)
+            {
+                fullStatus += "The quest has been completed!";
+            }
+        }
+
+        return fullStatus;
     }
 }

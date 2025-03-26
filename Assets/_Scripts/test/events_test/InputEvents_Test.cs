@@ -9,5 +9,11 @@ namespace _Scripts.events_test
         {
             OnSubmitPressed?.Invoke();
         }
+        
+        public Action OnMenuPressed;
+        public void MenuPressed() 
+        {
+            OnMenuPressed?.Invoke();
+        }
     }
 }

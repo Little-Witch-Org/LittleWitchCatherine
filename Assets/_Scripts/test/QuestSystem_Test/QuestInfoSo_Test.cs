@@ -21,7 +21,7 @@ namespace _Scripts.test.QuestSystem
         [Header("Rewards")]
         public int goldReward; //for test
         public int expReward; //for test
-        
+        //todo add custom reward class
         
         //ensure the id is always the name of the SO asset
         private void OnValidate()

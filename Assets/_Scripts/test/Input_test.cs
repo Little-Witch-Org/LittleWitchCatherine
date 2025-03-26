@@ -13,8 +13,14 @@ namespace _Scripts
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                Debug.Log("Submit pressed - 'Space'");
+                //Debug.Log("Submit pressed - 'Space'");
                 GameEventsManager_Test.Instance.InputEventsTest.SubmitPressed();
+            }
+            
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                //Debug.Log("Esc pressed - 'Escape'");
+                GameEventsManager_Test.Instance.InputEventsTest.OnMenuPressed();
             }
         }
     }

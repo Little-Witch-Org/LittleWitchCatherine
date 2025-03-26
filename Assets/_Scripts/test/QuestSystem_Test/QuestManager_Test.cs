@@ -25,7 +25,7 @@ namespace _Scripts.test.QuestSystem
             Quest_Test quest = GetQuestById("CollectCoinsQuest_test"); //test - is quest from folder was added
             Debug.Log(quest.info.displayName);
             Debug.Log(quest.info.levelRequirement);
-            Debug.Log(quest.stateTest);
+            Debug.Log(quest.stateEnumTest);
             Debug.Log(quest.IsCurrentStepExists());
             */
 
@@ -63,11 +63,11 @@ namespace _Scripts.test.QuestSystem
             foreach (Quest_Test quest in questMap.Values)
             {
                 //initialize any loaded quest steps
-                if (quest.StateTest == QuestState_Test.InProgress)
+                if (quest.StateEnumTest == QuestStateEnum_Test.InProgress)
                 {
                     quest.InstantiateCurrentQuestStep(this.transform);
                 }
-                //broadcast the initial stateTest of all quest on startup
+                //broadcast the initial stateEnumTest of all quest on startup
                 GameEventsManager_Test.Instance.QuestEventsTest.QuestStateChange(quest);
             }
         }
@@ -77,10 +77,10 @@ namespace _Scripts.test.QuestSystem
             //loop through ALL quests
             foreach (Quest_Test quest in questMap.Values)
             {
-                //if we're noew meeting the requirements, switch to canStart stateTest
-                if (quest.StateTest == QuestState_Test.RequirementsNotMet && CheckRequirementsMet(quest))
+                //if we're now meeting the requirements, switch to canStart stateEnumTest
+                if (quest.StateEnumTest == QuestStateEnum_Test.RequirementsNotMet && CheckRequirementsMet(quest))
                 {
-                    ChangeQuestState(quest.info.Id, QuestState_Test.CanStart);
+                    ChangeQuestState(quest.info.Id, QuestStateEnum_Test.CanStart);
                 }
             }
         }
@@ -101,10 +101,10 @@ namespace _Scripts.test.QuestSystem
                 meetsRequirements = false;
             }
 
-            //check questTest prerequisites for completion (if prereq quests have "finished" stateTest, then we can start this questTest)
+            //check questTest prerequisites for completion (if prereq quests have "finished" stateEnumTest, then we can start this questTest)
             foreach (QuestInfoSo_Test prerequisiteQuestInfo in questTest.info.questPrerequisites)
             {
-                if (GetQuestById(prerequisiteQuestInfo.Id).StateTest != QuestState_Test.Finished)
+                if (GetQuestById(prerequisiteQuestInfo.Id).StateEnumTest != QuestStateEnum_Test.Finished)
                 {
                     meetsRequirements = false;
                     // add this break statement here so that we don't continue on to the next questTest, since we've proven meetsRequirements to be false at this point.
@@ -115,10 +115,10 @@ namespace _Scripts.test.QuestSystem
             return meetsRequirements;
         }
 
-        private void ChangeQuestState(string id, QuestState_Test stateTest)
+        private void ChangeQuestState(string id, QuestStateEnum_Test stateEnumTest)
         {
             Quest_Test questTest = GetQuestById(id);
-            questTest.StateTest = stateTest;
+            questTest.StateEnumTest = stateEnumTest;
             GameEventsManager_Test.Instance.QuestEventsTest.QuestStateChange(questTest);
         }
 
@@ -127,7 +127,7 @@ namespace _Scripts.test.QuestSystem
         {
             Quest_Test questTest = GetQuestById(id);
             questTest.InstantiateCurrentQuestStep(this.transform);
-            ChangeQuestState(questTest.info.Id, QuestState_Test.InProgress);
+            ChangeQuestState(questTest.info.Id, QuestStateEnum_Test.InProgress);
             Debug.Log("start questTest: " + id);
         }
 
@@ -145,18 +145,19 @@ namespace _Scripts.test.QuestSystem
             }
             else
             {
-                ChangeQuestState(questTest.info.Id, QuestState_Test.CanFinish);
+                ChangeQuestState(questTest.info.Id, QuestStateEnum_Test.CanFinish);
             }
 
 
             Debug.Log("advance questTest: " + id);
         }
 
+        //todo add fail quest
         private void FinishQuest(string id)
         {
             Quest_Test questTest = GetQuestById(id);
             ClaimRewards(questTest);
-            ChangeQuestState(questTest.info.Id, QuestState_Test.Finished);
+            ChangeQuestState(questTest.info.Id, QuestStateEnum_Test.Finished);
 
             Debug.Log("finish questTest: " + id);
         }
@@ -208,7 +209,7 @@ namespace _Scripts.test.QuestSystem
         {
             Quest_Test questTest = GetQuestById(id);
             questTest.StoreQuestStepState(questStepStateTest, stepIndex);
-            ChangeQuestState(id, questTest.StateTest);
+            ChangeQuestState(id, questTest.StateEnumTest);
         }
         
         private void OnApplicationQuit()
@@ -217,12 +218,12 @@ namespace _Scripts.test.QuestSystem
             {
                 /*QuestData_Test questData = quest.GetQuestData();
                 Debug.Log(quest.info.Id);
-                Debug.Log("stateTest = " + questData.stateTest);
+                Debug.Log("stateEnumTest = " + questData.stateEnumTest);
                 Debug.Log("index = " + questData.questStepIndex);
         
                 foreach (QuestStepState_Test stepState in questData.questStepStates)
                 {
-                    Debug.Log("step stateTest = " + stepState.stateTest);
+                    Debug.Log("step stateEnumTest = " + stepState.stateEnumTest);
                 }*/
                 
                 SaveQuest(quest);
@@ -257,7 +258,7 @@ namespace _Scripts.test.QuestSystem
                 {
                     string serializedData = PlayerPrefs.GetString(questInfo.Id);
                     QuestData_Test questDataTest = JsonUtility.FromJson<QuestData_Test>(serializedData);
-                    questTest = new Quest_Test(questInfo, questDataTest.stateTest, questDataTest.questStepIndex, questDataTest.questStepStates);
+                    questTest = new Quest_Test(questInfo, questDataTest.stateEnumTest, questDataTest.questStepIndex, questDataTest.questStepStates);
                 }
                 // otherwise, initialize a new questTest
                 else 

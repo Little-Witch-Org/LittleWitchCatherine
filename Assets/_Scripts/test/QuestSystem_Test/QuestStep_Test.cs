@@ -35,9 +35,10 @@ namespace _Scripts.test.QuestSystem
             }
         }
 
-        protected void ChangeState(string newState)
+        protected void ChangeState(string newState, string newStatus)
         {
-            GameEventsManager_Test.Instance.QuestEventsTest.QuestStepStateChange(_questId, _stepIndex, new QuestStepState_Test(newState));
+            GameEventsManager_Test.Instance.QuestEventsTest
+                .QuestStepStateChange(_questId, _stepIndex, new QuestStepState_Test(newState, newStatus));
         }
         
         protected abstract void SetQuestStepState(string state);

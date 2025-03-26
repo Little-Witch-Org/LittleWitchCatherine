@@ -13,7 +13,7 @@ namespace _Scripts.test.QuestSystem
         [Header("Icons")] [SerializeField] private GameObject canFinishIcon;
 
 
-        public void SetState(QuestState_Test newStateTest, bool startPoint, bool finishPoint)
+        public void SetState(QuestStateEnum_Test newStateEnumTest, bool startPoint, bool finishPoint)
         {
             //set all to inactive
             requirementNotMetToStartIcon.SetActive(false);
@@ -21,25 +21,25 @@ namespace _Scripts.test.QuestSystem
             requirementNotMetToFinishIcon.SetActive(false);
             canFinishIcon.SetActive(false);
             
-            //set the appropriate one to active based on the new stateTest
-            switch (newStateTest)
+            //set the appropriate one to active based on the new stateEnumTest
+            switch (newStateEnumTest)
             {
-                case QuestState_Test.RequirementsNotMet:
+                case QuestStateEnum_Test.RequirementsNotMet:
                     if(startPoint){requirementNotMetToStartIcon.SetActive(true);}
                     break;
-                case QuestState_Test.CanStart:
+                case QuestStateEnum_Test.CanStart:
                     if(startPoint){canStartIcon.SetActive(true);}
                     break;
-                case QuestState_Test.InProgress:
+                case QuestStateEnum_Test.InProgress:
                     if(finishPoint){requirementNotMetToFinishIcon.SetActive(true);}
                     break;
-                case QuestState_Test.CanFinish:
+                case QuestStateEnum_Test.CanFinish:
                     if(finishPoint){canFinishIcon.SetActive(true);}
                     break;
-                case QuestState_Test.Finished:
+                case QuestStateEnum_Test.Finished:
                     break;
                 default:
-                    Debug.LogWarning("Quest_Test stateTest not recognized");
+                    Debug.LogWarning("Quest_Test stateEnumTest not recognized");
                     break;
             }
             

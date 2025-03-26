@@ -5,32 +5,25 @@ using UnityEngine;
 namespace _Scripts.Components.TransitionComponents
 {
     /// <summary>
-    /// Setting the location and place to transit using event system
+    /// Setting the location and place to transit using event system. (need to handle several maps case. No it is only CatherineHouseMap). add new dropdown?
     /// </summary>
     public class NovelViewSetPlaceAndLocationToTransitionComponent : MonoBehaviour
     {
         
         // field for storing the selected location
-        [SerializeField] private LocationType locationType;
+        [SerializeField] private CatherineHouseMap locationType;
 
         // The field for storing the selected room (as a string, since the type is dynamic)
         [SerializeField] private string selectedPlace;
 
-        // Enum for locations //todo add separate enum for locations ?
-        public enum LocationType
-        {
-            CatherineHouse,
-            Greenhouse,
-            Seesaw
-            //todo  new locations
-        }
+
 
         // Dictionary  of matching locations and places
-        public Dictionary<LocationType, Type> locationTypeEnums = new Dictionary<LocationType, Type>
+        public Dictionary<CatherineHouseMap, Type> locationTypeEnums = new Dictionary<CatherineHouseMap, Type>
         {
-            { LocationType.CatherineHouse, typeof(CatherineHouseNovelViewPlaces) },
-            { LocationType.Greenhouse, typeof(GreenhouseNovelViewPlaces) },
-            { LocationType.Seesaw, typeof(GreenhouseNovelViewPlaces) },
+            { CatherineHouseMap.CatherineHouse, typeof(CatherineHouseNovelViewPlaces) },
+            { CatherineHouseMap.Greenhouse, typeof(GreenhouseNovelViewPlaces) },
+            { CatherineHouseMap.Seesaw, typeof(SeesawNovelViewPlaces) },
             // todo new matching locations/places
         };
 

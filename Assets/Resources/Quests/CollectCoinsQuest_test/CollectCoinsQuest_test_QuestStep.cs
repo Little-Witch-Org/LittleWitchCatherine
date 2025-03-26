@@ -10,6 +10,12 @@ public class CollectCoinsQuest_test_QuestStep : QuestStep_Test
     
     private int coinsToComplete = 2;
 
+    private void Start()
+    {
+        UpdateState();
+    }
+
+
     //take info from condition change
     private void OnEnable()
     {
@@ -39,7 +45,8 @@ public class CollectCoinsQuest_test_QuestStep : QuestStep_Test
     private void UpdateState()
     {
         string state = coinsCollected.ToString();
-        ChangeState(state);//from abstract
+        string status = "CoinsCollected: " + coinsCollected + " / " + coinsToComplete + " coins";
+        ChangeState(state, status);//from abstract
     }
 
 

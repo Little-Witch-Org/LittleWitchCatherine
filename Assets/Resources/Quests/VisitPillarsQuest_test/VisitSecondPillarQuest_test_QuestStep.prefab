@@ -81,3 +81,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 787a96c62abffea43a52e47f4bd98014, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pillarNumberString: second

@@ -7,13 +7,13 @@ namespace _Scripts.test.QuestSystem
     [Serializable]
     public class QuestData_Test
     {
-        [FormerlySerializedAs("state")] public QuestState_Test stateTest;
+        [FormerlySerializedAs("stateTest")] [FormerlySerializedAs("stateEnum")] public QuestStateEnum_Test stateEnumTest;
         public int questStepIndex;
         public QuestStepState_Test[] questStepStates;
 
-        public QuestData_Test(QuestState_Test stateTest, int questStepIndex, QuestStepState_Test[] questStepStates)
+        public QuestData_Test(QuestStateEnum_Test stateEnumTest, int questStepIndex, QuestStepState_Test[] questStepStates)
         {
-            this.stateTest = stateTest;
+            this.stateEnumTest = stateEnumTest;
             this.questStepIndex = questStepIndex;
             this.questStepStates = questStepStates;
         }

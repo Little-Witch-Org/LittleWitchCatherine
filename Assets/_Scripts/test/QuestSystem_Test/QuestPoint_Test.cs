@@ -17,7 +17,7 @@ namespace _Scripts.test.QuestSystem
         private bool playerIsNear = false;
         private string questId;
         
-        private QuestState_Test _currentQuestStateTest;
+        private QuestStateEnum_Test _currentQuestStateEnumTest;
         
         private QuestIcon_Test _questIconTest;
 
@@ -49,11 +49,11 @@ namespace _Scripts.test.QuestSystem
             }
 
             //start or finish a quest
-            if (_currentQuestStateTest.Equals(QuestState_Test.CanStart) && startPoint)
+            if (_currentQuestStateEnumTest.Equals(QuestStateEnum_Test.CanStart) && startPoint)
             {
                 GameEventsManager_Test.Instance.QuestEventsTest.StartQuest(questId);
             }
-            else if (_currentQuestStateTest.Equals(QuestState_Test.CanFinish) && finishPoint)
+            else if (_currentQuestStateEnumTest.Equals(QuestStateEnum_Test.CanFinish) && finishPoint)
             {
                 GameEventsManager_Test.Instance.QuestEventsTest.FinishQuest(questId);
             }
@@ -61,12 +61,12 @@ namespace _Scripts.test.QuestSystem
 
         private void QuestStateChange(Quest_Test questTest)
         {
-            //only update the questTest stateTest if this point has the corresponding questTest
+            //only update the questTest stateEnumTest if this point has the corresponding questTest
             if (questTest.info.Id.Equals(questId))
             {
-                _currentQuestStateTest = questTest.StateTest;
-                //Debug.Log("Quest_Test with id: "+ questId+ " stateTest: "+ _currentQuestStateTest);
-                _questIconTest.SetState(_currentQuestStateTest, startPoint, finishPoint);
+                _currentQuestStateEnumTest = questTest.StateEnumTest;
+                //Debug.Log("Quest_Test with id: "+ questId+ " stateEnumTest: "+ _currentQuestStateEnumTest);
+                _questIconTest.SetState(_currentQuestStateEnumTest, startPoint, finishPoint);
             }
         }
 

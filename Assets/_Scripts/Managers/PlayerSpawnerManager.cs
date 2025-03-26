@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 namespace _Scripts
 {
     /// <summary>
-    /// Component is used to spawn player, store previous position.  todo dont like realization, refactor with script obj\stateTest machine ? need to handle spawn in quest view
+    /// Component is used to spawn player, store previous position.  todo dont like realization, refactor with script obj\stateEnumTest machine ? need to handle spawn in quest view
     /// </summary>
     public class PlayerSpawnerManager : MonoBehaviour
     {
