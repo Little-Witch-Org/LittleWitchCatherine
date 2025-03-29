@@ -21,5 +21,11 @@ namespace _Scripts.Events
         {
             OnJournalPressed?.Invoke();
         }
+        
+        public event Action OnInteractPressed;
+        public void InteractPressed() 
+        {
+            OnInteractPressed?.Invoke();
+        }
     }
 }

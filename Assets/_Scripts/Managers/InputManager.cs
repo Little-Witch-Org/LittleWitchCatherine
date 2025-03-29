@@ -33,6 +33,11 @@ namespace _Scripts.Managers
             {
                 EventManager.Instance.InputEvents.JournalPressed();
             }
+            
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                EventManager.Instance.InputEvents.InteractPressed();
+            }
         }
     }
 }

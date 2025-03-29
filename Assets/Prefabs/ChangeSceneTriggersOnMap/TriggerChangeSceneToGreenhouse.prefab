@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -4763933264850599912, guid: 6c671642bdd1ba448a35042b7fa49d8a, type: 3}
       propertyPath: pointNamesName
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 493497385929781508, guid: 6c671642bdd1ba448a35042b7fa49d8a, type: 3}
       propertyPath: locationType
@@ -28,13 +28,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: TriggerChangeSceneToGreenhouse
       objectReference: {fileID: 0}
+    - target: {fileID: 5248944080065671441, guid: 6c671642bdd1ba448a35042b7fa49d8a, type: 3}
+      propertyPath: enterTriggerEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToLaunchTriggerFadeIn
+      objectReference: {fileID: 0}
     - target: {fileID: 6299496842522335112, guid: 6c671642bdd1ba448a35042b7fa49d8a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.27
       objectReference: {fileID: 0}
     - target: {fileID: 6299496842522335112, guid: 6c671642bdd1ba448a35042b7fa49d8a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.09
       objectReference: {fileID: 0}
     - target: {fileID: 6299496842522335112, guid: 6c671642bdd1ba448a35042b7fa49d8a, type: 3}
       propertyPath: m_LocalPosition.z

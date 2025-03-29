@@ -32,7 +32,7 @@ namespace _Scripts.QuestSystem.UI
             EventManager.Instance.QuestEvents.OnQuestStateChange -= QuestStateChange;
         }
 
-        private void QuestLogTogglePressed()
+        public void QuestLogTogglePressed()
         {
             if (contentParent.activeInHierarchy)
             {
