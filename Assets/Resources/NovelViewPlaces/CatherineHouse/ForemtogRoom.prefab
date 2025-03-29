@@ -264,6 +264,149 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   locationType: 0
   selectedPlace: TFCorridor
+--- !u!1 &3920557217242473450
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6474420697143104539}
+  m_Layer: 0
+  m_Name: QuestObjects
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6474420697143104539
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3920557217242473450}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -4.164514, y: -4.926622, z: -0.10314}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3326897454357978185}
+  m_Father: {fileID: 2168269484694772987}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4484086937323287573
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8731951932478019689}
+  - component: {fileID: 2348843358694892429}
+  - component: {fileID: 337009145802435812}
+  m_Layer: 0
+  m_Name: QuestStepTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &8731951932478019689
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4484086937323287573}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -8.1643, y: -4.0442996, z: -2.4268486}
+  m_LocalScale: {x: 4.7514, y: 4.7514, z: 4.7514}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3326897454357978185}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2348843358694892429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4484086937323287573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fbddfe3a79541a29577736e2d6fe39f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questStep: {fileID: 7517275537217531654, guid: 00103191361c5a849b4b339d30708c70, type: 3}
+  isTriggered: 0
+  customParamInInspector: BrotherRoomVisited
+  isFailedInInspector: 0
+--- !u!114 &337009145802435812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4484086937323287573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faf3292ec8704797b4774334bca4a17c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerToActivate: {fileID: 2348843358694892429}
+  placeToVisit: ForemtogRoom
+--- !u!1 &4741433704344130741
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3326897454357978185}
+  - component: {fileID: 1001135736012920848}
+  m_Layer: 0
+  m_Name: SecondDevQuestStep1_TriggerEnabler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3326897454357978185
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4741433704344130741}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.11338663, y: -0.76497173, z: 2.4099889}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8731951932478019689}
+  m_Father: {fileID: 6474420697143104539}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1001135736012920848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4741433704344130741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfdeff3b941f41fa8fb53e4ad7023a6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questSo: {fileID: 11400000, guid: 66926f4f9c6a4c64fa367e0bb93d69b3, type: 2}
+  questStepObject: {fileID: 7517275537217531654, guid: 00103191361c5a849b4b339d30708c70, type: 3}
+  questStepTriggerObjectToEnable: {fileID: 4484086937323287573}
 --- !u!1 &7132937731223879731
 GameObject:
   m_ObjectHideFlags: 0
@@ -298,6 +441,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5644124491366682572}
+  - {fileID: 6474420697143104539}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3760628456369157125
@@ -396,4 +540,3 @@ MonoBehaviour:
   - {fileID: 650300573655896623, guid: cfda08389f5353043881ecbbc30fb46b, type: 3}
   - {fileID: 8314505674309494592, guid: 8657c4f355887fc4c95d95ed21566d7a, type: 3}
   - {fileID: 8314505674309494592, guid: 8657c4f355887fc4c95d95ed21566d7a, type: 3}
-  timeOfDay: 0

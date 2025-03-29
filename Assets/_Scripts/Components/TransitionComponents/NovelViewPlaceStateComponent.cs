@@ -6,7 +6,7 @@ using UnityEngine;
 namespace _Scripts.Components.SceneTransitionComponents
 {
     /// <summary>
-    /// Component stores sprites of novel locations and changes them depending on game stateEnumTest
+    /// Component stores sprites of novel locations and changes them depending on game stateEnum
     /// </summary>
     public class NovelViewPlaceStateComponent : MonoBehaviour
     {

@@ -171,11 +171,12 @@ namespace _Scripts.test.QuestSystem
         }
 
 
+        //created from QuestInfoSo_Test
         private Dictionary<string, Quest_Test> CreateQuestMap()
         {
 
             //Loads all QuestInfoSo_Test Script objects from asset/resources/quests folder
-            QuestInfoSo_Test[] allQuests = Resources.LoadAll<QuestInfoSo_Test>("Quests");
+            QuestInfoSo_Test[] allQuests = UnityEngine.Resources.LoadAll<QuestInfoSo_Test>("Quests");
 
             //Create the quest map current SO.Id + current SO
             Dictionary<string, Quest_Test> idToQuestMap = new Dictionary<string, Quest_Test>();
@@ -221,7 +222,7 @@ namespace _Scripts.test.QuestSystem
                 Debug.Log("stateEnumTest = " + questData.stateEnumTest);
                 Debug.Log("index = " + questData.questStepIndex);
         
-                foreach (QuestStepState_Test stepState in questData.questStepStates)
+                foreach (QuestStepState_Test stepState in questData.questStepValues)
                 {
                     Debug.Log("step stateEnumTest = " + stepState.stateEnumTest);
                 }*/

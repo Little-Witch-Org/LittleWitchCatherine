@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 namespace _Scripts
 {
     /// <summary>
-    /// Stores Player character game values
+    /// Stores Player character game values //todo need to handle exit on map (clear fields)
     /// </summary>
     public class PlayerCharacterManager : MonoBehaviour
     {
@@ -17,12 +17,12 @@ namespace _Scripts
         [SerializeField] private string currentNovelPlace;
         [SerializeField] private SpawnPointsNamesCatherineHouseMap storedSpawnPointOnMap;
 
-        public PlayerCharacterManager(string currentLocation, SceneNames currentMap, string currentNovelPlace)
+        /*public PlayerCharacterManager(string currentLocation, SceneNames currentMap, string currentNovelPlace)
         {
             this.currentLocation = currentLocation;
             this.currentMap = currentMap;
             this.currentNovelPlace = currentNovelPlace;
-        }
+        }*/
 
         private void Awake()
         {
@@ -36,6 +36,18 @@ namespace _Scripts
                 Destroy(gameObject);
             }
             InitializeDefaultValues();
+        }
+
+        private void OnEnable()
+        {
+            EventManager.Instance.TransitionEvents.OnSetLoadedPlaceName += UpdateCurrentPlace;
+            EventManager.Instance.TransitionEvents.OnSetLoadedLocationName += UpdateCurrentLocation;
+        }
+
+        private void OnDisable()
+        {
+            EventManager.Instance.TransitionEvents.OnSetLoadedPlaceName -= UpdateCurrentPlace;
+            EventManager.Instance.TransitionEvents.OnSetLoadedLocationName -= UpdateCurrentLocation;
         }
 
         private void InitializeDefaultValues()
@@ -56,6 +68,25 @@ namespace _Scripts
         public SpawnPointsNamesCatherineHouseMap GetPreviousSpawnPositionPoint()
         {
            return storedSpawnPointOnMap;
+        }
+        
+        private void UpdateCurrentPlace(string place)
+        {
+            currentNovelPlace = place;
+        }
+        private void UpdateCurrentLocation(string location)
+        {
+            currentLocation = location;
+        }
+
+        public string GetCurrentNovelPlace()
+        {
+            return currentNovelPlace;
+        }
+
+        public string GetCurrentLocation()
+        {
+            return currentLocation;
         }
     }
 }

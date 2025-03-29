@@ -60,7 +60,7 @@ public class QuestLogUI : MonoBehaviour
     {
         contentParent.SetActive(false);
         //GameEventsManager_Test.Instance.playerEvents.EnablePlayerMovement();
-        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(null); //selected button ?
     }
 
     private void QuestStateChange(Quest_Test quest)

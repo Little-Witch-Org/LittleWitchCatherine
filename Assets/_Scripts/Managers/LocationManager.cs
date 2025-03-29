@@ -9,7 +9,7 @@ namespace _Scripts.Managers
     
     /// <summary>
     /// Manages locations scriptable objects //todo it
-    /// Stores location transition info (get from event subscription)
+    /// Stores location transition Info (get from event subscription) //todo need to handle exit on map (clear fields)
     /// </summary>
     public class LocationManager:MonoBehaviour
     {
@@ -20,21 +20,28 @@ namespace _Scripts.Managers
         
         [SerializeField] private List<LocationStateSo> locationStates;
         [SerializeField] private LocationStateSo currentLocation;
+        [SerializeField] private string currenPlace; //todo change to prefab link ?
 
         private void OnEnable()
         {
-            EventManager.Instance.transitionEvents.OnPlaceTransitionTriggered += SetTransitionInfo;
+            EventManager.Instance.TransitionEvents.OnPlaceTransitionTriggered += SetTransitionInfo;
             
-            EventManager.Instance.timeEvents.OnTimeOfDayChange += UpdateTimeOfDayForLocations;
+            EventManager.Instance.TransitionEvents.OnSetLoadedPlaceName += UpdateCurrentPlace;
+            EventManager.Instance.TransitionEvents.OnSetLoadedLocationName += UpdateCurrentLocation;
+            
+            EventManager.Instance.TimeEvents.OnTimeOfDayChange += UpdateTimeOfDayForLocations;
             
             
         }
 
         private void OnDisable()
         {
-            EventManager.Instance.transitionEvents.OnPlaceTransitionTriggered -= SetTransitionInfo;
+            EventManager.Instance.TransitionEvents.OnPlaceTransitionTriggered -= SetTransitionInfo;
             
-            EventManager.Instance.timeEvents.OnTimeOfDayChange -= UpdateTimeOfDayForLocations;
+            EventManager.Instance.TransitionEvents.OnSetLoadedPlaceName -= UpdateCurrentPlace;
+            EventManager.Instance.TransitionEvents.OnSetLoadedLocationName -= UpdateCurrentLocation;
+            
+            EventManager.Instance.TimeEvents.OnTimeOfDayChange -= UpdateTimeOfDayForLocations;
         }
 
         private void Awake()
@@ -62,7 +69,7 @@ namespace _Scripts.Managers
             /*Debug.Log(location);
             Debug.Log(place);*/
             
-            currentLocation = locationStates.Find(locationState => locationState.name == location);
+            
         }
 
         public string GetTransitionLocation()
@@ -79,6 +86,7 @@ namespace _Scripts.Managers
         {
             return currentLocation;
         }
+        
 
         private void UpdateTimeOfDayForLocations(TimeOfDay timeOfDay)
         {
@@ -86,6 +94,15 @@ namespace _Scripts.Managers
             {
                 locationSo.TimeOfDay = timeOfDay;
             }
+        }
+
+        private void UpdateCurrentPlace(string place)
+        {
+            currenPlace = place;
+        }
+        private void UpdateCurrentLocation(string location)
+        {
+            currentLocation = locationStates.Find(locationState => locationState.name == location);
         }
     }
 }

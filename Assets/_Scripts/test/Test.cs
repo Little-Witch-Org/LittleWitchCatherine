@@ -5,12 +5,10 @@ namespace _Scripts
 {
     public class Test: MonoBehaviour
     {
-        private void Start()
+        public void print()
         {
-            Debug.Log(PlayerPrefs.GetString("LocationName"));
-            PlayerPrefs.DeleteAll();
-            Debug.Log(PlayerPrefs.GetString("LocationName"));
-
+            print("Method Invoked");
+            Destroy(gameObject);
         }
 
     }

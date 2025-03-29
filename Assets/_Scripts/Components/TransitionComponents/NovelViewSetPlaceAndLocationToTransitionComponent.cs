@@ -30,7 +30,7 @@ namespace _Scripts.Components.TransitionComponents
         
         public void SelectPlace()
         {
-            EventManager.Instance.transitionEvents.TriggerTransition(locationType.ToString(), selectedPlace);
+            EventManager.Instance.TransitionEvents.TriggerTransition(locationType.ToString(), selectedPlace);
             
             /*Debug.Log("invoke event for "+ locationType);
             Debug.Log("invoke event for "+ selectedPlace);

@@ -1,0 +1,69 @@
+﻿using System;
+using UnityEngine;
+
+namespace _Scripts.QuestSystem
+{
+    /// <summary>
+    /// Event class for quests
+    /// </summary>
+    public class QuestEvents
+    {
+        public event Action<string> OnStartQuest;
+        public void StartQuest(string id) 
+        {
+            OnStartQuest?.Invoke(id);
+        }
+        
+        public event Action<string> OnAdvanceQuest;
+        public void AdvanceQuest(string id) 
+        {
+            OnAdvanceQuest?.Invoke(id);
+        }
+        
+        public event Action<string> OnFinishQuest;
+        public void FinishQuest(string id) 
+        {
+            OnFinishQuest?.Invoke(id);
+        }
+        
+        public event Action<Quest> OnQuestStateChange;
+        public void QuestStateChange(Quest quest) 
+        {
+            OnQuestStateChange?.Invoke(quest);
+        }
+        
+        public event Action<string, int, QuestStepValues> OnQuestStepValuesChange;
+        public void QuestStepValuesChange(string id, int stepIndex, QuestStepValues questStepValues) 
+        {
+            OnQuestStepValuesChange?.Invoke(id, stepIndex, questStepValues);
+        }
+        
+        public event Func<QuestInfoSo,Quest> OnRequestQuestByQuestInfoSo;
+        public Quest RequestQuestByQuestInfoSo(QuestInfoSo questSo) 
+        {
+            return OnRequestQuestByQuestInfoSo?.Invoke(questSo);
+        }
+
+
+
+        //custom quest events
+        public event Action<string, bool> OnTriggerFirstDevQuestStep1;
+        public void TriggerFirstDevQuestStep1(string customParam, bool isFailed) 
+        {
+            OnTriggerFirstDevQuestStep1?.Invoke(customParam, isFailed);
+        }
+        
+        public event Action<string, bool> OnTriggerSecondDevQuestStep1;
+        public void TriggerSecondDevQuestStep1(string customParam, bool isFailed) 
+        {
+            OnTriggerSecondDevQuestStep1?.Invoke(customParam, isFailed);
+        }
+        
+        public event Action<string, bool> OnTriggerSecondDevQuestStep2;
+        public void TriggerSecondDevQuestStep2(string customParam, bool isFailed) 
+        {
+            OnTriggerSecondDevQuestStep2?.Invoke(customParam, isFailed);
+        }
+
+    }
+}

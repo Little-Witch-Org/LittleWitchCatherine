@@ -2,13 +2,18 @@ using System;
 using _Scripts.Components.TimeManagement.Enums;
 using _Scripts.Managers;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+//todo separate cheat menu from ui manager (like journal)
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
+    
     public GameObject cheatMenu;
+    public GameObject questMenu;
+    
     public bool isMenuOpen;
 
     public TMP_Text timeText;
@@ -32,16 +37,20 @@ public class UIManager : MonoBehaviour
 
     private void OnEnable()
     {
-        EventManager.Instance.timeEvents.OnTimeOfDayChange += ChangeTimeOfDayText;
-        EventManager.Instance.timeEvents.OnTimeChange += ChangeTimeText;
-        EventManager.Instance.timeEvents.OnDateChange += ChangeDateText;
+        EventManager.Instance.TimeEvents.OnTimeOfDayChange += ChangeTimeOfDayText;
+        EventManager.Instance.TimeEvents.OnTimeChange += ChangeTimeText;
+        EventManager.Instance.TimeEvents.OnDateChange += ChangeDateText;
+        
+        EventManager.Instance.InputEvents.OnMenuPressed += ToggleCheatMenu;
     }
     
     private void OnDisable()
     {
-        EventManager.Instance.timeEvents.OnTimeOfDayChange -= ChangeTimeOfDayText;
-        EventManager.Instance.timeEvents.OnTimeChange -= ChangeTimeText;
-        EventManager.Instance.timeEvents.OnDateChange -= ChangeDateText;
+        EventManager.Instance.TimeEvents.OnTimeOfDayChange -= ChangeTimeOfDayText;
+        EventManager.Instance.TimeEvents.OnTimeChange -= ChangeTimeText;
+        EventManager.Instance.TimeEvents.OnDateChange -= ChangeDateText;
+        
+        EventManager.Instance.InputEvents.OnMenuPressed -= ToggleCheatMenu;
     }
 
 
@@ -58,25 +67,7 @@ public class UIManager : MonoBehaviour
 
 
     }
-
-    // open popup
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            //Debug.Log("escape is clicked");
-            if (!isMenuOpen)
-            {
-                OpenMenu();
-
-            }else
-            {
-                CloseMenu();
-            }
-
-        }
-
-    }
+    
 
     private void ChangeTimeText(string text)
     {
@@ -98,25 +89,21 @@ public class UIManager : MonoBehaviour
     {
         timeOfDayText.SetText(timeOfDay.ToString());
     }
-
-    public void OpenMenu()
-    {
-        cheatMenu.SetActive(true);
-        isMenuOpen = true;
-
-
-    }
-
-    public void CloseMenu()
-    {
-        cheatMenu.SetActive(false);
-        isMenuOpen = false;
-
-    }
     
-    public void ToggleMenu()
+    public void ToggleCheatMenu()
     {
         isMenuOpen = !isMenuOpen;
-        cheatMenu.SetActive(isMenuOpen);
+        
+        if (isMenuOpen)
+        {
+            Debug.Log("Opening Menu");
+            cheatMenu.SetActive(true);
+        }
+        else
+        {
+            Debug.Log("Closing Menu");
+            cheatMenu.SetActive(false);
+        }
     }
+    
 }

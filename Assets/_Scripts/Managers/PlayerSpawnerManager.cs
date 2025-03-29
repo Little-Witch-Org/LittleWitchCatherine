@@ -1,12 +1,11 @@
-using System;
 using _Scripts.Enums;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace _Scripts
+namespace _Scripts.Managers
 {
     /// <summary>
-    /// Component is used to spawn player, store previous position.  todo dont like realization, refactor with script obj\stateEnumTest machine ? need to handle spawn in quest view
+    /// Component is used to spawn player, store previous position.  todo dont like realization, refactor with script obj\stateEnum machine ? need to handle spawn in quest view
     /// </summary>
     public class PlayerSpawnerManager : MonoBehaviour
     {
@@ -73,7 +72,7 @@ namespace _Scripts
         {
             previousSpawnPointName = PlayerCharacterManager.Instance.GetPreviousSpawnPositionPoint();
             //Debug.LogFormat("Prepare to spawn Player to {0}", previousSpawnPointName);
-            CharacterPrefab = Resources.Load("Witch") as GameObject;
+            CharacterPrefab = UnityEngine.Resources.Load("Witch") as GameObject;
             SpawnComponent = GetComponent<SpawnComponent>();
             SpawnComponent.Spawn(CharacterPrefab, SpawnPointsManager.Instance.getSpawnPosition(previousSpawnPointName).position);
         }

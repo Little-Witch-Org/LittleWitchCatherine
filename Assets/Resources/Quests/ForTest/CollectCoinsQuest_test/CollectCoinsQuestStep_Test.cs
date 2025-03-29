@@ -1,8 +1,9 @@
 using System;
+using _Scripts.QuestSystem;
 using _Scripts.test.QuestSystem;
 using UnityEngine;
 
-public class CollectCoinsQuest_test_QuestStep : QuestStep_Test
+public class CollectCoinsQuestStep_Test : QuestStep_Test
 {
 
     //quest step conditions
@@ -16,7 +17,7 @@ public class CollectCoinsQuest_test_QuestStep : QuestStep_Test
     }
 
 
-    //take info from condition change
+    //take InfoSo from condition change
     private void OnEnable()
     {
         GameEventsManager_Test.Instance.MiscEventsTest.OnCoinCollected += CoinCollected;

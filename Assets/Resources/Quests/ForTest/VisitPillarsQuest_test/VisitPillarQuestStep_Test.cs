@@ -1,12 +1,14 @@
 using System;
+using _Scripts.QuestSystem;
 using _Scripts.test.QuestSystem;
 using UnityEngine;
 
 [RequireComponent(typeof(CircleCollider2D))]
-public class VisitPillarQuest_test_QuestStep : QuestStep_Test
+public class VisitPillarQuestStep_Test : QuestStep_Test
 {
 
-    [Header("Config")] [SerializeField] private string pillarNumberString = "first";
+    [Header("Config")] 
+    [SerializeField] private string pillarNumberString = "first";
 
 
     private void Start()
@@ -28,6 +30,6 @@ public class VisitPillarQuest_test_QuestStep : QuestStep_Test
 
     protected override void SetQuestStepState(string state)
     {
-        //no quest stateEnumTest needed for this quest step
+        //no quest state needed for this quest step 
     }
 }

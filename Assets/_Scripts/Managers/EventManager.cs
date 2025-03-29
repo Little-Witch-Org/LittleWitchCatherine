@@ -1,7 +1,6 @@
 ﻿using _Scripts.Dialog_Ink;
-using _Scripts.events_test;
 using _Scripts.Events;
-using _Scripts.test.QuestSystem;
+using _Scripts.QuestSystem;
 using UnityEngine;
 
 /// <summary>
@@ -12,9 +11,10 @@ public class EventManager : MonoBehaviour
 {
     public static EventManager Instance { get; private set; }
 
-    public InputEvents inputEvents;
-    public TransitionEvents transitionEvents;
-    public TimeEvents timeEvents;
+    public InputEvents InputEvents;
+    public TransitionEvents TransitionEvents;
+    public TimeEvents TimeEvents;
+    public QuestEvents QuestEvents;
 
     private void Awake()
     {
@@ -37,8 +37,9 @@ public class EventManager : MonoBehaviour
     private void InitializeEvents()
     {
         //Debug.Log("event manager id " + gameObject.GetInstanceID());
-        inputEvents = new InputEvents();
-        transitionEvents = new TransitionEvents();
-        timeEvents = new TimeEvents();
+        InputEvents = new InputEvents();
+        TransitionEvents = new TransitionEvents();
+        TimeEvents = new TimeEvents();
+        QuestEvents = new QuestEvents();
     }
 }

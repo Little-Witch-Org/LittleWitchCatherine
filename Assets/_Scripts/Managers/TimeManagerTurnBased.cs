@@ -87,7 +87,7 @@ namespace _Scripts.Managers
             {
                 timeOfDay = TimeOfDay.Night;
             }
-            EventManager.Instance.timeEvents.TimeOfDayChange(timeOfDay);
+            EventManager.Instance.TimeEvents.TimeOfDayChange(timeOfDay);
         }
 
         // Update formatted date (MM-DD) and time (hh:mm:ss)
@@ -96,8 +96,8 @@ namespace _Scripts.Managers
             formattedDate = $"{months + 1:00}-{days + 1:00}"; // Months and days are 1-based
             formattedTime = $"{hours:00}:{minutes:00}:{seconds:00}";
         
-            EventManager.Instance.timeEvents.DateChange(formattedDate);
-            EventManager.Instance.timeEvents.TimeChange(formattedTime);
+            EventManager.Instance.TimeEvents.DateChange(formattedDate);
+            EventManager.Instance.TimeEvents.TimeChange(formattedTime);
         }
 
         // Add seconds to the current time

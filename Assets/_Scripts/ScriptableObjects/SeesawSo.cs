@@ -6,6 +6,6 @@ namespace _Scripts.ScriptableObjects.Locations
     public class SeesawSo : LocationStateSo
     {
         
-        //todo add custom info
+        //todo add custom InfoSo
     }
 }
