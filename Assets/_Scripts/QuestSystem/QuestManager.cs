@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using _Scripts.Service.Log;
 using UnityEngine;
 
 namespace _Scripts.QuestSystem
@@ -155,7 +156,7 @@ namespace _Scripts.QuestSystem
             Quest quest = GetQuestById(id);
             quest.InstantiateCurrentQuestStep(this.transform);
             ChangeQuestState(quest.InfoSo.Id, QuestStateEnum.InProgress);
-            Debug.Log("start quest: " + id);
+            QuestDebug.Instance.Log("Start quest: " + id);
         }
 
         private void AdvanceQuest(string id)
@@ -176,7 +177,7 @@ namespace _Scripts.QuestSystem
             }
 
 
-            Debug.Log("Advance quest: " + id);
+            QuestDebug.Instance.Log("Advance quest: " + id);
         }
 
         //todo add partial finish option

@@ -31,7 +31,7 @@ public class SecondDevQuestStep1 : QuestStep
         }
         if (isFailed)
         {
-            ChangeValues("какие комнаты посещены уже не важно","Я спустилась в подвал вопреки запрета",true );
+            ChangeValues("какие комнаты посещены уже не важно","Я спустилась в подвал вопреки запрета 1",true );
             FinishQuesStep();
         }
 

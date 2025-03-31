@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using _Scripts.Service.Log;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -13,33 +14,50 @@ namespace _Scripts.QuestSystem
     /// </summary>
     public class QuestStepTrigger : MonoBehaviour
     {
-        [SerializeField] private QuestStep questStep; //uses this field to find dependent event to trigger
-        [SerializeField] private bool isTriggered; //handle single trigger for object (in current place prefab before transition) //todo need to handle by using spawner
         
-        [Header("Parameters")]
-        [SerializeField] private string customParamInInspector = "param not implemented for this step";
-        [SerializeField] private bool isFailedInInspector = false;
+        [Header("Quest Step parameters")]
+        [SerializeField] public QuestStep questStep; //uses this field to find dependent event to trigger. Also trigger spawner use it for instantiation depending on step name.
+        [SerializeField] private string customParam = "param not implemented for this step"; //For Quest Step logic to handle
+        [SerializeField] private bool isFailedParam = false; //For Quest Step logic to handle
+
+
+        [Header("Trigger Appear Conditions")] [SerializeField]
+        public string locationName;
+        public string placeName;
+        //time
+        //reputation
+            
+        
+        [Header("Trigger parameters")]    
+        [SerializeField] public bool disableAfterTrigger = true; //disabling trigger object after activation
+        [SerializeField] public bool isTriggered; //handle single trigger for object. Also, spawner checks this field to prevent additional activation 
+        //todo add option to multi-trigger ?
         
         public void TriggerQuestStepInEditor()
         {
             if (!isTriggered)
             {
-                Debug.Log(questStep.name+ " trigger invoked with parameters "+customParamInInspector+"/"+ isFailedInInspector);
-                TriggerQuestStep(customParamInInspector, isFailedInInspector);
+                TriggerQuestStep(customParam, isFailedParam);
+                
                 isTriggered = true;
+                
+                if (disableAfterTrigger)
+                {
+                    gameObject.SetActive(false);
+                }
             }
         }
 
-        private void TriggerQuestStep(string customParam, bool isFailed)
+        private void TriggerQuestStep(string customParameter, bool isFailed)
         {
             if (EventManager.Instance?.QuestEvents == null)
             {
-                Debug.LogError("EventManager или QuestEvents не инициализированы!");
+                QuestDebug.Instance.LogError("EventManager или QuestEvents не инициализированы!");
                 return;
             }
 
             string methodName = "Trigger" + questStep.name;
-            Debug.Log($"Пытаюсь вызвать метод: {methodName} с параметрами customParam={customParam}, isFailed={isFailed}");
+            QuestDebug.Instance.Log($"Пытаюсь вызвать метод: {methodName} с параметрами customParameter={customParameter}, isFailed={isFailed}");
 
             MethodInfo method = typeof(QuestEvents).GetMethod(
                 methodName, 
@@ -51,11 +69,11 @@ namespace _Scripts.QuestSystem
 
             if (method != null)
             {
-                method.Invoke(EventManager.Instance.QuestEvents, new object[] { customParam, isFailed });
+                method.Invoke(EventManager.Instance.QuestEvents, new object[] { customParameter, isFailed });
             }
             else
             {
-                Debug.LogError($"Метод {methodName}(string, bool) не найден.");
+                QuestDebug.Instance.LogError($"Метод {methodName}(string, bool) не найден.");
             }
         }
     }

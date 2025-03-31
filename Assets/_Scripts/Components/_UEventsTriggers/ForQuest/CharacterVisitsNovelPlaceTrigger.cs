@@ -12,10 +12,10 @@ namespace _Scripts.Components.UEventsTriggers
 
         private void Start()
         {
-            Debug.Log(PlayerCharacterManager.Instance.GetCurrentNovelPlace());
+            //Debug.Log(PlayerCharacterManager.Instance.GetCurrentNovelPlace());
             if (PlayerCharacterManager.Instance.GetCurrentNovelPlace() == placeToVisit)
             {
-                Debug.Log("Character Visits Novel Place Trigger");
+                //Debug.Log("Character Visits Novel Place Trigger");
                 triggerToActivate.TriggerQuestStepInEditor();
             }
         }

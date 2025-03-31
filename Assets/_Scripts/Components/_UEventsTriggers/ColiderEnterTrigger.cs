@@ -6,6 +6,7 @@ using UnityEngine.Events;
 using UnityEngine.Serialization;
 using Sequence = DG.Tweening.Sequence;
 
+//todo - separate detect and animation logic
 namespace _Scripts.Components._UEventsTriggers
 {
     public class ColiderEnterTrigger : MonoBehaviour

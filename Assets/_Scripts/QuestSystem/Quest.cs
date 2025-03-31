@@ -1,4 +1,7 @@
+using System;
+using _Scripts.Service.Log;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 
 namespace _Scripts.QuestSystem
@@ -52,7 +55,7 @@ namespace _Scripts.QuestSystem
 
         public void MoveToNextStep()
         {
-            _currentQuestStepIndex++;
+            _currentQuestStepIndex++; //this option can be higher than last quest step. Aware!
         }
 
         public bool IsCurrentStepExists()
@@ -79,7 +82,7 @@ namespace _Scripts.QuestSystem
                         return;
                     }
                 }
-                Debug.Log("InstantiateCurrentQuestStep -  set default value");
+                QuestDebug.Instance.Log("InstantiateCurrentQuestStep -  set default value");
                 questStep.InitializeQuestStep(InfoSo.Id, _currentQuestStepIndex, _questStepInfoValues[_currentQuestStepIndex]); //_questStepInfoValues[_currentQuestStepIndex] for load needs
             }
 
@@ -121,43 +124,60 @@ namespace _Scripts.QuestSystem
             return new QuestData(StateEnum, _currentQuestStepIndex, _questStepInfoValues);
         }
     
-        //For UI - get quest step statuses (from previous and current) and print it in UI. Also print quest status //todo need to separate it or disable quest status
+        //For UI - get quest step statuses (from previous and current) and print it in UI. Also print quest status
+        //todo need to separate quest status -> to get in ui in QuestStateChange (quest status will be tec info). Here in raw string we put previous quest step status
+        //todo and current step status + state in next string + "-" or dot symbol. If there are auto lose condition we need to not display next auto loosed steps
         public string GetFullStatusText()
         {
             string fullStatus = "";
+            
 
-            if (StateEnum == QuestStateEnum.RequirementsNotMet)
+            //if no reqs reached and quest not started -> no status info returns
+            if (StateEnum == QuestStateEnum.RequirementsNotMet || StateEnum == QuestStateEnum.CanStart)
             {
-                fullStatus = "Требования для старта квеста не выполнены";
+                return String.Empty;
             }
-            else if (StateEnum == QuestStateEnum.CanStart)
+
+            // display all previous quests with colors
+            bool isSomeOfPreviousStepIsFailed = false;
+            for (int i = 0; i < _currentQuestStepIndex; i++)
             {
-                fullStatus = "Квест можно начать.";
+                if (!_questStepInfoValues[i].isFailed){
+                    if (i == InfoSo.questStepPrefabs.Length-1) //handle step state display for last step
+                    {
+                        fullStatus += "<color=green><b>" + _questStepInfoValues[i].status + "</b></color>\n";
+                        fullStatus += "<color=green><i>" + _questStepInfoValues[i].state + "</i></color>\n";
+                    }
+                    else
+                    {
+                        fullStatus += "<color=green><b>" + _questStepInfoValues[i].status + "</b></color>\n";
+                    }
+                }
+                else if(!isSomeOfPreviousStepIsFailed)
+                {
+                    fullStatus += "<color=red><b>" + _questStepInfoValues[i].status + "</b></color>\n";
+                    isSomeOfPreviousStepIsFailed = true;
+                }
+                else
+                {
+                    //this empty space hides auto fail option from step (SetQuestStepState)
+                }
+                
+                
             }
-            else 
+            
+            // display the current step, if previous not failed (to handle cascade fail)
+            if (IsCurrentStepExists()&&!isSomeOfPreviousStepIsFailed) 
             {
-                // display all previous quests with strikethrough
-                for (int i = 0; i < _currentQuestStepIndex; i++)
-                {
-                    fullStatus += "<s>" + _questStepInfoValues[i].status + "</s>\n";
-                }
-                // display the current step, if it exists
-                if (IsCurrentStepExists())
-                {
-                    fullStatus += _questStepInfoValues[_currentQuestStepIndex].status;
-                }
-                // when the quest is completed or turned in
-                if (StateEnum == QuestStateEnum.CanFinish)
-                {
-                    fullStatus += "Квест можно завершить!";
-                }
-                else if (StateEnum == QuestStateEnum.Finished)
-                {
-                    fullStatus += "Квест выполнен";
-                }
+
+                fullStatus += "<color=yellow><b>" + _questStepInfoValues[_currentQuestStepIndex].status + "</b></color>\n";
+                fullStatus += "<color=yellow><i>" + _questStepInfoValues[_currentQuestStepIndex].state + "</i></color>\n";
+
             }
+
 
             return fullStatus;
         }
+
     }
 }

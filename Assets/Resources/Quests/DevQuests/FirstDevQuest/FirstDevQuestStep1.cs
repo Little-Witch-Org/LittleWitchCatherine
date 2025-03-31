@@ -1,6 +1,3 @@
-
-
-
     using _Scripts.QuestSystem;
     using UnityEngine;
 
@@ -14,12 +11,12 @@
                 failIfPreviousFailed = false;
                 base.Start();
                 
-                ChangeValues("", "Сходить в оранжерею и нажать на кружок", false);
+                ChangeValues("Кружок не нажат", "Сходить в оранжерею и нажать на кружок", false);
             }
 
             private void UpdateStep()
             {
-                ChangeValues("", "Кружок в оранжереи нажат",false);
+                ChangeValues("Кружок нажат", "Задача выполнена, пора возвращаться",false);
                 FinishQuesStep();
             }
 

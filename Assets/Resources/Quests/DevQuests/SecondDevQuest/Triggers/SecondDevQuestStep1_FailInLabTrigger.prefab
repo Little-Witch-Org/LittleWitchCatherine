@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4385331193100707288
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8813900535941635951}
+  - component: {fileID: 8516705554338779796}
+  - component: {fileID: 50723316814437747}
+  m_Layer: 0
+  m_Name: SecondDevQuestStep1_FailInLabTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &8813900535941635951
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4385331193100707288}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -8.1643, y: -4.0442996, z: -2.4268486}
+  m_LocalScale: {x: 4.7514, y: 4.7514, z: 4.7514}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8516705554338779796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4385331193100707288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fbddfe3a79541a29577736e2d6fe39f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questStep: {fileID: 7517275537217531654, guid: 00103191361c5a849b4b339d30708c70, type: 3}
+  customParam: param not implemented for this step
+  isFailedParam: 1
+  locationName: CatherineHouse
+  placeName: BasementLab
+  disableAfterTrigger: 1
+  isTriggered: 0
+--- !u!114 &50723316814437747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4385331193100707288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faf3292ec8704797b4774334bca4a17c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerToActivate: {fileID: 8516705554338779796}
+  placeToVisit: BasementLab

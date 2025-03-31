@@ -8,8 +8,7 @@ namespace _Scripts.Components.UEventsTriggers
     /// Uses for putting functions on events in Inspector
     /// //todo not sure that using  EventSystem.current.IsPointerOverGameObject() is good idea to prevent clicks then UI opened. It also blocks other colliders
     /// </summary>
-    [RequireComponent(typeof(PolygonCollider2D))]
-    public class ClickAndDeleteTriggerNaked : MonoBehaviour
+    public class ClickTriggerForNovelViewTransition : MonoBehaviour
     {
         public UnityEvent OnClick;
         public UnityEvent OnEnter;
@@ -24,8 +23,11 @@ namespace _Scripts.Components.UEventsTriggers
                 return;
             }
 
-            OnClick.Invoke();
-            Destroy(gameObject);
+            if (!_isClicked)
+            {
+                OnClick.Invoke();
+                _isClicked = true;
+            }
         }
 
         private void OnMouseExit()

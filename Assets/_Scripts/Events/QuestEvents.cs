@@ -9,7 +9,7 @@ namespace _Scripts.QuestSystem
     public class QuestEvents
     {
         public event Action<string> OnStartQuest;
-        public void StartQuest(string id) 
+        public void StartQuest(string id)
         {
             OnStartQuest?.Invoke(id);
         }
@@ -43,10 +43,23 @@ namespace _Scripts.QuestSystem
         {
             return OnRequestQuestByQuestInfoSo?.Invoke(questSo);
         }
+        
+        public event Action<GameObject> OnQuestStepCreated;
+        public void QuestStepCreated(GameObject questStep) 
+        {
+            OnQuestStepCreated?.Invoke(questStep);
+        }
+        
+        public event Action<GameObject> OnQuestStepDeleted;
+        public void QuestStepDeleted(GameObject questStep) 
+        {
+            OnQuestStepDeleted?.Invoke(questStep);
+        }
+
+        
 
 
-
-        //custom quest events
+        //custom quest step events 
         public event Action<string, bool> OnTriggerFirstDevQuestStep1;
         public void TriggerFirstDevQuestStep1(string customParam, bool isFailed) 
         {

@@ -10,10 +10,10 @@ namespace Resources.Quests.DevQuests.SecondDevQuest
         {
             base.Start();
 
-            //handle auto fail option  //todo need to handle auto failed steps in quest log. Need to hide if we fail depending step and auto fail next steps.
+            //handle auto fail option 
             if (IsPreviousFailed && failIfPreviousFailed)
             {
-                ChangeValues("Чердак не был посещён", "Я провалила задание, пора возвращаться.", true);
+                ChangeValues("Чердак не был посещён", "Я провалила задание, пора возвращаться.", true); //this is not displayed in log cause it hides by get full info method in quest
                 FinishQuesStep();
             }
             else
@@ -27,13 +27,13 @@ namespace Resources.Quests.DevQuests.SecondDevQuest
         {
             if (isFailed)
             {
-                ChangeValues("Чердак не был посещён","Я провалила задание, пора возвращаться.",true );
+                ChangeValues("Чердак не был посещён","Я спустилась в подвал вопреки запрета 2",true );
                 FinishQuesStep();
             }
             
             if (customParam == "AtticRoomVisited")
             {
-                ChangeValues("Чердак посещён","Задание выполнено, пора возвращаться!",false );
+                ChangeValues("Чердак посещён","Я слазила на чердак, пора возвращаться!",false );
                 FinishQuesStep();
             }
             

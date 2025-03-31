@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+using _Scripts.Service.Log;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -24,11 +25,13 @@ namespace _Scripts.QuestSystem
         protected virtual void Start()
         {
             AutoSubscribeOnStepTriggerEvent();
+            EventManager.Instance.QuestEvents.QuestStepCreated(gameObject);
         }
 
         private void OnDisable()
         {
             AutoUnsubscribeFromStepTriggerEvent();
+            EventManager.Instance.QuestEvents.QuestStepDeleted(gameObject);
         }
 
 
@@ -73,14 +76,14 @@ namespace _Scripts.QuestSystem
 
             if (EventManager.Instance?.QuestEvents == null)
             {
-                Debug.LogError("QuestEvents не доступен!");
+                QuestDebug.Instance.LogError("QuestEvents не доступен!");
                 return;
             }
 
             EventInfo eventInfo = typeof(QuestEvents).GetEvent(eventName, BindingFlags.Public | BindingFlags.Instance);
             if (eventInfo == null)
             {
-                Debug.LogError($"Событие {eventName} не найдено в QuestEvents!");
+                QuestDebug.Instance.LogError($"Событие {eventName} не найдено в QuestEvents!");
                 return;
             }
 
@@ -93,7 +96,7 @@ namespace _Scripts.QuestSystem
 
             // Подписываемся
             eventInfo.AddEventHandler(EventManager.Instance.QuestEvents, _subscribedHandler);
-            Debug.Log($"Успешно подписались на {eventName}");
+            QuestDebug.Instance.Log($"Успешно подписались на {eventName}");
         }
 
         private void AutoUnsubscribeFromStepTriggerEvent()
@@ -107,14 +110,14 @@ namespace _Scripts.QuestSystem
             EventInfo eventInfo = typeof(QuestEvents).GetEvent(eventName, BindingFlags.Public | BindingFlags.Instance);
             if (eventInfo == null)
             {
-                Debug.LogError($"Событие {eventName} не найдено при отписке!");
+                QuestDebug.Instance.LogError($"Событие {eventName} не найдено при отписке!");
                 return;
             }
 
             // Отписываемся
             eventInfo.RemoveEventHandler(EventManager.Instance.QuestEvents, _subscribedHandler);
             _subscribedHandler = null; // Очищаем ссылку
-            Debug.Log($"Успешно отписались от {eventName}");
+            QuestDebug.Instance.Log($"Успешно отписались от {eventName}");
         }
         
         //using this method we can handle quest step progress (collect items\click on something\end conversation etc) 
@@ -122,6 +125,11 @@ namespace _Scripts.QuestSystem
         protected abstract void ActivateSubscribedMethodOnTrigger(string customParam, bool isFailed);
 
         //invokes this method after initialization in Quest class. Can be used to fill custom values for quest step
-        protected abstract void SetQuestStepState(QuestStepValues questStepValues); 
+        protected abstract void SetQuestStepState(QuestStepValues questStepValues);
+
+        public bool getFailIsPreviousFailedOption()
+        {
+            return failIfPreviousFailed;
+        }
     }
 }

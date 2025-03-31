@@ -15,8 +15,9 @@ namespace _Scripts.QuestSystem.UI
         [SerializeField] private TMP_Text questDisplayNameText;
         [SerializeField] private TMP_Text questStatusText; // print previous and current quest step statuses + quest status
         [SerializeField] private TMP_Text rewardText;
-        [SerializeField] private TMP_Text levelRequirementsText;
+        //[SerializeField] private TMP_Text levelRequirementsText;
         [SerializeField] private TMP_Text questRequirementsText;
+        [SerializeField] private TMP_Text questStateText;
     
         private Button _firstSelectedButton;
 
@@ -63,6 +64,7 @@ namespace _Scripts.QuestSystem.UI
             EventSystem.current.SetSelectedGameObject(null);
         }
 
+        //change button color according to quest state. //todo to remake ?
         private void QuestStateChange(Quest quest)
         {
             // add the button to the scrolling list if not already added
@@ -79,6 +81,7 @@ namespace _Scripts.QuestSystem.UI
 
             // set the button color based on quest stateEnum
             questLogButton.SetState(quest.StateEnum);
+            
         }
 
         private void SetQuestLogInfo(Quest quest)
@@ -87,10 +90,10 @@ namespace _Scripts.QuestSystem.UI
             questDisplayNameText.text = quest.InfoSo.displayDescription;
 
             // status
-            questStatusText.text = quest.GetFullStatusText();
+            questStatusText.text = quest.GetFullStatusText(); //todo to remake 
 
             // requirements
-            levelRequirementsText.text = "Is quest available = " + quest.InfoSo.isQuestAvailable;
+            //levelRequirementsText.text = "Is quest available = " + quest.InfoSo.isQuestAvailable;
             questRequirementsText.text = "";
             foreach (QuestInfoSo prerequisiteQuestInfo in quest.InfoSo.questPrerequisites)
             {
@@ -99,6 +102,9 @@ namespace _Scripts.QuestSystem.UI
 
             // rewards
             rewardText.text = quest.InfoSo.reward;
+            
+            //set quest state text
+            questStateText.text = quest.StateEnum.ToString();
         }
     }
 }
