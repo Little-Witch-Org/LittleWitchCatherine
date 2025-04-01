@@ -1,10 +1,13 @@
 using System;
 using _Scripts.Components.TimeManagement.Enums;
 using _Scripts.Managers;
+using _Scripts.QuestSystem;
+using DG.Tweening;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 //todo separate cheat menu from ui manager (like journal)
 public class UIManager : MonoBehaviour
@@ -13,6 +16,7 @@ public class UIManager : MonoBehaviour
     
     public GameObject cheatMenu;
     public GameObject questMenu;
+    
     
     public bool isMenuOpen;
 
@@ -42,6 +46,8 @@ public class UIManager : MonoBehaviour
         EventManager.Instance.TimeEvents.OnDateChange += ChangeDateText;
         
         EventManager.Instance.InputEvents.OnMenuPressed += ToggleCheatMenu;
+
+        
     }
     
     private void OnDisable()
@@ -51,6 +57,7 @@ public class UIManager : MonoBehaviour
         EventManager.Instance.TimeEvents.OnDateChange -= ChangeDateText;
         
         EventManager.Instance.InputEvents.OnMenuPressed -= ToggleCheatMenu;
+        
     }
 
 
@@ -105,5 +112,7 @@ public class UIManager : MonoBehaviour
             cheatMenu.SetActive(false);
         }
     }
+
+    
     
 }

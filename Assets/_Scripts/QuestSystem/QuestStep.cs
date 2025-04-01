@@ -6,8 +6,6 @@ using UnityEngine.Serialization;
 
 namespace _Scripts.QuestSystem
 {
-    //todo dont like QuestStep / QuestStepTrigger and QuestStepTriggerEnabler subscribe/unsubscribe methods and checks (in update). Need to rework
-    //todo add manual subscription ? How to spawn trigger items on scene? if we use pre create in scene prefabs< they still there after quest complete but in deactivated state
     public abstract class QuestStep : MonoBehaviour
     {
         private Delegate _subscribedHandler; // Сохраняем делегат для отписки

@@ -33,7 +33,7 @@ namespace _Scripts.QuestSystem.UI
             switch (stateEnum)
             {
                 case QuestStateEnum.RequirementsNotMet:
-                    buttonText.color = Color.black;
+                    buttonText.color = Color.grey;
                     break;
                 case QuestStateEnum.CanStart:
                     buttonText.color = Color.white;

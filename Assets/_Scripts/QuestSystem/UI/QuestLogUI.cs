@@ -1,3 +1,4 @@
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -18,6 +19,8 @@ namespace _Scripts.QuestSystem.UI
         //[SerializeField] private TMP_Text levelRequirementsText;
         [SerializeField] private TMP_Text questRequirementsText;
         [SerializeField] private TMP_Text questStateText;
+        
+        [SerializeField] private Button questLogButton;
     
         private Button _firstSelectedButton;
 
@@ -25,16 +28,22 @@ namespace _Scripts.QuestSystem.UI
         {
             EventManager.Instance.InputEvents.OnJournalPressed += QuestLogTogglePressed;
             EventManager.Instance.QuestEvents.OnQuestStateChange += QuestStateChange;
+            
+            EventManager.Instance.QuestEvents.OnQuestStateChange += HighliteQuestbutton;
         }
 
         private void OnDisable()
         {
             EventManager.Instance.InputEvents.OnJournalPressed -= QuestLogTogglePressed;
             EventManager.Instance.QuestEvents.OnQuestStateChange -= QuestStateChange;
+            
+            EventManager.Instance.QuestEvents.OnQuestStateChange -= HighliteQuestbutton;
         }
 
         public void QuestLogTogglePressed()
         {
+            ColorUtility.TryParseHtmlString("#6F2502", out var customColor);
+            questLogButton.image.color = customColor;
             if (contentParent.activeInHierarchy)
             {
                 HideUI();
@@ -64,7 +73,7 @@ namespace _Scripts.QuestSystem.UI
             EventSystem.current.SetSelectedGameObject(null);
         }
 
-        //change button color according to quest state. //todo to remake ?
+        //change button color according to quest state.
         private void QuestStateChange(Quest quest)
         {
             // add the button to the scrolling list if not already added
@@ -90,7 +99,7 @@ namespace _Scripts.QuestSystem.UI
             questDisplayNameText.text = quest.InfoSo.displayDescription;
 
             // status
-            questStatusText.text = quest.GetFullStatusText(); //todo to remake 
+            questStatusText.text = quest.GetFullStatusText();
 
             // requirements
             //levelRequirementsText.text = "Is quest available = " + quest.InfoSo.isQuestAvailable;
@@ -106,5 +115,13 @@ namespace _Scripts.QuestSystem.UI
             //set quest state text
             questStateText.text = quest.StateEnum.ToString();
         }
+        
+        private void HighliteQuestbutton(Quest quest)
+        {
+            questLogButton.image.color = Color.yellow;
+            //questLogButton.image.DOColor(Color.yellow, 0.5f).Play();
+        }
     }
+    
+    
 }

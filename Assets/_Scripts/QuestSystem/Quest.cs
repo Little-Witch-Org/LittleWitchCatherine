@@ -64,7 +64,7 @@ namespace _Scripts.QuestSystem
         }
 
         //creates quest step and adds values to it
-        public void InstantiateCurrentQuestStep(Transform parentTransform) //todo высрать инфу предыдущего степа (если он есть) а конкретно зафейлен ли он, чтобы передать текущ.
+        public void InstantiateCurrentQuestStep(Transform parentTransform)
         {
             GameObject questStepPrefab = GetCurrentQuestStepPrefab();
             if (questStepPrefab != null)
@@ -124,9 +124,7 @@ namespace _Scripts.QuestSystem
             return new QuestData(StateEnum, _currentQuestStepIndex, _questStepInfoValues);
         }
     
-        //For UI - get quest step statuses (from previous and current) and print it in UI. Also print quest status
-        //todo need to separate quest status -> to get in ui in QuestStateChange (quest status will be tec info). Here in raw string we put previous quest step status
-        //todo and current step status + state in next string + "-" or dot symbol. If there are auto lose condition we need to not display next auto loosed steps
+        //For UI - get quest step values (from previous and current) and print it in UI.
         public string GetFullStatusText()
         {
             string fullStatus = "";
