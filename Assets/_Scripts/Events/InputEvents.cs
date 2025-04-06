@@ -1,13 +1,20 @@
 ﻿using System;
+using _Scripts.Enums;
 
 namespace _Scripts.Events
 {
     public class InputEvents
     {
-        public event Action OnSubmitPressed;
+        public InputEventContext InputEventContext { get; private set; }
+
+        public void ChangeInputEventContext(InputEventContext newContext)
+        {
+            InputEventContext = newContext;
+        }
+        public event Action<InputEventContext> OnSubmitPressed;
         public void SubmitPressed() 
         {
-            OnSubmitPressed?.Invoke();
+            OnSubmitPressed?.Invoke(InputEventContext);
         }
         
         public event Action OnMenuPressed;

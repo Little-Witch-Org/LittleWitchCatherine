@@ -15,6 +15,7 @@ public class EventManager : MonoBehaviour
     public TransitionEvents TransitionEvents;
     public TimeEvents TimeEvents;
     public QuestEvents QuestEvents;
+    public DialogueEvents DialogueEvents;
 
     private void Awake()
     {
@@ -41,5 +42,6 @@ public class EventManager : MonoBehaviour
         TransitionEvents = new TransitionEvents();
         TimeEvents = new TimeEvents();
         QuestEvents = new QuestEvents();
+        DialogueEvents = new DialogueEvents();
     }
 }

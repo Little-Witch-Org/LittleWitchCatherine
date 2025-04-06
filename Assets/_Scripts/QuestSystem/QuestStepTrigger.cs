@@ -33,7 +33,9 @@ namespace _Scripts.QuestSystem
         [SerializeField] public bool isTriggered; //handle single trigger for object. Also, spawner checks this field to prevent additional activation 
         //todo add option to multi-trigger ?
         
-        public void TriggerQuestStepInEditor()
+        
+        //Method wrapper (for TriggerQuestStep) to invoke method with params (filled in inspector)
+        public void TriggerQuestStepInEditor() 
         {
             if (!isTriggered)
             {

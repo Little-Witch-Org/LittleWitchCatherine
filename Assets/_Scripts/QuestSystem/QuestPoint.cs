@@ -8,6 +8,8 @@ namespace _Scripts.QuestSystem
     /// </summary>
     public class QuestPoint : MonoBehaviour
     {
+        [Header("Dialogue (optional)")] [SerializeField]
+        private string dialogueKnotName;
 
         [Header("Quest")] [SerializeField] private QuestInfoSo questInfoForPoint;
 
@@ -70,17 +72,26 @@ namespace _Scripts.QuestSystem
 
         public void ClickSubmit()
         {
-            //Debug.Log("Submit clicked on quest: " + questId);
+            //if we have a knot name defined, try to start dialogue with it
+            if (!dialogueKnotName.Equals(string.Empty))
+            {
+                EventManager.Instance.DialogueEvents.EnterDialogue(dialogueKnotName);
+            }
+            else
+            {
+                //Debug.Log("Submit clicked on quest: " + questId);
 
-            //start or finish a quest
-            if (_currentQuestStateEnum.Equals(QuestStateEnum.CanStart) && startPoint)
-            {
-                EventManager.Instance.QuestEvents.StartQuest(questId);
+                //start or finish a quest
+                if (_currentQuestStateEnum.Equals(QuestStateEnum.CanStart) && startPoint)
+                {
+                    EventManager.Instance.QuestEvents.StartQuest(questId);
+                }
+                else if (_currentQuestStateEnum.Equals(QuestStateEnum.CanFinish) && finishPoint)
+                {
+                    EventManager.Instance.QuestEvents.FinishQuest(questId);
+                }
             }
-            else if (_currentQuestStateEnum.Equals(QuestStateEnum.CanFinish) && finishPoint)
-            {
-                EventManager.Instance.QuestEvents.FinishQuest(questId);
-            }
+            
         }
 
         private void QuestIconStateChange(Quest quest)
