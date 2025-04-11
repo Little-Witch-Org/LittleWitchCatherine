@@ -11,9 +11,20 @@ namespace _Scripts.Events
         {
             InputEventContext = newContext;
         }
+        
+        private bool _inputLocked;
+
+        public void LockInput(bool locked)
+        {
+            _inputLocked = locked;
+        }
+        
+        
+        
         public event Action<InputEventContext> OnSubmitPressed;
         public void SubmitPressed() 
         {
+            if (_inputLocked) return;
             OnSubmitPressed?.Invoke(InputEventContext);
         }
         

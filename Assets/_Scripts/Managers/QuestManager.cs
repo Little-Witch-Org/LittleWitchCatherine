@@ -52,6 +52,8 @@ namespace _Scripts.QuestSystem
                 QuestStepValuesChange; //for saving needs
 
             EventManager.Instance.QuestEvents.OnRequestQuestByQuestInfoSo += GetQuestFromMap;
+            
+            EventManager.Instance.QuestEvents.OnQuestAvailabilityChange += ChangeQuestAvailability;
 
         }
 
@@ -67,6 +69,7 @@ namespace _Scripts.QuestSystem
                 QuestStepValuesChange; //for saving needs
             
             EventManager.Instance.QuestEvents.OnRequestQuestByQuestInfoSo -= GetQuestFromMap;
+            EventManager.Instance.QuestEvents.OnQuestAvailabilityChange -= ChangeQuestAvailability;
         }
 
         private void Start()
@@ -97,10 +100,10 @@ namespace _Scripts.QuestSystem
             }
         }
         
-        //manual method for change availability of questOS //todo add event for it then private
-        public void ChangeQuestAvailability(bool isAvailable, string questSoId)
+        //manual method for change availability of questOS
+        private void ChangeQuestAvailability(string questSoId,bool isAvailable)
         {
-            GetQuestById(questSoId).InfoSo.isQuestAvailable = isAvailable;
+            GetQuestById(questSoId).IsQuestAvailable = isAvailable;
         }
         
         //get Quest from map by questInfoSo
@@ -123,7 +126,7 @@ namespace _Scripts.QuestSystem
         private bool CheckRequirementsMet(Quest quest)
         {
             //check is questSo is available (on/off)
-            bool meetsRequirements = quest.InfoSo.isQuestAvailable;
+            bool meetsRequirements = quest.IsQuestAvailable;
             //Debug.Log("In manager check requirements -> quest is available = "+ meetsRequirements);
 
             //todo handle custom requirements

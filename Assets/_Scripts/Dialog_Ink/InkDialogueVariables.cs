@@ -21,6 +21,7 @@ namespace _Scripts.Dialog_Ink
             }
         }
 
+        //uses if variables changing inside ink story by story logic -> if so, we need to update it in _variables in script (map in manager)
         public void SyncVariablesAndStartListening(Story story) 
         {
             // it's important that SyncVariablesToStory is before assigning the listener!
@@ -45,12 +46,17 @@ namespace _Scripts.Dialog_Ink
             DialogDebug.Instance.Log("Updated dialogue variable: " + name + " = " + value);
         }
 
-        private void SyncVariablesToStory(Story story)
+        public void SyncVariablesToStory(Story story)
         {
             foreach (KeyValuePair<string, Ink.Runtime.Object> variable in _variables)
             {
                 story.variablesState.SetGlobal(variable.Key, variable.Value);
             }
+        }
+
+        public Dictionary<string, Ink.Runtime.Object> GetVariables()
+        {
+            return _variables;
         }
     }
 }

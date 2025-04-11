@@ -17,8 +17,8 @@ namespace _Scripts.QuestSystem
     public class QuestTriggerSpawner : MonoBehaviour
     {
 
-        [SerializeField] private string questName;
-        [SerializeField] private Transform questManager;
+        //[SerializeField] private string questName;
+        //[SerializeField] private Transform questManager;
 
         private List<GameObject> _triggersOnScene = new List<GameObject>();
         private List<GameObject> _triggersToRemove = new List<GameObject>(); //create trigger links that will be removed from list after we delete it from scene

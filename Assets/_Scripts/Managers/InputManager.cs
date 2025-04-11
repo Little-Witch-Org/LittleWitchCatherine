@@ -38,8 +38,8 @@ namespace _Scripts.Managers
             {
                 EventManager.Instance.InputEvents.InteractPressed();
             }
-            //if (Input.GetMouseButtonDown(0)) //todo need to handle click on char and dialogue continue
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetMouseButtonDown(0)) //todo need to handle click on char and dialogue continue
+            //if (Input.GetKeyDown(KeyCode.Space))
             {
                 EventManager.Instance.InputEvents.SubmitPressed();
             }

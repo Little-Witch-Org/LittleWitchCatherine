@@ -4,8 +4,7 @@ using _Scripts.QuestSystem;
 using UnityEngine;
 
 /// <summary>
-/// Used as global events bus (for test). Configured in project settings -> script execution order before Default Time
-/// to other scripts can subscribe in OnEnable
+/// Used as global events bus. Configured in project settings -> script execution order before Default Time to other scripts can subscribe in OnEnable
 /// </summary>
 public class EventManager : MonoBehaviour
 {

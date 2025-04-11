@@ -5,11 +5,12 @@ namespace _Scripts.QuestSystem
 {
     /// <summary>
     /// Point (place/Character/Trigger) for starting or finishing quest
+    /// TODO since we use dialogue to start/finish quests. This can be used for "map scene and collider trigger of player char model". But we also can trigger dialogue =)
     /// </summary>
     public class QuestPoint : MonoBehaviour
     {
-        [Header("Dialogue (optional)")] [SerializeField]
-        private string dialogueKnotName;
+        //[Header("Dialogue (optional)")] [SerializeField]
+        //private string dialogueKnotName;
 
         [Header("Quest")] [SerializeField] private QuestInfoSo questInfoForPoint;
 
@@ -50,7 +51,6 @@ namespace _Scripts.QuestSystem
         }
 
         //todo need to handle dialogue end / click on object / current time with reached conditions etc
-        //todo need to handle auto finish if point is not depend on time/place/char (if it can finished (fail or success) immediately after last step complete 
         //todo add scene check - if on map -> need to submit by pressing button if novel -> mouse click
         private void SubmitPressed()
         {
@@ -70,28 +70,30 @@ namespace _Scripts.QuestSystem
             }
         }
 
+        //manual start/finish quest method (by default we use dialogue trigger)
         public void ClickSubmit()
         {
+            /*//todo if this have dialogue component -> invoke method from there
             //if we have a knot name defined, try to start dialogue with it
             if (!dialogueKnotName.Equals(string.Empty))
             {
-                EventManager.Instance.DialogueEvents.EnterDialogue(dialogueKnotName);
+               // EventManager.Instance.DialogueEvents.EnterDialogue(dialogueKnotName);
             }
             else
-            {
-                //Debug.Log("Submit clicked on quest: " + questId);
+            {*/
+            //Debug.Log("Submit clicked on quest: " + questId);
 
-                //start or finish a quest
-                if (_currentQuestStateEnum.Equals(QuestStateEnum.CanStart) && startPoint)
-                {
-                    EventManager.Instance.QuestEvents.StartQuest(questId);
-                }
-                else if (_currentQuestStateEnum.Equals(QuestStateEnum.CanFinish) && finishPoint)
-                {
-                    EventManager.Instance.QuestEvents.FinishQuest(questId);
-                }
+            //start or finish a quest
+            if (_currentQuestStateEnum.Equals(QuestStateEnum.CanStart) && startPoint)
+            {
+                EventManager.Instance.QuestEvents.StartQuest(questId);
             }
-            
+            else if (_currentQuestStateEnum.Equals(QuestStateEnum.CanFinish) && finishPoint)
+            {
+                EventManager.Instance.QuestEvents.FinishQuest(questId);
+            }
+            // }
+
         }
 
         private void QuestIconStateChange(Quest quest)

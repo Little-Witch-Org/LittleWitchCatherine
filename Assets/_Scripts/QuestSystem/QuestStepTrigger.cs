@@ -9,7 +9,7 @@ using UnityEngine.Serialization;
 namespace _Scripts.QuestSystem
 {
     /// <summary>
-    /// Triggers quest step progress using event (in case of "separate quest step and trigger" logic). Need script with some logic that activates this trigger.
+    /// Triggers quest step progress using event (in case of "separate quest step and trigger" logic). Need script with some logic that activates this trigger. //todo add dialogue trigger by event
     /// Automatically find and invoke quest step trigger event by using quest step name 
     /// </summary>
     public class QuestStepTrigger : MonoBehaviour

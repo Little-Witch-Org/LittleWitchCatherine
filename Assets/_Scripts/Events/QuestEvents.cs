@@ -55,6 +55,12 @@ namespace _Scripts.QuestSystem
         {
             OnQuestStepDeleted?.Invoke(questStep);
         }
+        
+        public event Action<string,bool> OnQuestAvailabilityChange;
+        public void QuestAvailabilityChange(string questSoId, bool isAvailable) 
+        {
+            OnQuestAvailabilityChange?.Invoke(questSoId, isAvailable);
+        }
 
         
 

@@ -13,6 +13,9 @@ namespace _Scripts.QuestSystem
     {
         //static InfoSo
         public QuestInfoSo InfoSo;
+        
+        //initializes from QuestSo and used in runtime(in QuestSo this variable value is serializable and must not be changed)
+        public bool IsQuestAvailable;
     
         //stateEnum InfoSo
         public QuestStateEnum StateEnum;
@@ -24,6 +27,7 @@ namespace _Scripts.QuestSystem
         public Quest(QuestInfoSo questInfoSo)
         {
             this.InfoSo = questInfoSo;
+            this.IsQuestAvailable = questInfoSo.isQuestAvailable;
             this.StateEnum = QuestStateEnum.RequirementsNotMet;
             this._currentQuestStepIndex = 0;
             this._questStepInfoValues = new QuestStepValues[InfoSo.questStepPrefabs.Length];

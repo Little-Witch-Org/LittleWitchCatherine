@@ -92,8 +92,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 16
+  m_fontSizeBase: 16
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -236,7 +236,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0.6698113, g: 0.39067864, b: 0.23064256, a: 0}
-    m_HighlightedColor: {r: 0.7830189, g: 0.3592244, b: 0.114498034, a: 0.972549}
+    m_HighlightedColor: {r: 0.6698113, g: 0.39067864, b: 0.23064256, a: 0.972549}
     m_PressedColor: {r: 0.6698113, g: 0.39067864, b: 0.23064256, a: 0.972549}
     m_SelectedColor: {r: 0.6698113, g: 0.39067864, b: 0.23064256, a: 0.972549}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}

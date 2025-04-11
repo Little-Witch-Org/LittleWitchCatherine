@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using _Scripts.Service.Log;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -22,15 +23,12 @@ namespace _Scripts.Dialog_Ink.UI
         {
             _choiceIndex = choiceIndex;
         }
+        
 
-        public void SelectButton()
-        {
-            button.Select();
-        }
-
-
+        //if button selected (by mouse) and we click (use submit event) choice index updates fore dialogue and submit method continues dialogue.
         public void OnSelect(BaseEventData eventData)
         {
+            //DialogDebug.Instance.Log("DialogueChoiceButton.OnSelect choice "+ _choiceIndex);
             EventManager.Instance.DialogueEvents.UpdateChoiceIndex(_choiceIndex);
         }
     }

@@ -1,20 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using Ink.Runtime;
+using UnityEngine;
 
 namespace _Scripts.Dialog_Ink
 {
     public class DialogueEvents
     {
-        public Action<string> OnEnterDialogue;
+        public Action<string, string> OnEnterDialogue;
         //this method used to manually trigger event (as auto invoke in some places in start or update)
-        public void EnterDialogue(string knotName)
+        public void EnterDialogue(string storyName, string knotName)
         {
-            //same as OnEnterDialogue?.Invoke(knotName)
-            if (OnEnterDialogue != null)
-            {
-                OnEnterDialogue(knotName);
-            }
+            OnEnterDialogue?.Invoke(storyName, knotName);
         }
         
         public Action OnDialogueStarted;
@@ -43,11 +40,17 @@ namespace _Scripts.Dialog_Ink
             OnUpdateChoiceIndex?.Invoke(choiceIndex);
         }
 
-        public event Action<string, Ink.Runtime.Object> OnUpdateInkDialogueVariable;
+        public event Action<string, string, Ink.Runtime.Object> OnUpdateInkDialogueVariable;
 
-        public void UpdateInkDialogueVariable(string name, Ink.Runtime.Object value)
+        public void UpdateInkDialogueVariable(string storyName, string varName, Ink.Runtime.Object varValue)
         {
-            OnUpdateInkDialogueVariable?.Invoke(name,value);
+            OnUpdateInkDialogueVariable?.Invoke(storyName, varName, varValue);
+        }
+        
+        public event Action<string, string> OnCompleteDialogueKnot;
+        public void CompleteDialogueKnot(string characterName, string dialogueKnotName)
+        {
+            OnCompleteDialogueKnot?.Invoke(characterName, dialogueKnotName);
         }
     }
     
