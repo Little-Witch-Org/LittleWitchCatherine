@@ -40,7 +40,7 @@ namespace _Scripts.Dialog_Ink
         //+-TODO INTEGRATE QUESTS (questpoint) -> need to handle start\finish dialogue (by using variables in char method ->
         //-TODO -> quest point must trigger it using list of quests/ manager, but is there no quests (variables) in dialogue?). mb quest point must handle self quests and change variables in dialogue ?
         
-        //TODO add npc emotes
+        //+TODO add npc emotes
         //TODO HANDLE NPC APPEAR IN CURRENT PLACE (like trigger spawner) (add places/locations fileds, on/off for model(sprite/collider) but script go is on allways to track game states? npc manager with list of npc's (prefabs) ? methods to move to locations (some logic?)? sprites for emotions etc..
         
         

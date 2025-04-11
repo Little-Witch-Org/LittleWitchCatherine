@@ -1,5 +1,5 @@
 ===TestNpcCharacter1_Dialogue2===
-Это второй диалог данного нпс.
+Это второй диалог данного нпс. #currentSpeaker:speaker2 #speaker1name:player #portrait1:player_neutral #speaker2name:npc #portrait2:npc_neutral 
 Показываю доступные варианты.
     +[Провекра возможности взять квест]
         //swich

@@ -26,8 +26,8 @@ public class CursorChangeComponent : MonoBehaviour
         CursorTextureDefault = UnityEngine.Resources.Load<Texture2D>("Art/Cursors/cursorDefault1");
         CursorTextureToChange = UnityEngine.Resources.Load<Texture2D>("Art/Cursors/cursorTransition1");
 
-        Debug.Log("cursorDefault1: " + CursorTextureDefault);
-        Debug.Log("cursorTransition1: " + CursorTextureToChange);
+        //Debug.Log("cursorDefault1: " + CursorTextureDefault);
+        //Debug.Log("cursorTransition1: " + CursorTextureToChange);
 
         if (CursorTextureDefault == null || CursorTextureToChange == null)
         {

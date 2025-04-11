@@ -1,7 +1,10 @@
+EXTERNAL CompleteDialogueKnot(characterName, dialogueKnotName)
 //(events) using in quest point by default (accept AdvanceQuest)
 EXTERNAL StartQuest(questId)
-EXTERNAL AdvanceQuest(questId)
 EXTERNAL FinishQuest(questId)
+
+//global variables
+VAR CharacterName = "TestNpcCharacter2"
 
 //quest name variable (questId + "Id" for var name)
 VAR FirstDevQuestId = "FirstDevQuest"
@@ -10,5 +13,4 @@ VAR FirstDevQuestId = "FirstDevQuest"
 VAR FirstDevQuestState = "RequirementsNotMet"
 
 //ink files
-INCLUDE FirstDevQuest_start_npc.ink
-INCLUDE FirstDevQuest_finish_npc.ink
+INCLUDE TestNpcCharacter2_Dialogue1.ink

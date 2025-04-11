@@ -1,4 +1,4 @@
-===FirstDevQuestStart=== //this is knot name. Used in quest point variable which starts dialogue.
+===TestNpcCharacter2_Dialogue1=== //this is knot name. Used in quest point variable which starts dialogue.
 
 //swich
 {FirstDevQuestState:
@@ -30,7 +30,7 @@
 -> END
 
 = CanFinish
-Привет, я смотрю кнопка была нажата! Поговори с соседом слева.
+Привет, я смотрю кнопка была нажата! Поговори с маленьким красным персонажем.
 -> END
 
 = Finished

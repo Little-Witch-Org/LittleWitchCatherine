@@ -40,14 +40,12 @@ namespace _Scripts
 
         private void OnEnable()
         {
-            EventManager.Instance.TransitionEvents.OnSetLoadedPlaceName += UpdateCurrentPlace;
-            EventManager.Instance.TransitionEvents.OnSetLoadedLocationName += UpdateCurrentLocation;
+            EventManager.Instance.TransitionEvents.OnCurrentScreenPlace += UpdateCurrentPlace;
         }
 
         private void OnDisable()
         {
-            EventManager.Instance.TransitionEvents.OnSetLoadedPlaceName -= UpdateCurrentPlace;
-            EventManager.Instance.TransitionEvents.OnSetLoadedLocationName -= UpdateCurrentLocation;
+            EventManager.Instance.TransitionEvents.OnLoadedPlace -= UpdateCurrentPlace;
         }
 
         private void InitializeDefaultValues()
@@ -70,14 +68,12 @@ namespace _Scripts
            return storedSpawnPointOnMap;
         }
         
-        private void UpdateCurrentPlace(string place)
+        private void UpdateCurrentPlace(string location, string place)
         {
             currentNovelPlace = place;
-        }
-        private void UpdateCurrentLocation(string location)
-        {
             currentLocation = location;
         }
+
 
         public string GetCurrentNovelPlace()
         {

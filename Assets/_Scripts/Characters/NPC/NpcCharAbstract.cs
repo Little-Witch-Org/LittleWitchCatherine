@@ -18,11 +18,40 @@ namespace _Scripts.Characters.NPC
         //start point of dialogues and quests. Click on npc  (or trigger inner dialogue) -> open actual dialogue from component -> start quest if it actual (quest point must subscribe?)
 
         [SerializeField] protected string npcName;
+        [SerializeField] protected string currentLocationName;
+        [SerializeField] protected string currentPlaceName;
+
+        [SerializeField] protected GameObject npcBody;
 
         
         public string GetNpcName()
         {
             return npcName;
+        }
+
+        public string GetCurrentLocationName()
+        {
+            return currentLocationName;
+        }
+
+        public string GetCurrentPlaceName()
+        {
+            return currentPlaceName;
+        }
+
+        public void EnableBody()
+        {
+            npcBody.SetActive(true);
+        }
+
+        public void DisableBody()
+        {
+            npcBody.SetActive(false);
+        }
+
+        public bool IsNpcActive()
+        {
+            return npcBody.activeSelf;
         }
     }
 }

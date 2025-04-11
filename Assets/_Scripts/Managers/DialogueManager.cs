@@ -30,6 +30,13 @@ namespace _Scripts.Dialog_Ink
 
         private InkExternalFunctions _inkExternalFunctions;
 
+        //tag system
+        private const string Speaker1NameTag = "speaker1name";
+        private const string PortraitTag1 = "portrait1";
+        private const string Speaker2NameTag = "speaker2name";
+        private const string PortraitTag2 = "portrait2";
+        private const string CurrentSpeakerTag = "currentSpeaker";
+        
 
         private void Awake()
         {
@@ -91,7 +98,7 @@ namespace _Scripts.Dialog_Ink
 
         private void OnEnable()
         {
-            EventManager.Instance.DialogueEvents.OnEnterDialogue += EnterDialogueNew;
+            EventManager.Instance.DialogueEvents.OnEnterDialogue += EnterDialogue;
             EventManager.Instance.InputEvents.OnSubmitPressed += SubmitPressed;
             EventManager.Instance.DialogueEvents.OnUpdateChoiceIndex += UpdateChoiceIndex;
             EventManager.Instance.DialogueEvents.OnUpdateInkDialogueVariable += UpdateVariableValueForStory;
@@ -100,7 +107,7 @@ namespace _Scripts.Dialog_Ink
 
         private void OnDisable()
         {
-            EventManager.Instance.DialogueEvents.OnEnterDialogue -= EnterDialogueNew;
+            EventManager.Instance.DialogueEvents.OnEnterDialogue -= EnterDialogue;
             EventManager.Instance.InputEvents.OnSubmitPressed -= SubmitPressed;
             EventManager.Instance.DialogueEvents.OnUpdateChoiceIndex -= UpdateChoiceIndex;
             EventManager.Instance.DialogueEvents.OnUpdateInkDialogueVariable -= UpdateVariableValueForStory;
@@ -108,7 +115,7 @@ namespace _Scripts.Dialog_Ink
         }
 
         //scripts can update variables map (updates quest state variables)
-        //todo listen quest state changes, find in variables key that contains quest name and change this variable (to use appropriate name)
+        //listens quest state changes, finds in variables key that contains quest name, get value and update variable value in appropriate story
         private void QuestStateChangeForDialogue(Quest quest)
         {
             //if (quest.InfoSo.Id + "State" == "SecondDevQuestState")
@@ -116,8 +123,7 @@ namespace _Scripts.Dialog_Ink
             //    Debug.Log("SecondDevQuestState");
             //    Debug.Log(quest.InfoSo.Id+" quest state changed to " + quest.StateEnum);
             //}
-           
-
+            
             foreach (var pair in _variablesMap)
             {
                 if (pair.Value.GetVariables().ContainsKey(quest.InfoSo.Id + "State"))
@@ -132,11 +138,6 @@ namespace _Scripts.Dialog_Ink
             //new StringValue(quest.StateEnum.ToString()));
         }
         
-        //manually update variable (from event) 
-        private void UpdateInkDialogueVariable_old(string varName, Ink.Runtime.Object value)
-        {
-            _inkDialogueVariablesCurrent.UpdateVariableState(varName, value);
-        }
 
         private void UpdateChoiceIndex(int choiceIndex)
         {
@@ -155,7 +156,7 @@ namespace _Scripts.Dialog_Ink
         }
 
 
-        private void EnterDialogue(TextAsset inkJson, string knotName)
+        private void EnterDialogue_old(TextAsset inkJson, string knotName)
         {
             //don't start dialogue if already started
             if (_dialoguePlaying)
@@ -188,7 +189,7 @@ namespace _Scripts.Dialog_Ink
             ContinueOrExitStory();
         }
 
-        private void EnterDialogueNew(string storyName, string knotName)
+        private void EnterDialogue(string storyName, string knotName)
         {
             //don't start dialogue if already started
             if (_dialoguePlaying)
@@ -288,6 +289,9 @@ namespace _Scripts.Dialog_Ink
             if (_storyCurrent.canContinue)
             {
                 string dialogueLine = _storyCurrent.Continue();
+                
+                //handle tags
+                HandleTags(_storyCurrent.currentTags);
 
                 // handle the case where there's an empty line of dialogue
                 // by continuing until we get a line with content
@@ -310,6 +314,49 @@ namespace _Scripts.Dialog_Ink
             else if (_storyCurrent.currentChoices.Count == 0)
             {
                 ExitDialogue();
+            }
+        }
+
+        private void HandleTags(List<string> currentTags)
+        {
+            // Loop for each tag in line and handle it accordingly
+            foreach (var tag in currentTags)
+            {
+                // parse the tag 
+                string[] splitTag = tag.Split(':');
+                if (splitTag.Length != 2)
+                {
+                    DialogDebug.Instance.LogError($"Tag could not be appropriately parsed: {tag}");
+                }
+                string tagKey = splitTag[0].Trim();
+                string tagValue = splitTag[1].Trim();
+                
+                // handle the tag
+                switch (tagKey)
+                {
+                    case Speaker1NameTag:
+                        //DialogDebug.Instance.Log("Speaker tag 1=" + tagValue);
+                        EventManager.Instance.DialogueEvents.TagChangeSpeaker1Name(tagValue);
+                        break;
+                    case PortraitTag1:
+                        //DialogDebug.Instance.Log("Portrait tag 1=" + tagValue);
+                        EventManager.Instance.DialogueEvents.TagChangePortrait1(tagValue);
+                        break;
+                    case Speaker2NameTag:
+                        //DialogDebug.Instance.Log("Speaker tag 2=" + tagValue);
+                        EventManager.Instance.DialogueEvents.TagChangeSpeaker2Name(tagValue);
+                        break;
+                    case PortraitTag2:
+                        //DialogDebug.Instance.Log("Portrait tag 2=" + tagValue);
+                        EventManager.Instance.DialogueEvents.TagChangePortrait2(tagValue);
+                        break;
+                    case CurrentSpeakerTag:
+                        EventManager.Instance.DialogueEvents.TagChangeCurrentSpeaker(tagValue);
+                        break;
+                    default:
+                        DialogDebug.Instance.LogWarning($"Tag could not currently being handled: {tag}");
+                        break;
+                }
             }
         }
 

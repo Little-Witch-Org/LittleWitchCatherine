@@ -5,6 +5,7 @@ using Ink.Runtime;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace _Scripts.Dialog_Ink.UI
 {
@@ -16,12 +17,48 @@ namespace _Scripts.Dialog_Ink.UI
         [SerializeField] private DialogueChoiceButton[] choiceButtons;
         
         [SerializeField] private CanvasGroup canvasGroup;
+        
+        [SerializeField] private TMP_Text speaker1Text;
+        [SerializeField] private TMP_Text speaker2Text;
+        [SerializeField] private Image portrait1Image;
+        [SerializeField] private Image portrait2Image;
+        
+        //Player portraits
+        [SerializeField] private List<Sprite> playerPortraitsSpriteList = new List<Sprite>();
+        
+        //Npc portraits
+        [SerializeField] private List<Sprite> npcPortraitsSpriteList = new List<Sprite>();
+        
+        
+        private Dictionary<string, Dictionary<string, Sprite>> _characterPortraits; // 
+        
+        //create dictionary of characters and their sprite portraits
+        private void InitializePortraitsDictionary()
+        {
+            Dictionary<string, Sprite> innerPlayerPortraitsDictionary = new Dictionary<string, Sprite>();
+            foreach (var sprite in playerPortraitsSpriteList)
+            {   
+                innerPlayerPortraitsDictionary.Add(sprite.name, sprite);
+            }
+            
+            Dictionary<string, Sprite> innerNPCPortraitsDictionary = new Dictionary<string, Sprite>();
+            foreach (var sprite in npcPortraitsSpriteList)
+            {   
+                innerNPCPortraitsDictionary.Add(sprite.name, sprite);
+            }
+            
+            _characterPortraits = new Dictionary<string, Dictionary<string, Sprite>>();
+            _characterPortraits.Add("player", innerPlayerPortraitsDictionary);
+            _characterPortraits.Add("npc", innerNPCPortraitsDictionary);
+        }
 
         private void Awake()
         {
           contentParent.SetActive(false);
           
           ResetPanel();
+          
+          InitializePortraitsDictionary();
         }
 
         private void OnEnable()
@@ -29,12 +66,27 @@ namespace _Scripts.Dialog_Ink.UI
             EventManager.Instance.DialogueEvents.OnDialogueStarted += DialogueStarted;
             EventManager.Instance.DialogueEvents.OnDialogueFinished += DialogueFinished;
             EventManager.Instance.DialogueEvents.OnDisplayDialogue += DisplayDialogue;
+            
+            //tags
+            EventManager.Instance.DialogueEvents.OnTagChangeSpeaker1Name += ChangeSpeaker1Name;
+            EventManager.Instance.DialogueEvents.OnTagChangeSpeaker2Name += ChangeSpeaker2Name;
+            EventManager.Instance.DialogueEvents.OnTagChangePortrait1 += ChangePortrait1;
+            EventManager.Instance.DialogueEvents.OnTagChangePortrait2 += ChangePortrait2;
+            EventManager.Instance.DialogueEvents.OnTagChangeCurrentSpeaker += ChangeCurrentSpeaker;
+            
         }
         private void OnDisable()
         {
             EventManager.Instance.DialogueEvents.OnDialogueStarted -= DialogueStarted;
             EventManager.Instance.DialogueEvents.OnDialogueFinished -= DialogueFinished;
             EventManager.Instance.DialogueEvents.OnDisplayDialogue -= DisplayDialogue;
+            
+            //tags
+            EventManager.Instance.DialogueEvents.OnTagChangeSpeaker1Name -= ChangeSpeaker1Name;
+            EventManager.Instance.DialogueEvents.OnTagChangeSpeaker2Name -= ChangeSpeaker2Name;
+            EventManager.Instance.DialogueEvents.OnTagChangePortrait1 -= ChangePortrait1;
+            EventManager.Instance.DialogueEvents.OnTagChangePortrait2 -= ChangePortrait2;
+            EventManager.Instance.DialogueEvents.OnTagChangeCurrentSpeaker -= ChangeCurrentSpeaker;
         }
         
         
@@ -130,6 +182,87 @@ namespace _Scripts.Dialog_Ink.UI
         private void ResetPanel()
         {
             dialogueText.text = "";
+        }
+
+        //tag events methods
+        private void ChangeSpeaker1Name(string speakerNameTag)
+        {
+            //Debug.Log("ChangeSpeaker1Name: " + speakerNameTag);
+            speaker1Text.text = char.ToUpper(speakerNameTag[0]) + speakerNameTag.Substring(1);
+        }
+        
+        private void ChangeSpeaker2Name(string speakerNameTag)
+        {
+            //Debug.Log("ChangeSpeaker2Name: " + speakerNameTag);
+            speaker2Text.text = char.ToUpper(speakerNameTag[0]) + speakerNameTag.Substring(1);
+        }
+        
+        
+        private void ChangePortrait1(string portraitNameTag)
+        {
+            //Debug.Log("ChangePortrait1: " + portraitNameTag);
+            portrait1Image.sprite = getPortraitSprite(portraitNameTag);
+            
+        }
+        private void ChangePortrait2(string portraitNameTag)
+        {
+            //Debug.Log("ChangePortrait2: " + portraitNameTag);
+            portrait2Image.sprite = getPortraitSprite(portraitNameTag);
+        }
+
+        private Sprite getPortraitSprite(string portraitNameTag)
+        {
+            string[] portraitNameParts = portraitNameTag.Split('_');
+            foreach (var charAndDictPair in _characterPortraits) //try to find dictionary with sprites for current character
+            {
+                if (charAndDictPair.Key == portraitNameParts[0])
+                {
+                    //Debug.Log("we found dictionary with name "+charAndDictPair.Key);
+                    foreach (var portraitNameAndSpritePair in _characterPortraits[charAndDictPair.Key]) //try to find sprite with current emotion
+                    {
+                        if (portraitNameAndSpritePair.Key == portraitNameTag)
+                        {
+                            //Debug.Log("we found sprite with name "+portraitNameAndSpritePair.Key);
+                            return portraitNameAndSpritePair.Value;
+                        }
+                    }
+                    
+                }
+            }
+            
+            return null;
+        }
+        
+        
+        private void ChangeCurrentSpeaker(string currentSpeakerTag)
+        {
+            //Debug.Log("TagCurrentSpeaker: " + currentSpeakerTag);
+            if (currentSpeakerTag.Equals("speaker1"))
+            {
+                speaker1Text.fontSize = 22;
+                speaker1Text.fontStyle = FontStyles.Bold;
+                speaker1Text.color = Color.white;
+                portrait1Image.color = Color.white;
+                
+                
+                speaker2Text.fontSize = 20;
+                speaker2Text.fontStyle = FontStyles.Normal;
+                speaker2Text.color = Color.grey;
+                portrait2Image.color = Color.white;
+            }
+            else
+            {
+                speaker1Text.fontSize = 20;
+                speaker1Text.fontStyle = FontStyles.Normal;
+                speaker1Text.color = Color.grey;
+                portrait1Image.color = Color.grey;
+                
+                
+                speaker2Text.fontSize = 22;
+                speaker2Text.fontStyle = FontStyles.Bold;
+                speaker2Text.color = Color.white;
+                portrait2Image.color = Color.white;
+            }
         }
         
     }

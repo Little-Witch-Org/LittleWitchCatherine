@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using _Scripts.Components.TimeManagement.Enums;
 using _Scripts.ScriptableObjects.Locations;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace _Scripts.Managers
 {
@@ -19,15 +20,14 @@ namespace _Scripts.Managers
         [SerializeField] private string transitionPlace; //uses for transition
         
         [SerializeField] private List<LocationStateSo> locationStates;
-        [SerializeField] private LocationStateSo currentLocation;
-        [SerializeField] private string currenPlace; //todo change to prefab link ?
+        [SerializeField] private LocationStateSo currentLocationStateSo;
+        [SerializeField] private string currenPlace; //todo change to prefab link of place ?
 
         private void OnEnable()
         {
-            EventManager.Instance.TransitionEvents.OnPlaceTransitionTriggered += SetTransitionInfo;
+            EventManager.Instance.TransitionEvents.OnTransitionTriggered += SetTransitionInfo;
             
-            EventManager.Instance.TransitionEvents.OnSetLoadedPlaceName += UpdateCurrentPlace;
-            EventManager.Instance.TransitionEvents.OnSetLoadedLocationName += UpdateCurrentLocation;
+            EventManager.Instance.TransitionEvents.OnLoadedPlace += UpdateCurrentLocationAndPlace;
             
             EventManager.Instance.TimeEvents.OnTimeOfDayChange += UpdateTimeOfDayForLocations;
             
@@ -36,10 +36,9 @@ namespace _Scripts.Managers
 
         private void OnDisable()
         {
-            EventManager.Instance.TransitionEvents.OnPlaceTransitionTriggered -= SetTransitionInfo;
+            EventManager.Instance.TransitionEvents.OnTransitionTriggered -= SetTransitionInfo;
             
-            EventManager.Instance.TransitionEvents.OnSetLoadedPlaceName -= UpdateCurrentPlace;
-            EventManager.Instance.TransitionEvents.OnSetLoadedLocationName -= UpdateCurrentLocation;
+            EventManager.Instance.TransitionEvents.OnLoadedPlace -= UpdateCurrentLocationAndPlace;
             
             EventManager.Instance.TimeEvents.OnTimeOfDayChange -= UpdateTimeOfDayForLocations;
         }
@@ -49,6 +48,7 @@ namespace _Scripts.Managers
             if (Instance == null)
             {
                 Instance = this;
+                Initialize();
                 DontDestroyOnLoad(gameObject);
             }
             else
@@ -57,7 +57,12 @@ namespace _Scripts.Managers
             }
             
             
-            //todo add default variables initialization depending on start scene
+        }
+
+        private void Initialize()
+        {
+            currentLocationStateSo = null;
+            currenPlace = "";
         }
 
         
@@ -82,10 +87,17 @@ namespace _Scripts.Managers
             return transitionPlace;
         }
 
-        public LocationStateSo GetCurrentLocation()
+        
+        
+        public LocationStateSo GetCurrentLocationStateSo()
         {
-            return currentLocation;
+            return currentLocationStateSo;
         }
+        public string GetCurrentPlace()
+        {
+            return currenPlace;
+        }
+        
         
 
         private void UpdateTimeOfDayForLocations(TimeOfDay timeOfDay)
@@ -96,13 +108,16 @@ namespace _Scripts.Managers
             }
         }
 
-        private void UpdateCurrentPlace(string place)
+        private void UpdateCurrentLocationAndPlace(string location, string place)
         {
+            //Debug.Log("locMan update current location " + location);
+            currentLocationStateSo = locationStates.Find(locationState => locationState.name == location);
+            
+            //Debug.Log("locMan update current place "+ place);
             currenPlace = place;
-        }
-        private void UpdateCurrentLocation(string location)
-        {
-            currentLocation = locationStates.Find(locationState => locationState.name == location);
+            
+            //invoke method for player and npc
+            EventManager.Instance.TransitionEvents.CurrentScreenPlace(location, place);
         }
     }
 }

@@ -52,6 +52,36 @@ namespace _Scripts.Dialog_Ink
         {
             OnCompleteDialogueKnot?.Invoke(characterName, dialogueKnotName);
         }
+        
+        //tags
+        public event Action<string> OnTagChangeSpeaker1Name;
+        public void TagChangeSpeaker1Name(string speaker1NameTag)
+        {
+            OnTagChangeSpeaker1Name?.Invoke(speaker1NameTag);
+        }
+        
+        public event Action<string> OnTagChangeSpeaker2Name;
+        public void TagChangeSpeaker2Name(string speaker2NameTag)
+        {
+            OnTagChangeSpeaker2Name?.Invoke(speaker2NameTag);
+        }
+        
+        public event Action<string> OnTagChangePortrait1;
+        public void TagChangePortrait1(string portraitTag1)
+        {
+            OnTagChangePortrait1?.Invoke(portraitTag1);
+        }
+        public event Action<string> OnTagChangePortrait2;
+        public void TagChangePortrait2(string portraitTag2)
+        {
+            OnTagChangePortrait2?.Invoke(portraitTag2);
+        }
+        
+        public event Action<string> OnTagChangeCurrentSpeaker;
+        public void TagChangeCurrentSpeaker(string currentSpeaker)
+        {
+            OnTagChangeCurrentSpeaker?.Invoke(currentSpeaker);
+        }
     }
     
 }

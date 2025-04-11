@@ -45,7 +45,7 @@ namespace _Scripts.Components.SceneTransitionComponents
 
         private void Start()
         {
-            TimeOfDay timeOfDay = LocationManager.Instance.GetCurrentLocation().TimeOfDay;
+            TimeOfDay timeOfDay = LocationManager.Instance.GetCurrentLocationStateSo().TimeOfDay;
             LoadRoomState(timeOfDay);
         }
     }
