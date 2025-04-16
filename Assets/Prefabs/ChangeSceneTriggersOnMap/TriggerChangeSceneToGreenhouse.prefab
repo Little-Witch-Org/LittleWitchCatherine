@@ -30,7 +30,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5248944080065671441, guid: 6c671642bdd1ba448a35042b7fa49d8a, type: 3}
       propertyPath: enterTriggerEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ToLaunchTriggerFadeIn
+      value: ChangeSceneTrigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 5248944080065671441, guid: 6c671642bdd1ba448a35042b7fa49d8a, type: 3}
+      propertyPath: enterTriggerEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: _Scripts.Components.Transition.ChangeSceneTriggerComponent, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6299496842522335112, guid: 6c671642bdd1ba448a35042b7fa49d8a, type: 3}
       propertyPath: m_LocalPosition.x

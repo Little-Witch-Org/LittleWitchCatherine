@@ -36,17 +36,18 @@ namespace _Scripts.Service.Log
 
         public void Log(string message)
         {
-            // warnings always on
-            Debug.Log($"{GetCallerInfo()} {message}");
+            if (isEnabled)
+            {
+                Debug.Log($"{GetCallerInfo()} {message}");
+            }
 
         }
 
         public void LogWarning(string message)
         {
-            if (isEnabled)
-            {
-                Debug.LogWarning($"{GetCallerInfo()} {message}");
-            }
+            // warn always on
+            Debug.LogWarning($"{GetCallerInfo()} {message}");
+
         }
 
         public void LogError(string message)

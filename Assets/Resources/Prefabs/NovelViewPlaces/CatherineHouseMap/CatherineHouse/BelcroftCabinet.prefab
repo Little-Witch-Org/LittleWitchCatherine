@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 727217600014926023}
   - component: {fileID: 2282704931992370240}
   - component: {fileID: 8230091364008965887}
-  - component: {fileID: 7890294388169611490}
   - component: {fileID: 151917672019894578}
   m_Layer: 0
   m_Name: SFCorridor
@@ -182,18 +181,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 7890294388169611490}
-        m_TargetAssemblyTypeName: TransparentTriggerComponent, Assembly-CSharp
-        m_MethodName: ToLaunchTriggerCycle
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   OnEnter:
     m_PersistentCalls:
       m_Calls:
@@ -236,20 +223,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d632d62ab446742408a876e6e1611359, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CursorTextureDefault: {fileID: 2800000, guid: 2e71a8202d3b4a3448ec85ced5a40265, type: 3}
-  CursorTextureToChange: {fileID: 2800000, guid: 7d4a349e204be984cbd483b7ba288543, type: 3}
---- !u!114 &7890294388169611490
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6859105754423037125}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd373966a77907b49b92508d068d2a23, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  cursorDefaultPath: Sprite/Cursors/cursorDefault
+  cursorTransitionPath: Sprite/Cursors/cursorTransition
 --- !u!114 &151917672019894578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,8 +249,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2168269484694772987}
   - component: {fileID: 3760628456369157125}
-  - component: {fileID: 3298863882008346815}
-  - component: {fileID: 712120078470885451}
   - component: {fileID: 2392302352006647187}
   m_Layer: 0
   m_Name: BelcroftCabinet
@@ -355,30 +328,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3298863882008346815
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7132937731223879731}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b56fb5349e11bbf47a639f9293912b89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &712120078470885451
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7132937731223879731}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e723eb49f2821984ba4c85a98616d602, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2392302352006647187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -396,4 +345,3 @@ MonoBehaviour:
   - {fileID: -2818770162931517905, guid: 5e112d700bc5f0d4c899539564a802a1, type: 3}
   - {fileID: -3936357289417366243, guid: 1985c718a6ca18243bc430ec49066360, type: 3}
   - {fileID: 6941849947065824096, guid: 8b375a59a16e84d4d957b6c52e01803a, type: 3}
-  timeOfDay: 0

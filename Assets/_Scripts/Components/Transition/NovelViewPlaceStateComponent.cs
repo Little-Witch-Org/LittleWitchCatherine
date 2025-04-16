@@ -45,7 +45,12 @@ namespace _Scripts.Components.SceneTransitionComponents
 
         private void Start()
         {
-            TimeOfDay timeOfDay = LocationManager.Instance.GetCurrentLocationStateSo().TimeOfDay;
+            if (LocationManager.Instance == null)
+            {
+                Debug.LogError("NovelViewPlaceStateComponent can't find LocationManager");
+                return;
+            }
+            TimeOfDay timeOfDay = LocationManager.Instance.GetCurrentLocationState().TimeOfDay;
             LoadRoomState(timeOfDay);
         }
     }

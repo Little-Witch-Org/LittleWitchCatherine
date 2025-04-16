@@ -12,18 +12,12 @@ namespace _Scripts
     {
         public static PlayerCharacterManager Instance;
         
-        [SerializeField] private SceneNames currentMap;
+        [SerializeField] private SceneNames currentMap; // todo scene?
         [SerializeField] private string currentLocation;
         [SerializeField] private string currentNovelPlace;
         [SerializeField] private SpawnPointsNamesCatherineHouseMap storedSpawnPointOnMap;
-
-        /*public PlayerCharacterManager(string currentLocation, SceneNames currentMap, string currentNovelPlace)
-        {
-            this.currentLocation = currentLocation;
-            this.currentMap = currentMap;
-            this.currentNovelPlace = currentNovelPlace;
-        }*/
-
+        
+        
         private void Awake()
         {
             if (Instance == null)
@@ -40,19 +34,19 @@ namespace _Scripts
 
         private void OnEnable()
         {
-            EventManager.Instance.TransitionEvents.OnCurrentScreenPlace += UpdateCurrentPlace;
+            EventManager.Instance.TransitionEvents.OnCurrentPlaceOnScreen += UpdateCurrentPlaceOn;
         }
 
         private void OnDisable()
         {
-            EventManager.Instance.TransitionEvents.OnLoadedPlace -= UpdateCurrentPlace;
+            EventManager.Instance.TransitionEvents.OnLoadedPlace -= UpdateCurrentPlaceOn;
         }
 
         private void InitializeDefaultValues()
         {
             currentMap = SceneNames.CatherineHouseMap; //todo implement change method for transition in other Maps
-            currentLocation = null; //todo get from trigger event ? trigger it from location manager after transition ?
-            currentNovelPlace = null; //todo get from trigger event ? trigger it from location manager after transition ?
+            currentLocation = null; 
+            currentNovelPlace = null; 
             storedSpawnPointOnMap = SpawnPointsNamesCatherineHouseMap.StartPositionPoint;
         }
         
@@ -68,7 +62,7 @@ namespace _Scripts
            return storedSpawnPointOnMap;
         }
         
-        private void UpdateCurrentPlace(string location, string place)
+        private void UpdateCurrentPlaceOn(string location, string place)
         {
             currentNovelPlace = place;
             currentLocation = location;

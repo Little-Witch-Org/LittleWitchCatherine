@@ -674,11 +674,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentActualStoryName: TestNpcCharacter1_StoryMain
   currentActualDialogueKnotName: 
-  inkIncludeFiles:
-  - {fileID: 102900000, guid: 851560708dd630f4bb79df6489973e37, type: 3}
-  - {fileID: 102900000, guid: 0f5e45e64d611fe4a80771b5b386076f, type: 3}
-  - {fileID: 102900000, guid: 43b5aa795667301439267379a2d1db26, type: 3}
-  - {fileID: 102900000, guid: 5f59183ad2abc4d41a73196f0997412a, type: 3}
+  dialogueKnotNames:
+  - TestNpcCharacter1_Dialogue1
+  - TestNpcCharacter1_Dialogue2
+  - TestNpcCharacter1_Dialogue3
+  - TestNpcCharacter1_Dialogue4
   currentCharacterName: 
 --- !u!114 &2722197529493870003
 MonoBehaviour:

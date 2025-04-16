@@ -49,7 +49,7 @@ namespace _Scripts.Dialog_Ink
         [SerializeField] protected string currentActualDialogueKnotName;
 
         [Header("Ink Include Files (for names only)")]
-        [SerializeField] protected List<Object> inkIncludeFiles;
+        [SerializeField] private List<string> dialogueKnotNames; //was protected List<Object> inkIncludeFiles - and this fng engine deletes this objects in build... replaced by strings
 
         private Dictionary<string, bool> _dialogueKnotStates = new Dictionary<string, bool>(); // "dialogueKnotName" (string) + "isComplete" (bool) (for current dialogue knot)
 
@@ -61,7 +61,8 @@ namespace _Scripts.Dialog_Ink
             currentCharacterName = GetComponent<NpcCharAbstract>().GetNpcName();
             SetNextCurrentDialogueKnot();
         }
-
+        
+       
         private void OnEnable()
         {
             EventManager.Instance.DialogueEvents.OnCompleteDialogueKnot += CompleteDialogueKnotInDictionary;
@@ -74,13 +75,20 @@ namespace _Scripts.Dialog_Ink
         //add list of knot names to dictionary
         private void InitializeDialogueStates()
         {
-            foreach (var inkFile in inkIncludeFiles)
-
-                if (inkFile != null)
+            _dialogueKnotStates = new Dictionary<string, bool>();
+    
+            foreach (var knotName in dialogueKnotNames)
+            {
+                if (!string.IsNullOrEmpty(knotName))
                 {
-                    string fileName = inkFile.name;
-                    _dialogueKnotStates[fileName] = false; //default dialogue state = not complete
+                    _dialogueKnotStates[knotName] = false;
                 }
+            }
+    
+            if (_dialogueKnotStates.Count == 0)
+            {
+                Debug.LogError("No dialogue knots configured!");
+            }
         }
         
         /// /// <summary>

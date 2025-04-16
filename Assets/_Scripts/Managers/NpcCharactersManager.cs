@@ -34,12 +34,12 @@ namespace _Scripts.Managers
 
         private void OnEnable()
         {
-            EventManager.Instance.TransitionEvents.OnCurrentScreenPlace += CheckSpawnConditions;
+            EventManager.Instance.TransitionEvents.OnCurrentPlaceOnScreen += CheckSpawnConditions;
         }
         
         private void OnDisable()
         {
-            EventManager.Instance.TransitionEvents.OnCurrentScreenPlace -= CheckSpawnConditions;
+            EventManager.Instance.TransitionEvents.OnCurrentPlaceOnScreen -= CheckSpawnConditions;
         }
         
 
@@ -59,8 +59,8 @@ namespace _Scripts.Managers
         {
             
             //OnScreen - current location manager location (char might be in another place)
-            var currentOnScreenLocation = LocationManager.Instance.GetCurrentLocationStateSo().LocationName;
-            var currentOnScreenPlace = LocationManager.Instance.GetCurrentPlace();
+            var currentOnScreenLocation = TransitionManager.Instance.GetCurrentLocation();
+            var currentOnScreenPlace = TransitionManager.Instance.GetCurrentPlace();
 
             
             //check all Npc's
@@ -77,14 +77,14 @@ namespace _Scripts.Managers
                     npcPlace.Equals(currentOnScreenPlace))
                 {
                     
-                    Debug.LogFormat("Npc character \"{0}\"enabled",npcObject.GetComponent<NpcCharAbstract>().GetNpcName());
+                    //Debug.LogFormat("Npc character \"{0}\"enabled",npcObject.GetComponent<NpcCharAbstract>().GetNpcName());
                     EnableNpc(npcObject);
                 }
                 else
                 {
                     if (npcObject.GetComponent<NpcCharAbstract>().IsNpcActive())
                     {
-                        Debug.LogFormat("Npc character \"{0}\"disabled",npcObject.GetComponent<NpcCharAbstract>().GetNpcName());
+                        //Debug.LogFormat("Npc character \"{0}\"disabled",npcObject.GetComponent<NpcCharAbstract>().GetNpcName());
                         DisableNpc(npcObject);
                     }
                 }

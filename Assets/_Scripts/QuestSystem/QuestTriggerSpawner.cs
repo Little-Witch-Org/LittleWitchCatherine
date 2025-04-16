@@ -38,7 +38,7 @@ namespace _Scripts.QuestSystem
 
         }
 
-        private void Update()
+        private void Update() //TODO use events instead of it ( like in npc manager) ?
         {
             if (_triggersOnScene.Count > 0)
             {

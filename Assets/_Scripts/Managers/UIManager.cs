@@ -1,5 +1,6 @@
 using System;
 using _Scripts.Components.TimeManagement.Enums;
+using _Scripts.Components.Transition.UI;
 using _Scripts.Managers;
 using _Scripts.QuestSystem;
 using DG.Tweening;
@@ -12,8 +13,9 @@ using UnityEngine.UI;
 //todo separate cheat menu from ui manager (like journal)
 public class UIManager : MonoBehaviour
 {
-    public static UIManager instance;
+    public static UIManager Instance;
     
+    public LoadScreenUI _loadScreenUI;
     public GameObject cheatMenu;
     public GameObject questMenu;
     
@@ -28,9 +30,9 @@ public class UIManager : MonoBehaviour
 
     void Awake()
     {
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
             DontDestroyOnLoad(gameObject);
         }
         else

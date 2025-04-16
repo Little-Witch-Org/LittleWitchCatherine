@@ -12,11 +12,11 @@
 }
 = RequirementsNotMet
 //Need to check IsQuestAvailable for this
-Привет, это диалог, сообщающий, что этот квест пока нельзя начать.
+Привет, это диалог, сообщающий, что этот квест пока нельзя начать.#currentSpeaker:speaker2 #speaker1name:player #portrait1:player_neutral #speaker2name:npc #portrait2:npc_neutral 
 -> END
 
 = CanStart
-Привет, это диалог начала квеста, в котором тебе предлагается сходить в оранжерею и нажать там на кружок. Нажми Space для продолжения.
+Привет, это диалог начала квеста, в котором тебе предлагается сходить в оранжерею и нажать там на кружок.#currentSpeaker:speaker2 #speaker1name:player #portrait1:player_neutral #speaker2name:npc #portrait2:npc_neutral 
 Это выбор варианта. (Выбор мышкой)
 *[Схожу] //if we use [], this will not appear in next line. Can be combined like. Yes,[I do] thanks for asking!
     Отлично, это старт нового квеста! Отчитаешься этому, слева от меня.

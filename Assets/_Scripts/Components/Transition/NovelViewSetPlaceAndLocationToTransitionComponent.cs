@@ -26,11 +26,10 @@ namespace _Scripts.Components.TransitionComponents
             { CatherineHouseMap.Seesaw, typeof(SeesawNovelViewPlaces) },
             // todo new matching locations/places
         };
-
         
         public void SelectPlace()
         {
-            EventManager.Instance.TransitionEvents.TransitionTriggered(locationType.ToString(), selectedPlace);
+            EventManager.Instance.TransitionEvents.PlaceTransitionTrigger(locationType.ToString(), selectedPlace);
             
             /*Debug.Log("invoke event for "+ locationType);
             Debug.Log("invoke event for "+ selectedPlace);

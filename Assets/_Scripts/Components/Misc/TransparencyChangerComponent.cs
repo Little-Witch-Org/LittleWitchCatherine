@@ -2,6 +2,9 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// Used for object fade on map //todo to remake?
+/// </summary>
 public class TransparencyChangerComponent : MonoBehaviour, IFadeable
 {
     [SerializeField] private float minValue = 0.5f;

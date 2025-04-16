@@ -99,9 +99,9 @@ GameObject:
   - component: {fileID: 2183905579936136460}
   - component: {fileID: 7758851966880575431}
   - component: {fileID: 5248944080065671441}
-  - component: {fileID: 7787903098809151447}
   - component: {fileID: 493497385929781508}
   - component: {fileID: -4763933264850599912}
+  - component: {fileID: -8228188399685977623}
   m_Layer: 0
   m_Name: TriggerChangeScene
   m_TagString: Untagged
@@ -234,9 +234,10 @@ MonoBehaviour:
   enterTriggerEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7787903098809151447}
-        m_TargetAssemblyTypeName: TransparentAnimationTriggerComponent, Assembly-CSharp
-        m_MethodName: ToLaunchTriggerFadeIn
+      - m_Target: {fileID: -8228188399685977623}
+        m_TargetAssemblyTypeName: _Scripts.Components.Transition.SwitchSceneTriggerComponent,
+          Assembly-CSharp
+        m_MethodName: ChangeSceneTrigger
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -275,18 +276,6 @@ MonoBehaviour:
   spriteRenderer1: {fileID: 3220835991414629463}
   spriteRenderer2: {fileID: 4535261987058920164}
   interactionHintRenderer: {fileID: 1279628793278762978}
---- !u!114 &7787903098809151447
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2751752197797999937}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd373966a77907b49b92508d068d2a23, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &493497385929781508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -314,6 +303,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointNamesName: 0
+--- !u!114 &-8228188399685977623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2751752197797999937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b1cece8889d464497e2a355bfda8680, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scene: 1
 --- !u!1 &4559930216136493157
 GameObject:
   m_ObjectHideFlags: 0

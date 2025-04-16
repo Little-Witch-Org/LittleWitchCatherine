@@ -292,8 +292,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentActualStoryName: TestNpcCharacter3_StoryMain
   currentActualDialogueKnotName: 
-  inkIncludeFiles:
-  - {fileID: 102900000, guid: e0beb7d18b0942a44820fcff1108e3b4, type: 3}
+  dialogueKnotNames:
+  - TestNpcCharacter3_Dialogue1
   currentCharacterName: 
 --- !u!114 &343205461644516398
 MonoBehaviour:

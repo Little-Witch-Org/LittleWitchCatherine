@@ -23,7 +23,7 @@ namespace _Scripts.Dialog_Ink.UI
         [SerializeField] private Image portrait1Image;
         [SerializeField] private Image portrait2Image;
         
-        //Player portraits
+        //Player portraits //todo make load to lists automatically from resources?
         [SerializeField] private List<Sprite> playerPortraitsSpriteList = new List<Sprite>();
         
         //Npc portraits

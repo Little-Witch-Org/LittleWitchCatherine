@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 8209868469354893707}
   - component: {fileID: 5680524488289361652}
   - component: {fileID: 6935070912401006188}
-  - component: {fileID: 3875506493999852140}
   - component: {fileID: 6955716794733505936}
   m_Layer: 0
   m_Name: DiningRoom
@@ -182,18 +181,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 3875506493999852140}
-        m_TargetAssemblyTypeName: TransparentTriggerComponent, Assembly-CSharp
-        m_MethodName: ToLaunchTriggerCycle
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   OnEnter:
     m_PersistentCalls:
       m_Calls:
@@ -238,18 +225,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cursorDefaultPath: Art/Cursors/cursorDefault1
   cursorTransitionPath: Art/Cursors/cursorTransition1
---- !u!114 &3875506493999852140
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7010660858101141341}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd373966a77907b49b92508d068d2a23, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &6955716794733505936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,8 +249,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2168269484694772987}
   - component: {fileID: 3760628456369157125}
-  - component: {fileID: 3298863882008346815}
-  - component: {fileID: 712120078470885451}
   - component: {fileID: 2392302352006647187}
   m_Layer: 0
   m_Name: Kitchen
@@ -356,30 +329,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3298863882008346815
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7132937731223879731}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b56fb5349e11bbf47a639f9293912b89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &712120078470885451
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7132937731223879731}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e723eb49f2821984ba4c85a98616d602, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2392302352006647187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -410,7 +359,6 @@ GameObject:
   - component: {fileID: 9190993023781417811}
   - component: {fileID: 5626004177076358263}
   - component: {fileID: 3651094366557663287}
-  - component: {fileID: 4215287565322024249}
   - component: {fileID: 2740054541699165631}
   m_Layer: 0
   m_Name: CorridorCollider
@@ -579,18 +527,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 4215287565322024249}
-        m_TargetAssemblyTypeName: TransparentTriggerComponent, Assembly-CSharp
-        m_MethodName: ToLaunchTriggerCycle
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   OnEnter:
     m_PersistentCalls:
       m_Calls:
@@ -635,18 +571,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cursorDefaultPath: Art/Cursors/cursorDefault1
   cursorTransitionPath: Art/Cursors/cursorTransition1
---- !u!114 &4215287565322024249
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8715881483157212994}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd373966a77907b49b92508d068d2a23, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2740054541699165631
 MonoBehaviour:
   m_ObjectHideFlags: 0
