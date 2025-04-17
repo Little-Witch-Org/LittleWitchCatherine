@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 namespace _Scripts.test.UI
 {
-    public class QuestLogScrollingList : MonoBehaviour
+    public class QuestLogScrollingList_Test : MonoBehaviour
     {
 
         [Header("Components")] [SerializeField]
@@ -21,7 +21,7 @@ namespace _Scripts.test.UI
         [Header("Quest Log Button")]
         [SerializeField] private GameObject questLogButtonPrefab;
         
-        private Dictionary<string, QuestLogButton> idToButtonMap = new Dictionary<string, QuestLogButton>();
+        private Dictionary<string, QuestLogButton_Test> idToButtonMap = new Dictionary<string, QuestLogButton_Test>();
 
 
         // Below is code to test that the scrolling list is working as expected.
@@ -36,7 +36,7 @@ namespace _Scripts.test.UI
                 questInfoSoTest.questStepPrefabs = new GameObject[0];
                 Quest_Test questTest = new Quest_Test(questInfoSoTest);
 
-                QuestLogButton questLogButton = CreateButtonIfNotExist(questTest,
+                QuestLogButton_Test questLogButton = CreateButtonIfNotExist(questTest,
                     () =>
                     {
                         Debug.Log("Selected: " + questInfoSoTest.displayName);
@@ -51,40 +51,40 @@ namespace _Scripts.test.UI
         }*/
 
 
-        public QuestLogButton CreateButtonIfNotExist(Quest_Test questTest, UnityAction selectAction)
+        public QuestLogButton_Test CreateButtonIfNotExist(Quest_Test questTest, UnityAction selectAction)
         {
-            QuestLogButton questLogButton = null;
+            QuestLogButton_Test questLogButtonTest = null;
             //only create button if we haven't seen this quest id before
             if (!idToButtonMap.ContainsKey(questTest.info.Id))
             {
-                questLogButton = InstantiateQuestLogButton(questTest, selectAction);
+                questLogButtonTest = InstantiateQuestLogButton(questTest, selectAction);
             }
             else
             {
-                questLogButton = idToButtonMap[questTest.info.Id];
+                questLogButtonTest = idToButtonMap[questTest.info.Id];
             }
-            return questLogButton;
+            return questLogButtonTest;
         }
         
         
-        private QuestLogButton InstantiateQuestLogButton(Quest_Test questTest, UnityAction selectAction)
+        private QuestLogButton_Test InstantiateQuestLogButton(Quest_Test questTest, UnityAction selectAction)
         {
             //create the button
-            QuestLogButton questLogButton = Instantiate(questLogButtonPrefab, contentParent.transform).GetComponent<QuestLogButton>();
+            QuestLogButton_Test questLogButtonTest = Instantiate(questLogButtonPrefab, contentParent.transform).GetComponent<QuestLogButton_Test>();
             
             //game object name in the scene
-            questLogButton.gameObject.name = questTest.info.Id + "_button";
+            questLogButtonTest.gameObject.name = questTest.info.Id + "_button";
             //initialize and set up function for when the button is selected
-            RectTransform buttonRectTransform = questLogButton.GetComponent<RectTransform>();
-            questLogButton.Initialize(questTest.info.displayName, ()=>
+            RectTransform buttonRectTransform = questLogButtonTest.GetComponent<RectTransform>();
+            questLogButtonTest.Initialize(questTest.info.displayName, ()=>
             {
                 selectAction();
                 UpdateScrolling(buttonRectTransform);
             });
             //add to map to keep track of the new button
-            idToButtonMap[questTest.info.Id] = questLogButton;
+            idToButtonMap[questTest.info.Id] = questLogButtonTest;
             
-            return questLogButton;
+            return questLogButtonTest;
         }
 
         private void UpdateScrolling(RectTransform buttonRectTransform)

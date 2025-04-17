@@ -2,7 +2,6 @@ using System;
 using _Scripts.Components.TimeManagement.Enums;
 using UnityEngine;
 
-//todo make time turn based ?
 namespace _Scripts.Managers
 {
     public class TimeManagerTurnBased : MonoBehaviour

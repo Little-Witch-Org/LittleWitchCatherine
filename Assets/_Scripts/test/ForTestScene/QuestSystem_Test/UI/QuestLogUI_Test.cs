@@ -3,14 +3,15 @@ using _Scripts.test.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class QuestLogUI : MonoBehaviour
+public class QuestLogUI_Test : MonoBehaviour
 {
 
     [Header("Components")]
-    [SerializeField] private GameObject contentParent;
-    [SerializeField] private QuestLogScrollingList scrollingList;
+    [SerializeField] public GameObject contentParent;
+    [FormerlySerializedAs("scrollingList")] [SerializeField] private QuestLogScrollingList_Test scrollingListTest;
     [SerializeField] private TMP_Text questDisplayNameText;
     [SerializeField] private TMP_Text questStatusText;
     [SerializeField] private TMP_Text goldRewardsText;
@@ -44,7 +45,7 @@ public class QuestLogUI : MonoBehaviour
         }
     }
 
-    private void ShowUI()
+    public void ShowUI()
     {
         contentParent.SetActive(true);
         //GameEventsManager_Test.Instance.playerEvents.DisablePlayerMovement();
@@ -56,7 +57,7 @@ public class QuestLogUI : MonoBehaviour
         }
     }
 
-    private void HideUI()
+    public void HideUI()
     {
         contentParent.SetActive(false);
         //GameEventsManager_Test.Instance.playerEvents.EnablePlayerMovement();
@@ -66,7 +67,7 @@ public class QuestLogUI : MonoBehaviour
     private void QuestStateChange(Quest_Test quest)
     {
         // add the button to the scrolling list if not already added
-        QuestLogButton questLogButton = scrollingList.CreateButtonIfNotExist(quest, () => {
+        QuestLogButton_Test questLogButtonTest = scrollingListTest.CreateButtonIfNotExist(quest, () => {
             SetQuestLogInfo(quest);
         });
 
@@ -74,11 +75,11 @@ public class QuestLogUI : MonoBehaviour
         // always the top button
         if (firstSelectedButton == null)
         {
-            firstSelectedButton = questLogButton.button;
+            firstSelectedButton = questLogButtonTest.button;
         }
 
         // set the button color based on quest stateEnum
-        questLogButton.SetState(quest.StateEnumTest);
+        questLogButtonTest.SetState(quest.StateEnumTest);
     }
 
     private void SetQuestLogInfo(Quest_Test quest)

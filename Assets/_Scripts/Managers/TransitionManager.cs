@@ -43,10 +43,6 @@ namespace _Scripts.Managers
             }
         }
         
-        void OnApplicationQuit()
-        {
-            GameObject.Destroy(Instance);
-        }
         
         private void OnEnable()
         {
@@ -81,18 +77,26 @@ namespace _Scripts.Managers
         
         private IEnumerator ChangeSceneCoroutine(SceneNames scene) //todo disable input while loading
         {
+            //disable hotkeys (menu)
+            EventManager.Instance.InputEvents.HotkeysAreActive(false);
+            
             //fade in screen
-            UIManager.Instance._loadScreenUI.FadeInLoadingScreen();
+            UIManager.Instance.loadScreenUI.FadeInLoadingScreen();
             yield return new WaitForSeconds(0.7f);
             
             //add loading animation
-            UIManager.Instance._loadScreenUI.LoadingProgressAnimationStart();
+            UIManager.Instance.loadScreenUI.LoadingProgressAnimation();
             
             //load scene
             yield return _sceneLoader.LoadSceneAsync(scene);
             
+            yield return new WaitForSeconds(0.3f);
+            
             //stop loading animation
-            UIManager.Instance._loadScreenUI.FadeOutLoadingScreen();
+            UIManager.Instance.loadScreenUI.FadeOutLoadingScreen();
+            
+            //enable hotkeys (menu)
+            EventManager.Instance.InputEvents.HotkeysAreActive(true);
             
         }
         

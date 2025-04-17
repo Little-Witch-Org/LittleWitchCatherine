@@ -34,7 +34,7 @@ namespace _Scripts.QuestSystem.UI
                 questInfoSoTest.questStepPrefabs = new GameObject[0];
                 Quest questTest = new Quest(questInfoSoTest);
 
-                QuestLogButton questLogButton = CreateButtonIfNotExist(questTest,
+                QuestLogButton_Test questLogButton = CreateButtonIfNotExist(questTest,
                     () =>
                     {
                         Debug.Log("Selected: " + questInfoSoTest.displayName);

@@ -31,9 +31,9 @@ namespace _Scripts.Components.UEventsTriggers
 
         private IEnumerator BlockDialogueInputForFrame()
         {
-            EventManager.Instance.InputEvents.LockInput(true);
+            EventManager.Instance.InputEvents.LockSubmit(true);
             yield return new WaitForEndOfFrame();
-            EventManager.Instance.InputEvents.LockInput(false);
+            EventManager.Instance.InputEvents.LockSubmit(false);
         }
 
         private void OnMouseExit()

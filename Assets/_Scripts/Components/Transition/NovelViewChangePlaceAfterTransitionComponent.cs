@@ -81,8 +81,11 @@ namespace _Scripts.Components.TransitionComponents
         }
 
 
-        private void ChangePlaceWithFade() //todo disable input while loading
+        private void ChangePlaceWithFade()
         {
+            //disable hotkeys (menu)
+            EventManager.Instance.InputEvents.HotkeysAreActive(false);
+
             _sequence = DOTween.Sequence();
 
             //activate box collider to prevent clicks on other colliders
@@ -100,7 +103,12 @@ namespace _Scripts.Components.TransitionComponents
             //disable box collider to prevent clicks on other colliders
             _sequence.AppendCallback(() => { clickBlocker.enabled = false; });
 
-            _sequence.Play();
+            _sequence.Play().OnComplete(() =>
+            {
+                //enable hotkeys (menu)
+                EventManager.Instance.InputEvents.HotkeysAreActive(true);
+            });
+            
         }
 
 

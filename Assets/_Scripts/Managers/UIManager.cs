@@ -1,120 +1,87 @@
 using System;
-using _Scripts.Components.TimeManagement.Enums;
 using _Scripts.Components.Transition.UI;
-using _Scripts.Managers;
-using _Scripts.QuestSystem;
-using DG.Tweening;
-using TMPro;
-using Unity.VisualScripting;
+using _Scripts.UI;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
+using _Scripts.QuestSystem.UI;
+using UnityEngine.Serialization;
 
-//todo separate cheat menu from ui manager (like journal)
-public class UIManager : MonoBehaviour
+namespace _Scripts.Managers
 {
-    public static UIManager Instance;
-    
-    public LoadScreenUI _loadScreenUI;
-    public GameObject cheatMenu;
-    public GameObject questMenu;
-    
-    
-    public bool isMenuOpen;
-
-    public TMP_Text timeText;
-    public TMP_Text dateText;
-    public TMP_Text yearText;
-    public TMP_Text timeOfDayText;
-
-
-    void Awake()
+    public class UIManager : MonoBehaviour
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
+        public static UIManager Instance;
 
-    private void OnEnable()
-    {
-        EventManager.Instance.TimeEvents.OnTimeOfDayChange += ChangeTimeOfDayText;
-        EventManager.Instance.TimeEvents.OnTimeChange += ChangeTimeText;
-        EventManager.Instance.TimeEvents.OnDateChange += ChangeDateText;
+        public LoadScreenUI loadScreenUI;
+
+        [SerializeField] private CheatMenuUI cheatMenuUI;
+        [SerializeField] private QuestLogMenuUI questLogMenuUI;
+
+        private IMenu CheatMenuUI => cheatMenuUI;
+        private IMenu QuestLogMenuUI => questLogMenuUI;
+
+        //public GameObject cheatMenu;
+        //public GameObject questMenu;
+
+
+        //private bool _isMenuOpen;
+        private IMenu _currentOpenedMenu;
+
+
+
+        void Awake()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
+
+        private void OnEnable()
+        {
+            EventManager.Instance.InputEvents.OnJournalPressed += ToggleQuestLog;
+            EventManager.Instance.InputEvents.OnMenuPressed += ToggleCheatMenu;
+        }
+
+        private void OnDisable()
+        {
+            EventManager.Instance.InputEvents.OnJournalPressed -= ToggleQuestLog;
+            EventManager.Instance.InputEvents.OnMenuPressed -= ToggleCheatMenu;
+        }
         
-        EventManager.Instance.InputEvents.OnMenuPressed += ToggleCheatMenu;
-
-        
-    }
-    
-    private void OnDisable()
-    {
-        EventManager.Instance.TimeEvents.OnTimeOfDayChange -= ChangeTimeOfDayText;
-        EventManager.Instance.TimeEvents.OnTimeChange -= ChangeTimeText;
-        EventManager.Instance.TimeEvents.OnDateChange -= ChangeDateText;
-        
-        EventManager.Instance.InputEvents.OnMenuPressed -= ToggleCheatMenu;
-        
-    }
-
-
-    void Start()
-    {
-        if (TimeManagerTurnBased.Instance != null)
+        private void CloseCurrentMenu()
         {
-            TimeManagerTurnBased.Instance.AddSeconds(0);//handle first ui update
+            if (_currentOpenedMenu != null)
+            {
+                _currentOpenedMenu.HideMenu();
+                _currentOpenedMenu = null;
+            }
         }
-        else
+        
+        public void ToggleMenu(IMenu menu)
         {
-            Debug.LogError("TimeManagerTurnBased instance is null!");
+            if (menu.ContentParent.activeInHierarchy)
+            {
+                CloseCurrentMenu();
+            }
+            else
+            {
+                CloseCurrentMenu();
+                _currentOpenedMenu = menu;
+                menu.ShowMenu();
+            }
         }
 
 
-    }
-    
-
-    private void ChangeTimeText(string text)
-    {
-        timeText.text = text;
-    }
-
-    private void ChangeDateText(string text)
-    {
-        dateText.text = text;
-    }
-
-    //todo not supported
-    private void ChangeYearText(string text)
-    {
-        yearText.text = text;
-    }
-
-    private void ChangeTimeOfDayText(TimeOfDay timeOfDay)
-    {
-        timeOfDayText.SetText(timeOfDay.ToString());
-    }
-    
-    public void ToggleCheatMenu()
-    {
-        isMenuOpen = !isMenuOpen;
+        public void ToggleCheatMenu() => ToggleMenu(CheatMenuUI);
+        public void ToggleQuestLog() => ToggleMenu(QuestLogMenuUI);
         
-        if (isMenuOpen)
-        {
-            Debug.Log("Opening Menu");
-            cheatMenu.SetActive(true);
-        }
-        else
-        {
-            Debug.Log("Closing Menu");
-            cheatMenu.SetActive(false);
-        }
-    }
+        
 
-    
-    
+
+    }
 }

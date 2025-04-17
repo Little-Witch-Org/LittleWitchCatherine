@@ -241,6 +241,9 @@ namespace _Scripts.Dialog_Ink
             //input event context (change input context when starting dialogue)
             EventManager.Instance.InputEvents.ChangeInputEventContext(InputEventContext.Dialogue);
             
+            //disable hotkeys (menus) during dialogue
+            EventManager.Instance.InputEvents.HotkeysAreActive(false);
+            
             //assigning current story variable (depending on provided param from dialogue starter)
             _storyCurrent = _storiesMap[storyName];
             DialogDebug.Instance.Log("Current story name - " + _storyToName[_storyCurrent]);
@@ -370,6 +373,9 @@ namespace _Scripts.Dialog_Ink
             
             //input event context (change input context back to default when dialogue ends)
             EventManager.Instance.InputEvents.ChangeInputEventContext(InputEventContext.Default);
+            
+            //enable hotkeys (menus) during dialogue
+            EventManager.Instance.InputEvents.HotkeysAreActive(true);
             
             //stop listening for variables
             _inkDialogueVariablesCurrent.StopListening(_storyCurrent);

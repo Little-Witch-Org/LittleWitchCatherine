@@ -5,7 +5,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class QuestLogButton : MonoBehaviour, ISelectHandler
+public class QuestLogButton_Test : MonoBehaviour, ISelectHandler
 {
     public Button button{get; private set;}
     private TMP_Text buttonText;

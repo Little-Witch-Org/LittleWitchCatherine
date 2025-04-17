@@ -12,11 +12,17 @@ namespace _Scripts.Events
             InputEventContext = newContext;
         }
         
-        private bool _inputLocked;
+        private bool _submitLocked; //for submit in dialogue
 
-        public void LockInput(bool locked)
+        public void LockSubmit(bool locked)
         {
-            _inputLocked = locked;
+            _submitLocked = locked;
+        }
+        
+        public event Action<bool> OnHotkeysAreActive;
+        public void HotkeysAreActive(bool toggle) 
+        {
+            OnHotkeysAreActive?.Invoke(toggle);
         }
         
         
@@ -24,7 +30,7 @@ namespace _Scripts.Events
         public event Action<InputEventContext> OnSubmitPressed;
         public void SubmitPressed() 
         {
-            if (_inputLocked) return;
+            if (_submitLocked) return;
             OnSubmitPressed?.Invoke(InputEventContext);
         }
         

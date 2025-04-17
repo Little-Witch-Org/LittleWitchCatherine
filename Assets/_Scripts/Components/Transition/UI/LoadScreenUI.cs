@@ -20,19 +20,24 @@ namespace _Scripts.Components.Transition.UI
             contentParent.SetActive(false);
         }
 
+        private void OnDestroy()
+        {
+            KillCurrentTween();
+        }
+
         public void FadeInLoadingScreen()
         {
             KillCurrentTween();
             contentParent.SetActive(true);
-            _tween = backgroundImage.DOFade(1f, 0.7f).Play().OnComplete(() =>
+            _tween = backgroundImage.DOFade(1f, 0.7f).SetEase(Ease.OutCubic).Play().OnComplete(() =>
                 {
                     loadingText.gameObject.SetActive(true);
-                    loadingIconImage.gameObject.SetActive(true); //todo use dotween to rotate?
+                    loadingIconImage.gameObject.SetActive(true);
                 }
             );
         }
 
-        public void LoadingProgressAnimationStart()
+        public void LoadingProgressAnimation()
         {
             _tween = loadingIconImage.rectTransform.DORotate(new Vector3(0, 0, -360), 1f,RotateMode.LocalAxisAdd)
                 .SetEase(Ease.Linear)
@@ -46,8 +51,8 @@ namespace _Scripts.Components.Transition.UI
         {
             KillCurrentTween();
             loadingText.gameObject.SetActive(false);
-            loadingIconImage.gameObject.SetActive(false); //todo use dotween to rotate?
-            _tween = backgroundImage.DOFade(0f, 0.7f).Play().OnComplete(()=>
+            loadingIconImage.gameObject.SetActive(false);
+            _tween = backgroundImage.DOFade(0f, 0.7f).SetEase(Ease.OutCubic).Play().OnComplete(()=>
             {
                 contentParent.SetActive(false);
             });

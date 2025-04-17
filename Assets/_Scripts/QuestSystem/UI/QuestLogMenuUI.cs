@@ -1,3 +1,4 @@
+using _Scripts.UI;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -7,11 +8,12 @@ using UnityEngine.UI;
 
 namespace _Scripts.QuestSystem.UI
 {
-    public class QuestLogUI : MonoBehaviour
+    public class QuestLogMenuUI : MonoBehaviour,IMenu
     {
 
         [Header("Components")]
         [SerializeField] private GameObject contentParent;
+        public GameObject ContentParent => contentParent;
         [SerializeField] private QuestLogScrollingList scrollingList;
         [SerializeField] private TMP_Text questDisplayNameText;
         [SerializeField] private TMP_Text questStatusText; // print previous and current quest step statuses + quest status
@@ -26,7 +28,6 @@ namespace _Scripts.QuestSystem.UI
 
         private void OnEnable()
         {
-            EventManager.Instance.InputEvents.OnJournalPressed += QuestLogTogglePressed;
             EventManager.Instance.QuestEvents.OnQuestStateChange += QuestStateChange;
             
             EventManager.Instance.QuestEvents.OnQuestStateChange += HighliteQuestbutton;
@@ -34,27 +35,14 @@ namespace _Scripts.QuestSystem.UI
 
         private void OnDisable()
         {
-            EventManager.Instance.InputEvents.OnJournalPressed -= QuestLogTogglePressed;
             EventManager.Instance.QuestEvents.OnQuestStateChange -= QuestStateChange;
             
             EventManager.Instance.QuestEvents.OnQuestStateChange -= HighliteQuestbutton;
         }
 
-        public void QuestLogTogglePressed()
-        {
-            ColorUtility.TryParseHtmlString("#6F2502", out var customColor);
-            questLogButton.image.color = customColor;
-            if (contentParent.activeInHierarchy)
-            {
-                HideUI();
-            }
-            else
-            {
-                ShowUI();
-            }
-        }
 
-        public void ShowUI()
+
+        public void ShowMenu()
         {
             contentParent.SetActive(true);
             //GameEventsManager_Test.Instance.playerEvents.DisablePlayerMovement();
@@ -62,11 +50,13 @@ namespace _Scripts.QuestSystem.UI
             // or else the onSelectAction won't work as expected
             if (_firstSelectedButton != null)
             {
-                _firstSelectedButton.Select();
+                _firstSelectedButton.Select();//todo to disable?
             }
+            ColorUtility.TryParseHtmlString("#6F2502", out var customColor); //reset highlighted color to default
+            questLogButton.image.color = customColor;
         }
 
-        public void HideUI()
+        public void HideMenu()
         {
             contentParent.SetActive(false);
             //GameEventsManager_Test.Instance.playerEvents.EnablePlayerMovement();
