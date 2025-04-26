@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 863207898822432459}
   - component: {fileID: 4052722116550531464}
   - component: {fileID: 7605905355318910847}
-  - component: {fileID: 2469031427758008753}
   - component: {fileID: 3061328344739839491}
   m_Layer: 0
   m_Name: LibrarySecondRoom
@@ -116,62 +115,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2469031427758008753}
-        m_TargetAssemblyTypeName: CursorChangeComponent, Assembly-CSharp
-        m_MethodName: ToDefaultCursorTexture
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnEnter:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2469031427758008753}
-        m_TargetAssemblyTypeName: CursorChangeComponent, Assembly-CSharp
-        m_MethodName: ChangeCursorTexture
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnExit:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2469031427758008753}
-        m_TargetAssemblyTypeName: CursorChangeComponent, Assembly-CSharp
-        m_MethodName: ToDefaultCursorTexture
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &2469031427758008753
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6631865193319796063}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d632d62ab446742408a876e6e1611359, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cursorDefaultPath: Sprite/Cursors/cursorDefault
-  cursorTransitionPath: Sprite/Cursors/cursorTransition
 --- !u!114 &3061328344739839491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,7 +141,6 @@ GameObject:
   - component: {fileID: 3895083375096520849}
   - component: {fileID: 727217600014926023}
   - component: {fileID: 2282704931992370240}
-  - component: {fileID: 8230091364008965887}
   - component: {fileID: 715845735338528209}
   m_Layer: 0
   m_Name: SFCorridor
@@ -355,62 +297,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 8230091364008965887}
-        m_TargetAssemblyTypeName: CursorChangeComponent, Assembly-CSharp
-        m_MethodName: ToDefaultCursorTexture
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnEnter:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8230091364008965887}
-        m_TargetAssemblyTypeName: CursorChangeComponent, Assembly-CSharp
-        m_MethodName: ChangeCursorTexture
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnExit:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8230091364008965887}
-        m_TargetAssemblyTypeName: CursorChangeComponent, Assembly-CSharp
-        m_MethodName: ToDefaultCursorTexture
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &8230091364008965887
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6859105754423037125}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d632d62ab446742408a876e6e1611359, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cursorDefaultPath: Sprite/Cursors/cursorDefault
-  cursorTransitionPath: Sprite/Cursors/cursorTransition
 --- !u!114 &715845735338528209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -527,7 +413,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99135e8dbe6b78b4b981e13cd4da81f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomStateSprites:
+  placeName: 
+  placeStateSprites:
   - {fileID: 450476395204358690, guid: af60f2710d78e8b479d21a8db4752d53, type: 3}
   - {fileID: -7648218616198237705, guid: e6ccb9c38f4b36d458cb2be7869f256e, type: 3}
   - {fileID: 8180596942696152216, guid: 380586d3009d6644d8a7879dad68a5c9, type: 3}

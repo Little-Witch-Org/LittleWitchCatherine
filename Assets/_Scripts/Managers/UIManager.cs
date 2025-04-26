@@ -15,9 +15,11 @@ namespace _Scripts.Managers
 
         [SerializeField] private CheatMenuUI cheatMenuUI;
         [SerializeField] private QuestLogMenuUI questLogMenuUI;
+        [SerializeField] private PlayerStatsUI playerStatsUI;
 
         private IMenu CheatMenuUI => cheatMenuUI;
         private IMenu QuestLogMenuUI => questLogMenuUI;
+        private IMenu PlayerStatsUI => playerStatsUI;
 
         //public GameObject cheatMenu;
         //public GameObject questMenu;
@@ -45,12 +47,14 @@ namespace _Scripts.Managers
         {
             EventManager.Instance.InputEvents.OnJournalPressed += ToggleQuestLog;
             EventManager.Instance.InputEvents.OnMenuPressed += ToggleCheatMenu;
+            EventManager.Instance.InputEvents.OnStatsPressed += ToggleStatsMenu;
         }
 
         private void OnDisable()
         {
             EventManager.Instance.InputEvents.OnJournalPressed -= ToggleQuestLog;
             EventManager.Instance.InputEvents.OnMenuPressed -= ToggleCheatMenu;
+            EventManager.Instance.InputEvents.OnStatsPressed -= ToggleStatsMenu;
         }
         
         private void CloseCurrentMenu()
@@ -79,6 +83,7 @@ namespace _Scripts.Managers
 
         public void ToggleCheatMenu() => ToggleMenu(CheatMenuUI);
         public void ToggleQuestLog() => ToggleMenu(QuestLogMenuUI);
+        public void ToggleStatsMenu() => ToggleMenu(PlayerStatsUI);
         
         
 

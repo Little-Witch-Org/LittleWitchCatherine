@@ -122,7 +122,7 @@ namespace _Scripts.QuestSystem
         //we can pass a parameter providing branching within the quest step and fail parameter to fail step
         protected abstract void ActivateSubscribedMethodOnTrigger(string customParam, bool isFailed);
 
-        //invokes this method after initialization in Quest class. Can be used to fill custom values for quest step
+        //invokes this method after initialization in Quest class. Can be used to fill custom values for quest step or some invocations
         protected abstract void SetQuestStepState(QuestStepValues questStepValues);
 
         public bool getFailIsPreviousFailedOption()

@@ -7,11 +7,11 @@ namespace _Scripts.Dialog_Ink
 {
     public class DialogueEvents
     {
-        public Action<string, string> OnEnterDialogue;
+        public Action<string, string, bool> OnEnterDialogue;
         //this method used to manually trigger event (as auto invoke in some places in start or update)
-        public void EnterDialogue(string storyName, string knotName)
+        public void EnterDialogue(string storyName, string knotName, bool isCutsceneUI)
         {
-            OnEnterDialogue?.Invoke(storyName, knotName);
+            OnEnterDialogue?.Invoke(storyName, knotName, isCutsceneUI);
         }
         
         public Action OnDialogueStarted;
@@ -25,12 +25,24 @@ namespace _Scripts.Dialog_Ink
         {
             OnDialogueFinished?.Invoke();
         }
-
-        public Action<string,List<Choice>> OnDisplayDialogue;
-
-        public void DisplayDialogue(string dialogueLine, List<Choice> dialogueChoices)
+        
+        public Action OnDialogueStartedCutscene;
+        public void DialogueStartedCutscene()
         {
-            OnDisplayDialogue?.Invoke(dialogueLine,dialogueChoices);
+            OnDialogueStartedCutscene?.Invoke();
+        }
+        
+        public Action OnDialogueFinishedCutscene;
+        public void DialogueFinishedCutscene()
+        {
+            OnDialogueFinishedCutscene?.Invoke();
+        }
+
+        public Action<string,List<Choice>,bool> OnDisplayDialogue;
+
+        public void DisplayDialogue(string dialogueLine, List<Choice> dialogueChoices,bool isCutsceneUI)
+        {
+            OnDisplayDialogue?.Invoke(dialogueLine,dialogueChoices,isCutsceneUI);
         }
 
         public Action<int> OnUpdateChoiceIndex;
@@ -52,6 +64,22 @@ namespace _Scripts.Dialog_Ink
         {
             OnCompleteDialogueKnot?.Invoke(characterName, dialogueKnotName);
         }
+        
+        
+        //Utils
+        public event Action<string> OnStartDialogueWithNpc;
+        public void StartDialogueWithNpc(string npcName)
+        {
+            OnStartDialogueWithNpc?.Invoke(npcName);
+        }
+        
+        public event Action<string, bool> OnSetDialogueAutoActivation;
+        public void SetDialogueAutoActivation(string npcName, bool isActive)
+        {
+            OnSetDialogueAutoActivation?.Invoke(npcName, isActive);
+        }
+        
+        
         
         //tags
         public event Action<string> OnTagChangeSpeaker1Name;

@@ -51,6 +51,11 @@ namespace _Scripts.Managers
                 {
                     EventManager.Instance.InputEvents.JournalPressed();
                 }
+                
+                if (Input.GetKeyDown(KeyCode.C))
+                {
+                    EventManager.Instance.InputEvents.StatsPressed();
+                }
 
                 if (Input.GetKeyDown(KeyCode.F))
                 {

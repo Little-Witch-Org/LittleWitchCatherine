@@ -15,7 +15,13 @@ public class EventManager : MonoBehaviour
     public TimeEvents TimeEvents;
     public QuestEvents QuestEvents;
     public DialogueEvents DialogueEvents;
-
+    public CutsceneEvents CutsceneEvents;
+    public GameEvents GameEvents;
+    public LocationsAndPlacesEvents LocationsAndPlacesEvents;
+    public MiscEvents MiscEvents;
+    public PlayerStatsEvents PlayerStatsEvents;
+    public ReputationEvents ReputationEvents;
+    
     private void Awake()
     {
         if (Instance != null)
@@ -42,5 +48,11 @@ public class EventManager : MonoBehaviour
         TimeEvents = new TimeEvents();
         QuestEvents = new QuestEvents();
         DialogueEvents = new DialogueEvents();
+        CutsceneEvents = new CutsceneEvents();
+        GameEvents = new GameEvents();
+        LocationsAndPlacesEvents = new LocationsAndPlacesEvents();
+        MiscEvents = new MiscEvents();
+        PlayerStatsEvents = new PlayerStatsEvents();
+        ReputationEvents = new ReputationEvents();
     }
 }

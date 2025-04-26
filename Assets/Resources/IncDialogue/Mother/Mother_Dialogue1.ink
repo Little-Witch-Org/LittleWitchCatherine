@@ -1,0 +1,9 @@
+===Mother_Dialogue1===
+
+Анна: Ринни, уже за полдень, вставай. #speaker1name:Кэт #portrait1:player_neutral #speaker2name:Анналикса #portrait2:npc_neutral 
+Кет: Не хочу...  
+Анна: Ринни,  мне же не придется повторять третий раз...
+Кет: Ну Ма-а...
+~CompleteDialogueKnot(CharacterName, "Mother_Dialogue1")
+~ResumeCutscene()
+-->END

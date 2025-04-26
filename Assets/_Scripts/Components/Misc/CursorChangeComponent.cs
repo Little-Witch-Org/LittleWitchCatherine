@@ -1,46 +1,56 @@
+using System;
 using UnityEngine;
 
-public class CursorChangeComponent : MonoBehaviour
+namespace _Scripts.Components.Misc
 {
-    /*[SerializeField] private Texture2D CursorTextureDefault;
-    [SerializeField] private Texture2D CursorTextureToChange;
-
-    private Vector2 cursorHotspot;
-
-
-    private void Start()
+    public class CursorChangeComponent : MonoBehaviour
     {
-        //cursorHotspot = new Vector2(CursorTextureToChange.width / 2, CursorTextureToChange.height / 2);
-        cursorHotspot = new Vector2(8, 0);
-    }*/
+
     
-    [SerializeField] private string cursorDefaultPath = "Art/Cursors/cursorDefault1";
-    [SerializeField] private string cursorTransitionPath = "Art/Cursors/cursorTransition1";
+        [SerializeField] private string cursorDefaultPath = "Art/Cursors/cursorDefault1";
+        [SerializeField] private string cursorHoverOnTriggerPath = "Art/Cursors/cursorTransition1";
     
-    private Texture2D CursorTextureDefault;
-    private Texture2D CursorTextureToChange;
-    private Vector2 cursorHotspot;
+        private Texture2D _cursorTextureDefault;
+        private Texture2D _cursorTextureHoverOnTrigger;
+        private Vector2 _cursorHotspot;
 
-    private void Awake()
-    {
-        CursorTextureDefault = UnityEngine.Resources.Load<Texture2D>("Art/Cursors/cursorDefault1");
-        CursorTextureToChange = UnityEngine.Resources.Load<Texture2D>("Art/Cursors/cursorTransition1");
-
-        //Debug.Log("cursorDefault1: " + CursorTextureDefault);
-        //Debug.Log("cursorTransition1: " + CursorTextureToChange);
-
-        if (CursorTextureDefault == null || CursorTextureToChange == null)
+        private void Awake()
         {
-            Debug.LogError("Не удалось загрузить текстуры курсоров по указанным путям!");
-        }
-    }
+            _cursorTextureDefault = UnityEngine.Resources.Load<Texture2D>("Art/Cursors/cursorDefault1");
+            _cursorTextureHoverOnTrigger = UnityEngine.Resources.Load<Texture2D>("Art/Cursors/cursorTransition1");
 
-    public void ChangeCursorTexture() 
-    {
-        Cursor.SetCursor(CursorTextureToChange, cursorHotspot, CursorMode.Auto);
-    }
-    public void ToDefaultCursorTexture()
-    {
-        Cursor.SetCursor(CursorTextureDefault, cursorHotspot, CursorMode.Auto);
+            //Debug.Log("cursorDefault1: " + CursorTextureDefault);
+            //Debug.Log("cursorTransition1: " + CursorTextureToChange);
+
+            if (_cursorTextureDefault == null || _cursorTextureHoverOnTrigger == null)
+            {
+                Debug.LogError("Не удалось загрузить текстуры курсоров по указанным путям!");
+            }
+
+        }
+
+        private void OnEnable()
+        {
+            
+            EventManager.Instance.MiscEvents.OnCursorChangeToDefault += ToDefaultCursorTexture;
+            EventManager.Instance.MiscEvents.OnCursorChangeToHoverOnTrigger += ToHoverOnTriggerCursorTexture;
+        }
+
+        private void OnDisable()
+        {
+            EventManager.Instance.MiscEvents.OnCursorChangeToDefault -= ToDefaultCursorTexture;
+            EventManager.Instance.MiscEvents.OnCursorChangeToHoverOnTrigger -= ToHoverOnTriggerCursorTexture;
+        }
+
+        public void ToDefaultCursorTexture()
+        {
+            Cursor.SetCursor(_cursorTextureDefault, _cursorHotspot, CursorMode.Auto);
+        }
+
+        public void ToHoverOnTriggerCursorTexture() 
+        {
+            Cursor.SetCursor(_cursorTextureHoverOnTrigger, _cursorHotspot, CursorMode.Auto);
+        }
+        
     }
 }

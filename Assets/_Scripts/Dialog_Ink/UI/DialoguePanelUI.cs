@@ -5,6 +5,7 @@ using Ink.Runtime;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace _Scripts.Dialog_Ink.UI
@@ -13,6 +14,7 @@ namespace _Scripts.Dialog_Ink.UI
     {
         [Header("Components")]
         [SerializeField] private GameObject contentParent;
+        [SerializeField] private GameObject background;
         [SerializeField] private TMP_Text dialogueText;
         [SerializeField] private DialogueChoiceButton[] choiceButtons;
         
@@ -22,6 +24,10 @@ namespace _Scripts.Dialog_Ink.UI
         [SerializeField] private TMP_Text speaker2Text;
         [SerializeField] private Image portrait1Image;
         [SerializeField] private Image portrait2Image;
+        
+        [Header("Components Cutscene")]
+        [SerializeField] private GameObject contentParentCutscene;
+        [SerializeField] private TMP_Text dialogueTextCutscene;
         
         //Player portraits //todo make load to lists automatically from resources?
         [SerializeField] private List<Sprite> playerPortraitsSpriteList = new List<Sprite>();
@@ -55,6 +61,7 @@ namespace _Scripts.Dialog_Ink.UI
         private void Awake()
         {
           contentParent.SetActive(false);
+          contentParentCutscene.SetActive(false);
           
           ResetPanel();
           
@@ -64,8 +71,12 @@ namespace _Scripts.Dialog_Ink.UI
         private void OnEnable()
         {
             EventManager.Instance.DialogueEvents.OnDialogueStarted += DialogueStarted;
+            EventManager.Instance.DialogueEvents.OnDialogueStartedCutscene += DialogueStartedCutscene;
             EventManager.Instance.DialogueEvents.OnDialogueFinished += DialogueFinished;
+            EventManager.Instance.DialogueEvents.OnDialogueFinishedCutscene += DialogueFinishedCutscene;
             EventManager.Instance.DialogueEvents.OnDisplayDialogue += DisplayDialogue;
+            EventManager.Instance.CutsceneEvents.OnCutsceneStarted += DisableBackground;
+            EventManager.Instance.CutsceneEvents.OnCutsceneFinished += EnableBackground;
             
             //tags
             EventManager.Instance.DialogueEvents.OnTagChangeSpeaker1Name += ChangeSpeaker1Name;
@@ -78,8 +89,12 @@ namespace _Scripts.Dialog_Ink.UI
         private void OnDisable()
         {
             EventManager.Instance.DialogueEvents.OnDialogueStarted -= DialogueStarted;
+            EventManager.Instance.DialogueEvents.OnDialogueStartedCutscene -= DialogueStartedCutscene;
             EventManager.Instance.DialogueEvents.OnDialogueFinished -= DialogueFinished;
+            EventManager.Instance.DialogueEvents.OnDialogueFinishedCutscene -= DialogueFinishedCutscene;
             EventManager.Instance.DialogueEvents.OnDisplayDialogue -= DisplayDialogue;
+            EventManager.Instance.CutsceneEvents.OnCutsceneStarted -= DisableBackground;
+            EventManager.Instance.CutsceneEvents.OnCutsceneFinished -= EnableBackground;
             
             //tags
             EventManager.Instance.DialogueEvents.OnTagChangeSpeaker1Name -= ChangeSpeaker1Name;
@@ -104,11 +119,32 @@ namespace _Scripts.Dialog_Ink.UI
             //reset anything for nex time
             ResetPanel();
         }
-
-        private void DisplayDialogue(string dialogueLine, List<Choice> dialogueChoices)
+        private void DialogueStartedCutscene()
         {
-            dialogueText.text = dialogueLine;
             
+            contentParentCutscene.SetActive(true);
+        }
+        
+        private void DialogueFinishedCutscene()
+        {
+            
+            contentParentCutscene.SetActive(false);
+            
+            //reset anything for nex time
+            ResetPanel();
+        }
+
+        private void DisplayDialogue(string dialogueLine, List<Choice> dialogueChoices, bool isCutsceneUI)
+        {
+            if (isCutsceneUI)
+            {
+                dialogueTextCutscene.text = dialogueLine;
+            }
+            else
+            {
+                dialogueText.text = dialogueLine;
+            }
+
             //save mouse position
             Vector2 mousePos = Input.mousePosition;
             
@@ -182,6 +218,7 @@ namespace _Scripts.Dialog_Ink.UI
         private void ResetPanel()
         {
             dialogueText.text = "";
+            dialogueTextCutscene.text = "";
         }
 
         //tag events methods
@@ -201,16 +238,16 @@ namespace _Scripts.Dialog_Ink.UI
         private void ChangePortrait1(string portraitNameTag)
         {
             //Debug.Log("ChangePortrait1: " + portraitNameTag);
-            portrait1Image.sprite = getPortraitSprite(portraitNameTag);
+            portrait1Image.sprite = GetPortraitSprite(portraitNameTag);
             
         }
         private void ChangePortrait2(string portraitNameTag)
         {
             //Debug.Log("ChangePortrait2: " + portraitNameTag);
-            portrait2Image.sprite = getPortraitSprite(portraitNameTag);
+            portrait2Image.sprite = GetPortraitSprite(portraitNameTag);
         }
 
-        private Sprite getPortraitSprite(string portraitNameTag)
+        private Sprite GetPortraitSprite(string portraitNameTag)
         {
             string[] portraitNameParts = portraitNameTag.Split('_');
             foreach (var charAndDictPair in _characterPortraits) //try to find dictionary with sprites for current character
@@ -264,6 +301,14 @@ namespace _Scripts.Dialog_Ink.UI
                 portrait2Image.color = Color.white;
             }
         }
-        
+
+        private void DisableBackground()
+        {
+            background.gameObject.SetActive(false);
+        }
+        private void EnableBackground()
+        {
+            background.gameObject.SetActive(true);
+        }
     }
 }

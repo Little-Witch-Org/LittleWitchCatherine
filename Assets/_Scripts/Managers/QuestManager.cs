@@ -16,15 +16,15 @@ namespace _Scripts.QuestSystem
         //quest requirements
         private int _currentPlayerLevel;
         
-
-        //initializes quest "list" with all (pre created) quests from resources folder
         private void Awake()
         {
             if (Instance == null)
             {
+                //initializes quest "list" with all (pre created) quests from resources folder
+                questMap = CreateQuestMap();
+                
                 Instance = this;
                 DontDestroyOnLoad(gameObject);
-                questMap = CreateQuestMap();
             }
             else
             {
@@ -38,7 +38,6 @@ namespace _Scripts.QuestSystem
             Debug.Log(quest.stateEnum);
             Debug.Log(quest.IsCurrentStepExists());
             */
-
         }
       private void OnEnable()
         {
@@ -74,6 +73,7 @@ namespace _Scripts.QuestSystem
 
         private void Start()
         {
+            
             
             foreach (Quest quest in questMap.Values)
             {

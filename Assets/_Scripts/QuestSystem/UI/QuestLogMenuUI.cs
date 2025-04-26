@@ -8,38 +8,47 @@ using UnityEngine.UI;
 
 namespace _Scripts.QuestSystem.UI
 {
-    public class QuestLogMenuUI : MonoBehaviour,IMenu
+    public class QuestLogMenuUI : MonoBehaviour, IMenu
     {
 
-        [Header("Components")]
-        [SerializeField] private GameObject contentParent;
+        [Header("Components")] [SerializeField]
+        private GameObject contentParent;
+
         public GameObject ContentParent => contentParent;
         [SerializeField] private QuestLogScrollingList scrollingList;
         [SerializeField] private TMP_Text questDisplayNameText;
-        [SerializeField] private TMP_Text questStatusText; // print previous and current quest step statuses + quest status
+
+        [SerializeField]
+        private TMP_Text questStatusText; // print previous and current quest step statuses + quest status
+
         [SerializeField] private TMP_Text rewardText;
+
         //[SerializeField] private TMP_Text levelRequirementsText;
         [SerializeField] private TMP_Text questRequirementsText;
         [SerializeField] private TMP_Text questStateText;
-        
+
         [SerializeField] private Button questLogButton;
-    
+
         private Button _firstSelectedButton;
 
         private void OnEnable()
         {
             EventManager.Instance.QuestEvents.OnQuestStateChange += QuestStateChange;
-            
+
             EventManager.Instance.QuestEvents.OnQuestStateChange += HighliteQuestbutton;
+            
+            EventManager.Instance.GameEvents.OnCheckpointActivated += DisableDevQuests;
         }
 
         private void OnDisable()
         {
             EventManager.Instance.QuestEvents.OnQuestStateChange -= QuestStateChange;
-            
-            EventManager.Instance.QuestEvents.OnQuestStateChange -= HighliteQuestbutton;
-        }
 
+            EventManager.Instance.QuestEvents.OnQuestStateChange -= HighliteQuestbutton;
+            
+            EventManager.Instance.GameEvents.OnCheckpointActivated -= DisableDevQuests;
+        }
+        
 
 
         public void ShowMenu()
@@ -50,8 +59,10 @@ namespace _Scripts.QuestSystem.UI
             // or else the onSelectAction won't work as expected
             if (_firstSelectedButton != null)
             {
-                _firstSelectedButton.Select();//todo to disable?
+                //Debug.Log(_firstSelectedButton.gameObject.GetComponent<QuestLogButton>().GetButtonText());
+                _firstSelectedButton.Select(); //todo to disable?
             }
+
             ColorUtility.TryParseHtmlString("#6F2502", out var customColor); //reset highlighted color to default
             questLogButton.image.color = customColor;
         }
@@ -67,9 +78,8 @@ namespace _Scripts.QuestSystem.UI
         private void QuestStateChange(Quest quest)
         {
             // add the button to the scrolling list if not already added
-            QuestLogButton questLogButton = scrollingList.CreateButtonIfNotExist(quest, () => {
-                SetQuestLogInfo(quest);
-            });
+            QuestLogButton questLogButton =
+                scrollingList.CreateButtonIfNotExist(quest, () => { SetQuestLogInfo(quest); });
 
             // initialize the first selected button if not already so that it's
             // always the top button
@@ -80,7 +90,7 @@ namespace _Scripts.QuestSystem.UI
 
             // set the button color based on quest stateEnum
             questLogButton.SetState(quest.StateEnum);
-            
+
         }
 
         private void SetQuestLogInfo(Quest quest)
@@ -101,17 +111,29 @@ namespace _Scripts.QuestSystem.UI
 
             // rewards
             rewardText.text = quest.InfoSo.reward;
-            
+
             //set quest state text
             questStateText.text = quest.StateEnum.ToString();
         }
-        
+
         private void HighliteQuestbutton(Quest quest)
         {
             questLogButton.image.color = Color.yellow;
             //questLogButton.image.DOColor(Color.yellow, 0.5f).Play();
         }
+
+        //disable all dev quests if we launch story mode
+        private void DisableDevQuests(int checkpointId)
+        {
+            //Debug.Log("Disabling Dev Quests");
+            if (checkpointId == 1)
+            {
+                scrollingList.DisableDevQuestsButtons();
+                _firstSelectedButton = scrollingList.GetFirstActiveButton();
+                _firstSelectedButton.Select();
+            }
+        }
     }
-    
-    
+
+
 }

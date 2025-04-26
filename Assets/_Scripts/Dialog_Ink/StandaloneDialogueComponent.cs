@@ -44,7 +44,7 @@ namespace _Scripts.Dialog_Ink
         //TODO HANDLE NPC APPEAR IN CURRENT PLACE (like trigger spawner) (add places/locations fileds, on/off for model(sprite/collider) but script go is on allways to track game states? npc manager with list of npc's (prefabs) ? methods to move to locations (some logic?)? sprites for emotions etc..
         
         
-        [Header("Current Actual Dialogues)")]
+        [Header("Current Actual Dialogues")]
         [SerializeField] protected string currentActualStoryName;
         [SerializeField] protected string currentActualDialogueKnotName;
 
@@ -52,13 +52,15 @@ namespace _Scripts.Dialog_Ink
         [SerializeField] private List<string> dialogueKnotNames; //was protected List<Object> inkIncludeFiles - and this fng engine deletes this objects in build... replaced by strings
 
         private Dictionary<string, bool> _dialogueKnotStates = new Dictionary<string, bool>(); // "dialogueKnotName" (string) + "isComplete" (bool) (for current dialogue knot)
+        
+        [Header("Misc")]
+        [SerializeField]private string currentNpcName;
+        [SerializeField]private bool isDialogueAutoActivationEnabled;
 
-        [SerializeField]private string currentCharacterName;
-
-        protected virtual void Awake()
+        protected virtual void Start() //change to start cause of dialogueDebug sometimes initialized after this (in awake) //todo add lazy initialization to dialogueDibug ?
         {
             InitializeDialogueStates();
-            currentCharacterName = GetComponent<NpcCharAbstract>().GetNpcName();
+            currentNpcName = GetComponent<NpcCharAbstract>().GetNpcName();
             SetNextCurrentDialogueKnot();
         }
         
@@ -66,10 +68,13 @@ namespace _Scripts.Dialog_Ink
         private void OnEnable()
         {
             EventManager.Instance.DialogueEvents.OnCompleteDialogueKnot += CompleteDialogueKnotInDictionary;
+            EventManager.Instance.DialogueEvents.OnSetDialogueAutoActivation += ToggleDialogueAutoActivation;
+
         }
         private void OnDisable()
         {
             EventManager.Instance.DialogueEvents.OnCompleteDialogueKnot -= CompleteDialogueKnotInDictionary;
+            EventManager.Instance.DialogueEvents.OnSetDialogueAutoActivation -= ToggleDialogueAutoActivation;
         }
 
         //add list of knot names to dictionary
@@ -102,17 +107,17 @@ namespace _Scripts.Dialog_Ink
         ///           ↓
         /// Frame2(Unlock+Start) → Frame3(CleanInput)
         /// </summary>
-        public void StartDialogue()
+        public void StartDialogue(bool isCutsceneUI)
         {
             // start after one frame (we handle mouse button situation after dialogue started)
-            StartCoroutine(StartDialogueDelayed());
+            StartCoroutine(StartDialogueDelayed(isCutsceneUI));
         }
 
-        private IEnumerator StartDialogueDelayed()
+        private IEnumerator StartDialogueDelayed(bool isCutsceneUI)
         {
             yield return null; // wait for next frame
             
-            EventManager.Instance.DialogueEvents.EnterDialogue(currentActualStoryName, currentActualDialogueKnotName);
+            EventManager.Instance.DialogueEvents.EnterDialogue(currentActualStoryName, currentActualDialogueKnotName, isCutsceneUI);
         }
 
         //invokes subscribed method for this GO if we match the name for this character. Also check the knot name variable. 
@@ -120,11 +125,11 @@ namespace _Scripts.Dialog_Ink
         {
             DialogDebug.Instance.Log("Invoked CompleteDialogueKnotInDictionary method for \"" + gameObject.name +
                                      "\" game object");
-            if (characterName != currentCharacterName)
+            if (characterName != currentNpcName)
             {
                 DialogDebug.Instance.Log("Comparison of names in CompleteDialogueKnotInDictionary method for \""+gameObject.name+"\" game object led to return from method");
                 DialogDebug.Instance.Log("Name from external function is \""+characterName+ "\"");
-                DialogDebug.Instance.Log("Name from script is \""+currentCharacterName+ "\"");
+                DialogDebug.Instance.Log("Name from script is \""+currentNpcName+ "\"");
                 return;
             }
 
@@ -148,13 +153,27 @@ namespace _Scripts.Dialog_Ink
             {
                 var next = _dialogueKnotStates.First(pair => !pair.Value);
                 currentActualDialogueKnotName = next.Key;
-                DialogDebug.Instance.Log("Current Dialogue Knot \"" + currentActualDialogueKnotName + "\" is set for \"" + currentCharacterName + "\" character");
+                DialogDebug.Instance.Log("Current Dialogue Knot \"" + currentActualDialogueKnotName + "\" is set for \"" + currentNpcName + "\" character");
             }
             else
             {
-                DialogDebug.Instance.Log("All dialogue knots are completed for \"" + currentCharacterName + "\" character.");
+                DialogDebug.Instance.Log("All dialogue knots are completed for \"" + currentNpcName + "\" character.");
                 // add new story name?
             }
+        }
+        
+        //npc manager checks it and starts dialogue if this = true
+        private void ToggleDialogueAutoActivation(string npcName, bool isActive)
+        {
+            if (currentNpcName.Equals(npcName))
+            {
+                isDialogueAutoActivationEnabled = isActive;
+            }
+        }
+        
+        public bool IsAutoActivationEnabled()
+        {
+            return isDialogueAutoActivationEnabled;
         }
     }
 }

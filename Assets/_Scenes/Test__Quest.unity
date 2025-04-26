@@ -129,9 +129,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4856177}
   - component: {fileID: 4856176}
-  - component: {fileID: 4856179}
   - component: {fileID: 4856178}
   - component: {fileID: 4856180}
+  - component: {fileID: 4856181}
   m_Layer: 0
   m_Name: Coin 1
   m_TagString: Untagged
@@ -203,7 +203,7 @@ Transform:
   m_GameObject: {fileID: 4856175}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.2129138, y: -3.680115, z: 0.066880584}
+  m_LocalPosition: {x: -3.2129138, y: -3.680115, z: 0}
   m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -222,34 +222,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goldAmount: 1
---- !u!114 &4856179
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4856175}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4eadb2de991700d44982238572ea7ecb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TagName: 0
-  EnterTriggerEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4856178}
-        m_TargetAssemblyTypeName: _Scripts.Coin, Assembly-CSharp
-        m_MethodName: CollectCoin
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!58 &4856180
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -286,6 +258,34 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
+--- !u!114 &4856181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4856175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78ba62b084be49f791bba202ede49646, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tagName: 0
+  enterTriggerEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4856178}
+        m_TargetAssemblyTypeName: _Scripts.Coin_Test, Assembly-CSharp
+        m_MethodName: CollectCoin
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &20075661
 GameObject:
   m_ObjectHideFlags: 0
@@ -472,7 +472,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   contentParent: {fileID: 1160845073}
-  scrollingList: {fileID: 945507668}
+  scrollingListTest: {fileID: 945507668}
   questDisplayNameText: {fileID: 1733154314}
   questStatusText: {fileID: 1523404162}
   goldRewardsText: {fileID: 257314174}
@@ -1050,7 +1050,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 389902587}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aee6bf69f9534d9ea0a8be11317052a3, type: 3}
   m_Name: 
@@ -1387,7 +1387,7 @@ GameObject:
   - component: {fileID: 479363483}
   - component: {fileID: 479363482}
   - component: {fileID: 479363481}
-  - component: {fileID: 479363480}
+  - component: {fileID: 479363485}
   m_Layer: 0
   m_Name: Exp Gem 20
   m_TagString: Untagged
@@ -1395,34 +1395,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &479363480
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 479363479}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4eadb2de991700d44982238572ea7ecb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TagName: 0
-  EnterTriggerEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 479363481}
-        m_TargetAssemblyTypeName: _Scripts.ExpGems, Assembly-CSharp
-        m_MethodName: CollectExp
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &479363481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1546,12 +1518,40 @@ Transform:
   m_GameObject: {fileID: 479363479}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.38268343, w: 0.92387956}
-  m_LocalPosition: {x: -0.9129138, y: -2.660115, z: 0.0691489}
+  m_LocalPosition: {x: -0.9129138, y: -2.660115, z: 0}
   m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
+--- !u!114 &479363485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479363479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78ba62b084be49f791bba202ede49646, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tagName: 0
+  enterTriggerEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 479363481}
+        m_TargetAssemblyTypeName: _Scripts.ExpGems_Test, Assembly-CSharp
+        m_MethodName: CollectExp
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &529957742
 GameObject:
   m_ObjectHideFlags: 0
@@ -2588,6 +2588,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 999946712}
   m_CullTransparentMesh: 1
+--- !u!1 &1098048951
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1098048953}
+  - component: {fileID: 1098048952}
+  m_Layer: 0
+  m_Name: Timeline
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!320 &1098048952
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1098048951}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: da3d1e382c8482a4692cda6ea7bb96a7, type: 2}
+  m_InitialState: 1
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings: []
+  m_ExposedReferences:
+    m_References: []
+--- !u!4 &1098048953
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1098048951}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1109420279
 GameObject:
   m_ObjectHideFlags: 0
@@ -2675,9 +2724,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1151798618}
   - component: {fileID: 1151798617}
-  - component: {fileID: 1151798616}
   - component: {fileID: 1151798615}
   - component: {fileID: 1151798614}
+  - component: {fileID: 1151798619}
   m_Layer: 0
   m_Name: Coin 2
   m_TagString: Untagged
@@ -2734,34 +2783,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goldAmount: 1
---- !u!114 &1151798616
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1151798613}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4eadb2de991700d44982238572ea7ecb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TagName: 0
-  EnterTriggerEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1151798615}
-        m_TargetAssemblyTypeName: _Scripts.Coin, Assembly-CSharp
-        m_MethodName: CollectCoin
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!212 &1151798617
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2826,12 +2847,40 @@ Transform:
   m_GameObject: {fileID: 1151798613}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.7429137, y: -2.730115, z: 0.066880584}
+  m_LocalPosition: {x: -2.7429137, y: -2.730115, z: 0}
   m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1151798619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1151798613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78ba62b084be49f791bba202ede49646, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tagName: 0
+  enterTriggerEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1151798615}
+        m_TargetAssemblyTypeName: _Scripts.Coin_Test, Assembly-CSharp
+        m_MethodName: CollectCoin
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1160845073
 GameObject:
   m_ObjectHideFlags: 0
@@ -3002,7 +3051,7 @@ GameObject:
   - component: {fileID: 1245447862}
   - component: {fileID: 1245447861}
   - component: {fileID: 1245447860}
-  - component: {fileID: 1245447859}
+  - component: {fileID: 1245447864}
   m_Layer: 0
   m_Name: Exp Gem 10
   m_TagString: Untagged
@@ -3010,34 +3059,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1245447859
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1245447858}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4eadb2de991700d44982238572ea7ecb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TagName: 0
-  EnterTriggerEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1245447860}
-        m_TargetAssemblyTypeName: _Scripts.ExpGems, Assembly-CSharp
-        m_MethodName: CollectExp
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1245447860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3161,12 +3182,40 @@ Transform:
   m_GameObject: {fileID: 1245447858}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.38268343, w: 0.92387956}
-  m_LocalPosition: {x: -1.5074582, y: -2.043382, z: 0.0691489}
+  m_LocalPosition: {x: -1.5074582, y: -2.043382, z: 0}
   m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
+--- !u!114 &1245447864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1245447858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78ba62b084be49f791bba202ede49646, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tagName: 0
+  enterTriggerEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1245447860}
+        m_TargetAssemblyTypeName: _Scripts.ExpGems_Test, Assembly-CSharp
+        m_MethodName: CollectExp
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1279616263
 GameObject:
   m_ObjectHideFlags: 0
@@ -3533,9 +3582,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1352752759}
   - component: {fileID: 1352752758}
-  - component: {fileID: 1352752757}
   - component: {fileID: 1352752756}
   - component: {fileID: 1352752755}
+  - component: {fileID: 1352752760}
   m_Layer: 0
   m_Name: Coin 3
   m_TagString: Untagged
@@ -3592,34 +3641,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goldAmount: 1
---- !u!114 &1352752757
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1352752754}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4eadb2de991700d44982238572ea7ecb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TagName: 0
-  EnterTriggerEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1352752756}
-        m_TargetAssemblyTypeName: _Scripts.Coin, Assembly-CSharp
-        m_MethodName: CollectCoin
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!212 &1352752758
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3684,12 +3705,40 @@ Transform:
   m_GameObject: {fileID: 1352752754}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.3529139, y: -3.530115, z: 0.066880584}
+  m_LocalPosition: {x: -2.3529139, y: -3.530115, z: 0}
   m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1352752760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1352752754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78ba62b084be49f791bba202ede49646, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tagName: 0
+  enterTriggerEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1352752756}
+        m_TargetAssemblyTypeName: _Scripts.Coin_Test, Assembly-CSharp
+        m_MethodName: CollectCoin
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1370661568
 GameObject:
   m_ObjectHideFlags: 0
@@ -4162,9 +4211,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1631234080}
   - component: {fileID: 1631234079}
-  - component: {fileID: 1631234078}
   - component: {fileID: 1631234077}
   - component: {fileID: 1631234076}
+  - component: {fileID: 1631234081}
   m_Layer: 0
   m_Name: Coin 4
   m_TagString: Untagged
@@ -4221,34 +4270,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goldAmount: 1
---- !u!114 &1631234078
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1631234075}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4eadb2de991700d44982238572ea7ecb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TagName: 0
-  EnterTriggerEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1631234077}
-        m_TargetAssemblyTypeName: _Scripts.Coin, Assembly-CSharp
-        m_MethodName: CollectCoin
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!212 &1631234079
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4313,12 +4334,40 @@ Transform:
   m_GameObject: {fileID: 1631234075}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.792914, y: -3.2901146, z: 0.066880584}
+  m_LocalPosition: {x: -2.792914, y: -3.2901146, z: 0}
   m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1631234081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1631234075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78ba62b084be49f791bba202ede49646, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tagName: 0
+  enterTriggerEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1631234077}
+        m_TargetAssemblyTypeName: _Scripts.Coin_Test, Assembly-CSharp
+        m_MethodName: CollectCoin
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1680650741
 GameObject:
   m_ObjectHideFlags: 0
@@ -4952,7 +5001,7 @@ GameObject:
   - component: {fileID: 1888361707}
   - component: {fileID: 1888361706}
   - component: {fileID: 1888361705}
-  - component: {fileID: 1888361704}
+  - component: {fileID: 1888361709}
   m_Layer: 0
   m_Name: Exp Gem 30
   m_TagString: Untagged
@@ -4960,34 +5009,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1888361704
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1888361703}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4eadb2de991700d44982238572ea7ecb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TagName: 0
-  EnterTriggerEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1888361705}
-        m_TargetAssemblyTypeName: _Scripts.ExpGems, Assembly-CSharp
-        m_MethodName: CollectExp
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1888361705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5111,12 +5132,40 @@ Transform:
   m_GameObject: {fileID: 1888361703}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.38268343, w: 0.92387956}
-  m_LocalPosition: {x: -0.2629137, y: -2.180115, z: 0.0691489}
+  m_LocalPosition: {x: -0.2629137, y: -2.180115, z: 0}
   m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
+--- !u!114 &1888361709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1888361703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78ba62b084be49f791bba202ede49646, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tagName: 0
+  enterTriggerEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1888361705}
+        m_TargetAssemblyTypeName: _Scripts.ExpGems_Test, Assembly-CSharp
+        m_MethodName: CollectExp
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1975212966
 GameObject:
   m_ObjectHideFlags: 0
@@ -5676,9 +5725,9 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1710927111}
+  - {fileID: 1350064954}
   - {fileID: 1805996444}
   - {fileID: 1370661570}
-  - {fileID: 1350064954}
   - {fileID: 1982700883}
   - {fileID: 1714440649}
   - {fileID: 4856177}
@@ -5702,3 +5751,4 @@ SceneRoots:
   - {fileID: 987051998}
   - {fileID: 965952984}
   - {fileID: 1975212967}
+  - {fileID: 1098048953}

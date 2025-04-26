@@ -1,4 +1,5 @@
-﻿using Ink.Runtime;
+﻿using _Scripts.Managers;
+using Ink.Runtime;
 using UnityEngine;
 
 namespace _Scripts.Dialog_Ink
@@ -7,13 +8,29 @@ namespace _Scripts.Dialog_Ink
     {
         //bind ink external function with class methods //todo do we need to handle all type of methods ? 
         //todo We can bind all ext funk to all stories. But it will be better to add .ink parser and bind only declared.
-        //TODO WE CAN TRY TO USE TAGS (from other video) instead of ext. functions (for ability to play in editor)
         public void Bind(Story story)
         {
             story.BindExternalFunction("StartQuest", (string questId) => StartQuest(questId));
             story.BindExternalFunction("AdvanceQuest", (string questId) => AdvanceQuest(questId));
             story.BindExternalFunction("FinishQuest", (string questId) => FinishQuest(questId));
             story.BindExternalFunction("CompleteDialogueKnot", (string characterName, string dialogueKnotName) => CompleteDialogueKnot(characterName, dialogueKnotName));
+            story.BindExternalFunction("ResumeCutscene", () => ResumeCutscene());
+            
+            story.BindExternalFunction("AddMinutes",  (int minutes) =>
+            {
+                //Debug.Log($"AddMinutes called with: {minutes}");
+                AddMinutes(minutes);
+            });
+            
+            //stats
+            story.BindExternalFunction("UpdateHealth", (int health) => UpdateHealth(health));
+            story.BindExternalFunction("UpdateSaturation", (int saturation) => UpdateSaturation(saturation));
+            story.BindExternalFunction("UpdateMood", (int mood) => UpdateMood(mood));
+            story.BindExternalFunction("UpdateEnergy", (int energy) => UpdateEnergy(energy));
+            
+            //rep
+            story.BindExternalFunction("UpdateReputation", (string npcName, int reputation) => UpdateReputation(npcName,reputation));
+            
         }
         
         public void Unbind(Story story)
@@ -22,6 +39,7 @@ namespace _Scripts.Dialog_Ink
             story.UnbindExternalFunction("AdvanceQuest");
             story.UnbindExternalFunction("FinishQuest");
             story.UnbindExternalFunction("CompleteDialogueKnot");
+            story.UnbindExternalFunction("AddMinutes");
         }
         
         
@@ -45,6 +63,40 @@ namespace _Scripts.Dialog_Ink
         private void CompleteDialogueKnot(string characterName, string dialogueKnotName)
         {
             EventManager.Instance.DialogueEvents.CompleteDialogueKnot(characterName, dialogueKnotName);
+        }
+
+        private void ResumeCutscene()
+        {
+            EventManager.Instance.CutsceneEvents.ResumeCutscene();
+        }
+        
+        private void AddMinutes(int minutes)
+        {
+            TimeManager.Instance.AddMinutes(minutes);
+        }
+        
+        //change player stats
+        private void UpdateHealth(int health)
+        {
+            EventManager.Instance.PlayerStatsEvents.UpdateHealth(health);
+        }
+        private void UpdateSaturation(int saturation)
+        {
+            EventManager.Instance.PlayerStatsEvents.UpdateSaturation(saturation);
+        }
+        private void UpdateMood(int mood)
+        {
+            EventManager.Instance.PlayerStatsEvents.UpdateMood(mood);
+        }
+        private void UpdateEnergy(int energy)
+        {
+            EventManager.Instance.PlayerStatsEvents.UpdateEnergy(energy);
+        }
+        
+        //reputation
+        private void UpdateReputation(string npcName, int reputation)
+        {
+            EventManager.Instance.ReputationEvents.UpdateReputation(npcName, reputation);
         }
     }
 }

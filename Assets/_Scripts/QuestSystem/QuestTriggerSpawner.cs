@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using _Scripts.Service.Log;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace _Scripts.QuestSystem
@@ -46,15 +47,24 @@ namespace _Scripts.QuestSystem
             }
         }
 
-        private void HandleStepCreated(GameObject questStep)
+        private void HandleStepCreated(GameObject questStep) //todo handle this
         {
             // get quest folder name (quest step without StepX)
             string questFolder = questStep.name.Split(new[] { "Step" }, StringSplitOptions.None)[0];
             string path = $"Quests/DevQuests/{questFolder}/Triggers";
-
+            
             GameObject[]
                 allTriggers = UnityEngine.Resources.LoadAll<GameObject>(path); //temp list of possible trigger prefabs
+            
+            string path1 = $"Quests/StoryQuests/{questFolder}/Triggers"; 
+            //Debug.Log(path1);
+            
+            GameObject[]
+                allTriggers1 = UnityEngine.Resources.LoadAll<GameObject>(path1); //temp list of possible trigger prefabs
 
+
+            allTriggers = allTriggers.Concat(allTriggers1).ToArray();
+            
             if (allTriggers.Length == 0)
             {
                 QuestDebug.Instance.Log($"No triggers found for {questStep} at path: {path}");

@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using _Scripts.Components.TimeManagement.Enums;
 using _Scripts.Components.Transition.UI;
-using _Scripts.ScriptableObjects.Locations;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Serialization;

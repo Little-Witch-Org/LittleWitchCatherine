@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 namespace _Scripts.QuestSystem.UI
 {
@@ -47,7 +49,6 @@ namespace _Scripts.QuestSystem.UI
 
             }
         }*/
-
 
         public QuestLogButton CreateButtonIfNotExist(Quest quest, UnityAction selectAction)
         {
@@ -111,6 +112,31 @@ namespace _Scripts.QuestSystem.UI
                     buttonYMin
                 );
             }
+        }
+
+        //disable all dev quests if we launch story mode
+        public void DisableDevQuestsButtons()
+        {
+                foreach (var questButton in contentRectTransform.gameObject.GetComponentsInChildren<QuestLogButton>())
+                {
+                    if (questButton.gameObject.name.Contains("DevQuest"))
+                    {
+                        questButton.gameObject.SetActive(false);
+                    }
+                }
+        }
+
+        //used for quest menu can select first quest button automatically (in story mode)
+        public Button GetFirstActiveButton()
+        {
+            foreach (var questLogButton in contentRectTransform.gameObject.GetComponentsInChildren<QuestLogButton>())
+            {
+                if (questLogButton.gameObject.activeSelf)
+                {
+                    return questLogButton.button;
+                }
+            }
+            return null;
         }
     }
 }

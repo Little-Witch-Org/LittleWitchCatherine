@@ -22,8 +22,27 @@ namespace _Scripts.Characters.NPC
         [SerializeField] protected string currentPlaceName;
 
         [SerializeField] protected GameObject npcBody;
-
         
+        [SerializeField] protected int maxReputation;
+        [SerializeField] protected int currentReputation;
+
+        private void Start()
+        {
+            maxReputation = 100;
+            currentReputation = 60;
+            EventManager.Instance.ReputationEvents.ReputationChanged(npcName,currentReputation);
+        }
+
+        private void OnEnable()
+        {
+            EventManager.Instance.ReputationEvents.OnUpdateReputation += UpdateReputation;
+        }
+        
+        private void OnDisable()
+        {
+            EventManager.Instance.ReputationEvents.OnUpdateReputation -= UpdateReputation;
+        }
+
         public string GetNpcName()
         {
             return npcName;
@@ -52,6 +71,16 @@ namespace _Scripts.Characters.NPC
         public bool IsNpcActive()
         {
             return npcBody.activeSelf;
+        }
+        
+        //rep
+        private void UpdateReputation(string npc, int reputation)
+        {
+            if (npcName.Equals(npc))
+            {
+                currentReputation = Math.Clamp(currentReputation + reputation, 0, maxReputation);
+                EventManager.Instance.ReputationEvents.ReputationChanged(npcName,currentReputation);
+            }
         }
     }
 }

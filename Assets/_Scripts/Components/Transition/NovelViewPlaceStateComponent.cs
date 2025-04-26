@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using _Scripts.Components.TimeManagement.Enums;
 using _Scripts.Managers;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace _Scripts.Components.SceneTransitionComponents
 {
@@ -10,48 +11,59 @@ namespace _Scripts.Components.SceneTransitionComponents
     /// </summary>
     public class NovelViewPlaceStateComponent : MonoBehaviour
     {
-        [SerializeField] private List<Sprite> roomStateSprites;
+        [SerializeField] private string placeName;
         
-        private void LoadRoomState(TimeOfDay timeOfDay)
-        {
-            timeOfDay = TimeManagerTurnBased.Instance.timeOfDay;
-
-            switch (timeOfDay)
-            {
-                case TimeOfDay.Morning:
-                {
-                    GetComponent<SpriteRenderer>().sprite = roomStateSprites[0];
-                    break;
-                }
-                case TimeOfDay.Afternoon:
-                {
-                    GetComponent<SpriteRenderer>().sprite = roomStateSprites[1];
-                    break;
-                }
-                case TimeOfDay.Evening:
-                {
-                    GetComponent<SpriteRenderer>().sprite = roomStateSprites[2];
-                    break;
-                }
-                case TimeOfDay.Night:
-                {
-                    GetComponent<SpriteRenderer>().sprite = roomStateSprites[3];
-                    break;
-                }
-            }
         
-            //GetComponent<SpriteRenderer>().sprite = roomStateSprites[0];
-        }
-
+        [FormerlySerializedAs("roomStateSprites")] [SerializeField] private List<Sprite> placeStateSprites;
+        
+        
         private void Start()
         {
+            placeName = gameObject.name.Split("(Clone)")[0]; //get name from place prefab and set as placeName
+            
+            
             if (LocationManager.Instance == null)
             {
                 Debug.LogError("NovelViewPlaceStateComponent can't find LocationManager");
                 return;
             }
-            TimeOfDay timeOfDay = LocationManager.Instance.GetCurrentLocationState().TimeOfDay;
+
+            TimeOfDay timeOfDay = LocationManager.Instance.GetLocationTimeOfDayState(placeName);
             LoadRoomState(timeOfDay);
         }
+        
+        
+        private void LoadRoomState(TimeOfDay timeOfDay)
+        {
+            timeOfDay = TimeManager.Instance.timeOfDay;
+
+            switch (timeOfDay)
+            {
+                case TimeOfDay.Morning:
+                {
+                    GetComponent<SpriteRenderer>().sprite = placeStateSprites[0];
+                    break;
+                }
+                case TimeOfDay.Afternoon:
+                {
+                    GetComponent<SpriteRenderer>().sprite = placeStateSprites[1];
+                    break;
+                }
+                case TimeOfDay.Evening:
+                {
+                    GetComponent<SpriteRenderer>().sprite = placeStateSprites[2];
+                    break;
+                }
+                case TimeOfDay.Night:
+                {
+                    GetComponent<SpriteRenderer>().sprite = placeStateSprites[3];
+                    break;
+                }
+            }
+        
+            //GetComponent<SpriteRenderer>().sprite = placeStateSprites[0];
+        }
+
+
     }
 }

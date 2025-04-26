@@ -1,5 +1,8 @@
 
-public enum GreenhouseNovelViewPlaces
+namespace _Scripts.Enums.Places
 {
-    MainPlace
+    public enum GreenhouseNovelViewPlaces
+    {
+        MainPlaceGreenhouse
+    }
 }

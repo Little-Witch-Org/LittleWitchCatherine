@@ -62,7 +62,7 @@ namespace _Scripts.Components.TransitionComponents
                 return;
             }
 
-            ChangeView(); //use on start after scene transition
+            ChangeView(); //use on start after scene transition (gets saved info from transition manager (on map)
         }
 
         private void OnEnable()
@@ -83,6 +83,7 @@ namespace _Scripts.Components.TransitionComponents
 
         private void ChangePlaceWithFade()
         {
+            //Debug.Log("Change place with fade");
             //disable hotkeys (menu)
             EventManager.Instance.InputEvents.HotkeysAreActive(false);
 

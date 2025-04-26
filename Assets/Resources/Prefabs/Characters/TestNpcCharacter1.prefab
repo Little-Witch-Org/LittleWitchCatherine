@@ -194,12 +194,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-  OnEnter:
-    m_PersistentCalls:
-      m_Calls: []
-  OnExit:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &5556995855921768744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,7 +218,6 @@ GameObject:
   - component: {fileID: 5976735697825194885}
   - component: {fileID: 1986748019069506537}
   - component: {fileID: 5871727958959229081}
-  - component: {fileID: 1303954365745349244}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -381,7 +374,7 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: _Scripts.Dialog_Ink.StandaloneDialogueComponent,
           Assembly-CSharp
         m_MethodName: StartDialogue
-        m_Mode: 1
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -390,50 +383,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  OnEnter:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1303954365745349244}
-        m_TargetAssemblyTypeName: CursorChangeComponent, Assembly-CSharp
-        m_MethodName: ChangeCursorTexture
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnExit:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1303954365745349244}
-        m_TargetAssemblyTypeName: CursorChangeComponent, Assembly-CSharp
-        m_MethodName: ToDefaultCursorTexture
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &1303954365745349244
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 793699711842104942}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d632d62ab446742408a876e6e1611359, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cursorDefaultPath: Art/Cursors/cursorDefault1
-  cursorTransitionPath: Art/Cursors/cursorTransition1
 --- !u!1 &1065564865927404331
 GameObject:
   m_ObjectHideFlags: 0
@@ -680,6 +629,7 @@ MonoBehaviour:
   - TestNpcCharacter1_Dialogue3
   - TestNpcCharacter1_Dialogue4
   currentCharacterName: 
+  isDialogueAutoActivationEnabled: 0
 --- !u!114 &2722197529493870003
 MonoBehaviour:
   m_ObjectHideFlags: 0

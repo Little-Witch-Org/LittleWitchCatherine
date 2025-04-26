@@ -40,13 +40,13 @@ namespace _Scripts.UI
 
         void Start()
         {
-            if (TimeManagerTurnBased.Instance != null)
+            if (TimeManager.Instance != null)
             {
-                TimeManagerTurnBased.Instance.AddSeconds(0); //handle first ui update
+                TimeManager.Instance.AddSeconds(0); //handle first ui update
             }
             else
             {
-                Debug.LogError("TimeManagerTurnBased instance is null!");
+                Debug.LogError("TimeManager instance is null!");
             }
 
 

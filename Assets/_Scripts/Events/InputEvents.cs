@@ -34,6 +34,13 @@ namespace _Scripts.Events
             OnSubmitPressed?.Invoke(InputEventContext);
         }
         
+        public event Action OnInteractPressed;
+        public void InteractPressed() 
+        {
+            OnInteractPressed?.Invoke();
+        }
+        
+        
         public event Action OnMenuPressed;
         public void MenuPressed() 
         {
@@ -46,10 +53,14 @@ namespace _Scripts.Events
             OnJournalPressed?.Invoke();
         }
         
-        public event Action OnInteractPressed;
-        public void InteractPressed() 
+        public event Action OnStatsPressed;
+        public void StatsPressed() 
         {
-            OnInteractPressed?.Invoke();
+            OnStatsPressed?.Invoke();
         }
+        
+        
+        
+
     }
 }

@@ -83,6 +83,12 @@ namespace _Scripts.QuestSystem
         {
             OnTriggerSecondDevQuestStep2?.Invoke(customParam, isFailed);
         }
+        
+        public event Action<string, bool> OnTriggerQuest1GoDownToKitchenStep1;
+        public void TriggerQuest1GoDownToKitchenStep1(string customParam, bool isFailed) 
+        {
+            OnTriggerQuest1GoDownToKitchenStep1?.Invoke(customParam, isFailed);
+        }
 
     }
 }

@@ -1,53 +1,67 @@
+using _Scripts.Components.Misc;
+using _Scripts.Components.Transition;
+using _Scripts.Components.TransitionComponents;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.EventSystems;
 
-namespace _Scripts.Components.UEventsTriggers
+namespace _Scripts.Components._UEventsTriggerActivators.TransitionTriggerActivator
 {
     /// <summary>
-    /// Uses for putting functions on events in Inspector
-    /// //todo not sure that using  EventSystem.current.IsPointerOverGameObject() is good idea to prevent clicks then UI opened. It also blocks other colliders
+    /// Activates transition events.
     /// </summary>
-    public class ClickTriggerActivatorForNovelViewTransition : MonoBehaviour
+    public class ClickTriggerActivatorForNovelViewTransition : MonoBehaviour, IClickable
     {
-        public UnityEvent OnClick;
-        public UnityEvent OnEnter;
-        public UnityEvent OnExit;
+        private bool _isTransitionActivated;
 
-        private bool _isClicked; //handle double click
-
-        private void OnMouseDown()
+        private void OnEnable()
         {
-            if (EventSystem.current.IsPointerOverGameObject())
-            {
-                return;
-            }
+            EventManager.Instance.TransitionEvents.OnPlaceTransitionTrigger += SetTransitionActivated;
+        }
+        
+        private void OnDisable()
+        {
+            EventManager.Instance.TransitionEvents.OnPlaceTransitionTrigger -= SetTransitionActivated;
+        }
 
-            if (!_isClicked)
+        //handle existence of one component - change place or scene
+        public void OnClick()
+        {
+            EventManager.Instance.MiscEvents.CursorChangeToDefault();
+            //Debug.Log("Clicked: " + name);
+            if (gameObject.TryGetComponent<NovelViewSetPlaceAndLocationToTransitionComponent>(out var novelComponent))
             {
-                OnClick.Invoke();
-                _isClicked = true;
+                novelComponent.SelectPlace();
+            }
+            else if (gameObject.TryGetComponent<ChangeSceneTriggerComponent>(out var sceneTriggerComponent))
+            {
+                sceneTriggerComponent.ChangeSceneTrigger();
             }
         }
 
-        private void OnMouseExit()
+        public void OnMouseButtonUp()
         {
-            if (EventSystem.current.IsPointerOverGameObject())
+            if (!_isTransitionActivated)
             {
-                return;
+                EventManager.Instance.MiscEvents.CursorChangeToHoverOnTrigger();
+                //Debug.Log("Mouse Button Released: " + name);
             }
-
-            OnExit.Invoke();
         }
 
-        private void OnMouseEnter()
+        public void OnHoverEnter()
         {
-            if (EventSystem.current.IsPointerOverGameObject())
-            {
-                return;
-            }
-
-            OnEnter.Invoke();
+            EventManager.Instance.MiscEvents.CursorChangeToHoverOnTrigger();
+            //Debug.Log("Hover Entered: " + name);
         }
+
+        public void OnHoverExit()
+        {
+            EventManager.Instance.MiscEvents.CursorChangeToDefault();
+            //Debug.Log("Hover Exited: " + name);
+        }
+
+        private void SetTransitionActivated(string location, string place)
+        {
+            _isTransitionActivated = true;
+        }
+ 
     }
 }

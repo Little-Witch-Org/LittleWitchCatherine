@@ -17,7 +17,6 @@ public class GameEventsManager_Test : MonoBehaviour
     public InputEvents_Test InputEventsTest;
     
     public QuestEvents_Test QuestEventsTest;
-    public DialogueEvents DialogueEvents;
     
 
     private void Awake()
@@ -40,6 +39,5 @@ public class GameEventsManager_Test : MonoBehaviour
         InputEventsTest = new InputEvents_Test();
         
         QuestEventsTest = new QuestEvents_Test();
-        DialogueEvents = new DialogueEvents();
     }
 }

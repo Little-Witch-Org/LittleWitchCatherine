@@ -30,6 +30,8 @@ namespace _Scripts.Dialog_Ink
 
         private InkExternalFunctions _inkExternalFunctions;
 
+        private bool _cutsceneMode; //using this to set cutscene parameter in methods (almost for ui) //todo don't like a lot this cutscene realisation throw all system (think need to separate it)
+        
         //tag system
         private const string Speaker1NameTag = "speaker1name";
         private const string PortraitTag1 = "portrait1";
@@ -152,45 +154,14 @@ namespace _Scripts.Dialog_Ink
                 return;
             }
             
-            ContinueOrExitStory();
+            ContinueOrExitStory(_cutsceneMode);
         }
+        
 
-
-        private void EnterDialogue_old(TextAsset inkJson, string knotName)
+        private void EnterDialogue(string storyName, string knotName, bool isCutsceneUI)
         {
-            //don't start dialogue if already started
-            if (_dialoguePlaying)
-            {
-                return;
-            }
-            _dialoguePlaying = true;
+            _cutsceneMode = isCutsceneUI;
             
-            //inform other parts of system that  we've started dialogue
-            EventManager.Instance.DialogueEvents.DialogueStarted();
-            
-            //input event context (change input context when starting dialogue)
-            EventManager.Instance.InputEvents.ChangeInputEventContext(InputEventContext.Dialogue);
-            
-
-            //jump to the knot
-            if (!knotName.Equals(""))
-            {
-                _storyCurrent.ChoosePathString(knotName);
-            }
-            else
-            {
-                DialogDebug.Instance.LogWarning("Knot name is empty when entering dialogue");
-            }
-            
-            //start listening for variables
-            _inkDialogueVariablesCurrent.SyncVariablesAndStartListening(_storyCurrent);
-            
-            //kick off the story
-            ContinueOrExitStory();
-        }
-
-        private void EnterDialogue(string storyName, string knotName)
-        {
             //don't start dialogue if already started
             if (_dialoguePlaying)
             {
@@ -236,8 +207,15 @@ namespace _Scripts.Dialog_Ink
             _dialoguePlaying = true;
             
             //inform other parts of system that  we've started dialogue
-            EventManager.Instance.DialogueEvents.DialogueStarted();
-            
+            if (_cutsceneMode)
+            {
+                EventManager.Instance.DialogueEvents.DialogueStartedCutscene();
+            }
+            else
+            {
+                EventManager.Instance.DialogueEvents.DialogueStarted();
+            }
+
             //input event context (change input context when starting dialogue)
             EventManager.Instance.InputEvents.ChangeInputEventContext(InputEventContext.Dialogue);
             
@@ -263,7 +241,7 @@ namespace _Scripts.Dialog_Ink
             _inkDialogueVariablesCurrent.SyncVariablesAndStartListening(_storyCurrent);
             
             //kick off the story
-            ContinueOrExitStory();
+            ContinueOrExitStory(_cutsceneMode);
         }
 
         private void UpdateVariableValueForStory(string storyName, string variableName, Ink.Runtime.Object value)
@@ -279,7 +257,7 @@ namespace _Scripts.Dialog_Ink
             }
         }
 
-        private void ContinueOrExitStory()
+        private void ContinueOrExitStory(bool isCutsceneUI)
         {
             //make a choice, if applicable
             if (_storyCurrent.currentChoices.Count > 0 && _currentChoiceIndex != -1)
@@ -311,7 +289,7 @@ namespace _Scripts.Dialog_Ink
                 }
                 else
                 {
-                    EventManager.Instance.DialogueEvents.DisplayDialogue(dialogueLine, _storyCurrent.currentChoices);
+                    EventManager.Instance.DialogueEvents.DisplayDialogue(dialogueLine, _storyCurrent.currentChoices,_cutsceneMode);
                 }
             }
             else if (_storyCurrent.currentChoices.Count == 0)
@@ -370,6 +348,7 @@ namespace _Scripts.Dialog_Ink
             _dialoguePlaying = false;
             //inform other parts of system that  we've finished dialogue
             EventManager.Instance.DialogueEvents.DialogueFinished();
+            EventManager.Instance.DialogueEvents.DialogueFinishedCutscene();
             
             //input event context (change input context back to default when dialogue ends)
             EventManager.Instance.InputEvents.ChangeInputEventContext(InputEventContext.Default);

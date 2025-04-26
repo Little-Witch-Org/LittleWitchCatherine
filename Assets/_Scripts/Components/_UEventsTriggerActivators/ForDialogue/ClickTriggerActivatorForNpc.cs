@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using _Scripts.Components.Misc;
+using _Scripts.Dialog_Ink;
 using _Scripts.Enums;
 using UnityEngine;
 using UnityEngine.Events;
@@ -12,21 +14,23 @@ namespace _Scripts.Components.UEventsTriggers
     /// //todo not sure that using  EventSystem.current.IsPointerOverGameObject() is good idea to prevent clicks then UI opened. It also blocks other colliders
     /// </summary>
     //[RequireComponent(typeof(PolygonCollider2D))]
-    public class ClickTriggerActivatorForNpc : MonoBehaviour
+    public class ClickTriggerActivatorForNpc : MonoBehaviour, IClickable
     {
-        public UnityEvent OnClick;
-        public UnityEvent OnEnter;
-        public UnityEvent OnExit;
+        //public UnityEvent OnClick;
+        //public UnityEvent OnEnter;
+        //public UnityEvent OnExit;
 
-        private bool _isClicked; //handle double click
-
-        private void OnMouseDown()
+        //private bool _isClicked; //handle double click
+        //private bool _isMouseOver;
+        
+        /*private void OnMouseDown()
         {
             if (EventSystem.current.IsPointerOverGameObject()) return;
         
             // block click for this frame (to handle simultaneous click in dialog's first string)
             StartCoroutine(BlockDialogueInputForFrame());
             OnClick.Invoke();
+            EventManager.Instance.MiscEvents.CursorChangeToDefault();
         }
 
         private IEnumerator BlockDialogueInputForFrame()
@@ -35,15 +39,15 @@ namespace _Scripts.Components.UEventsTriggers
             yield return new WaitForEndOfFrame();
             EventManager.Instance.InputEvents.LockSubmit(false);
         }
-
-        private void OnMouseExit()
+        
+        private void OnMouseUp()
         {
-            if (EventSystem.current.IsPointerOverGameObject())
+            if (EventSystem.current.IsPointerOverGameObject() || !_isMouseOver)
             {
                 return;
             }
 
-            OnExit.Invoke();
+            EventManager.Instance.MiscEvents.CursorChangeToHoverOnTrigger();
         }
 
         private void OnMouseEnter()
@@ -53,7 +57,54 @@ namespace _Scripts.Components.UEventsTriggers
                 return;
             }
 
-            OnEnter.Invoke();
+            _isMouseOver = true;
+
+            EventManager.Instance.MiscEvents.CursorChangeToHoverOnTrigger();
+        }
+
+        private void OnMouseExit()
+        {
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                return;
+            }
+            _isMouseOver = false;
+
+            EventManager.Instance.MiscEvents.CursorChangeToDefault();
+        }*/
+
+        public void OnHoverEnter()
+        {
+            //_isMouseOver = true;
+
+            EventManager.Instance.MiscEvents.CursorChangeToHoverOnTrigger();
+        }
+
+        public void OnHoverExit()
+        {
+            //_isMouseOver = false;
+
+            EventManager.Instance.MiscEvents.CursorChangeToDefault();
+        }
+
+        public void OnClick()
+        {
+            StartCoroutine(BlockDialogueInputForFrame());
+            //Debug.Log(gameObject.name + " clicked");
+            gameObject.transform.GetComponentInParent<StandaloneDialogueComponent>().StartDialogue(false);
+            EventManager.Instance.MiscEvents.CursorChangeToDefault();
+        }
+
+        public void OnMouseButtonUp()
+        {
+            EventManager.Instance.MiscEvents.CursorChangeToHoverOnTrigger();
+        }
+        
+        private IEnumerator BlockDialogueInputForFrame()
+        {
+            EventManager.Instance.InputEvents.LockSubmit(true);
+            yield return new WaitForEndOfFrame();
+            EventManager.Instance.InputEvents.LockSubmit(false);
         }
     }
 }

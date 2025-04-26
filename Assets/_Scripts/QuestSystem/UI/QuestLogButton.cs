@@ -55,5 +55,10 @@ namespace _Scripts.QuestSystem.UI
                     break;
             }
         }
+
+        public string GetButtonText()
+        {
+            return buttonText.text;
+        }
     }
 }

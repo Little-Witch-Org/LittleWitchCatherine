@@ -22,8 +22,8 @@ public enum CatherineHouseNovelViewPlaces
     
     //3Floor
     TFCorridor=13,
-    KatherineRoom=14,
-    KatherineDressingRoom=15,
+    CatherineRoom=14,
+    CatherineDressingRoom=15,
     ForemtogRoom=16,
     
     //4Floor
