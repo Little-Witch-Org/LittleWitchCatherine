@@ -42,5 +42,13 @@ namespace _Scripts.Events
         {
             OnChangeScene?.Invoke(scene);
         }
+        
+        
+        //used to signal novel camera that place image changed and need to adjust camera size
+        public event Action<SpriteRenderer> OnPlaceSpriteChanged;
+        public void PlaceSpriteChanged(SpriteRenderer spriteRenderer) 
+        {
+            OnPlaceSpriteChanged?.Invoke(spriteRenderer);
+        }
     }
 }

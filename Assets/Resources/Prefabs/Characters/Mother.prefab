@@ -50,6 +50,8 @@ MonoBehaviour:
   currentLocationName: CatherineHouse
   currentPlaceName: Kitchen
   npcBody: {fileID: 8052998939026669753}
+  maxReputation: 0
+  currentReputation: 0
 --- !u!114 &1026683554588651329
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,7 +70,8 @@ MonoBehaviour:
   - Mother_Dialogue1
   - Mother_Dialogue2
   - Mother_Dialogue3
-  currentCharacterName: 
+  - Mother_Dialogue4
+  currentNpcName: 
   isDialogueAutoActivationEnabled: 0
 --- !u!1 &8052998939026669753
 GameObject:
@@ -230,19 +233,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf50d441da9b49858e3791143eb75657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1026683554588651329}
-        m_TargetAssemblyTypeName: _Scripts.Dialog_Ink.StandaloneDialogueComponent,
-          Assembly-CSharp
-        m_MethodName: StartDialogue
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2

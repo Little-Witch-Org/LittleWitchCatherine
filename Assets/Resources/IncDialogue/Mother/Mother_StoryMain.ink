@@ -25,6 +25,9 @@ VAR Quest1GoDownToKitchenState = "CanStart" //current quest used in this story +
 
 VAR SleepCount =0 //for dialogue 2
 
+VAR randomRoll = 0 //using roll in dialogue
+
 INCLUDE Mother_Dialogue1.ink
 INCLUDE Mother_Dialogue2.ink
 INCLUDE Mother_Dialogue3.ink
+INCLUDE Mother_Dialogue4.ink

@@ -129,13 +129,14 @@ GameObject:
   m_Component:
   - component: {fileID: 915913236}
   - component: {fileID: 915913235}
+  - component: {fileID: 915913237}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &915913235
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -179,9 +180,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 8325829189138727704, guid: c65fc7ca1c556c2439a34df36a64df8d, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_SortingOrder: -1
+  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Color: {r: 0.20754719, g: 0.20754719, b: 0.20754719, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -206,6 +207,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &915913237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 915913234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64d09e27480d4856848e470e8bdf0c23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1931252478
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,6 +231,7 @@ GameObject:
   - component: {fileID: 1931252481}
   - component: {fileID: 1931252480}
   - component: {fileID: 1931252479}
+  - component: {fileID: 1931252483}
   m_Layer: 0
   m_Name: NovelViewPlaceChanger
   m_TagString: Untagged
@@ -263,7 +277,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 45.29, y: 31.756073}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -315,7 +329,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 30
-  m_Sprite: {fileID: 468089822763856731, guid: 7264a2bddac55b84bba0eb90262dae81, type: 3}
+  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_FlipX: 0
   m_FlipY: 0
@@ -355,6 +369,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1931252483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931252478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64d09e27480d4856848e470e8bdf0c23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1962712611
 GameObject:
   m_ObjectHideFlags: 0
@@ -366,8 +392,8 @@ GameObject:
   - component: {fileID: 1962712614}
   - component: {fileID: 1962712613}
   - component: {fileID: 1962712612}
-  - component: {fileID: 1962712615}
   - component: {fileID: 1962712616}
+  - component: {fileID: 1962712617}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -449,19 +475,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1962712615
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1962712611}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d58d870b71b6f0408aad55088a5de9d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  templateSprite: {fileID: 1931252480}
 --- !u!114 &1962712616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -474,6 +487,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70e932237fd2406c91fee753f9acfd04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1962712617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1962712611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de9ff7db6e0041b9b40b110490fefe82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cropToFitHeight: 1
 --- !u!1 &2040921715
 GameObject:
   m_ObjectHideFlags: 0
