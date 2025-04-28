@@ -24,7 +24,7 @@ namespace _Scripts.Dialog_Ink
             
             //stats
             story.BindExternalFunction("UpdateHealth", (int health) => UpdateHealth(health));
-            story.BindExternalFunction("UpdateSaturation", (int saturation) => UpdateSaturation(saturation));
+            story.BindExternalFunction("UpdateSatiety", (int Satiety) => UpdateSatiety(Satiety));
             story.BindExternalFunction("UpdateMood", (int mood) => UpdateMood(mood));
             story.BindExternalFunction("UpdateEnergy", (int energy) => UpdateEnergy(energy));
             
@@ -80,9 +80,9 @@ namespace _Scripts.Dialog_Ink
         {
             EventManager.Instance.PlayerStatsEvents.UpdateHealth(health);
         }
-        private void UpdateSaturation(int saturation)
+        private void UpdateSatiety(int satiety)
         {
-            EventManager.Instance.PlayerStatsEvents.UpdateSaturation(saturation);
+            EventManager.Instance.PlayerStatsEvents.UpdateSatiety(satiety);
         }
         private void UpdateMood(int mood)
         {

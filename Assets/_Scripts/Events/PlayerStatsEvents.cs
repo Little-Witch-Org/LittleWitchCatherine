@@ -4,56 +4,65 @@ namespace _Scripts.Events
 {
     public class PlayerStatsEvents
     {
-        public event Action<int> OnUpdateHealth;
-        public void UpdateHealth(int health) 
+        
+        //---update stat
+        public event Action<float> OnUpdateHealth;
+        public void UpdateHealth(float health) 
         {
             OnUpdateHealth?.Invoke(health);
         }
         
-        public event Action<int> OnUpdateSaturation;
-        public void UpdateSaturation(int saturation) 
+        public event Action<float> OnUpdateSatiety;
+        public void UpdateSatiety(float Satiety) 
         {
-            OnUpdateSaturation?.Invoke(saturation);
+            OnUpdateSatiety?.Invoke(Satiety);
         }
         
         
-        public event Action<int> OnUpdateMood;
-        public void UpdateMood(int mood) 
+        public event Action<float> OnUpdateMood;
+        public void UpdateMood(float mood) 
         {
             OnUpdateMood?.Invoke(mood);
         }
         
-        public event Action<int> OnUpdateEnergy;
-        public void UpdateEnergy(int energy) 
+        public event Action<float> OnUpdateEnergy;
+        public void UpdateEnergy(float energy) 
         {
             OnUpdateEnergy?.Invoke(energy);
         }
         
         
         
-        
-        public event Action<int> OnHealthChanged;
-        public void HealthChanged(int currentHealth) 
+        //---stat changed
+        public event Action<float> OnHealthChanged;
+        public void HealthChanged(float currentHealth) 
         {
             OnHealthChanged?.Invoke(currentHealth);
         }
         
-        public event Action<int> OnSaturationChanged;
-        public void SaturationChanged(int currentSaturation) 
+        public event Action<float> OnSatietyChanged;
+        public void SatietyChanged(float currentSatiety) 
         {
-            OnSaturationChanged?.Invoke(currentSaturation);
+            OnSatietyChanged?.Invoke(currentSatiety);
         }
         
-        public event Action<int> OnMoodChanged;
-        public void MoodChanged(int currentMood) 
+        public event Action<float> OnMoodChanged;
+        public void MoodChanged(float currentMood) 
         {
             OnMoodChanged?.Invoke(currentMood);
         }
         
-        public event Action<int> OnEnergyChanged;
-        public void EnergyChanged(int currentEnergy) 
+        public event Action<float> OnEnergyChanged;
+        public void EnergyChanged(float currentEnergy) 
         {
             OnEnergyChanged?.Invoke(currentEnergy);
+        }
+        
+        //rate
+        public event Action<float,float,float,float> OnStatsChangeRateChanged;
+        public void StatsChangeRateChanged(float healthChangeRate, float satietyChangeRate, float moodChangeRate, float energyChangeRate) 
+        {
+            OnStatsChangeRateChanged?.Invoke(healthChangeRate, satietyChangeRate, moodChangeRate, energyChangeRate );
         }
 
     }

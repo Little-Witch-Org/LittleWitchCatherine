@@ -25,7 +25,23 @@ namespace _Scripts.Managers
 
         // Total elapsed time in seconds
         private float totalElapsedTime;
-        
+
+
+        private void OnEnable()
+        {
+            EventManager.Instance.TimeEvents.OnUpdateSeconds += AddSeconds;
+            EventManager.Instance.TimeEvents.OnUpdateMinutes += AddMinutes;
+            EventManager.Instance.TimeEvents.OnUpdateHours += AddHours;
+            EventManager.Instance.TimeEvents.OnUpdateDays += AddDays;
+        }
+        private void OnDisable()
+        {
+            EventManager.Instance.TimeEvents.OnUpdateSeconds -= AddSeconds;
+            EventManager.Instance.TimeEvents.OnUpdateMinutes -= AddMinutes;
+            EventManager.Instance.TimeEvents.OnUpdateHours -= AddHours;
+            EventManager.Instance.TimeEvents.OnUpdateDays -= AddDays;
+        }
+
 
         void Awake()
         {
@@ -107,6 +123,8 @@ namespace _Scripts.Managers
             UpdateTimeVariables();
             DetermineTimeOfDay();
             UpdateFormattedDateTime();
+            
+            EventManager.Instance.TimeEvents.SecondsChange(secondsToAdd);
         }
 
         // Add minutes to the current time
@@ -116,6 +134,8 @@ namespace _Scripts.Managers
             UpdateTimeVariables();
             DetermineTimeOfDay();
             UpdateFormattedDateTime();
+            
+            EventManager.Instance.TimeEvents.MinutesChange(minutesToAdd);
         }
 
         // Add hours to the current time
@@ -125,6 +145,8 @@ namespace _Scripts.Managers
             UpdateTimeVariables();
             DetermineTimeOfDay();
             UpdateFormattedDateTime();
+            
+            EventManager.Instance.TimeEvents.HoursChange(hoursToAdd);
         }
 
         // Add days to the current time
@@ -134,6 +156,8 @@ namespace _Scripts.Managers
             UpdateTimeVariables();
             DetermineTimeOfDay();
             UpdateFormattedDateTime();
+            
+            EventManager.Instance.TimeEvents.DaysChange(daysToAdd);
         }
 
         // Add months to the current time

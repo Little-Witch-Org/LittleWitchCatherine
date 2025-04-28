@@ -23,8 +23,8 @@ namespace _Scripts.Characters.NPC
 
         [SerializeField] protected GameObject npcBody;
         
-        [SerializeField] protected int maxReputation;
-        [SerializeField] protected int currentReputation;
+        [SerializeField] protected float maxReputation;
+        [SerializeField] protected float currentReputation;
 
         private void Start()
         {
@@ -74,13 +74,17 @@ namespace _Scripts.Characters.NPC
         }
         
         //rep
-        private void UpdateReputation(string npc, int reputation)
+        private void UpdateReputation(string npc, float reputation)
         {
             if (npcName.Equals(npc))
             {
+                var startReputation = currentReputation;
                 currentReputation = Math.Clamp(currentReputation + reputation, 0, maxReputation);
+                Debug.Log($"Reputation for {npc} updated {startReputation} -> {currentReputation} ({reputation}).");
                 EventManager.Instance.ReputationEvents.ReputationChanged(npcName,currentReputation);
             }
+            
+            
         }
     }
 }

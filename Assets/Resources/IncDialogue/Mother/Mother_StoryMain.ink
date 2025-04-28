@@ -10,7 +10,7 @@ EXTERNAL ResumeCutscene()
 EXTERNAL AddMinutes(int)
 
 EXTERNAL UpdateHealth(int)
-EXTERNAL UpdateSaturation(int)
+EXTERNAL UpdateSatiety(int)
 EXTERNAL UpdateMood(int)
 EXTERNAL UpdateEnergy(int)
 

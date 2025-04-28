@@ -4,14 +4,14 @@ namespace _Scripts.Events
 {
     public class ReputationEvents
     {
-        public event Action<string, int> OnUpdateReputation;
-        public void UpdateReputation(string npcName, int reputation) 
+        public event Action<string, float> OnUpdateReputation;
+        public void UpdateReputation(string npcName, float reputation) 
         {
             OnUpdateReputation?.Invoke(npcName, reputation);
         }
         
-        public event Action<string, int> OnReputationChanged;
-        public void ReputationChanged(string npcName, int currentReputation) 
+        public event Action<string, float> OnReputationChanged;
+        public void ReputationChanged(string npcName, float currentReputation) 
         {
             OnReputationChanged?.Invoke(npcName, currentReputation);
         }
