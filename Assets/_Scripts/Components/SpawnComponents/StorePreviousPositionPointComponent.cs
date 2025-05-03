@@ -1,4 +1,5 @@
 using _Scripts.Enums;
+using _Scripts.Managers;
 using UnityEngine;
 
 namespace _Scripts.Components.SpawnComponents
@@ -9,15 +10,12 @@ namespace _Scripts.Components.SpawnComponents
     /// </summary>
     public class StorePreviousPositionPointComponent : MonoBehaviour
     {
-
-
-        [SerializeField] private SpawnPointsNamesCatherineHouseMap pointNamesName;
-
+        [SerializeField] private SpawnPointsNamesCatherineHouseMapEnum pointNamesName;
 
         public void SetPreviousPositionPointName()
         {
             PlayerCharacterManager.Instance.SetPreviousSpawnPositionPoint(pointNamesName); 
-            //Debug.LogFormat("Saved point name from trigger = {0}", pointNamesName);
+            //Debug.LogFormat("Saved point name from trigger = {0}", pointNamesName); 
         }
     }
 }

@@ -1,63 +1,65 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
 
-/// <summary>
-/// Used for object fade on map //todo to remake?
-/// </summary>
-public class TransparencyChangerComponent : MonoBehaviour, IFadeable
+namespace _Scripts.Components.Misc
 {
-    [SerializeField] private float minValue = 0.5f;
-    [SerializeField] private float stepValue = 0.05f;
-    [SerializeField] private float stepTime = 0.05f;
-    [SerializeField] private SpriteRenderer[] spriteRendArray;
-
-    private Coroutine MyCoroutine;
-    private float currentValue = 1f;
-
-    private const float maxValue = 1f;
-
-    public void FadeOut()
+    /// <summary>
+    /// Used for object fade on map //todo to remake?
+    /// </summary>
+    public class TransparencyChangerComponent : MonoBehaviour, IFadeable
     {
-        //остановка других корутин, чтобы избежать багов с мерцанием спрайта, багов при одновременном включении двух корутин
-        StopCoroutine();
-        MyCoroutine = StartCoroutine(FadeOutProcces());
-    }
-    public void UnFade()
-    {
-        if (!gameObject.activeInHierarchy) return; //handle fast change scene situation (unFade try to start but scene is new now)
-        StopCoroutine();
-        MyCoroutine = StartCoroutine(UnFadeProcces());
-    }
-    private IEnumerator UnFadeProcces()
-    {
-        for (; currentValue < maxValue;)
+        [SerializeField] private float minValue = 0.5f;
+        [SerializeField] private float stepValue = 0.05f;
+        [SerializeField] private float stepTime = 0.05f;
+        [SerializeField] private SpriteRenderer[] spriteRendArray;
+
+        private Coroutine _myCoroutine;
+        private float _currentValue = 1f;
+
+        private const float MaxValue = 1f;
+
+        public void FadeIn()
         {
-            currentValue += stepValue;
-            for (int j = 0; j < spriteRendArray.Length; j++)
-            {
-                spriteRendArray[j].color = new Color(1f, 1f, 1f, currentValue);
-            }
-            yield return new WaitForSeconds(stepTime);
+            //остановка других корутин, чтобы избежать багов с мерцанием спрайта, багов при одновременном включении двух корутин
+            StopCoroutine();
+            _myCoroutine = StartCoroutine(FadeOutProcces());
         }
-    }
-    private IEnumerator FadeOutProcces()
-    {
-        //”величение прозрачности, текущее«начение не хардкодитс€ ни к min, ни к max
-        for (; currentValue > minValue; currentValue -= stepValue)
+        public void FadeOut()
         {
-            for (int j = 0; j < spriteRendArray.Length; j++)
-            {
-                spriteRendArray[j].color = new Color(1f, 1f, 1f, currentValue);
-            }
-            yield return new WaitForSeconds(stepTime);
+            if (!gameObject.activeInHierarchy) return; //handle fast change scene situation (unFade try to start but scene is new now)
+            StopCoroutine();
+            _myCoroutine = StartCoroutine(UnFadeProcces());
         }
-    }
-    private void StopCoroutine()
-    {
-        if (MyCoroutine == null)
-            return;
-        StopCoroutine(MyCoroutine);
-        MyCoroutine = null;
+        private IEnumerator UnFadeProcces()
+        {
+            for (; _currentValue < MaxValue;)
+            {
+                _currentValue += stepValue;
+                for (int j = 0; j < spriteRendArray.Length; j++)
+                {
+                    spriteRendArray[j].color = new Color(1f, 1f, 1f, _currentValue);
+                }
+                yield return new WaitForSeconds(stepTime);
+            }
+        }
+        private IEnumerator FadeOutProcces()
+        {
+            //”величение прозрачности, текущее«начение не хардкодитс€ ни к min, ни к max
+            for (; _currentValue > minValue; _currentValue -= stepValue)
+            {
+                for (int j = 0; j < spriteRendArray.Length; j++)
+                {
+                    spriteRendArray[j].color = new Color(1f, 1f, 1f, _currentValue);
+                }
+                yield return new WaitForSeconds(stepTime);
+            }
+        }
+        private void StopCoroutine()
+        {
+            if (_myCoroutine == null)
+                return;
+            StopCoroutine(_myCoroutine);
+            _myCoroutine = null;
+        }
     }
 }

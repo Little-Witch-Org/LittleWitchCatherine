@@ -1,4 +1,5 @@
-﻿using Ink.Runtime;
+﻿using _Scripts.Managers;
+using Ink.Runtime;
 using UnityEngine;
 
 namespace _Scripts.Dialog_Ink

@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
-using _Scripts.Components.TimeManagement.Enums;
+using _Scripts.Enums;
+using _Scripts.LocationsAndPlaces.Places;
 using _Scripts.LocationsAndPlaces.Places.CatherineHouse;
 
-namespace _Scripts.LocationsAndPlaces
+namespace _Scripts.LocationsAndPlaces.Locations
 {
     /// <summary>
     /// Stores location info.
@@ -12,15 +13,15 @@ namespace _Scripts.LocationsAndPlaces
     public abstract class Location
     {
         public string LocationName { get; protected set; }
-        public TimeOfDay TimeOfDay { get;  set; }
+        public TimeOfDayEnum TimeOfDayEnum { get;  set; }
         public List<Place> Places { get; protected set; }
 
         public bool isLocationLocked{ get; set; }
 
-        protected Location(string name, TimeOfDay timeOfDay, List<Place> places)
+        protected Location(string name, TimeOfDayEnum timeOfDayEnum, List<Place> places)
         {
             LocationName = name;
-            TimeOfDay = timeOfDay;
+            TimeOfDayEnum = timeOfDayEnum;
             Places = places;
         }
 

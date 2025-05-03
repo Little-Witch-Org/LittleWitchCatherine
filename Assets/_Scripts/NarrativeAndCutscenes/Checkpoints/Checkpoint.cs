@@ -6,6 +6,7 @@ namespace _Scripts.NarrativeAndCutscenes.Checkpoints
     public abstract class Checkpoint
     {
         public int CheckpointID { get; protected set; }
+        public bool IsCheckpointActivated { get; protected set; }
         
         //get ID from name
         protected Checkpoint()
@@ -13,7 +14,7 @@ namespace _Scripts.NarrativeAndCutscenes.Checkpoints
             string className = GetType().Name;
             string numberStr = new string(className.Where(char.IsDigit).ToArray());
         
-            // Пытаемся преобразовать в число
+            // get number from checkpoint name
             if (int.TryParse(numberStr, out int id))
             {
                 CheckpointID = id;
@@ -22,6 +23,7 @@ namespace _Scripts.NarrativeAndCutscenes.Checkpoints
             {
                 throw new ArgumentException($"Checkpoint class name must contain a number! Example: 'Checkpoint1'. Wrong name: {className}");
             }
+            IsCheckpointActivated = false;
         }
 
         public virtual void Activate()

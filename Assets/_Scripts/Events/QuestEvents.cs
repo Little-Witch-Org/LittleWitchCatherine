@@ -1,7 +1,8 @@
 ﻿using System;
+using _Scripts.QuestSystem;
 using UnityEngine;
 
-namespace _Scripts.QuestSystem
+namespace _Scripts.Events
 {
     /// <summary>
     /// Event class for quests

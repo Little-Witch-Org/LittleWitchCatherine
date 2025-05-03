@@ -1,4 +1,6 @@
 ﻿using System;
+using _Scripts.Enums;
+using _Scripts.LocationsAndPlaces.Maps;
 using UnityEngine;
 
 namespace _Scripts.Events
@@ -37,10 +39,16 @@ namespace _Scripts.Events
             OnCurrentPlaceOnScreen?.Invoke(location, place);
         }
         
-        public event Action<SceneNames> OnChangeScene;
-        public void ChangeScene(SceneNames scene) 
+        public event Action<SceneNamesEnum> OnChangeScene;
+        public void ChangeScene(SceneNamesEnum scene) 
         {
             OnChangeScene?.Invoke(scene);
+        }
+        
+        public event Action<Map> OnLoadedMap;
+        public void LoadedMap(Map map) 
+        {
+            OnLoadedMap?.Invoke(map);
         }
         
         

@@ -1,3 +1,4 @@
+using _Scripts.Components.SpawnComponents;
 using _Scripts.Enums;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -16,7 +17,7 @@ namespace _Scripts.Managers
         public SpawnComponent SpawnComponent { get; private set; }
         public GameObject CharacterPrefab { get; private set; }
         
-        public SpawnPointsNamesCatherineHouseMap previousSpawnPointName;
+        public SpawnPointsNamesCatherineHouseMapEnum previousSpawnPointName;
         
         
         private void OnEnable()
@@ -59,20 +60,28 @@ namespace _Scripts.Managers
         {
             if (Instance != this) return; //handle double spawn (spawn only for first copy of this script (Instance))
             
-            if (scene.name == SceneNames.CatherineHouseMap.ToString()|| scene.name.Contains("Test"))
+            if (scene.name == SceneNamesEnum.CatherineHouseMapScene.ToString()|| scene.name.Contains("Test")|| scene.name.Contains("NewMapTemp"))
             {
                 //Debug.LogFormat("Scene loaded: {0}. Current spawn point: {1}", scene.name, previousSpawnPointName);
-                SpawnCharacter();
+                SpawnCharacter(scene.name);
                 //Debug.LogFormat("Spawned in {0}", previousSpawnPointName);
 
             }
         }
 
-        private void SpawnCharacter()
+        private void SpawnCharacter(string sceneName)
         {
             previousSpawnPointName = PlayerCharacterManager.Instance.GetPreviousSpawnPositionPoint();
             //Debug.LogFormat("Prepare to spawn Player to {0}", previousSpawnPointName);
-            CharacterPrefab = UnityEngine.Resources.Load("Witch") as GameObject;
+            if (sceneName == "CatherineHouseMapScene")
+            {
+                CharacterPrefab = UnityEngine.Resources.Load("Prefabs/_Player/Witch") as GameObject;
+            }
+            else
+            {
+                CharacterPrefab = UnityEngine.Resources.Load("Prefabs/_Player/Witch") as GameObject;
+            }
+
             SpawnComponent = GetComponent<SpawnComponent>();
             SpawnComponent.Spawn(CharacterPrefab, SpawnPointsManager.Instance.getSpawnPosition(previousSpawnPointName).position);
         }

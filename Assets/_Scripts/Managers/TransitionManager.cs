@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using _Scripts.Components.TimeManagement.Enums;
+using _Scripts.Components.Transition;
 using _Scripts.Components.Transition.UI;
+using _Scripts.Enums;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -69,12 +70,12 @@ namespace _Scripts.Managers
             _sceneLoader = new SceneLoader();
         }
 
-        private void ChangeScene(SceneNames scene)
+        private void ChangeScene(SceneNamesEnum scene)
         {
             StartCoroutine(ChangeSceneCoroutine(scene));
         }
         
-        private IEnumerator ChangeSceneCoroutine(SceneNames scene) //todo disable input while loading
+        private IEnumerator ChangeSceneCoroutine(SceneNamesEnum scene) //todo disable input while loading
         {
             //disable hotkeys (menu)
             EventManager.Instance.InputEvents.HotkeysAreActive(false);

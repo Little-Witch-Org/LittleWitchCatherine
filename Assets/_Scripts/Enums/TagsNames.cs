@@ -1,7 +1,8 @@
-using UnityEngine;
-
-public enum TagsNames 
+namespace _Scripts.Enums
 {
-    Player = 0,
-    Enemy = 1,
+    public enum TagsNames 
+    {
+        Player = 0,
+        Enemy = 1,
+    }
 }

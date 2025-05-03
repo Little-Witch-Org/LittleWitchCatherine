@@ -1,4 +1,4 @@
-﻿using _Scripts.Components.TimeManagement.Enums;
+﻿using _Scripts.Enums;
 using _Scripts.Managers;
 using TMPro;
 using UnityEngine;
@@ -18,7 +18,7 @@ namespace _Scripts.UI
 
         private void OnEnable()
         {
-            EventManager.Instance.TimeEvents.OnTimeOfDayChange += ChangeTimeOfDayText;
+            EventManager.Instance.TimeEvents.OnUpdateTimeOfDay += UpdateTimeOfDayText;
             EventManager.Instance.TimeEvents.OnTimeChange += ChangeTimeText;
             EventManager.Instance.TimeEvents.OnDateChange += ChangeDateText;
 
@@ -29,29 +29,14 @@ namespace _Scripts.UI
 
         private void OnDisable()
         {
-            EventManager.Instance.TimeEvents.OnTimeOfDayChange -= ChangeTimeOfDayText;
+            EventManager.Instance.TimeEvents.OnUpdateTimeOfDay -= UpdateTimeOfDayText;
             EventManager.Instance.TimeEvents.OnTimeChange -= ChangeTimeText;
             EventManager.Instance.TimeEvents.OnDateChange -= ChangeDateText;
 
             //EventManager.Instance.InputEvents.OnMenuPressed -= ToggleCheatMenu;
 
         }
-
-
-        void Start()
-        {
-            if (TimeManager.Instance != null)
-            {
-                TimeManager.Instance.AddSeconds(0); //handle first ui update
-            }
-            else
-            {
-                Debug.LogError("TimeManager instance is null!");
-            }
-
-
-        }
-
+        
 
         private void ChangeTimeText(string text)
         {
@@ -69,9 +54,9 @@ namespace _Scripts.UI
             yearText.text = text;
         }
 
-        private void ChangeTimeOfDayText(TimeOfDay timeOfDay)
+        private void UpdateTimeOfDayText(TimeOfDayEnum timeOfDayEnum)
         {
-            timeOfDayText.SetText(timeOfDay.ToString());
+            timeOfDayText.SetText(timeOfDayEnum.ToString());
         }
         
     }

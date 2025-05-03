@@ -1,4 +1,5 @@
 using System;
+using _Scripts.Enums;
 using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;

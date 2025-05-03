@@ -1,4 +1,4 @@
-﻿namespace _Scripts.LocationsAndPlaces.Places.CatherineHouse
+﻿namespace _Scripts.LocationsAndPlaces.Places
 {
     /// <summary>
     /// Stores info about place (with custom states)

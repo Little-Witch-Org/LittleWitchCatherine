@@ -1,4 +1,6 @@
 ﻿using System;
+using _Scripts.Enums;
+using _Scripts.Managers;
 using UnityEngine;
 
 namespace _Scripts.QuestSystem

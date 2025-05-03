@@ -1,42 +1,41 @@
-using System;
 using System.Collections.Generic;
-using _Scripts;
 using _Scripts.Enums;
-using NUnit.Framework;
 using UnityEngine;
 
-
-/// <summary>
-/// Stores spawn point objects. Player Spawner gets spawn point position from here
-/// </summary>
-public class SpawnPointsManager : MonoBehaviour
+namespace _Scripts.Managers
 {
-    public static SpawnPointsManager Instance;
-
-    public List<GameObject> spawnPositionObjects;
-
-    private Transform _spawnPointPosition;
-    
-    private void Awake()
+    /// <summary>
+    /// Stores spawn point objects. Player Spawner gets spawn point position from here
+    /// </summary>
+    public class SpawnPointsManager : MonoBehaviour
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-    }
-    
-    public Transform getSpawnPosition(SpawnPointsNamesCatherineHouseMap spawnPointName)
-    {
-        //Debug.LogFormat("1 Spawner - get spawn point from PlayerManager = {0}", spawnPointName);
+        public static SpawnPointsManager Instance;
 
-        foreach (var obj in spawnPositionObjects)
+        public List<GameObject> spawnPositionObjects;
+
+        private Transform _spawnPointPosition;
+    
+        private void Awake()
         {
-            if (obj.name == spawnPointName.ToString())
+            if (Instance == null)
             {
-                _spawnPointPosition =  obj.transform;
+                Instance = this;
             }
         }
-        //Debug.LogFormat("returning spawn position from spawn manager {0}",_spawnPointPosition);
-        return _spawnPointPosition;
+    
+        public Transform getSpawnPosition(SpawnPointsNamesCatherineHouseMapEnum spawnPointName)
+        {
+            //Debug.LogFormat("1 Spawner - get spawn point from PlayerManager = {0}", spawnPointName);
+
+            foreach (var obj in spawnPositionObjects)
+            {
+                if (obj.name == spawnPointName.ToString())
+                {
+                    _spawnPointPosition =  obj.transform;
+                }
+            }
+            //Debug.LogFormat("returning spawn position from spawn manager {0}",_spawnPointPosition);
+            return _spawnPointPosition;
+        }
     }
 }

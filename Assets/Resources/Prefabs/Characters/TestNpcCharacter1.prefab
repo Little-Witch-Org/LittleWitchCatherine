@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 8350525047028740844}
   - component: {fileID: 1238663205272679189}
   - component: {fileID: 3541350213252530843}
-  - component: {fileID: 2009285637412234646}
+  - component: {fileID: 5899655283179636194}
   - component: {fileID: 2613585803853067129}
-  - component: {fileID: 8977239771634362003}
   - component: {fileID: 5556995855921768744}
+  - component: {fileID: 2009285637412234646}
   m_Layer: 0
   m_Name: EnableQuestTrigger
   m_TagString: Untagged
@@ -138,6 +138,59 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &5899655283179636194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154218612345911476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7d5ab4370ce4fe1ba15f1ea0899b899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2613585803853067129}
+        m_TargetAssemblyTypeName: _Scripts.QuestSystem.QuestCanStartEnablerTrigger,
+          Assembly-CSharp
+        m_MethodName: ChangeQuestAvailability
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+--- !u!114 &2613585803853067129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154218612345911476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23c67f4ef4a04400bcceb02506be4e8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questInfo: {fileID: 11400000, guid: 66926f4f9c6a4c64fa367e0bb93d69b3, type: 2}
+--- !u!114 &5556995855921768744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154218612345911476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13125161e545408f961ce5079c21ec73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2009285637412234646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,43 +206,6 @@ MonoBehaviour:
   storyName: FirstDialogueNpc_main
   variableName: FirstDialogueFirstNpc_1_main_var
   variableValue: 123
---- !u!114 &2613585803853067129
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 154218612345911476}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23c67f4ef4a04400bcceb02506be4e8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  questInfo: {fileID: 11400000, guid: 66926f4f9c6a4c64fa367e0bb93d69b3, type: 2}
---- !u!114 &8977239771634362003
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 154218612345911476}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf50d441da9b49858e3791143eb75657, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &5556995855921768744
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 154218612345911476}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13125161e545408f961ce5079c21ec73, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &793699711842104942
 GameObject:
   m_ObjectHideFlags: 0
@@ -435,7 +451,7 @@ SpriteRenderer:
   m_Size: {x: 0.32, y: 0.32}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &2712487987223468047
@@ -522,7 +538,7 @@ SpriteRenderer:
   m_Size: {x: 0.32, y: 0.32}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &3554783005213635561
@@ -751,7 +767,7 @@ SpriteRenderer:
   m_Size: {x: 0.32, y: 0.32}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &5067071074887010985
@@ -838,6 +854,6 @@ SpriteRenderer:
   m_Size: {x: 0.32, y: 0.32}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0

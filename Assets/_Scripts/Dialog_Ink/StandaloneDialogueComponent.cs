@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using _Scripts.Characters.NPC;
 using _Scripts.Enums;
+using _Scripts.Managers;
 using _Scripts.Service.Log;
 using Ink.Runtime;
 using UnityEngine;
@@ -98,7 +99,7 @@ namespace _Scripts.Dialog_Ink
         
         /// /// <summary>
         /// Starts dialogue with input protection:
-        /// 1. Locks input to prevent conflicting submissions (in ClickTriggerActivatorForNpc)
+        /// 1. Locks input to prevent conflicting submissions (in ClickDialogueActivatorForNpc)
         /// 2. Delays initialization by 1 frame (in StartDialogue())
         /// 3. Processes inputs safely in dialogue context
         /// 

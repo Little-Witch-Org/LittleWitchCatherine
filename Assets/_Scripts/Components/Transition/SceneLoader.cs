@@ -1,14 +1,17 @@
 using System.Collections;
-using _Scripts;
+using _Scripts.Enums;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneLoader
+namespace _Scripts.Components.Transition
 {
-    public IEnumerator LoadSceneAsync(SceneNames sceneName)
+    public class SceneLoader
     {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName.ToString());
+        public IEnumerator LoadSceneAsync(SceneNamesEnum sceneNameEnum)
+        {
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneNameEnum.ToString());
         
-        yield return new WaitUntil(() => asyncLoad != null && asyncLoad.isDone);
+            yield return new WaitUntil(() => asyncLoad != null && asyncLoad.isDone);
+        }
     }
 }

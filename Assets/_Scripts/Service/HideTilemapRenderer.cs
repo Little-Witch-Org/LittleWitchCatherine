@@ -1,12 +1,15 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class HideTilemapRenderer : MonoBehaviour
+namespace _Scripts.Service
 {
-    private TilemapRenderer tileRenderer;
-    void Start()
+    public class HideTilemapRenderer : MonoBehaviour
     {
-        tileRenderer = GetComponent<TilemapRenderer>();
-        tileRenderer.enabled = false;
+        private TilemapRenderer tileRenderer;
+        void Start()
+        {
+            tileRenderer = GetComponent<TilemapRenderer>();
+            tileRenderer.enabled = false;
+        }
     }
 }

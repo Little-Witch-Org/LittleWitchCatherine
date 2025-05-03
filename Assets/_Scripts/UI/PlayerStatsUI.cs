@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using _Scripts.Managers;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -140,16 +141,16 @@ namespace _Scripts.UI
         {
             const float maxHealth = 100f;
             float newFill = newHealth / maxHealth;
-            float difference = (_lastHealth - newHealth) / maxHealth;
+            float difference = Mathf.Round((_lastHealth - newHealth) / maxHealth * 10000f) / 10000f;
 
             _activeHealthSequence?.Kill();
             _activeHealthSequence = DOTween.Sequence();
 
             //immediately change for menu
             healthBarFillMenu.fillAmount = newFill;
-
-
-            if (difference > 0.01f) // negative
+            
+            
+            if (difference > 0.001f) // negative
             {
                 // Negative to animate
                 healthBarNegativeFill.fillAmount = _lastHealth / maxHealth;
@@ -162,7 +163,7 @@ namespace _Scripts.UI
                 healthBarFill.fillAmount = newFill;
                 healthBarPositiveFill.fillAmount = newFill;
             }
-            else if (difference < -0.01f) // positive
+            else if (difference < -0.001f) // positive
             {
                 // original to animate
                 healthBarFill.fillAmount = _lastHealth / maxHealth;
@@ -207,7 +208,7 @@ namespace _Scripts.UI
         {
             const float maxSatiety = 100f;
             float newFill = newSatiety / maxSatiety;
-            float difference = (_lastSatiety - newSatiety) / maxSatiety;
+            float difference = Mathf.Round((_lastSatiety - newSatiety) / maxSatiety * 10000f) / 10000f;
 
             _activeSatietySequence?.Kill();
             _activeSatietySequence = DOTween.Sequence();
@@ -215,7 +216,7 @@ namespace _Scripts.UI
             // Мгновенное обновление для меню
             satietyBarFillMenu.fillAmount = newFill;
 
-            if (difference > 0.01f) // Уменьшение
+            if (difference > 0.001f) // Уменьшение
             {
                 satietyBarNegativeFill.fillAmount = _lastSatiety / maxSatiety;
                 _activeSatietySequence
@@ -225,7 +226,7 @@ namespace _Scripts.UI
                 satietyBarFill.fillAmount = newFill;
                 satietyBarPositiveFill.fillAmount = newFill;
             }
-            else if (difference < -0.01f) // Увеличение
+            else if (difference < -0.001f) // Увеличение
             {
                 satietyBarFill.fillAmount = _lastSatiety / maxSatiety;
                 _activeSatietySequence
@@ -261,14 +262,14 @@ namespace _Scripts.UI
         {
             const float maxMood = 100f;
             float newFill = newMood / maxMood;
-            float difference = (_lastMood - newMood) / maxMood;
+            float difference = Mathf.Round((_lastMood - newMood) / maxMood * 10000f) / 10000f;
 
             _activeMoodSequence?.Kill();
             _activeMoodSequence = DOTween.Sequence();
 
             moodBarFillMenu.fillAmount = newFill;
 
-            if (difference > 0.01f)
+            if (difference > 0.001f)
             {
                 moodBarNegativeFill.fillAmount = _lastMood / maxMood;
                 _activeMoodSequence
@@ -278,7 +279,7 @@ namespace _Scripts.UI
                 moodBarFill.fillAmount = newFill;
                 moodBarPositiveFill.fillAmount = newFill;
             }
-            else if (difference < -0.01f)
+            else if (difference < -0.001f)
             {
                 moodBarFill.fillAmount = _lastMood / maxMood;
                 _activeMoodSequence
@@ -314,14 +315,14 @@ namespace _Scripts.UI
         {
             const float maxEnergy = 100f;
             float newFill = newEnergy / maxEnergy;
-            float difference = (_lastEnergy - newEnergy) / maxEnergy;
+            float difference = Mathf.Round((_lastEnergy - newEnergy) / maxEnergy * 10000f) / 10000f;
 
             _activeEnergySequence?.Kill();
             _activeEnergySequence = DOTween.Sequence();
 
             energyBarFillMenu.fillAmount = newFill;
 
-            if (difference > 0.01f)
+            if (difference > 0.001f)
             {
                 energyBarNegativeFill.fillAmount = _lastEnergy / maxEnergy;
                 _activeEnergySequence
@@ -331,7 +332,7 @@ namespace _Scripts.UI
                 energyBarFill.fillAmount = newFill;
                 energyBarPositiveFill.fillAmount = newFill;
             }
-            else if (difference < -0.01f)
+            else if (difference < -0.001f)
             {
                 energyBarFill.fillAmount = _lastEnergy / maxEnergy;
                 _activeEnergySequence
@@ -390,14 +391,14 @@ namespace _Scripts.UI
         {
             const float maxRep = 100f;
             float newFill = newRep / maxRep;
-            float difference = (_lastMotherRep - newRep) / maxRep;
+            float difference = Mathf.Round((_lastMotherRep - newRep) / maxRep * 10000f) / 10000f;
 
             _activeMotherRepSequence?.Kill();
             _activeMotherRepSequence = DOTween.Sequence();
 
             motherReputationFillMenu.fillAmount = newFill;
 
-            if (difference > 0.01f)
+            if (difference > 0.001f)
             {
                 motherReputationBarNegativeFill.fillAmount = _lastMotherRep / maxRep;
                 _activeMotherRepSequence
@@ -407,7 +408,7 @@ namespace _Scripts.UI
                 motherReputationBarFill.fillAmount = newFill;
                 motherReputationBarPositiveFill.fillAmount = newFill;
             }
-            else if (difference < -0.01f)
+            else if (difference < -0.001f)
             {
                 motherReputationBarFill.fillAmount = _lastMotherRep / maxRep;
                 _activeMotherRepSequence

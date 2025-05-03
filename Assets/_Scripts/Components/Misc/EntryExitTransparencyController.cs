@@ -1,23 +1,26 @@
 using UnityEngine;
 
-/// <summary>
-/// Used on player prefab. Triggers IFadeable (sprites on map)
-/// </summary>
-public class EntryExitTransparencyController : MonoBehaviour
+namespace _Scripts.Components.Misc
 {
-    private void OnTriggerEnter2D(Collider2D collision)
+    /// <summary>
+    /// Used on player prefab. Triggers IFadeable (sprites on map)
+    /// </summary>
+    public class EntryExitTransparencyController : MonoBehaviour
     {
-        if (collision.TryGetComponent<IFadeable>(out IFadeable fadeableObject))
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            fadeableObject.FadeOut();
+            if (collision.TryGetComponent<IFadeable>(out IFadeable fadeableObject))
+            {
+                fadeableObject.FadeIn();
+            }
         }
-    }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.TryGetComponent<IFadeable>(out IFadeable fadeableObject))
+        private void OnTriggerExit2D(Collider2D collision)
         {
-            fadeableObject.UnFade();
+            if (collision.TryGetComponent<IFadeable>(out IFadeable fadeableObject))
+            {
+                fadeableObject.FadeOut();
+            }
         }
     }
 }

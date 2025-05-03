@@ -1,9 +1,12 @@
 using UnityEngine;
 
-public class SpawnComponent : MonoBehaviour
+namespace _Scripts.Components.SpawnComponents
 {
-    public void Spawn(GameObject gameobject, Vector2 position)
+    public class SpawnComponent : MonoBehaviour
     {
-        Instantiate(gameobject, position, Quaternion.identity);
+        public void Spawn(GameObject gameobject, Vector2 position)
+        {
+            Instantiate(gameobject, position, Quaternion.identity);
+        }
     }
 }

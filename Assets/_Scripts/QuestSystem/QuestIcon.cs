@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using _Scripts.Enums;
+using UnityEngine;
 using Debug = UnityEngine.Debug;
 
 namespace _Scripts.QuestSystem

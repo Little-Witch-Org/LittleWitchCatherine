@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using _Scripts.Dialog_Ink;
 using _Scripts.Enums;
 using _Scripts.QuestSystem;
 using _Scripts.Service.Log;
 using Ink.Runtime;
 using UnityEngine;
 
-namespace _Scripts.Dialog_Ink
+namespace _Scripts.Managers
 {
     public class DialogueManager : MonoBehaviour
     {

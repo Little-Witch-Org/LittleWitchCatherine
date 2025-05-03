@@ -5,21 +5,21 @@ namespace _Scripts.Components.Misc
 {
     public class MouseInteractionComponent : MonoBehaviour
     {
-        private Camera mainCamera;
-        private IClickable currentHover;
-        private Vector3 lastMousePosition;
-        private bool isMouseDown;
+        private Camera _mainCamera;
+        private IClickable _currentHover;
+        private Vector3 _lastMousePosition;
+        private bool _isMouseDown;
 
         private void Awake()
         {
-            mainCamera = Camera.main;
+            _mainCamera = Camera.main;
         }
 
         private void Update()
         {
             if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
             {
-                if (currentHover != null) ClearHover();
+                if (_currentHover != null) ClearHover();
                 return;
             }
 
@@ -27,22 +27,22 @@ namespace _Scripts.Components.Misc
 
             if (Input.GetMouseButtonDown(0))
             {
-                if (currentHover != null)
+                if (_currentHover != null)
                 {
-                    isMouseDown = true;
-                    currentHover.OnClick();
+                    _isMouseDown = true;
+                    _currentHover.OnClick();
                 }
             }
 
             if (Input.GetMouseButtonUp(0))
             {
-                if (isMouseDown)
+                if (_isMouseDown)
                 {
-                    isMouseDown = false;
+                    _isMouseDown = false;
 
-                    if (currentHover != null)
+                    if (_currentHover != null)
                     {
-                        currentHover.OnMouseButtonUp();
+                        _currentHover.OnMouseButtonUp();
                     }
                 }
             }
@@ -50,27 +50,27 @@ namespace _Scripts.Components.Misc
 
         private void HandleHover()
         {
-            Vector2 mouseWorldPos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 mouseWorldPos = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(mouseWorldPos, Vector2.zero);
 
             var newHover = hit.collider != null ? hit.collider.GetComponent<IClickable>() : null;
 
-            if (newHover != currentHover)
+            if (newHover != _currentHover)
             {
-                if (currentHover != null) currentHover.OnHoverExit();
+                if (_currentHover != null) _currentHover.OnHoverExit();
 
-                currentHover = newHover;
+                _currentHover = newHover;
 
-                if (currentHover != null) currentHover.OnHoverEnter();
+                if (_currentHover != null) _currentHover.OnHoverEnter();
             }
         }
 
         private void ClearHover()
         {
-            if (currentHover != null)
+            if (_currentHover != null)
             {
-                currentHover.OnHoverExit();
-                currentHover = null;
+                _currentHover.OnHoverExit();
+                _currentHover = null;
             }
         }
     }

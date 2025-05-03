@@ -17,8 +17,8 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - MapGround
+  - MapObject
   - 
   - 
   - 
@@ -43,17 +43,20 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: TriggerPointOnMap
-    uniqueID: 388634623
-    locked: 0
   - name: Room
     uniqueID: 3084393613
     locked: 0
   - name: Fade
     uniqueID: 1938164651
     locked: 0
-  - name: PlayerModel
-    uniqueID: 2418262713
+  - name: StaticMapObjects
+    uniqueID: 1767098557
+    locked: 0
+  - name: DynamicMapObjects
+    uniqueID: 348622583
+    locked: 0
+  - name: TriggerPointOnMap
+    uniqueID: 388634623
     locked: 0
   m_RenderingLayers:
   - Default

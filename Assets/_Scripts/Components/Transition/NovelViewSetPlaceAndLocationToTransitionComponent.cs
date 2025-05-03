@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
+using _Scripts.Enums.Locations;
 using _Scripts.Enums.Places;
 using _Scripts.Managers;
 using UnityEngine;
 
-namespace _Scripts.Components.TransitionComponents
+namespace _Scripts.Components.Transition
 {
     /// <summary>
-    /// Setting the location and place to transit using event system. (need to handle several maps case. No it is only CatherineHouseMap). add new dropdown?
+    /// Setting the location and place to transit using event system. (need to handle several maps case. No it is only CatherineHouseMapScene). add new dropdown?
     /// Uses with change scene trigger on map to enter in current location. (need NovelViewChangePlaceAfterTransitionComponent to perform place change)
     /// </summary>
     public class NovelViewSetPlaceAndLocationToTransitionComponent : MonoBehaviour
@@ -15,7 +16,7 @@ namespace _Scripts.Components.TransitionComponents
         private bool _isSelected = false; //handle multiple clicks (if is locked -> can invoke method multiple times)
         
         // field for storing the selected location
-        [SerializeField] private CatherineHouseMap locationType;
+        [SerializeField] private CatherineHouseMapEnum locationType;
 
         // The field for storing the selected room (as a string, since the type is dynamic)
         [SerializeField] private string selectedPlace;
@@ -23,11 +24,11 @@ namespace _Scripts.Components.TransitionComponents
 
 
         // Dictionary  of matching locations and places
-        public Dictionary<CatherineHouseMap, Type> locationTypeEnums = new Dictionary<CatherineHouseMap, Type>
+        public Dictionary<CatherineHouseMapEnum, Type> locationTypeEnums = new Dictionary<CatherineHouseMapEnum, Type>
         {
-            { CatherineHouseMap.CatherineHouse, typeof(CatherineHouseNovelViewPlaces) },
-            { CatherineHouseMap.Greenhouse, typeof(GreenhouseNovelViewPlaces) },
-            { CatherineHouseMap.Seesaw, typeof(SeesawNovelViewPlaces) },
+            { CatherineHouseMapEnum.CatherineHouse, typeof(CatherineHouseNovelViewPlacesEnum) },
+            { CatherineHouseMapEnum.Greenhouse, typeof(GreenhouseNovelViewPlacesEnum) },
+            { CatherineHouseMapEnum.Seesaw, typeof(SeesawNovelViewPlacesEnum) },
             // todo new matching locations/places
         };
         

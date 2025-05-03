@@ -1,4 +1,5 @@
 ﻿using System;
+using _Scripts.Enums;
 using _Scripts.LocationsAndPlaces;
 using _Scripts.Managers;
 using UnityEngine;
@@ -7,7 +8,7 @@ namespace _Scripts.Components.Transition
 {
     public class ChangeSceneTriggerComponent : MonoBehaviour
     {
-        [SerializeField] private SceneNames scene;
+        [SerializeField] private SceneNamesEnum scene;
         [SerializeField] private string _locationName;
         private bool _isSelected;
         

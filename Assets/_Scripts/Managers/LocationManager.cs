@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using _Scripts.Components.TimeManagement.Enums;
+using _Scripts.Enums;
 using _Scripts.LocationsAndPlaces;
+using _Scripts.LocationsAndPlaces.Locations;
 using _Scripts.LocationsAndPlaces.Locations.CatherineHouse;
+using _Scripts.LocationsAndPlaces.Places;
 using _Scripts.LocationsAndPlaces.Places.CatherineHouse;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 
 namespace _Scripts.Managers
@@ -24,7 +27,7 @@ namespace _Scripts.Managers
         private Dictionary<string, Location> _locationsDictionary;
         //private string _currentLocation;
         
-        [SerializeField] private TimeOfDay currentTimeOfDay; //only for inspector
+        [FormerlySerializedAs("currentTimeOfDay")] [SerializeField] private TimeOfDayEnum currentTimeOfDayEnum; //only for inspector
         
         private void Awake()
         {
@@ -70,7 +73,7 @@ namespace _Scripts.Managers
 
         private void OnEnable()
         {
-            EventManager.Instance.TimeEvents.OnTimeOfDayChange += UpdateTimeOfDayForLocations;
+            EventManager.Instance.TimeEvents.OnUpdateTimeOfDay += UpdateTimeOfDayForLocations;
             //EventManager.Instance.TransitionEvents.OnLoadedPlace += SetCurrentLocation;
 
             EventManager.Instance.LocationsAndPlacesEvents.OnSetAllPlacesLockState += SetAllPlacesLockState;
@@ -82,7 +85,7 @@ namespace _Scripts.Managers
 
         private void OnDisable()
         {
-            EventManager.Instance.TimeEvents.OnTimeOfDayChange -= UpdateTimeOfDayForLocations;
+            EventManager.Instance.TimeEvents.OnUpdateTimeOfDay -= UpdateTimeOfDayForLocations;
             //EventManager.Instance.TransitionEvents.OnLoadedPlace -= SetCurrentLocation;
             
             EventManager.Instance.LocationsAndPlacesEvents.OnSetAllPlacesLockState -= SetAllPlacesLockState;
@@ -121,7 +124,7 @@ namespace _Scripts.Managers
                 .SelectMany(loc => loc.Places)
                 .FirstOrDefault(place => place.PlaceName == placeName);
         
-        public TimeOfDay GetLocationTimeOfDayState(string placeName)
+        public TimeOfDayEnum GetLocationTimeOfDayState(string placeName)
         { 
             
             foreach (var locationPair in _locationsDictionary)
@@ -131,20 +134,20 @@ namespace _Scripts.Managers
                 var foundPlace = location.Places.Find(p => p.PlaceName == placeName);
                 if (foundPlace != null)
                 {
-                    return location.TimeOfDay; 
+                    return location.TimeOfDayEnum; 
                 }
             }
     
             throw new ArgumentException($"Place '{placeName}' was not found in any location!");
         }
 
-        private void UpdateTimeOfDayForLocations(TimeOfDay timeOfDay)
+        private void UpdateTimeOfDayForLocations(TimeOfDayEnum timeOfDayEnum)
         {
-            currentTimeOfDay = timeOfDay;
+            currentTimeOfDayEnum = timeOfDayEnum;
             
             foreach (var pair in _locationsDictionary)
             {
-                pair.Value.TimeOfDay = timeOfDay;
+                pair.Value.TimeOfDayEnum = timeOfDayEnum;
             }
         }
 

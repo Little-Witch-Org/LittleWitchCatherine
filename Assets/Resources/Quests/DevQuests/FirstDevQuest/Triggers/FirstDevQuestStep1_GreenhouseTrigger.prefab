@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6087860209634639647}
   - component: {fileID: 1627275753129555420}
+  - component: {fileID: -3492783527910136009}
   - component: {fileID: 1592685489528376724}
   - component: {fileID: 3804535405288116119}
-  - component: {fileID: -1136959594500849730}
   m_Layer: 0
   m_Name: FirstDevQuestStep1_GreenhouseTrigger
   m_TagString: Untagged
@@ -90,6 +90,33 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-3492783527910136009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4310831634144815542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7d5ab4370ce4fe1ba15f1ea0899b899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1592685489528376724}
+        m_TargetAssemblyTypeName: _Scripts.QuestSystem.QuestStepTrigger, Assembly-CSharp
+        m_MethodName: TriggerQuestStepInEditor
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1592685489528376724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,7 +133,7 @@ MonoBehaviour:
   customParam: param not implemented for this step
   isFailedParam: 0
   locationName: Greenhouse
-  placeName: MainPlace
+  placeName: MainPlaceGreenhouse
   disableAfterTrigger: 1
   isTriggered: 0
 --- !u!60 &3804535405288116119
@@ -176,36 +203,3 @@ PolygonCollider2D:
       - {x: 0.29296875, y: 0.40234375}
       - {x: 0.15234375, y: 0.47265625}
   m_UseDelaunayMesh: 0
---- !u!114 &-1136959594500849730
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4310831634144815542}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf50d441da9b49858e3791143eb75657, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1592685489528376724}
-        m_TargetAssemblyTypeName: _Scripts.QuestSystem.QuestStepTrigger, Assembly-CSharp
-        m_MethodName: TriggerQuestStepInEditor
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnEnter:
-    m_PersistentCalls:
-      m_Calls: []
-  OnExit:
-    m_PersistentCalls:
-      m_Calls: []

@@ -1,27 +1,24 @@
-﻿using System;
-using System.Diagnostics;
-using _Scripts.Enums;
+﻿using _Scripts.Enums;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 using Debug = UnityEngine.Debug;
 
-namespace _Scripts
+namespace _Scripts.Managers
 {
     /// <summary>
     /// Stores Player character game values //todo need to handle exit on map (clear fields)
     /// todo add separated specific class with player stats ?
+    /// todo add special player character log
     /// </summary>
     public class PlayerCharacterManager : MonoBehaviour
     {
         public static PlayerCharacterManager Instance;
 
         [Header("Transition")] [SerializeField]
-        private SceneNames currentMap; // todo scene?
+        public SceneNamesEnum currentMap; // todo scene?
 
         [SerializeField] private string currentLocation;
         [SerializeField] private string currentNovelPlace;
-        [SerializeField] private SpawnPointsNamesCatherineHouseMap storedSpawnPointOnMap;
+        [SerializeField] private SpawnPointsNamesCatherineHouseMapEnum storedSpawnPointOnMapEnum;
 
         [Header("Stats Max")] [SerializeField] private float maxHealth;
         [SerializeField] private float maxSatiety; //hunger
@@ -53,14 +50,13 @@ namespace _Scripts
             if (Instance == null)
             {
                 Instance = this;
+                InitializeDefaultValues();
                 DontDestroyOnLoad(gameObject);
             }
             else
             {
                 Destroy(gameObject);
             }
-
-            InitializeDefaultValues();
         }
 
         private void OnEnable()
@@ -91,10 +87,10 @@ namespace _Scripts
 
         private void InitializeDefaultValues()
         {
-            currentMap = SceneNames.CatherineHouseMap; //todo implement change method for transition in other Maps
+            currentMap = SceneNamesEnum.CatherineHouseMapScene; //todo implement change method for transition in other Maps
             currentLocation = null;
             currentNovelPlace = null;
-            storedSpawnPointOnMap = SpawnPointsNamesCatherineHouseMap.StartPositionPoint;
+            storedSpawnPointOnMapEnum = SpawnPointsNamesCatherineHouseMapEnum.StartPositionPoint;
 
             //stats
             maxHealth = 100;
@@ -115,21 +111,22 @@ namespace _Scripts
         }
 
 
-        public void SetPreviousSpawnPositionPoint(SpawnPointsNamesCatherineHouseMap spawnPoint)
+        public void SetPreviousSpawnPositionPoint(SpawnPointsNamesCatherineHouseMapEnum spawnPoint)
         {
-            storedSpawnPointOnMap = spawnPoint;
+            storedSpawnPointOnMapEnum = spawnPoint;
             //Debug.LogFormat("Point name saved in player char manager = {0}",spawnPoint);
         }
 
-        public SpawnPointsNamesCatherineHouseMap GetPreviousSpawnPositionPoint()
+        public SpawnPointsNamesCatherineHouseMapEnum GetPreviousSpawnPositionPoint()
         {
-            return storedSpawnPointOnMap;
+            return storedSpawnPointOnMapEnum;
         }
 
         private void UpdateCurrentPlaceOn(string location, string place)
         {
             currentNovelPlace = place;
             currentLocation = location;
+            currentMap = SceneNamesEnum.CatherineHouseMapScene; //todo handle interactive
         }
 
 

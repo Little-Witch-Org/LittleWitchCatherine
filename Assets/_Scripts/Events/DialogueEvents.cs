@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Ink.Runtime;
-using UnityEngine;
 
-namespace _Scripts.Dialog_Ink
+namespace _Scripts.Events
 {
     public class DialogueEvents
     {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using _Scripts.Dialog_Ink;
+using _Scripts.Enums.Places;
 using _Scripts.NarrativeAndCutscenes;
 using _Scripts.NarrativeAndCutscenes.Checkpoints;
 using UnityEngine;
@@ -26,7 +27,7 @@ namespace _Scripts.Managers
         
         public static StoryProgressionManager Instance;
         
-        private Dictionary<int, Checkpoint> checkpoints = new Dictionary<int, Checkpoint>();
+        private Dictionary<int, Checkpoint> _checkpoints = new Dictionary<int, Checkpoint>();
         private int _currentCheckpointID = 0;
 
         private GameUtils _gameUtils;
@@ -155,12 +156,12 @@ namespace _Scripts.Managers
             if (Input.GetKeyDown(KeyCode.Keypad9))
             {
                 EventManager.Instance.LocationsAndPlacesEvents.SetPlacesLockState("CatherineHouse", false,
-                    CatherineHouseNovelViewPlaces.CatherineRoom.ToString(),
-                    CatherineHouseNovelViewPlaces.CatherineDressingRoom.ToString(),
-                    CatherineHouseNovelViewPlaces.TFCorridor.ToString(),
-                    CatherineHouseNovelViewPlaces.SFCorridor.ToString(),
-                    CatherineHouseNovelViewPlaces.FFCorridor.ToString(),
-                    CatherineHouseNovelViewPlaces.Kitchen.ToString()
+                    CatherineHouseNovelViewPlacesEnum.CatherineRoom.ToString(),
+                    CatherineHouseNovelViewPlacesEnum.CatherineDressingRoom.ToString(),
+                    CatherineHouseNovelViewPlacesEnum.TFCorridor.ToString(),
+                    CatherineHouseNovelViewPlacesEnum.SFCorridor.ToString(),
+                    CatherineHouseNovelViewPlacesEnum.FFCorridor.ToString(),
+                    CatherineHouseNovelViewPlacesEnum.Kitchen.ToString()
                     );
                 Debug.Log("unlock catherine way to kitchen");
             }
@@ -190,15 +191,18 @@ namespace _Scripts.Managers
         
 
         public void InitializeCheckpoints() {
-            checkpoints.Add(1,new Checkpoint1());
+            _checkpoints.Add(1,new Checkpoint1());
         }
 
         public void ActivateCheckpoint(int id) {
-            if (checkpoints.TryGetValue(id, out var checkpoint)) {
+            if (_checkpoints.TryGetValue(id, out var checkpoint)) {
                 checkpoint.Activate();
             }
 
             _currentCheckpointID = id;
+            
+            // disable dev npc
+            // disable displaying not met quests (buttons in ui)
             EventManager.Instance.GameEvents.CheckpointActivated(_currentCheckpointID);
         }
 

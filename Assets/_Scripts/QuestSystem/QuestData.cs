@@ -1,4 +1,5 @@
 ﻿using System;
+using _Scripts.Enums;
 using UnityEngine.Serialization;
 
 namespace _Scripts.QuestSystem

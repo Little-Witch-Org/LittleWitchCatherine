@@ -1,5 +1,5 @@
 ﻿using System;
-using _Scripts.Components.TimeManagement.Enums;
+using _Scripts.Enums;
 
 namespace _Scripts.Events
 {
@@ -71,10 +71,10 @@ namespace _Scripts.Events
             OnDateChange?.Invoke(date);
         }
         
-        public event Action <TimeOfDay> OnTimeOfDayChange;
-        public void TimeOfDayChange(TimeOfDay timeOfDay) 
+        public event Action <TimeOfDayEnum> OnUpdateTimeOfDay;
+        public void UpdateTimeOfDay(TimeOfDayEnum timeOfDayEnum) 
         {
-            OnTimeOfDayChange?.Invoke(timeOfDay);
+            OnUpdateTimeOfDay?.Invoke(timeOfDayEnum);
         }
     }
     

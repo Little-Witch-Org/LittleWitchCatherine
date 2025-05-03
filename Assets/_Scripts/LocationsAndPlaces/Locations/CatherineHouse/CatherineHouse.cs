@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
-using _Scripts.Components.TimeManagement.Enums;
+using _Scripts.Enums;
+using _Scripts.LocationsAndPlaces.Places;
 using _Scripts.LocationsAndPlaces.Places.CatherineHouse;
 
 namespace _Scripts.LocationsAndPlaces.Locations.CatherineHouse
 {
     public class CatherineHouse : Location
     {
-        public CatherineHouse() : base("CatherineHouse", TimeOfDay.Morning,
+        public CatherineHouse() : base("CatherineHouse", TimeOfDayEnum.Morning,
             new List<Place>
             {
                 new Kitchen(),

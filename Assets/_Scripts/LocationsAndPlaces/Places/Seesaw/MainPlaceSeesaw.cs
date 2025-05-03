@@ -1,4 +1,4 @@
-﻿namespace _Scripts.LocationsAndPlaces.Places.CatherineHouse.Seesaw
+﻿namespace _Scripts.LocationsAndPlaces.Places.Seesaw
 {
     public class MainPlaceSeesaw:Place
     {

@@ -1,10 +1,11 @@
 ﻿using System;
-using _Scripts.Components.TransitionComponents;
+using _Scripts.Components.Transition;
+using _Scripts.Enums.Locations;
 using UnityEditor;
 using UnityEngine;
 
 /// <summary>
-/// Custom (inspector) editor for location transition component (need to handle several maps case. No it is only CatherineHouseMap). add new dropdown?
+/// Custom (inspector) editor for location transition component (need to handle several maps case. No it is only CatherineHouseMapScene). add new dropdown?
 /// </summary>
 
 [CustomEditor(typeof(NovelViewSetPlaceAndLocationToTransitionComponent))]
@@ -26,13 +27,13 @@ public class NovelViewSetPlaceAndLocationToTransitionComponentEditor : UnityEdit
         serializedObject.Update();
 
         // Save the previous value of LocationType
-        var previousLocationType = (CatherineHouseMap)locationTypeProperty.enumValueIndex;
+        var previousLocationType = (CatherineHouseMapEnum)locationTypeProperty.enumValueIndex;
 
         // Display the dropdown menu for the location type
         EditorGUILayout.PropertyField(locationTypeProperty, new GUIContent("Location Type"));
 
         // Get the currently selected location type
-        var currentLocationType = (CatherineHouseMap)locationTypeProperty.enumValueIndex;
+        var currentLocationType = (CatherineHouseMapEnum)locationTypeProperty.enumValueIndex;
 
         // If LocationType has changed, reset selectedPlace
         if (currentLocationType != previousLocationType)
@@ -69,7 +70,7 @@ public class NovelViewSetPlaceAndLocationToTransitionComponentEditor : UnityEdit
         serializedObject.ApplyModifiedProperties();
     }
 
-    private void ResetSelectedPlace(CatherineHouseMap locationType)
+    private void ResetSelectedPlace(CatherineHouseMapEnum locationType)
     {
         // Get the corresponding enum for the rooms
         if (((NovelViewSetPlaceAndLocationToTransitionComponent)target).locationTypeEnums.TryGetValue(locationType, out Type roomEnumType))

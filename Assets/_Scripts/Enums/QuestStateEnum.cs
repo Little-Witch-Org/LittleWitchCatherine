@@ -1,4 +1,4 @@
-namespace _Scripts.QuestSystem
+namespace _Scripts.Enums
 {
     public enum QuestStateEnum
     {

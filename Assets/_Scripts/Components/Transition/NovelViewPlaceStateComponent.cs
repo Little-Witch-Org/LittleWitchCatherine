@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using _Scripts.Components.TimeManagement.Enums;
+using _Scripts.Enums;
 using _Scripts.Managers;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -8,6 +8,8 @@ namespace _Scripts.Components.Transition
 {
     /// <summary>
     /// Component stores sprites of novel locations and changes them depending on game stateEnum
+    /// //todo add lists with custom files -> list<custom state> with sprites ? add logic to current place class (customState/boll - on/off). Then location manager listens event
+    /// //todo "OnPlaceStateChange<bool(on/off),string(state)>" then find in places "state" field and toggle it. Than before load place this component gets from location manager -> locations -> places "state" for current loading place
     /// </summary>
     public class NovelViewPlaceStateComponent : MonoBehaviour
     {
@@ -30,34 +32,34 @@ namespace _Scripts.Components.Transition
                 return;
             }
 
-            TimeOfDay timeOfDay = LocationManager.Instance.GetLocationTimeOfDayState(placeName);
-            LoadRoomState(timeOfDay);
+            TimeOfDayEnum timeOfDayEnum = LocationManager.Instance.GetLocationTimeOfDayState(placeName);
+            LoadRoomState(timeOfDayEnum);
             EventManager.Instance.TransitionEvents.PlaceSpriteChanged(_spriteRenderer);
         }
         
         
-        private void LoadRoomState(TimeOfDay timeOfDay)
+        private void LoadRoomState(TimeOfDayEnum timeOfDayEnum)
         {
-            timeOfDay = TimeManager.Instance.timeOfDay;
+            timeOfDayEnum = TimeManager.Instance.timeOfDayEnum;
 
-            switch (timeOfDay)
+            switch (timeOfDayEnum)
             {
-                case TimeOfDay.Morning:
+                case TimeOfDayEnum.Morning:
                 {
                     GetComponent<SpriteRenderer>().sprite = placeStateSprites[0];
                     break;
                 }
-                case TimeOfDay.Afternoon:
+                case TimeOfDayEnum.Afternoon:
                 {
                     GetComponent<SpriteRenderer>().sprite = placeStateSprites[1];
                     break;
                 }
-                case TimeOfDay.Evening:
+                case TimeOfDayEnum.Evening:
                 {
                     GetComponent<SpriteRenderer>().sprite = placeStateSprites[2];
                     break;
                 }
-                case TimeOfDay.Night:
+                case TimeOfDayEnum.Night:
                 {
                     GetComponent<SpriteRenderer>().sprite = placeStateSprites[3];
                     break;

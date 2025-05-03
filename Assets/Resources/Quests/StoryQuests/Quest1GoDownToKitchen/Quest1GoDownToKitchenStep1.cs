@@ -1,4 +1,5 @@
-﻿using _Scripts.Managers;
+﻿using _Scripts.Enums.Places;
+using _Scripts.Managers;
 using _Scripts.QuestSystem;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
@@ -53,12 +54,12 @@ namespace Resources.Quests.StoryQuests.Mother.Quest_1_GoDownToKitchen
             EventManager.Instance.LocationsAndPlacesEvents.SetAllPlacesLockState("CatherineHouse", true);
             
             EventManager.Instance.LocationsAndPlacesEvents.SetPlacesLockState("CatherineHouse", false,
-                CatherineHouseNovelViewPlaces.CatherineRoom.ToString(),
-                CatherineHouseNovelViewPlaces.CatherineDressingRoom.ToString(),
-                CatherineHouseNovelViewPlaces.TFCorridor.ToString(),
-                CatherineHouseNovelViewPlaces.SFCorridor.ToString(),
-                CatherineHouseNovelViewPlaces.FFCorridor.ToString(),
-                CatherineHouseNovelViewPlaces.Kitchen.ToString()
+                CatherineHouseNovelViewPlacesEnum.CatherineRoom.ToString(),
+                CatherineHouseNovelViewPlacesEnum.CatherineDressingRoom.ToString(),
+                CatherineHouseNovelViewPlacesEnum.TFCorridor.ToString(),
+                CatherineHouseNovelViewPlacesEnum.SFCorridor.ToString(),
+                CatherineHouseNovelViewPlacesEnum.FFCorridor.ToString(),
+                CatherineHouseNovelViewPlacesEnum.Kitchen.ToString()
             );
             
             EventManager.Instance.LocationsAndPlacesEvents.SetLocationLockState("CatherineHouse",true);

@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using _Scripts.Enums;
+using _Scripts.QuestSystem;
 using _Scripts.Service.Log;
 using UnityEngine;
 
-namespace _Scripts.QuestSystem
+namespace _Scripts.Managers
 {
     public class QuestManager : MonoBehaviour
     {

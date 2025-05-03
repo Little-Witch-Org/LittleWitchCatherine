@@ -1,11 +1,8 @@
-using System;
 using _Scripts.Managers;
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.UI;
 
-
-namespace _Scripts.Components.TransitionComponents
+namespace _Scripts.Components.Transition
 {
     /// <summary>
     /// Listen trigger invocation and get transition info from Transition manager and instantiate Place prefab
