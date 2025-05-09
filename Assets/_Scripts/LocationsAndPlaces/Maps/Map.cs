@@ -7,8 +7,7 @@ using UnityEngine.Serialization;
 namespace _Scripts.LocationsAndPlaces.Maps
 {
     /// <summary>
-    /// Stores info about map (with custom states). Contains SO's with sprites (map manager must control this)
-    /// //todo put on Map obj in inspector on current scene
+    /// Stores info about map (with custom states). Contains SO's with sprites (map manager must control this). Contains links to game objects on map.
     /// </summary>
     public abstract class Map:MonoBehaviour
     {
@@ -21,6 +20,7 @@ namespace _Scripts.LocationsAndPlaces.Maps
         [SerializeField] protected MapTexturesSo texturesSoNight;
         [SerializeField] protected Transform mapObjects;
         [SerializeField] protected GameObject ground;
+        [SerializeField] protected GameObject filter;
 
 
         public MapTexturesSo GetTexturesSo(TimeOfDayEnum timeOfDayEnum)
@@ -67,6 +67,11 @@ namespace _Scripts.LocationsAndPlaces.Maps
         public GameObject GetGround()
         {
             return ground;
+        }
+
+        public GameObject GetFilter()
+        {
+            return filter;
         }
     }
 }

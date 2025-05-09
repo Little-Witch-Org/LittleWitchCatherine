@@ -1,0 +1,340 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: MotherDialoguesLocalizationTable Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: MotherDialoguesLocalizationTable
+  m_TableCollectionNameGuidString: 331d9875672406142b6d908b81a58db2
+  m_Entries:
+  - m_Id: 1553259294720
+    m_Key: dia_mother_1_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23782009335808
+    m_Key: dia_mother_1_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 130460918738944
+    m_Key: dia_mother_1_3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 130460922933248
+    m_Key: dia_mother_1_4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 142308439224320
+    m_Key: dia_mother_2_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 142384855248896
+    m_Key: dia_mother_2_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 142384855248897
+    m_Key: dia_mother_2_3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 142384855248898
+    m_Key: dia_mother_2_4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 142384855248899
+    m_Key: dia_mother_2_5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 142384855248900
+    m_Key: dia_mother_2_6
+    m_Metadata:
+      m_Items: []
+  - m_Id: 142384855248901
+    m_Key: dia_mother_2_7
+    m_Metadata:
+      m_Items: []
+  - m_Id: 142384855248902
+    m_Key: dia_mother_2_8
+    m_Metadata:
+      m_Items: []
+  - m_Id: 142384855248903
+    m_Key: dia_mother_2_9
+    m_Metadata:
+      m_Items: []
+  - m_Id: 142384855248904
+    m_Key: dia_mother_2_10
+    m_Metadata:
+      m_Items: []
+  - m_Id: 142384855248905
+    m_Key: dia_mother_2_11
+    m_Metadata:
+      m_Items: []
+  - m_Id: 142384855248906
+    m_Key: dia_mother_2_12
+    m_Metadata:
+      m_Items: []
+  - m_Id: 142384855248907
+    m_Key: dia_mother_2_13
+    m_Metadata:
+      m_Items: []
+  - m_Id: 142384855248908
+    m_Key: dia_mother_2_14
+    m_Metadata:
+      m_Items: []
+  - m_Id: 142384855248909
+    m_Key: dia_mother_2_15
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149415104344064
+    m_Key: dia_mother_2_16
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149415104344065
+    m_Key: dia_mother_2_17
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149415104344066
+    m_Key: dia_mother_2_18
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149415104344067
+    m_Key: dia_mother_2_19
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149415104344068
+    m_Key: dia_mother_2_20
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149415104344069
+    m_Key: dia_mother_2_21
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149415104344070
+    m_Key: dia_mother_2_22
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149415104344071
+    m_Key: dia_mother_2_23
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149415104344072
+    m_Key: dia_mother_2_24
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149415104344073
+    m_Key: dia_mother_2_25
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149415104344074
+    m_Key: dia_mother_2_26
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149415104344075
+    m_Key: dia_mother_2_27
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149415104344076
+    m_Key: dia_mother_2_28
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149415104344077
+    m_Key: dia_mother_2_29
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149415104344078
+    m_Key: dia_mother_2_30
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149415104344079
+    m_Key: dia_mother_2_31
+    m_Metadata:
+      m_Items: []
+  - m_Id: 149415104344080
+    m_Key: dia_mother_2_32
+    m_Metadata:
+      m_Items: []
+  - m_Id: 158480001921024
+    m_Key: dia_mother_3_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 158480001921025
+    m_Key: dia_mother_3_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 158480001921026
+    m_Key: dia_mother_3_3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 158480001921027
+    m_Key: dia_mother_3_4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 158480001921028
+    m_Key: dia_mother_3_5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 158480001921029
+    m_Key: dia_mother_3_6
+    m_Metadata:
+      m_Items: []
+  - m_Id: 158480001921030
+    m_Key: dia_mother_3_7
+    m_Metadata:
+      m_Items: []
+  - m_Id: 158480001921031
+    m_Key: dia_mother_3_8
+    m_Metadata:
+      m_Items: []
+  - m_Id: 158480001921032
+    m_Key: dia_mother_3_9
+    m_Metadata:
+      m_Items: []
+  - m_Id: 158480001921033
+    m_Key: dia_mother_3_10
+    m_Metadata:
+      m_Items: []
+  - m_Id: 158480001921034
+    m_Key: dia_mother_3_11
+    m_Metadata:
+      m_Items: []
+  - m_Id: 158480001921035
+    m_Key: dia_mother_3_12
+    m_Metadata:
+      m_Items: []
+  - m_Id: 158480001921036
+    m_Key: dia_mother_3_13
+    m_Metadata:
+      m_Items: []
+  - m_Id: 158480001921037
+    m_Key: dia_mother_3_14
+    m_Metadata:
+      m_Items: []
+  - m_Id: 158480001921038
+    m_Key: dia_mother_3_15
+    m_Metadata:
+      m_Items: []
+  - m_Id: 158480001921039
+    m_Key: dia_mother_3_16
+    m_Metadata:
+      m_Items: []
+  - m_Id: 158480001921040
+    m_Key: dia_mother_3_17
+    m_Metadata:
+      m_Items: []
+  - m_Id: 158480001921041
+    m_Key: dia_mother_3_18
+    m_Metadata:
+      m_Items: []
+  - m_Id: 158480001921042
+    m_Key: dia_mother_3_19
+    m_Metadata:
+      m_Items: []
+  - m_Id: 158480001921043
+    m_Key: dia_mother_3_20
+    m_Metadata:
+      m_Items: []
+  - m_Id: 158480001921044
+    m_Key: dia_mother_3_21
+    m_Metadata:
+      m_Items: []
+  - m_Id: 158480001921045
+    m_Key: dia_mother_3_22
+    m_Metadata:
+      m_Items: []
+  - m_Id: 158480001921046
+    m_Key: dia_mother_3_23
+    m_Metadata:
+      m_Items: []
+  - m_Id: 158480001921047
+    m_Key: dia_mother_3_24
+    m_Metadata:
+      m_Items: []
+  - m_Id: 158480001921048
+    m_Key: dia_mother_3_25
+    m_Metadata:
+      m_Items: []
+  - m_Id: 158480001921049
+    m_Key: dia_mother_3_26
+    m_Metadata:
+      m_Items: []
+  - m_Id: 158480001921050
+    m_Key: dia_mother_3_27
+    m_Metadata:
+      m_Items: []
+  - m_Id: 158480001921051
+    m_Key: dia_mother_3_28
+    m_Metadata:
+      m_Items: []
+  - m_Id: 158480001921052
+    m_Key: dia_mother_3_29
+    m_Metadata:
+      m_Items: []
+  - m_Id: 158480001921053
+    m_Key: dia_mother_3_30
+    m_Metadata:
+      m_Items: []
+  - m_Id: 158480001921054
+    m_Key: dia_mother_3_31
+    m_Metadata:
+      m_Items: []
+  - m_Id: 158480001921055
+    m_Key: dia_mother_3_32
+    m_Metadata:
+      m_Items: []
+  - m_Id: 158480001921056
+    m_Key: dia_mother_3_33
+    m_Metadata:
+      m_Items: []
+  - m_Id: 158480001921057
+    m_Key: dia_mother_3_34
+    m_Metadata:
+      m_Items: []
+  - m_Id: 158480001921058
+    m_Key: dia_mother_3_35
+    m_Metadata:
+      m_Items: []
+  - m_Id: 158480001921059
+    m_Key: dia_mother_3_36
+    m_Metadata:
+      m_Items: []
+  - m_Id: 158480001921060
+    m_Key: dia_mother_3_37
+    m_Metadata:
+      m_Items: []
+  - m_Id: 158480001921061
+    m_Key: dia_mother_3_38
+    m_Metadata:
+      m_Items: []
+  - m_Id: 158480001921062
+    m_Key: dia_mother_3_39
+    m_Metadata:
+      m_Items: []
+  - m_Id: 158480001921063
+    m_Key: dia_mother_3_40
+    m_Metadata:
+      m_Items: []
+  - m_Id: 158480001921064
+    m_Key: dia_mother_3_41
+    m_Metadata:
+      m_Items: []
+  - m_Id: 158480001921065
+    m_Key: dia_mother_4_1
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 3406046383850914028
+  references:
+    version: 2
+    RefIds:
+    - rid: 3406046383850914028
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1746621889174

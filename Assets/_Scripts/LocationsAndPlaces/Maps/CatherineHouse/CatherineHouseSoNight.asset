@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20a1cae795024db7b06dbb41b9801870, type: 3}
   m_Name: CatherineHouseSoNight
   m_EditorClassIdentifier: 
+  mapFilter: {fileID: -4832132225892377868, guid: 4469d800e97f4794e9438e8da2388430, type: 3}
   ground: {fileID: 21300000, guid: 369613310dd7b424caf9fc633a55aa4a, type: 3}
   mapObjectsSprites:
   - {fileID: 21300000, guid: f74899862513aea4380496396d4c9ee2, type: 3}

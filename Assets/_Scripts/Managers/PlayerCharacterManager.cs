@@ -1,4 +1,5 @@
 ﻿using _Scripts.Enums;
+using _Scripts.Service.Log;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
@@ -50,13 +51,17 @@ namespace _Scripts.Managers
             if (Instance == null)
             {
                 Instance = this;
-                InitializeDefaultValues();
                 DontDestroyOnLoad(gameObject);
             }
             else
             {
                 Destroy(gameObject);
             }
+        }
+
+        private void Start()
+        {
+            InitializeDefaultValues();
         }
 
         private void OnEnable()
@@ -105,8 +110,8 @@ namespace _Scripts.Managers
             EventManager.Instance.PlayerStatsEvents.SatietyChanged(currentSatiety);
             EventManager.Instance.PlayerStatsEvents.MoodChanged(currentMood);
             EventManager.Instance.PlayerStatsEvents.EnergyChanged(currentEnergy);
-
-            Debug.Log("Calculating stats in initialization:");
+            
+            PlayerDebug.Instance.Log("Calculating stats in initialization:");
             CalculateStatsChangeRate();
         }
 
@@ -114,7 +119,7 @@ namespace _Scripts.Managers
         public void SetPreviousSpawnPositionPoint(SpawnPointsNamesCatherineHouseMapEnum spawnPoint)
         {
             storedSpawnPointOnMapEnum = spawnPoint;
-            //Debug.LogFormat("Point name saved in player char manager = {0}",spawnPoint);
+            //PlayerDebug.Instance.LogFormat("Point name saved in player char manager = {0}",spawnPoint);
         }
 
         public SpawnPointsNamesCatherineHouseMapEnum GetPreviousSpawnPositionPoint()
@@ -152,7 +157,7 @@ namespace _Scripts.Managers
             if (!_isUpdatingStatsBasedOnTime)
             {
                 EventManager.Instance.PlayerStatsEvents.HealthChanged(currentHealth);
-                Debug.Log($"Health updated {startHealth} -> {currentHealth} ({health}).");
+                PlayerDebug.Instance.Log($"Health updated {startHealth} -> {currentHealth} ({health}).");
                 CalculateStatsChangeRate();
             }
         }
@@ -167,7 +172,7 @@ namespace _Scripts.Managers
             if (!_isUpdatingStatsBasedOnTime)
             {
                 EventManager.Instance.PlayerStatsEvents.SatietyChanged(currentSatiety);
-                Debug.Log($"Satiety updated {startSatiety} -> {currentSatiety} ({satiety}).");
+                PlayerDebug.Instance.Log($"Satiety updated {startSatiety} -> {currentSatiety} ({satiety}).");
                 CalculateStatsChangeRate();
             }
         }
@@ -182,7 +187,7 @@ namespace _Scripts.Managers
             if (!_isUpdatingStatsBasedOnTime)
             {
                 EventManager.Instance.PlayerStatsEvents.MoodChanged(currentMood);
-                Debug.Log($"Mood updated {startMood} -> {currentMood} ({mood}).");
+                PlayerDebug.Instance.Log($"Mood updated {startMood} -> {currentMood} ({mood}).");
                 CalculateStatsChangeRate();
             }
         }
@@ -197,7 +202,7 @@ namespace _Scripts.Managers
             if (!_isUpdatingStatsBasedOnTime)
             {
                 EventManager.Instance.PlayerStatsEvents.EnergyChanged(currentEnergy);
-                Debug.Log($"Energy updated {startEnergy} -> {currentEnergy} ({energy}).");
+                PlayerDebug.Instance.Log($"Energy updated {startEnergy} -> {currentEnergy} ({energy}).");
                 CalculateStatsChangeRate();
             }
         }
@@ -260,14 +265,14 @@ namespace _Scripts.Managers
             energyString += $" to {currentEnergy} (Δ{totalEnergyChange:+0.00;-0.00}) | -> " +
                             energyChangeProgressionString;
 
-            Debug.Log(timePassedString);
-            Debug.Log(healthString);
-            Debug.Log(satietyString);
-            Debug.Log(moodString);
-            Debug.Log(energyString);
+            PlayerDebug.Instance.Log(timePassedString);
+            PlayerDebug.Instance.Log(healthString);
+            PlayerDebug.Instance.Log(satietyString);
+            PlayerDebug.Instance.Log(moodString);
+            PlayerDebug.Instance.Log(energyString);
 
             _isUpdatingStatsBasedOnTime = false;
-            Debug.Log("Calculating once after loop:");
+            PlayerDebug.Instance.Log("Calculating once after loop:");
             CalculateStatsChangeRate();
             
             EventManager.Instance.PlayerStatsEvents.HealthChanged(currentHealth);
@@ -401,7 +406,7 @@ namespace _Scripts.Managers
 
             if (!_isUpdatingStatsBasedOnTime)
             {
-                Debug.Log(
+                PlayerDebug.Instance.Log(
                     $"[CalculateStatsChangeRate] HealthRate: {healthChangeRate}, SatietyRate: {satietyChangeRate}, MoodRate: {moodChangeRate}, EnergyRate: {energyChangeRate}");
             }
         }

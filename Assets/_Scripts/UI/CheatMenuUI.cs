@@ -1,13 +1,23 @@
 ﻿using _Scripts.Managers;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace _Scripts.UI
 {
     public class CheatMenuUI : MonoBehaviour,IMenu
     {
         [SerializeField] private GameObject contentParent;
+        
+        [SerializeField] private SpriteRenderer  spriteRenderer;
+        [SerializeField] private  Slider transparencySlider;
         public GameObject ContentParent => contentParent;
 
+        void Start()
+        {
+            transparencySlider.onValueChanged.AddListener(UpdateFilterTransparency);
+            UpdateFilterTransparency(transparencySlider.value);
+        }
         
         public void HideMenu()
         {
@@ -36,5 +46,30 @@ namespace _Scripts.UI
         {
             TimeManager.Instance.SetInitialTime(10,10,0,0,0);
         }
+        
+        void UpdateFilterTransparency(float value)
+        {
+            Color color = spriteRenderer.color;
+            color.a = value;
+            spriteRenderer.color = color;
+        }
+
+        public void ChangeLanguage(int index)
+        {
+            switch (index)
+            {
+                case 0:
+                {
+                    LocalizationManager.Instance.SetLanguage("ru");
+                    break;
+                }
+                case 1:
+                {
+                    LocalizationManager.Instance.SetLanguage("en");
+                    break;
+                }
+            }
+        }
+        
     }
 }

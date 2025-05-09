@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Localization-String-Tables-Tags (tags)
+  m_EditorClassIdentifier: 
+  m_GroupName: Localization-String-Tables-Tags (tags)
+  m_GUID: 0ff24aa291f58324e87c2fe38504f984
+  m_SerializeEntries:
+  - m_GUID: 156598d99e906354ebf194ed829cc17c
+    m_Address: CutsceneDialoguesLocalizationTable_tags
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-tags
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fd50bcf1991509f44b27d47cc2710746
+    m_Address: MotherDialoguesLocalizationTable_tags
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-tags
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 1
+  m_Settings: {fileID: 11400000, guid: e28e5c324fb21b140b73b4ac9963e3e3, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: e5e56bcd7764afa4999fd488b596596f, type: 2}
+    - {fileID: 11400000, guid: a6831b546ea94d5469fc6fa6f233a66e, type: 2}

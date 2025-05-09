@@ -3,6 +3,7 @@
     public enum InputEventContext
     {
         Default,
-        Dialogue
+        Dialogue,
+        TypingLine
     }
 }

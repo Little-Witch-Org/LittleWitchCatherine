@@ -35,7 +35,7 @@ namespace _Scripts.Managers
         
         private void OnEnable()
         {
-            EventManager.Instance.TimeEvents.OnUpdateTimeOfDay += MapSpritesChange;//todo handle
+            EventManager.Instance.TimeEvents.OnUpdateTimeOfDay += MapSpritesChange;
             EventManager.Instance.TransitionEvents.OnLoadedMap += UpdateMapConditions;
         }
         private void OnDisable()
@@ -92,6 +92,12 @@ namespace _Scripts.Managers
             //replace ground
             map.GetGround().gameObject.GetComponent<SpriteRenderer>().sprite =
                 map.GetTexturesSo(timeOfDayEnum).ground;
+            
+            //replace filter
+            map.GetFilter().gameObject.GetComponent<SpriteRenderer>().sprite =
+                map.GetTexturesSo(timeOfDayEnum).mapFilter;
+            
+            
             
             //get lists of map objects and sprites
             List<GameObject> mapObjects = map.GetMapObjects();

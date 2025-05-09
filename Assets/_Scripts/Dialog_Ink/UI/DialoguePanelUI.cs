@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using _Scripts.Enums;
 using _Scripts.Managers;
 using Ink.Runtime;
 using TMPro;
@@ -13,11 +14,18 @@ namespace _Scripts.Dialog_Ink.UI
 {
     public class DialoguePanelUI : MonoBehaviour
     {
+        [Header("Params")]
+        [SerializeField] private float typingSpeed = 0.04f;
+        private Coroutine _typingCoroutine;
+        private bool isSubmitPressed;
+        
         [Header("Components")]
         [SerializeField] private GameObject contentParent;
         [SerializeField] private GameObject background;
         [SerializeField] private TMP_Text dialogueText;
+        [SerializeField] private GameObject continueIcon;
         [SerializeField] private DialogueChoiceButton[] choiceButtons;
+        private readonly List<DialogueChoiceButton> _activeChoiceButtons = new List<DialogueChoiceButton>();//uses to hide/show while text typing and after
         
         [SerializeField] private CanvasGroup canvasGroup;
         
@@ -78,6 +86,7 @@ namespace _Scripts.Dialog_Ink.UI
             EventManager.Instance.DialogueEvents.OnDisplayDialogue += DisplayDialogue;
             EventManager.Instance.CutsceneEvents.OnCutsceneStarted += DisableBackground;
             EventManager.Instance.CutsceneEvents.OnCutsceneFinished += EnableBackground;
+            EventManager.Instance.InputEvents.OnSubmitPressed += SubmitPressed;
             
             //tags
             EventManager.Instance.DialogueEvents.OnTagChangeSpeaker1Name += ChangeSpeaker1Name;
@@ -135,22 +144,136 @@ namespace _Scripts.Dialog_Ink.UI
             ResetPanel();
         }
 
-        private void DisplayDialogue(string dialogueLine, List<Choice> dialogueChoices, bool isCutsceneUI)
+        private void HideActiveButtons()
         {
-            if (isCutsceneUI)
+            //Debug.Log(_activeChoiceButtons!=null);
+            //Debug.Log(_activeChoiceButtons.Count);
+            if (_activeChoiceButtons!=null && _activeChoiceButtons.Count != 0)
             {
-                dialogueTextCutscene.text = dialogueLine;
+                foreach (var button in _activeChoiceButtons)
+                {
+                    button.gameObject.SetActive(false);
+                }
             }
-            else
-            {
-                dialogueText.text = dialogueLine;
-            }
+        }
 
+        private void ShowActiveButtons()
+        {
+            if (_activeChoiceButtons!=null && _activeChoiceButtons.Count != 0)
+            {
+                foreach (var button in _activeChoiceButtons)
+                {
+                    button.gameObject.SetActive(true);
+                }
+            }
+        }
+
+        private void SubmitPressed(InputEventContext context)
+        {
+            if (context == InputEventContext.TypingLine)
+            {
+                isSubmitPressed = true;
+            }
+        }
+        
+
+        //displays alphabetically (char to char)  //todo to handle end line overflow (type by words ? use maxVisibleCharacters ?)
+        private IEnumerator DisplayTypingLine(string line, bool isCutscene)
+        {
             //save mouse position
             Vector2 mousePos = Input.mousePosition;
             
+            //hide buttons while typing
+            HideActiveButtons();
+            
+            //hide continue icon
+            continueIcon.SetActive(false);
+            
+            //set context ty "typing" to prevent line skipping
+            EventManager.Instance.InputEvents.ChangeInputEventContext(InputEventContext.TypingLine);
+            
+            
+            TMP_Text localTextVar;
+            if (isCutscene)
+            {
+                localTextVar = dialogueTextCutscene;
+            }
+            else
+            {
+                localTextVar = dialogueText;
+            }
+            
+            //check rtt existence
+            bool isAddingRichTextTag = false;
+            
+            //empty text
+            localTextVar.text = "";
+            
+            //typing char by char
+            foreach (var letter in line.ToCharArray())
+            {
+                //skip typing "animation" if submit pressed
+                if (isSubmitPressed)
+                {
+                    localTextVar.text = line;
+                    break;
+                }
+
+                //check for rtt, if found, add without waiting
+                if (letter == '<' || isAddingRichTextTag)
+                {
+                    isAddingRichTextTag = true;
+                    localTextVar.text += letter;
+                    if (letter == '>')
+                    {
+                        isAddingRichTextTag = false;
+                    }
+                }
+                else
+                {
+                    localTextVar.text += letter;
+                    yield return new WaitForSeconds(typingSpeed);
+                }
+
+
+            }
+
+            //reset submit state
+            isSubmitPressed = false;
+            
+            //restore context
+            EventManager.Instance.InputEvents.ChangeInputEventContext(InputEventContext.Dialogue);
+            //show buttons after typing
+            ShowActiveButtons();
+            
+            //show continue icon
+            continueIcon.SetActive(true);
+            
+            //restore highlight down the cursor
+            StartCoroutine(RestoreSelectionAfterFrame(mousePos));
+        }
+
+        private void DisplayDialogue(string dialogueLine, List<Choice> dialogueChoices, bool isCutsceneUI)
+        {
+            //if (isCutsceneUI)
+            //{
+            //    dialogueTextCutscene.text = dialogueLine;
+            //}
+            //else
+            //{
+            //    dialogueText.text = dialogueLine;
+            //}
+            if (_typingCoroutine != null)
+            {
+                StopCoroutine(_typingCoroutine);
+            }
+            _typingCoroutine = StartCoroutine(DisplayTypingLine(dialogueLine, isCutsceneUI));
+
+            //save mouse position
+            //Vector2 mousePos = Input.mousePosition; (moved to typing coroutine)
+            
             //reset button 
-            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(null); 
             
             //if there are more choices coming that we can support -> log an error
             if (dialogueChoices.Count > choiceButtons.Length)
@@ -165,6 +288,9 @@ namespace _Scripts.Dialog_Ink.UI
             {
                 choiceButton.gameObject.SetActive(false);
             }
+            
+            //clear old choice button to active buttons array 
+            _activeChoiceButtons.Clear();
 
             // enable and set info for buttons depending on ink choice information (choices (indexes) are going from up to down, but button indexes are revers)
             int choiceButtonIndex = dialogueChoices.Count - 1;
@@ -173,7 +299,10 @@ namespace _Scripts.Dialog_Ink.UI
                 Choice dialogueChoice = dialogueChoices[inkChoiceIndex];
                 DialogueChoiceButton choiceButton = choiceButtons[choiceButtonIndex];
 
-                choiceButton.gameObject.SetActive(true);
+                //add new choice button to active buttons array
+                _activeChoiceButtons.Add(choiceButton);
+                //choiceButton.gameObject.SetActive(true); (will be activated in typing coroutine)
+                
                 choiceButton.SetChoiceText(dialogueChoice.text);
                 choiceButton.SetChoiceIndex(inkChoiceIndex);
 
@@ -186,7 +315,7 @@ namespace _Scripts.Dialog_Ink.UI
                 choiceButtonIndex--;
             }
             //restore highlite down the cursor
-            StartCoroutine(RestoreSelectionAfterFrame(mousePos));
+            //StartCoroutine(RestoreSelectionAfterFrame(mousePos)); (moved to typing coroutine)
         }
 
         private IEnumerator RestoreSelectionAfterFrame(Vector2 mousePosition)

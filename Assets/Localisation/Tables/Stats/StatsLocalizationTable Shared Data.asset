@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: StatsLocalizationTable Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: StatsLocalizationTable
+  m_TableCollectionNameGuidString: 183c2aee8035d7d4bb63d184ce98c2d8
+  m_Entries:
+  - m_Id: 15539346337792
+    m_Key: menu_stat_health
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15539354726400
+    m_Key: menu_stat_satiety
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15539354726401
+    m_Key: menu_stat_mood
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15539354726402
+    m_Key: menu_stat_energy
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 3406046383850913816
+  references:
+    version: 2
+    RefIds:
+    - rid: 3406046383850913816
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1746559456045

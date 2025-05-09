@@ -30,7 +30,7 @@ namespace _Scripts.Managers
         private Dictionary<int, Checkpoint> _checkpoints = new Dictionary<int, Checkpoint>();
         private int _currentCheckpointID = 0;
 
-        private GameUtils _gameUtils;
+        private CutsceneController _cutsceneController;
         
         [SerializeField] private PlayableDirector playableDirector;
         [SerializeField] private StandaloneDialogueComponent cutsceneDialogueEntity;
@@ -44,14 +44,14 @@ namespace _Scripts.Managers
         
         [Header("Cutscene1Images")]
         [SerializeField]private List<Sprite> cutscene1Sprites = new List<Sprite>();
-        private Dictionary<Sprite,bool> _cutscene1SpritesDictionary = new Dictionary<Sprite, bool>();
+        private Dictionary<Sprite,bool> _cutscene1SpritesDictionary = new Dictionary<Sprite, bool>(); 
         
         private void Awake()
         {
             if (Instance == null)
             {
                 Instance = this;
-                _gameUtils = new GameUtils();
+                _cutsceneController = new CutsceneController();
                 InitializeCutsceneSprites();
                 InitializeCutsceneDictionary();
                 InitializeCheckpoints();
@@ -126,7 +126,7 @@ namespace _Scripts.Managers
             
             if (Input.GetKeyDown(KeyCode.Alpha7))
             {
-                _gameUtils.TeleportPlayerToNovelPlace("CatherineHouse", "FFCorridor");
+                _cutsceneController.TeleportPlayerToNovelPlace("CatherineHouse", "FFCorridor");
                 Debug.Log("7");
             }
             
@@ -285,7 +285,7 @@ namespace _Scripts.Managers
         //teleports 
         public void TeleportPlayerToKatherineRoom()
         {
-            _gameUtils.TeleportPlayerToNovelPlace("CatherineHouse","CatherineRoom");
+            _cutsceneController.TeleportPlayerToNovelPlace("CatherineHouse","CatherineRoom");
         }
         
         //utils

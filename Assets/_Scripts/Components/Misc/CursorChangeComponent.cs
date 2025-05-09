@@ -17,8 +17,8 @@ namespace _Scripts.Components.Misc
 
         private void Awake()
         {
-            _cursorTextureDefault = UnityEngine.Resources.Load<Texture2D>("Art/Cursors/cursorDefault1");
-            _cursorTextureHoverOnTrigger = UnityEngine.Resources.Load<Texture2D>("Art/Cursors/cursorTransition1");
+            _cursorTextureDefault = UnityEngine.Resources.Load<Texture2D>(cursorDefaultPath);
+            _cursorTextureHoverOnTrigger = UnityEngine.Resources.Load<Texture2D>(cursorHoverOnTriggerPath);
 
             //Debug.Log("cursorDefault1: " + CursorTextureDefault);
             //Debug.Log("cursorTransition1: " + CursorTextureToChange);

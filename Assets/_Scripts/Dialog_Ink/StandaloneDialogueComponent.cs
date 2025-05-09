@@ -116,9 +116,14 @@ namespace _Scripts.Dialog_Ink
 
         private IEnumerator StartDialogueDelayed(bool isCutsceneUI)
         {
-            yield return null; // wait for next frame
+            //Apply language setting
+            string storyNameTemp = currentActualStoryName +"_"+ LocalizationManager.Instance.GetCurrentLanguageCode();
             
-            EventManager.Instance.DialogueEvents.EnterDialogue(currentActualStoryName, currentActualDialogueKnotName, isCutsceneUI);
+            // wait for next frame
+            yield return null;
+            
+            
+            EventManager.Instance.DialogueEvents.EnterDialogue(storyNameTemp, currentActualDialogueKnotName, isCutsceneUI);
         }
 
         //invokes subscribed method for this GO if we match the name for this character. Also check the knot name variable. 

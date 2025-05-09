@@ -18,5 +18,7 @@ EditorBuildSettings:
     path: Assets/_Scenes/RestartScene.unity
     guid: fc5ca9f92ee1154469ce3ef5507a1d6f
   m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: fda986de6597b6a469f3941d3719870b, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 3590b91b4603b465dbb4216d601bff33, type: 3}
+    com.unity.localization.settings: {fileID: 11400000, guid: 145cce7be5342a747ae4ae1550bff4c6, type: 2}
   m_UseUCBPForAssetBundles: 0

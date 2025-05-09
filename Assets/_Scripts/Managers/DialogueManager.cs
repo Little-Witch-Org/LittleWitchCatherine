@@ -4,6 +4,7 @@ using _Scripts.Enums;
 using _Scripts.QuestSystem;
 using _Scripts.Service.Log;
 using Ink.Runtime;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace _Scripts.Managers
@@ -201,8 +202,10 @@ namespace _Scripts.Managers
             //--------------------------------------------------------------------
             */
             
-            
             //UpdateVariableValueForStory("FirstDialogueNpc_main", "FirstDialogueFirstNpc_1_main_var", new StringValue("1"));
+            
+            
+            
             
             _dialoguePlaying = true;
             

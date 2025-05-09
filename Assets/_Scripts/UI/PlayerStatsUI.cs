@@ -186,7 +186,7 @@ namespace _Scripts.UI
             }
 
             // update text
-            healthText.text = $"Здоровье: {newHealth}/{maxHealth}";
+            healthText.text = $"{newHealth}/{maxHealth}";
             _lastHealth = newHealth;
 
             // launch animation
@@ -243,7 +243,7 @@ namespace _Scripts.UI
                 satietyBarPositiveFill.fillAmount = newFill;
             }
 
-            satietyText.text = $"Сытость: {newSatiety}/{maxSatiety}";
+            satietyText.text = $"{newSatiety}/{maxSatiety}";
             _lastSatiety = newSatiety;
             _activeSatietySequence.Play();
         }
@@ -296,7 +296,7 @@ namespace _Scripts.UI
                 moodBarPositiveFill.fillAmount = newFill;
             }
 
-            moodText.text = $"Настроение: {newMood}/{maxMood}";
+            moodText.text = $"{newMood}/{maxMood}";
             _lastMood = newMood;
             _activeMoodSequence.Play();
         }
@@ -349,7 +349,7 @@ namespace _Scripts.UI
                 energyBarPositiveFill.fillAmount = newFill;
             }
 
-            energyText.text = $"Энергия: {newEnergy}/{maxEnergy}";
+            energyText.text = $"{newEnergy}/{maxEnergy}";
             _lastEnergy = newEnergy;
             _activeEnergySequence.Play();
         }
@@ -425,7 +425,7 @@ namespace _Scripts.UI
                 motherReputationBarPositiveFill.fillAmount = newFill;
             }
 
-            motherReputationText.text = $"Мама: {newRep}/{maxRep}";
+            motherReputationText.text = $"{newRep}/{maxRep}";
             _lastMotherRep = newRep;
             _activeMotherRepSequence.Play();
         }

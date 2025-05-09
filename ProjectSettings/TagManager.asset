@@ -58,5 +58,8 @@ TagManager:
   - name: TriggerPointOnMap
     uniqueID: 388634623
     locked: 0
+  - name: MapFilter
+    uniqueID: 4052302945
+    locked: 0
   m_RenderingLayers:
   - Default

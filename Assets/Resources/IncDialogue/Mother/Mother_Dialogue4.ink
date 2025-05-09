@@ -1,3 +1,3 @@
 ===Mother_Dialogue4===
-Диалог 4.
+dia_mother_4_1
 -->END

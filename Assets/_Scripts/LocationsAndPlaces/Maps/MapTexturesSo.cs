@@ -8,6 +8,7 @@ namespace _Scripts.LocationsAndPlaces.Maps
     public class MapTexturesSo:ScriptableObject
     {
 
+        public Sprite mapFilter;
         public Sprite ground;
         public List<Sprite> mapObjectsSprites;
     }
