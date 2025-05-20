@@ -11,7 +11,8 @@ namespace _Scripts.LocationsAndPlaces.Locations.CatherineHouse
         public Greenhouse() : base("Greenhouse", TimeOfDayEnum.Morning,
             new List<Place>
             {
-                new MainPlaceGreenhouse()
+                new MainPlaceGreenhouse(),
+                new EnterInGreenhouse()
             }
         )
         {

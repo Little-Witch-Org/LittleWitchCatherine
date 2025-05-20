@@ -2,21 +2,20 @@ using System;
 using _Scripts.Enums;
 using _Scripts.Managers;
 using DG.Tweening;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 using Sequence = DG.Tweening.Sequence;
 
 //todo - separate detect and animation logic
-namespace _Scripts.Components._UEventsTriggers
+namespace _Scripts.Components._TriggerActivators.TransitionTriggerActivator
 {
     public class ColliderEnterTriggerActivatorForLocationEnter : MonoBehaviour
     {
         [SerializeField] private TagsNames tagName;
 
+        private int defaultSorting;
         public UnityEvent enterTriggerEvent;
-
+        
         private bool _isPlayerInTrigger = false;
         private Sequence _sequence;
         private Tween _tween;
@@ -24,6 +23,12 @@ namespace _Scripts.Components._UEventsTriggers
         [SerializeField] private SpriteRenderer spriteRenderer2;
         [SerializeField] private SpriteRenderer interactionHintRenderer;
 
+        private void Start()
+        {
+            defaultSorting = gameObject.GetComponent<SpriteRenderer>().sortingOrder;
+            spriteRenderer1.sortingOrder = defaultSorting+2;
+            spriteRenderer2.sortingOrder = defaultSorting+1;
+        }
 
         private void OnEnable()
         {
@@ -48,6 +53,12 @@ namespace _Scripts.Components._UEventsTriggers
         {
             if (collision.transform.parent.CompareTag(tagName.ToString()))
             {
+                gameObject.GetComponent<SpriteRenderer>().sortingOrder =
+                    collision.transform.parent.GetComponent<SpriteRenderer>().sortingOrder - 5;
+                
+                spriteRenderer1.sortingOrder = gameObject.GetComponent<SpriteRenderer>().sortingOrder+2;
+                spriteRenderer2.sortingOrder = gameObject.GetComponent<SpriteRenderer>().sortingOrder+1;
+                
                 ShowHint();
                 _isPlayerInTrigger = true;
                 HideDot();
@@ -58,6 +69,10 @@ namespace _Scripts.Components._UEventsTriggers
         {
             if (collision.transform.parent.CompareTag(tagName.ToString()))
             {
+                gameObject.GetComponent<SpriteRenderer>().sortingOrder = defaultSorting;
+                spriteRenderer1.sortingOrder = defaultSorting+2;
+                spriteRenderer2.sortingOrder = defaultSorting+1;
+                
                 HideHint();
                 _isPlayerInTrigger = false;
                 ShowDot();

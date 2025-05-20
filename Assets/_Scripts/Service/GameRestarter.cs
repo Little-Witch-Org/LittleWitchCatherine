@@ -6,6 +6,21 @@ namespace _Scripts.Service
 {
     public class GameRestarter : MonoBehaviour
     {
+        private static GameRestarter _instance;
+        
+        private void Awake()
+        {
+            if (_instance == null)
+            {
+                _instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
+        
         public void FullRestart()
         {
             StartCoroutine(RestartCoroutine());
@@ -43,10 +58,6 @@ namespace _Scripts.Service
             Destroy(tempObj);
         }
 
-        private void Awake()
-        {
-            // Сохраняем этот объект и скрипт при перезагрузке
-            DontDestroyOnLoad(gameObject);
-        }
+ 
     }
 }

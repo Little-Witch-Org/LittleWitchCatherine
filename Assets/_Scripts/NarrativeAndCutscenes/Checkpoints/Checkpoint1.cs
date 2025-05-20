@@ -10,10 +10,10 @@ namespace _Scripts.NarrativeAndCutscenes.Checkpoints
         public override void Activate()
         {
             
-            
             TimeManager.Instance.SetInitialTime(1,1,12,15,00);
             IsCheckpointActivated = true;
-            StoryProgressionManager.Instance.LaunchCutscene("Chapter1_Cutscene1"); //todo add cutscene class
+            //CutsceneController.Instance.LaunchCutscene("Chapter1_Cutscene1"); 
+            EventManager.Instance.CutsceneEvents.LaunchCutscene("Chapter1_Cutscene1");
         }
     }
 }

@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3775249321927828184}
   - component: {fileID: 397714462215502249}
   - component: {fileID: 5501856238982501258}
-  - component: {fileID: 1091546960555996417}
   - component: {fileID: 4393285060711862509}
   - component: {fileID: 4416112638891471037}
   m_Layer: 0
@@ -82,7 +81,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -152,47 +151,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d42e49bc4fb078646bf10c77b67739b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4393285060711862509}
-        m_TargetAssemblyTypeName: _Scripts.Components.Transition.ChangeSceneTriggerComponent,
-          Assembly-CSharp
-        m_MethodName: ChangeSceneTrigger
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 4416112638891471037}
-        m_TargetAssemblyTypeName: _Scripts.Components.SpawnComponents.StorePreviousPositionPointComponent,
-          Assembly-CSharp
-        m_MethodName: SetPreviousPositionPointName
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &1091546960555996417
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3831708030434851678}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3222d0486882440db936ea1d36d8452b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &4393285060711862509

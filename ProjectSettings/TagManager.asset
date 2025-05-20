@@ -6,6 +6,7 @@ TagManager:
   tags:
   - SemiTransparent
   - ChangeCursorObject
+  - LocationEnterTrigger
   layers:
   - Default
   - TransparentFX

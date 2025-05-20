@@ -1,4 +1,5 @@
 using _Scripts.Components.Misc;
+using _Scripts.Components.SpawnComponents;
 using _Scripts.Components.Transition;
 using _Scripts.Managers;
 using UnityEngine;
@@ -34,6 +35,7 @@ namespace _Scripts.Components._TriggerActivators.TransitionTriggerActivator
             else if (gameObject.TryGetComponent<ChangeSceneTriggerComponent>(out var sceneTriggerComponent))
             {
                 sceneTriggerComponent.ChangeSceneTrigger();
+                gameObject.GetComponent<StorePreviousPositionPointComponent>().SetPreviousPositionPointName(); //handle multiple entrances
             }
         }
 

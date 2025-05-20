@@ -22,7 +22,7 @@ namespace _Scripts.Components.Misc
             if (other.TryGetComponent(out SpriteRenderer objectRenderer))
             {
                 //Debug.Log(objectRenderer.sortingLayerName);
-                if (!_activeRenderers.Contains(objectRenderer) && objectRenderer.sortingLayerName.Equals("DynamicMapObjects")) //handle only IFadable
+                if (!_activeRenderers.Contains(objectRenderer) && objectRenderer.sortingLayerName.Equals("DynamicMapObjects") && !objectRenderer.tag.Equals("LocationEnterTrigger")) //handle only DynamicMapObjects
                     _activeRenderers.Add(objectRenderer);
 
                 UpdateSortingOrder();

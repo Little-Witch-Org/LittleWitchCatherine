@@ -26,7 +26,9 @@ namespace _Scripts.LocationsAndPlaces.Locations.CatherineHouse
                 new ParentsRoom(),
                 new SFCorridor(),
                 new StorageUnderStairs(),
-                new TFCorridor()
+                new TFCorridor(),
+                new EnterInHouse(),
+                new EnterInBasement()
             }
         )
         {

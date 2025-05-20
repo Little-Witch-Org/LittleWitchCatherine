@@ -27,7 +27,7 @@ namespace _Scripts.Managers
         private Dictionary<string, Location> _locationsDictionary;
         //private string _currentLocation;
         
-        [FormerlySerializedAs("currentTimeOfDay")] [SerializeField] private TimeOfDayEnum currentTimeOfDayEnum; //only for inspector
+        [SerializeField] private TimeOfDayEnum currentTimeOfDayEnum; //only for inspector
         
         private void Awake()
         {
@@ -62,6 +62,15 @@ namespace _Scripts.Managers
             _locationsDictionary["CatherineHouse"] = new CatherineHouse();
             _locationsDictionary["Seesaw"] = new Seesaw();
             _locationsDictionary["Greenhouse"] = new Greenhouse();
+            _locationsDictionary["Bench"] = new Bench();
+            _locationsDictionary["Flashlight"] = new Flashlight();
+            _locationsDictionary["Garden"] = new Garden();
+            _locationsDictionary["NorthExit"] = new NorthExit();
+            _locationsDictionary["Pit"] = new Pit();
+            _locationsDictionary["SouthExit"] = new SouthExit();
+            _locationsDictionary["Toilet"] = new Toilet();
+            _locationsDictionary["Bathhouse"] = new Bathhouse();
+            
             //Debug.Log(_locationsDictionary["CatherineHouse"].Places.Count);
         }
         

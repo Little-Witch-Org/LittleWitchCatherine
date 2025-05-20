@@ -29,6 +29,14 @@ namespace _Scripts.Components.Transition
             { CatherineHouseMapEnum.CatherineHouse, typeof(CatherineHouseNovelViewPlacesEnum) },
             { CatherineHouseMapEnum.Greenhouse, typeof(GreenhouseNovelViewPlacesEnum) },
             { CatherineHouseMapEnum.Seesaw, typeof(SeesawNovelViewPlacesEnum) },
+            { CatherineHouseMapEnum.Bathhouse, typeof(BathhouseNovelViewPlacesEnum) },
+            { CatherineHouseMapEnum.Bench, typeof(BenchHouseNovelViewPlacesEnum) },
+            { CatherineHouseMapEnum.Flashlight, typeof(FlashlightNovelViewPlacesEnum) },
+            { CatherineHouseMapEnum.Garden, typeof(GardenNovelViewPlacesEnum) },
+            { CatherineHouseMapEnum.NorthExit, typeof(NorthExitNovelViewPlacesEnum) },
+            { CatherineHouseMapEnum.Pit, typeof(PitNovelViewPlacesEnum) },
+            { CatherineHouseMapEnum.SouthExit, typeof(SouthExitNovelViewPlacesEnum) },
+            { CatherineHouseMapEnum.Toilet, typeof(ToiletNovelViewPlacesEnum) },
             // todo new matching locations/places
         };
         

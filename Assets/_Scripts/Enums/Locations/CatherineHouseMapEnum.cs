@@ -5,6 +5,15 @@ namespace _Scripts.Enums.Locations
     {
         CatherineHouse,
         Greenhouse,
-        Seesaw
+        Seesaw,
+        Bathhouse,
+        Pit,
+        Garden,
+        Bench,
+        NorthExit,
+        Toilet,
+        Flashlight,
+        SouthExit,
+        
     }
 }

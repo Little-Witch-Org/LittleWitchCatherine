@@ -29,6 +29,10 @@ namespace _Scripts.Enums.Places
         ForemtogRoom=16,
     
         //4Floor
-        AtticRoom=17
+        AtticRoom=17,
+        
+        //Entrances 
+        EnterInHouse = 18,
+        EnterInBasement = 19
     }
 }
