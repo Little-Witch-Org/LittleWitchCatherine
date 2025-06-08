@@ -104,7 +104,7 @@ namespace _Scripts.Dialog_Ink
         /// 3. Processes inputs safely in dialogue context
         /// 
         /// Sequence:
-        /// Click → [LockSubmit] → Frame1(InputBlocked)
+        /// Click → [SetSubmitLock] → Frame1(InputBlocked)
         ///           ↓
         /// Frame2(Unlock+Start) → Frame3(CleanInput)
         /// </summary>

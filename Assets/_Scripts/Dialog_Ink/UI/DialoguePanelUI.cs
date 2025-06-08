@@ -190,7 +190,7 @@ namespace _Scripts.Dialog_Ink.UI
             continueIcon.SetActive(false);
             
             //set context ty "typing" to prevent line skipping
-            EventManager.Instance.InputEvents.ChangeInputEventContext(InputEventContext.TypingLine);
+            EventManager.Instance.InputEvents.SetInputEventContext(InputEventContext.TypingLine);
             
             
             TMP_Text localTextVar;
@@ -242,7 +242,7 @@ namespace _Scripts.Dialog_Ink.UI
             isSubmitPressed = false;
             
             //restore context
-            EventManager.Instance.InputEvents.ChangeInputEventContext(InputEventContext.Dialogue);
+            EventManager.Instance.InputEvents.SetInputEventContext(InputEventContext.Dialogue);
             //show buttons after typing
             ShowActiveButtons();
             

@@ -10,6 +10,19 @@ namespace _Scripts.Events
     /// </summary>
     public class TransitionEvents
     {
+        private bool _isTransitionDisabled;
+
+        public void SetTransitionDisabled(bool isDisabled)
+        {
+            _isTransitionDisabled = isDisabled;
+        }
+
+        public bool GetIsTransitionDisabled()
+        {
+            return _isTransitionDisabled;
+        }
+        
+        
         //set location and place for transition in transition manager. NovelViewChangePlaceAfterTransitionComponent gets which was set info from transition manager 
         public event Action<string,string> OnPlaceTransitionTrigger;
         public void PlaceTransitionTrigger(string location, string place) 

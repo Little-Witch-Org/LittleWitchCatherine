@@ -19,7 +19,6 @@ namespace _Scripts.Managers
         
         public SpawnPointsNamesCatherineHouseMapEnum previousSpawnPointName;
         
-        
         private void OnEnable()
         {
             SceneManager.sceneLoaded += OnSceneLoadedSpawnPlayer;
@@ -49,16 +48,30 @@ namespace _Scripts.Managers
                 return;  //handle double load scene for second copy of script
             }
             
-            //Spawn character only after scene loaded and scene check (in method)
+            //Spawn character after scene loaded (for first load in redactor/build) 
             Scene currentScene = SceneManager.GetActiveScene();
-            OnSceneLoadedSpawnPlayer(currentScene, LoadSceneMode.Single); //SceneManager.sceneLoaded needs two parameters
+            TrySpawnCharacter(currentScene.name);
+            //OnSceneLoadedSpawnPlayer(currentScene, LoadSceneMode.Single); //SceneManager.sceneLoaded needs two parameters
             
+        }
+        
+        //handle double spawn
+        private void TrySpawnCharacter(string sceneName)
+        {
+            if (GameObject.FindWithTag("Player") != null) return;
+
+            if (sceneName == SceneNamesEnum.CatherineHouseMapScene.ToString() 
+                || sceneName.Contains("Test") 
+                || sceneName.Contains("NewMapTemp"))
+            {
+                SpawnCharacter(sceneName);
+            }
         }
 
         //todo char spawn in other (map) scenes need to be handled
         private void OnSceneLoadedSpawnPlayer(Scene scene, LoadSceneMode mode)
         {
-            if (Instance != this) return; //handle double spawn (spawn only for first copy of this script (Instance))
+            if (Instance != this) return; //handle double spawn
             
             if (scene.name == SceneNamesEnum.CatherineHouseMapScene.ToString()|| scene.name.Contains("Test")|| scene.name.Contains("NewMapTemp"))
             {
@@ -75,7 +88,7 @@ namespace _Scripts.Managers
             //Debug.LogFormat("Prepare to spawn Player to {0}", previousSpawnPointName);
             if (sceneName == "CatherineHouseMapScene")
             {
-                CharacterPrefab = UnityEngine.Resources.Load("Prefabs/_Player/Witch") as GameObject;
+                CharacterPrefab = UnityEngine.Resources.Load("Prefabs/_Player/Witch2") as GameObject;
             }
             else
             {
@@ -85,5 +98,6 @@ namespace _Scripts.Managers
             SpawnComponent = GetComponent<SpawnComponent>();
             SpawnComponent.Spawn(CharacterPrefab, SpawnPointsManager.Instance.getSpawnPosition(previousSpawnPointName).position);
         }
+        
     }
 }

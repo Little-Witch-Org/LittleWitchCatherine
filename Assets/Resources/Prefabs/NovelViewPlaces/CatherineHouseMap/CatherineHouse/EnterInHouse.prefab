@@ -233,7 +233,7 @@ GameObject:
   - component: {fileID: 6273017466703385893}
   - component: {fileID: 969509355280277421}
   m_Layer: 0
-  m_Name: Exit
+  m_Name: CentralExit
   m_TagString: ChangeCursorObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

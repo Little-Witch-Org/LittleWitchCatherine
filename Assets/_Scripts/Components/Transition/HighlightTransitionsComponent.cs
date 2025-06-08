@@ -9,7 +9,7 @@ namespace _Scripts.Components.Transition
         private SpriteRenderer _spriteRenderer;
         private readonly float _fadeDuration = 0.5f;
         
-        private Tween _tween;
+        
         
         private void Start()
         {
@@ -42,8 +42,10 @@ namespace _Scripts.Components.Transition
         {
             KillCurrentTween(); //kill animation after transition
         }
+        
 
-
+        private Tween _tween;
+        
         private void Show()
         {
             KillCurrentTween();

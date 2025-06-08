@@ -113,7 +113,7 @@ GameObject:
   - component: {fileID: 193229207842896668}
   - component: {fileID: 5452211618300020344}
   m_Layer: 0
-  m_Name: BasementLab
+  m_Name: BasementDoor
   m_TagString: ChangeCursorObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -219,7 +219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   locationType: 0
-  selectedPlace: BasementLab
+  selectedPlace: BasementDoor
 --- !u!1 &3831708030434851678
 GameObject:
   m_ObjectHideFlags: 0

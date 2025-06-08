@@ -4,6 +4,7 @@
     {
         Default,
         Dialogue,
-        TypingLine
+        TypingLine,
+        DraggingWindow
     }
 }

@@ -52,7 +52,7 @@ namespace _Scripts.Managers
             EventManager.Instance.QuestEvents.OnQuestStepValuesChange +=
                 QuestStepValuesChange; //for saving needs
 
-            EventManager.Instance.QuestEvents.OnRequestQuestByQuestInfoSo += GetQuestFromMap;
+            EventManager.Instance.QuestEvents.OnQuestByQuestInfoSoRequest += GetQuestFromMap;
             
             EventManager.Instance.QuestEvents.OnQuestAvailabilityChange += ChangeQuestAvailability;
 
@@ -69,7 +69,7 @@ namespace _Scripts.Managers
             EventManager.Instance.QuestEvents.OnQuestStepValuesChange -=
                 QuestStepValuesChange; //for saving needs
             
-            EventManager.Instance.QuestEvents.OnRequestQuestByQuestInfoSo -= GetQuestFromMap;
+            EventManager.Instance.QuestEvents.OnQuestByQuestInfoSoRequest -= GetQuestFromMap;
             EventManager.Instance.QuestEvents.OnQuestAvailabilityChange -= ChangeQuestAvailability;
         }
 

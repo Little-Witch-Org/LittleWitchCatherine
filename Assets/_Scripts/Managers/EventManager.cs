@@ -21,6 +21,7 @@ namespace _Scripts.Managers
         public MiscEvents MiscEvents;
         public PlayerStatsEvents PlayerStatsEvents;
         public ReputationEvents ReputationEvents;
+        public InventoryEvents InventoryEvents;
     
         private void Awake()
         {
@@ -54,6 +55,7 @@ namespace _Scripts.Managers
             MiscEvents = new MiscEvents();
             PlayerStatsEvents = new PlayerStatsEvents();
             ReputationEvents = new ReputationEvents();
+            InventoryEvents = new InventoryEvents();
         }
     }
 }

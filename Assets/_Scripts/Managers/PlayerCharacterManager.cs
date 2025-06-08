@@ -68,10 +68,10 @@ namespace _Scripts.Managers
         {
             EventManager.Instance.TransitionEvents.OnCurrentPlaceOnScreen += UpdateCurrentPlaceOn;
 
-            EventManager.Instance.PlayerStatsEvents.OnUpdateHealth += UpdateHeath;
-            EventManager.Instance.PlayerStatsEvents.OnUpdateSatiety += UpdateSatiety;
-            EventManager.Instance.PlayerStatsEvents.OnUpdateMood += UpdateMood;
-            EventManager.Instance.PlayerStatsEvents.OnUpdateEnergy += UpdateEnergy;
+            EventManager.Instance.PlayerStatsEvents.OnHealthUpdate += UpdateHeath;
+            EventManager.Instance.PlayerStatsEvents.OnSatietyUpdate += UpdateSatiety;
+            EventManager.Instance.PlayerStatsEvents.OnMoodUpdate += UpdateMood;
+            EventManager.Instance.PlayerStatsEvents.OnEnergyUpdate += UpdateEnergy;
 
             EventManager.Instance.TimeEvents.OnMinutesChanged += UpdateStatsBaseOnMinutes;
             EventManager.Instance.TimeEvents.OnHoursChanged += UpdateStatsBaseOnHours;
@@ -81,10 +81,10 @@ namespace _Scripts.Managers
         {
             EventManager.Instance.TransitionEvents.OnLoadedPlace -= UpdateCurrentPlaceOn;
 
-            EventManager.Instance.PlayerStatsEvents.OnUpdateHealth -= UpdateHeath;
-            EventManager.Instance.PlayerStatsEvents.OnUpdateSatiety -= UpdateSatiety;
-            EventManager.Instance.PlayerStatsEvents.OnUpdateMood -= UpdateMood;
-            EventManager.Instance.PlayerStatsEvents.OnUpdateEnergy -= UpdateEnergy;
+            EventManager.Instance.PlayerStatsEvents.OnHealthUpdate -= UpdateHeath;
+            EventManager.Instance.PlayerStatsEvents.OnSatietyUpdate -= UpdateSatiety;
+            EventManager.Instance.PlayerStatsEvents.OnMoodUpdate -= UpdateMood;
+            EventManager.Instance.PlayerStatsEvents.OnEnergyUpdate -= UpdateEnergy;
 
             EventManager.Instance.TimeEvents.OnMinutesChanged -= UpdateStatsBaseOnMinutes;
             EventManager.Instance.TimeEvents.OnHoursChanged -= UpdateStatsBaseOnHours;
@@ -99,7 +99,7 @@ namespace _Scripts.Managers
 
             //stats
             maxHealth = 100;
-            currentHealth = maxHealth;
+            currentHealth = 50;
             maxSatiety = 100;
             currentSatiety = 50;
             maxMood = 100;

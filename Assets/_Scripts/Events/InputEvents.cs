@@ -5,16 +5,23 @@ namespace _Scripts.Events
 {
     public class InputEvents
     {
-        public InputEventContext InputEventContext { get; private set; }
-
-        public void ChangeInputEventContext(InputEventContext newContext)
-        {
-            InputEventContext = newContext;
-        }
+        private InputEventContext InputEventContext { get; set; }
         
         private bool _submitLocked; //for submit in dialogue
 
-        public void LockSubmit(bool locked)
+        public void SetInputEventContext(InputEventContext newContext)
+        {
+            InputEventContext = newContext;
+        }
+
+        public InputEventContext GetInputEventContext() //must be used with input event which send context param
+        {
+            return InputEventContext;
+        }
+
+
+
+        public void SetSubmitLock(bool locked)
         {
             _submitLocked = locked;
         }
@@ -41,6 +48,8 @@ namespace _Scripts.Events
         }
         
         
+        
+        //UI menus
         public event Action OnMenuPressed;
         public void MenuPressed() 
         {
@@ -57,6 +66,18 @@ namespace _Scripts.Events
         public void StatsPressed() 
         {
             OnStatsPressed?.Invoke();
+        }
+        
+        public event Action OnPlayerInventoryPressed;
+        public void PlayerInventoryPressed() 
+        {
+            OnPlayerInventoryPressed?.Invoke();
+        }
+        
+        public event Action OnStorageInventoryPressed;
+        public void StorageInventoryPressed() 
+        {
+            OnStorageInventoryPressed?.Invoke();
         }
         
         

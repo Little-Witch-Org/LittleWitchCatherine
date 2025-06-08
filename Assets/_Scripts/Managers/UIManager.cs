@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
 using _Scripts.Components.Transition.UI;
+using _Scripts.InventorySystem.ByGuide;
+using _Scripts.InventorySystem.ByGuide.Inventories;
 using _Scripts.UI;
 using UnityEngine;
 using _Scripts.QuestSystem.UI;
@@ -16,17 +19,22 @@ namespace _Scripts.Managers
         [SerializeField] private CheatMenuUI cheatMenuUI;
         [SerializeField] private QuestLogMenuUI questLogMenuUI;
         [SerializeField] private PlayerStatsUI playerStatsUI;
+        [SerializeField] private PlayerInventoryUI playerInventoryUI;
+        [SerializeField] private StorageInventoryUI storageInventoryUI;
 
         private IMenu CheatMenuUI => cheatMenuUI;
         private IMenu QuestLogMenuUI => questLogMenuUI;
         private IMenu PlayerStatsUI => playerStatsUI;
+        private IMenu PlayerInventoryUI => playerInventoryUI;
+        private IMenu StorageInventoryUI => storageInventoryUI;
 
         //public GameObject cheatMenu;
         //public GameObject questMenu;
 
 
         //private bool _isMenuOpen;
-        private IMenu _currentOpenedMenu;
+        private IMenu _currentSystemMenu;
+        private readonly List<IMenu> _inventoryMenus = new();
 
 
 
@@ -36,6 +44,7 @@ namespace _Scripts.Managers
             {
                 Instance = this;
                 DontDestroyOnLoad(gameObject);
+                Initialize();
             }
             else
             {
@@ -43,11 +52,20 @@ namespace _Scripts.Managers
             }
         }
 
+        private void Initialize()
+        {
+            //register inventories
+            _inventoryMenus.Add(PlayerInventoryUI);
+            _inventoryMenus.Add(StorageInventoryUI);
+        }
+
         private void OnEnable()
         {
             EventManager.Instance.InputEvents.OnJournalPressed += ToggleQuestLog;
             EventManager.Instance.InputEvents.OnMenuPressed += ToggleCheatMenu;
             EventManager.Instance.InputEvents.OnStatsPressed += ToggleStatsMenu;
+            EventManager.Instance.InputEvents.OnPlayerInventoryPressed += TogglePlayerInventoryMenu;
+            EventManager.Instance.InputEvents.OnStorageInventoryPressed += ToggleStorageInventoryMenu;
         }
 
         private void OnDisable()
@@ -55,35 +73,58 @@ namespace _Scripts.Managers
             EventManager.Instance.InputEvents.OnJournalPressed -= ToggleQuestLog;
             EventManager.Instance.InputEvents.OnMenuPressed -= ToggleCheatMenu;
             EventManager.Instance.InputEvents.OnStatsPressed -= ToggleStatsMenu;
+            EventManager.Instance.InputEvents.OnPlayerInventoryPressed -= TogglePlayerInventoryMenu;
+            EventManager.Instance.InputEvents.OnStorageInventoryPressed += ToggleStorageInventoryMenu;
         }
         
-        private void CloseCurrentMenu()
+        private void ToggleSystemMenu(IMenu menu)
         {
-            if (_currentOpenedMenu != null)
+            if (menu == _currentSystemMenu)
             {
-                _currentOpenedMenu.HideMenu();
-                _currentOpenedMenu = null;
-            }
-        }
-        
-        public void ToggleMenu(IMenu menu)
-        {
-            if (menu.ContentParent.activeInHierarchy)
-            {
-                CloseCurrentMenu();
+                _currentSystemMenu.HideMenu();
+                _currentSystemMenu = null;
             }
             else
             {
-                CloseCurrentMenu();
-                _currentOpenedMenu = menu;
+                _currentSystemMenu?.HideMenu();
+                _currentSystemMenu = menu;
                 menu.ShowMenu();
+
+                // close inventories
+                foreach (var inventory in _inventoryMenus)
+                {
+                    if (inventory.ContentParent.activeInHierarchy)
+                        inventory.HideMenu();
+                }
+            }
+        }
+        
+        private void ToggleInventoryMenu(IMenu menu)
+        {
+            if (menu.ContentParent.activeInHierarchy)
+            {
+                menu.HideMenu();
+            }
+            else
+            {
+                menu.ShowMenu();
+
+                // close system menu if opened
+                if (_currentSystemMenu != null)
+                {
+                    _currentSystemMenu.HideMenu();
+                    _currentSystemMenu = null;
+                }
             }
         }
 
 
-        public void ToggleCheatMenu() => ToggleMenu(CheatMenuUI);
-        public void ToggleQuestLog() => ToggleMenu(QuestLogMenuUI);
-        public void ToggleStatsMenu() => ToggleMenu(PlayerStatsUI);
+
+        public void ToggleCheatMenu() => ToggleSystemMenu(CheatMenuUI);
+        public void ToggleQuestLog() => ToggleSystemMenu(QuestLogMenuUI);
+        public void ToggleStatsMenu() => ToggleSystemMenu(PlayerStatsUI);
+        public void TogglePlayerInventoryMenu() => ToggleInventoryMenu(PlayerInventoryUI);
+        public void ToggleStorageInventoryMenu() => ToggleInventoryMenu(StorageInventoryUI);
         
         
 

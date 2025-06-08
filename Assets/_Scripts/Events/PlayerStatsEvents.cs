@@ -2,33 +2,36 @@
 
 namespace _Scripts.Events
 {
+    /// <summary>
+    /// {1} Update {1} -> {2} OnUpdate / Changed {2} -> {3} OnChanged {3} //todo change other events using this style
+    /// </summary>
     public class PlayerStatsEvents
     {
         
         //---update stat
-        public event Action<float> OnUpdateHealth;
+        public event Action<float> OnHealthUpdate;
         public void UpdateHealth(float health) 
         {
-            OnUpdateHealth?.Invoke(health);
+            OnHealthUpdate?.Invoke(health);
         }
         
-        public event Action<float> OnUpdateSatiety;
+        public event Action<float> OnSatietyUpdate;
         public void UpdateSatiety(float Satiety) 
         {
-            OnUpdateSatiety?.Invoke(Satiety);
+            OnSatietyUpdate?.Invoke(Satiety);
         }
         
         
-        public event Action<float> OnUpdateMood;
+        public event Action<float> OnMoodUpdate;
         public void UpdateMood(float mood) 
         {
-            OnUpdateMood?.Invoke(mood);
+            OnMoodUpdate?.Invoke(mood);
         }
         
-        public event Action<float> OnUpdateEnergy;
+        public event Action<float> OnEnergyUpdate;
         public void UpdateEnergy(float energy) 
         {
-            OnUpdateEnergy?.Invoke(energy);
+            OnEnergyUpdate?.Invoke(energy);
         }
         
         

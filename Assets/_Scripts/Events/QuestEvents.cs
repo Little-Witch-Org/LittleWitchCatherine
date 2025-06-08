@@ -39,10 +39,10 @@ namespace _Scripts.Events
             OnQuestStepValuesChange?.Invoke(id, stepIndex, questStepValues);
         }
         
-        public event Func<QuestInfoSo,Quest> OnRequestQuestByQuestInfoSo;
+        public event Func<QuestInfoSo,Quest> OnQuestByQuestInfoSoRequest; //todo change other events using this style
         public Quest RequestQuestByQuestInfoSo(QuestInfoSo questSo) 
         {
-            return OnRequestQuestByQuestInfoSo?.Invoke(questSo);
+            return OnQuestByQuestInfoSoRequest?.Invoke(questSo);
         }
         
         public event Action<GameObject> OnQuestStepCreated;

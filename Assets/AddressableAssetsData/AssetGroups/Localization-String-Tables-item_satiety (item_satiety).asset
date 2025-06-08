@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Localization-String-Tables-item_satiety (item_satiety)
+  m_EditorClassIdentifier: 
+  m_GroupName: Localization-String-Tables-item_satiety (item_satiety)
+  m_GUID: 081f548b752c0e645b43470ca0480682
+  m_SerializeEntries:
+  - m_GUID: 533a0643508c32f40ab24636c270be8a
+    m_Address: InventoryItemsLocalizationTable_item_satiety
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-item_satiety
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 1
+  m_Settings: {fileID: 11400000, guid: e28e5c324fb21b140b73b4ac9963e3e3, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: ce5d5bef67559df4992fff87f01ba154, type: 2}
+    - {fileID: 11400000, guid: b07bae0544630f744bba6be445a5a87b, type: 2}

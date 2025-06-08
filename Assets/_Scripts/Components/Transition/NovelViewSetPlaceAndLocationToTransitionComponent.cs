@@ -42,6 +42,12 @@ namespace _Scripts.Components.Transition
         
         public void SelectPlace()
         {
+            if (EventManager.Instance.TransitionEvents.GetIsTransitionDisabled())
+            {
+                Debug.Log("Transition disabled");
+                return;
+            }
+            
             if (!_isSelected)
             {
                 _isSelected = true;

@@ -61,6 +61,11 @@ namespace _Scripts.Managers
                 {
                     EventManager.Instance.InputEvents.InteractPressed();
                 }
+                
+                if (Input.GetKeyDown(KeyCode.I))
+                {
+                    EventManager.Instance.InputEvents.PlayerInventoryPressed();
+                }
             }
 
             if (Input.GetMouseButtonDown(0))

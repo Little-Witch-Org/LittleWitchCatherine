@@ -42,9 +42,9 @@ namespace _Scripts.Components._TriggerActivators.ForDialogue
         
         private IEnumerator BlockDialogueInputForFrame()
         {
-            EventManager.Instance.InputEvents.LockSubmit(true);
+            EventManager.Instance.InputEvents.SetSubmitLock(true);
             yield return new WaitForEndOfFrame();
-            EventManager.Instance.InputEvents.LockSubmit(false);
+            EventManager.Instance.InputEvents.SetSubmitLock(false);
         }
     }
 }

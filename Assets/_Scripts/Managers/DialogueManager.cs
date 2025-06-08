@@ -220,7 +220,7 @@ namespace _Scripts.Managers
             }
 
             //input event context (change input context when starting dialogue)
-            EventManager.Instance.InputEvents.ChangeInputEventContext(InputEventContext.Dialogue);
+            EventManager.Instance.InputEvents.SetInputEventContext(InputEventContext.Dialogue);
             
             //disable hotkeys (menus) during dialogue
             EventManager.Instance.InputEvents.HotkeysAreActive(false);
@@ -354,7 +354,7 @@ namespace _Scripts.Managers
             EventManager.Instance.DialogueEvents.DialogueFinishedCutscene();
             
             //input event context (change input context back to default when dialogue ends)
-            EventManager.Instance.InputEvents.ChangeInputEventContext(InputEventContext.Default);
+            EventManager.Instance.InputEvents.SetInputEventContext(InputEventContext.Default);
             
             //enable hotkeys (menus) during dialogue
             EventManager.Instance.InputEvents.HotkeysAreActive(true);

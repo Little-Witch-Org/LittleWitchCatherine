@@ -13,6 +13,7 @@ namespace _Scripts.LocationsAndPlaces.Locations.CatherineHouse
                 new Kitchen(),
                 new AtticRoom(),
                 new BasementLab(),
+                new BasementDoor(),
                 new BelcroftCabinet(),
                 new DiningRoom(),
                 new FFCorridor(),

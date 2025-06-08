@@ -15,6 +15,48 @@ MonoBehaviour:
   m_GroupName: Localization-Locales
   m_GUID: c93e9c7118cf0b34d9e0b390e5c3e2c1
   m_SerializeEntries:
+  - m_GUID: 12c569390baeda34692e7933b4fc1061
+    m_Address: item_name_eng (item_name_eng)
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4e75221fbbc307a4986158abf288cbf8
+    m_Address: item_health (item_health)
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 62b7b13910a3d4f4783b0f860382d708
+    m_Address: item_name_ru (item_name_ru)
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7a92b5aea027b8244bdde52a3f5fb694
+    m_Address: item_satiety (item_satiety)
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7f36848bc39ee8448aa0f96de582387c
+    m_Address: item_energy (item_energy)
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 99c9c05f050082846872c3d7edf836bf
+    m_Address: item_desc_ru (item_desc_ru)
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9b05b22aedd56cf4dafb953164d8ffd6
+    m_Address: item_desc_eng (item_desc_eng)
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c24d55dee17ca564da9266bac6c98f7f
     m_Address: English (en)
     m_ReadOnly: 1
@@ -23,6 +65,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d2984afa8abad104fb3647d2ea6356b1
     m_Address: Tags (tags)
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e3a0e28eb705cf2489a07bdaab332f4d
+    m_Address: item_mood (item_mood)
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale

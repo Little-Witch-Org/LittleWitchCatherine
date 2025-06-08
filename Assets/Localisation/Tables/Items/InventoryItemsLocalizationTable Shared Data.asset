@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: InventoryItemsLocalizationTable Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: InventoryItemsLocalizationTable
+  m_TableCollectionNameGuidString: e90d069b85148d24284d4e08665e87af
+  m_Entries:
+  - m_Id: 397983119699968
+    m_Key: Consumables
+    m_Metadata:
+      m_Items: []
+  - m_Id: 397983170031616
+    m_Key: inventory_item_id_1_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 397983170031617
+    m_Key: inventory_item_id_1_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 397983170031618
+    m_Key: inventory_item_id_1_3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 397983174225920
+    m_Key: Misc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 397983174225921
+    m_Key: inventory_item_id_2_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1899295170752512
+    m_Key: Test items (Misc)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1899295216889856
+    m_Key: test_item_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1899295216889857
+    m_Key: test_item_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1899295216889858
+    m_Key: test_item_3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1899295216889859
+    m_Key: test_item_4
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 3406046902056648823
+  references:
+    version: 2
+    RefIds:
+    - rid: 3406046902056648823
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1748628846507
