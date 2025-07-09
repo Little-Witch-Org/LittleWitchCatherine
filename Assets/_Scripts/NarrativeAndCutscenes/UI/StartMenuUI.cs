@@ -26,12 +26,14 @@ namespace _Scripts.NarrativeAndCutscenes.UI
 
         public void LaunchStoryMode()
         {
+            EventManager.Instance.GameEvents.StoryModActivated(true);
             StoryProgressionManager.Instance.ActivateCheckpoint(1);
             gameObject.SetActive(false);
         }
         
         public void LaunchDevMode()
         {
+            EventManager.Instance.GameEvents.StoryModActivated(false);
             gameObject.SetActive(false);
         }
     }

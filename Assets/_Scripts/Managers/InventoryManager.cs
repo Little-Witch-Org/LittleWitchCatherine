@@ -96,7 +96,8 @@ namespace _Scripts.Managers
             EventManager.Instance.InputEvents.OnSubmitPressed += OnSubmitPressed;
             EventManager.Instance.TransitionEvents.OnChangeScene += OnTransition;
             EventManager.Instance.TransitionEvents.OnPlaceTransitionTrigger += OnTransition;
-            EventManager.Instance.InventoryEvents.OnContextMeniOpenStatusSet += SetContextMenuStatus;
+            EventManager.Instance.InventoryEvents.OnContextMenuOpenStatusSet += SetContextMenuStatus;
+            EventManager.Instance.GameEvents.OnStoryModActivated += OnStoryModActivated;
         }
 
         private void OnDisable()
@@ -104,13 +105,15 @@ namespace _Scripts.Managers
             EventManager.Instance.InputEvents.OnSubmitPressed -= OnSubmitPressed;
             EventManager.Instance.TransitionEvents.OnChangeScene -= OnTransition;
             EventManager.Instance.TransitionEvents.OnPlaceTransitionTrigger -= OnTransition;
-            EventManager.Instance.InventoryEvents.OnContextMeniOpenStatusSet += SetContextMenuStatus;
+            EventManager.Instance.InventoryEvents.OnContextMenuOpenStatusSet -= SetContextMenuStatus;
+            EventManager.Instance.GameEvents.OnStoryModActivated -= OnStoryModActivated;
         }
 
         private void Start()
         {
             Initialize();
-            SpawnAllItems();
+            
+            
         }
 
         private void Initialize()
@@ -142,8 +145,9 @@ namespace _Scripts.Managers
             InitializeAllInventories();
         }
 
-        private void SpawnAllItems()
+        private IEnumerator SpawnAllItems()
         {
+            yield return new WaitForSeconds(1f);
             foreach (var itemDataSo in itemsSo)
             {
                 AddItemInBackground(itemDataSo.itemId,"main");
@@ -428,7 +432,7 @@ namespace _Scripts.Managers
             HideTooltip(); 
             
         }
-        
+
         public void PrintCellsOccupied(InventoryItem item)
         {
         
@@ -450,7 +454,7 @@ namespace _Scripts.Managers
 
             Debug.Log(output);
         }
-        
+
         public void PrintShapeMask(InventoryItem item) //print using original form and rotation
         {
             string output = "Shape Mask (" + item.itemData.width + "x" + item.itemData.height + "):\n";
@@ -466,7 +470,7 @@ namespace _Scripts.Managers
     
             Debug.Log(output);
         }
-        
+
         public void PrintGrid()
         {
             string output = "Shape Mask (" + selectedItemGrid.GetGridSizeWidth() + "x" + selectedItemGrid.GetGridSizeHeight() + "):\n";
@@ -482,7 +486,7 @@ namespace _Scripts.Managers
     
             Debug.Log(output);
         }
-        
+
 
         private void ReturnItemIfInventoryCloses()
         {
@@ -655,6 +659,7 @@ namespace _Scripts.Managers
         }
 
         //if scene or place are changed -> close inventories
+
         private void OnTransition(string a, string b)
         {
             //Debug.Log("place trans");
@@ -668,6 +673,7 @@ namespace _Scripts.Managers
             playerInventoryUI.HideMenu();
             storageInventoryUI.HideMenu();
         }
+
 
         //for tooltip
 
@@ -694,6 +700,14 @@ namespace _Scripts.Managers
         {
             Destroy(currentItem.gameObject);
             _inventoryItemsList.Remove(currentItem);
+        }
+
+        private void OnStoryModActivated(bool isActive)
+        {
+            if (!isActive)
+            {
+                StartCoroutine(SpawnAllItems());
+            }
         }
     }
 

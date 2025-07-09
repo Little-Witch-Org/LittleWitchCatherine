@@ -1,5 +1,5 @@
 ===Mother_Dialogue2===
-eng2_1
+eng2_1 #speaker1name:Kat #portrait1:player_neutral #speaker2name:Annaliksa #portrait2:mother_neutral
     *[eng2_2]
     eng2_3
 eng2_4

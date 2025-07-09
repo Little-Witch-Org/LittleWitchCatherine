@@ -78,7 +78,7 @@ namespace _Scripts.Managers
         private IEnumerator ChangeSceneCoroutine(SceneNamesEnum scene) //todo disable input while loading
         {
             //disable hotkeys (menu)
-            EventManager.Instance.InputEvents.HotkeysAreActive(false);
+            EventManager.Instance.InputEvents.SetHotkeysActive(false);
             
             //fade in screen
             UIManager.Instance.loadScreenUI.FadeInLoadingScreen();
@@ -96,7 +96,7 @@ namespace _Scripts.Managers
             UIManager.Instance.loadScreenUI.FadeOutLoadingScreen();
             
             //enable hotkeys (menu)
-            EventManager.Instance.InputEvents.HotkeysAreActive(true);
+            EventManager.Instance.InputEvents.SetHotkeysActive(true);
             
         }
         

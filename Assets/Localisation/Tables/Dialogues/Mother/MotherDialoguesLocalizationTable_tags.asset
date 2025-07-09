@@ -19,12 +19,34 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 1553259294720
-    m_Localized: '#speaker1name:Kat #portrait1:player_neutral #speaker2name:Annaliksa
-      #portrait2:npc_neutral '
+    m_Localized: '#currentSpeaker:speaker2 #speaker1name:Kat #portrait1:player_neutral
+      #speaker2name:Annaliksa #portrait2:mother_neutral'
     m_Metadata:
       m_Items: []
   - m_Id: 23782009335808
+    m_Localized: '#currentSpeaker:speaker1'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 142308439224320
+    m_Localized: '#speaker1name:Kat #portrait1:player_neutral #speaker2name:Annaliksa
+      #portrait2:mother_neutral '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 158480001921024
+    m_Localized: '#speaker1name:Kat #portrait1:player_neutral #speaker2name:Annaliksa
+      #portrait2:mother_neutral '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 158480001921065
     m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 130460918738944
+    m_Localized: '#currentSpeaker:speaker2'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 130460922933248
+    m_Localized: '#currentSpeaker:speaker1'
     m_Metadata:
       m_Items: []
   references:

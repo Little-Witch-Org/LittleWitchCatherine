@@ -1,6 +1,6 @@
 ===Mother_Dialogue3===
 ~FinishQuest(Quest1GoDownToKitchenId)
-eng3_1
+eng3_1 #speaker1name:Kat #portrait1:player_neutral #speaker2name:Annaliksa #portrait2:mother_neutral
 eng3_2
 eng3_3
 eng3_4

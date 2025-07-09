@@ -10,12 +10,12 @@ namespace _Scripts.Managers
     {
         public static TimeManager Instance;
     
-        // Variables to store time
-        public int seconds;
-        public int minutes;
-        public int hours;
-        public int days;
-        public int months;
+        // Current time 
+        [SerializeField] private int seconds;
+        [SerializeField] private int minutes;
+        [SerializeField] private int hours;
+        [SerializeField] private int days;
+        [SerializeField] private int months;
 
         // Variable to store the time of day
         public TimeOfDayEnum timeOfDayEnum;
@@ -30,17 +30,17 @@ namespace _Scripts.Managers
 
         private void OnEnable()
         {
-            EventManager.Instance.TimeEvents.OnUpdateSeconds += AddSeconds;
-            EventManager.Instance.TimeEvents.OnUpdateMinutes += AddMinutes;
-            EventManager.Instance.TimeEvents.OnUpdateHours += AddHours;
-            EventManager.Instance.TimeEvents.OnUpdateDays += AddDays;
+            EventManager.Instance.TimeEvents.OnAddSeconds += AddSeconds;
+            EventManager.Instance.TimeEvents.OnAddMinutes += AddMinutes;
+            EventManager.Instance.TimeEvents.OnAddHours += AddHours;
+            EventManager.Instance.TimeEvents.OnAddDays += AddDays;
         }
         private void OnDisable()
         {
-            EventManager.Instance.TimeEvents.OnUpdateSeconds -= AddSeconds;
-            EventManager.Instance.TimeEvents.OnUpdateMinutes -= AddMinutes;
-            EventManager.Instance.TimeEvents.OnUpdateHours -= AddHours;
-            EventManager.Instance.TimeEvents.OnUpdateDays -= AddDays;
+            EventManager.Instance.TimeEvents.OnAddSeconds -= AddSeconds;
+            EventManager.Instance.TimeEvents.OnAddMinutes -= AddMinutes;
+            EventManager.Instance.TimeEvents.OnAddHours -= AddHours;
+            EventManager.Instance.TimeEvents.OnAddDays -= AddDays;
         }
 
 
@@ -126,7 +126,7 @@ namespace _Scripts.Managers
             DetermineTimeOfDay();
             UpdateFormattedDateTime();
             
-            EventManager.Instance.TimeEvents.SecondsChange(secondsToAdd);
+            EventManager.Instance.TimeEvents.SecondsAmountChange(secondsToAdd);
         }
 
         // Add minutes to the current time
@@ -137,7 +137,7 @@ namespace _Scripts.Managers
             DetermineTimeOfDay();
             UpdateFormattedDateTime();
             
-            EventManager.Instance.TimeEvents.MinutesChange(minutesToAdd);
+            EventManager.Instance.TimeEvents.MinutesAmountChange(minutesToAdd);
         }
 
         // Add hours to the current time
@@ -148,7 +148,7 @@ namespace _Scripts.Managers
             DetermineTimeOfDay();
             UpdateFormattedDateTime();
             
-            EventManager.Instance.TimeEvents.HoursChange(hoursToAdd);
+            EventManager.Instance.TimeEvents.HoursAmountChange(hoursToAdd);
         }
 
         // Add days to the current time
@@ -159,7 +159,7 @@ namespace _Scripts.Managers
             DetermineTimeOfDay();
             UpdateFormattedDateTime();
             
-            EventManager.Instance.TimeEvents.DaysChange(daysToAdd);
+            EventManager.Instance.TimeEvents.DaysAmountChange(daysToAdd);
         }
 
         // Add months to the current time
@@ -169,6 +169,17 @@ namespace _Scripts.Managers
             UpdateTimeVariables();
             DetermineTimeOfDay();
             UpdateFormattedDateTime();
+        }
+        
+        //get current time unit value
+        public int GetMinutes()
+        {
+            return minutes;
+        }
+
+        public int GetHours()
+        {
+            return hours;
         }
     }
 }

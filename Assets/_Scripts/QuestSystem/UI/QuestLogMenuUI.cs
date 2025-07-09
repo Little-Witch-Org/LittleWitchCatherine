@@ -36,7 +36,7 @@ namespace _Scripts.QuestSystem.UI
         {
             EventManager.Instance.QuestEvents.OnQuestStateChange += QuestStateChange;
 
-            EventManager.Instance.QuestEvents.OnQuestStateChange += HighliteQuestbutton;
+            EventManager.Instance.QuestEvents.OnQuestStateChange += HighlightQuestButton;
             
             EventManager.Instance.GameEvents.OnCheckpointActivated += DisableDevQuests;
         }
@@ -45,7 +45,7 @@ namespace _Scripts.QuestSystem.UI
         {
             EventManager.Instance.QuestEvents.OnQuestStateChange -= QuestStateChange;
 
-            EventManager.Instance.QuestEvents.OnQuestStateChange -= HighliteQuestbutton;
+            EventManager.Instance.QuestEvents.OnQuestStateChange -= HighlightQuestButton;
             
             EventManager.Instance.GameEvents.OnCheckpointActivated -= DisableDevQuests;
         }
@@ -64,8 +64,8 @@ namespace _Scripts.QuestSystem.UI
                 _firstSelectedButton.Select(); //todo to disable?
             }
 
-            ColorUtility.TryParseHtmlString("#6F2502", out var customColor); //reset highlighted color to default
-            questLogButton.image.color = customColor;
+            //ColorUtility.TryParseHtmlString("#6F2502", out var customColor); //reset highlighted color to default
+            questLogButton.image.color = Color.white;
         }
 
         public void HideMenu()
@@ -117,7 +117,7 @@ namespace _Scripts.QuestSystem.UI
             questStateText.text = quest.StateEnum.ToString();
         }
 
-        private void HighliteQuestbutton(Quest quest)
+        private void HighlightQuestButton(Quest quest)
         {
             questLogButton.image.color = Color.yellow;
             //questLogButton.image.DOColor(Color.yellow, 0.5f).Play();

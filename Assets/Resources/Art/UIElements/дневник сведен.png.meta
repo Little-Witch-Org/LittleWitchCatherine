@@ -1,0 +1,325 @@
+fileFormatVersion: 2
+guid: 9ec499cc4c2a2a848af1d5960e82d659
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7092405304355704077
+    second: "\u0434\u043D\u0435\u0432\u043D\u0438\u043A \u0441\u0432\u0435\u0434\u0435\u043D_0"
+  - first:
+      213: 2624385705968223924
+    second: "\u0434\u043D\u0435\u0432\u043D\u0438\u043A \u0441\u0432\u0435\u0434\u0435\u043D_1"
+  - first:
+      213: 2941361936089204537
+    second: "\u0434\u043D\u0435\u0432\u043D\u0438\u043A \u0441\u0432\u0435\u0434\u0435\u043D_2"
+  - first:
+      213: -6537179227490653011
+    second: "\u0434\u043D\u0435\u0432\u043D\u0438\u043A \u0441\u0432\u0435\u0434\u0435\u043D_3"
+  - first:
+      213: -1018111182486395882
+    second: "\u0434\u043D\u0435\u0432\u043D\u0438\u043A \u0441\u0432\u0435\u0434\u0435\u043D_4"
+  - first:
+      213: 8270538245059135112
+    second: "\u0434\u043D\u0435\u0432\u043D\u0438\u043A \u0441\u0432\u0435\u0434\u0435\u043D_5"
+  - first:
+      213: 8217507654962401657
+    second: "\u0434\u043D\u0435\u0432\u043D\u0438\u043A \u0441\u0432\u0435\u0434\u0435\u043D_6"
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Spells
+      rect:
+        serializedVersion: 2
+        x: 1120
+        y: 16375
+        width: 3433
+        height: 2180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0dc7311c094d6260800000000000000
+      internalID: 7092405304355704077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpellRedactor
+      rect:
+        serializedVersion: 2
+        x: 1120
+        y: 13785
+        width: 3433
+        height: 2180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b649dd15e0bb6420800000000000000
+      internalID: 2624385705968223924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicalProgress
+      rect:
+        serializedVersion: 2
+        x: 1120
+        y: 11192
+        width: 3433
+        height: 2180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 937c37cc811d1d820800000000000000
+      internalID: 2941361936089204537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QuestList
+      rect:
+        serializedVersion: 2
+        x: 1120
+        y: 8650
+        width: 3433
+        height: 2180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dac6b58c0264745a0800000000000000
+      internalID: -6537179227490653011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Diary
+      rect:
+        serializedVersion: 2
+        x: 1120
+        y: 6182
+        width: 3433
+        height: 2180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 614ab021641fed1f0800000000000000
+      internalID: -1018111182486395882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Relations
+      rect:
+        serializedVersion: 2
+        x: 1120
+        y: 3590
+        width: 3433
+        height: 2180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8864806f6bad6c270800000000000000
+      internalID: 8270538245059135112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bestiary
+      rect:
+        serializedVersion: 2
+        x: 1120
+        y: 997
+        width: 3433
+        height: 2180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97156198ca37a0270800000000000000
+      internalID: 8217507654962401657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 11119997c2bff6b4d94ab23ac95e1dd0
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Bestiary: 8217507654962401657
+      Diary: -1018111182486395882
+      MagicalProgress: 2941361936089204537
+      QuestList: -6537179227490653011
+      Relations: 8270538245059135112
+      SpellRedactor: 2624385705968223924
+      Spells: 7092405304355704077
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -6,8 +6,7 @@ namespace _Scripts.Events
     public class InputEvents
     {
         private InputEventContext InputEventContext { get; set; }
-        
-        private bool _submitLocked; //for submit in dialogue
+
 
         public void SetInputEventContext(InputEventContext newContext)
         {
@@ -21,23 +20,37 @@ namespace _Scripts.Events
 
 
 
-        public void SetSubmitLock(bool locked)
+        
+        //Block inputs
+        public event Action<bool> OnHotkeysActiveChanged;
+        public void SetHotkeysActive(bool toggle) 
         {
-            _submitLocked = locked;
+            OnHotkeysActiveChanged?.Invoke(toggle);
         }
         
-        public event Action<bool> OnHotkeysAreActive;
-        public void HotkeysAreActive(bool toggle) 
+        public event Action<bool> OnSubmitActiveChange;
+        public void SetSubmitActive(bool toggle) 
         {
-            OnHotkeysAreActive?.Invoke(toggle);
+            OnSubmitActiveChange?.Invoke(toggle);
+        }
+        public event Action<bool> OnSpaceActiveChanged;
+        public void SetSpaceActive(bool toggle) 
+        {
+            OnSpaceActiveChanged?.Invoke(toggle);
+        }
+        
+        public event Action<bool> OnInputActiveChanged;
+        public void SetInputActive(bool toggle) 
+        {
+            OnInputActiveChanged?.Invoke(toggle);
         }
         
         
         
+        //Keys pressed
         public event Action<InputEventContext> OnSubmitPressed;
         public void SubmitPressed() 
         {
-            if (_submitLocked) return;
             OnSubmitPressed?.Invoke(InputEventContext);
         }
         
@@ -45,6 +58,12 @@ namespace _Scripts.Events
         public void InteractPressed() 
         {
             OnInteractPressed?.Invoke();
+        }
+        
+        public event Action OnSpacePressed;
+        public void SpacePressed() 
+        {
+            OnSpacePressed?.Invoke();
         }
         
         

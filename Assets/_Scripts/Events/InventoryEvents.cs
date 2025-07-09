@@ -11,7 +11,6 @@ namespace _Scripts.Events
         }
         
         
-        
         public event Action<bool,string> OnInventoryOpenedStatusChanged;
         public void InventoryOpenedStatusChanged(bool isOpened, string inventoryName)
         {
@@ -19,10 +18,10 @@ namespace _Scripts.Events
         }
         
         
-        public event Action<bool> OnContextMeniOpenStatusSet;
-        public void setContextMeniOpenStatus(bool isOpened)
+        public event Action<bool> OnContextMenuOpenStatusSet;
+        public void SetContextMenuOpenStatus(bool isOpened)
         {
-            OnContextMeniOpenStatusSet?.Invoke(isOpened);
+            OnContextMenuOpenStatusSet?.Invoke(isOpened);
         }
     }
 }

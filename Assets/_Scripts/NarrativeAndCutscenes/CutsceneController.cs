@@ -4,8 +4,11 @@ using _Scripts.Dialog_Ink;
 using _Scripts.Enums;
 using _Scripts.Enums.Places;
 using _Scripts.Managers;
+using _Scripts.NarrativeAndCutscenes.Cutscenes;
+using _Scripts.NarrativeAndCutscenes.Interfaces;
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.Serialization;
 using UnityEngine.Timeline;
 
 namespace _Scripts.NarrativeAndCutscenes
@@ -22,23 +25,19 @@ namespace _Scripts.NarrativeAndCutscenes
         public static CutsceneController Instance;
         
         [SerializeField] private GameObject cutsceneEntity;//abstract "npc" with cutscene view dialogues
-        
-        [SerializeField] private PlayableDirector playableDirector;
         [SerializeField] private StandaloneDialogueComponent cutsceneDialogueEntity;
+
+        [SerializeField] private PlayableDirector playableDirector;
+        [SerializeField] private GameObject cutsceneContainer;
         
         
         [Header("Cutscenes")]
-        [SerializeField] private List<TimelineAsset> cutscenes;
-        private Dictionary<string, TimelineAsset> _cutsceneDictionary = new Dictionary<string,TimelineAsset>();
+        [SerializeField] private List<GameObject> cutscenesPrefabs;
         
+        [Header("Variables")]
+        [SerializeField] private AbstractCutscene currentCutsceneScript;
+        [SerializeField] private GameObject currentCutsceneGameObject;
         
-        [Header("Cutscene1Images")]
-        [SerializeField]private List<Sprite> cutscene1Sprites = new List<Sprite>();
-        private Dictionary<Sprite,bool> _cutscene1SpritesDictionary = new Dictionary<Sprite, bool>(); 
-
-        
-        
-
         private void Awake()
         {
             if (Instance == null)
@@ -46,56 +45,37 @@ namespace _Scripts.NarrativeAndCutscenes
                 Instance = this;
             }
         }
-
-        private void Start()
-        {
-            InitializeCutsceneSprites();
-            InitializeCutsceneDictionary();
-        }
+        
         
         private void OnEnable()
         {
             EventManager.Instance.CutsceneEvents.OnResumeCutscene += ResumeTimeline;
             EventManager.Instance.CutsceneEvents.OnLaunchCutscene += LaunchCutscene;
+            EventManager.Instance.CutsceneEvents.OnCutsceneFinished += FinishCutscene;
             
         }
+        
+
         private void OnDisable()
         {
             EventManager.Instance.CutsceneEvents.OnResumeCutscene -= ResumeTimeline;
             EventManager.Instance.CutsceneEvents.OnLaunchCutscene -= LaunchCutscene;
+            EventManager.Instance.CutsceneEvents.OnCutsceneFinished -= FinishCutscene;
         }
 
-        private void InitializeCutsceneSprites()
-        {
-            foreach (var sprite in cutscene1Sprites)
-            {
-                _cutscene1SpritesDictionary[sprite] = false;
-            }
-        }
-        
-        private void InitializeCutsceneDictionary()
-        {
-            foreach (var cutscene in cutscenes)
-            {
-                _cutsceneDictionary[cutscene.name] = cutscene;
-                //Debug.Log(cutscene.name);
-            }
-        }
-
- 
         
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 Debug.Log("1");
-                cutsceneEntity.GetComponent<StandaloneDialogueComponent>().StartDialogue(true); 
+                LaunchCutscene("TableTimeSkipCutscene10");
             }
             
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 Debug.Log("2");
-                NextCutsceneImage();
+                EventManager.Instance.LocationsAndPlacesEvents.UpdatePlaceStateSprite("CatherineRoom");
             } 
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
@@ -180,19 +160,35 @@ namespace _Scripts.NarrativeAndCutscenes
         }
         
         
-        public void LaunchCutscene(string cutsceneName)
+        private void LaunchCutscene(string cutsceneName)
         {
-            EventManager.Instance.CutsceneEvents.CutsceneStarted();
-            playableDirector.playableAsset = _cutsceneDictionary[cutsceneName];
-            playableDirector.Play();
+            var cutsceneGo = cutscenesPrefabs.Find(x => x.name == cutsceneName);
+            if (cutsceneGo == null)
+            {
+                Debug.LogError($"Cutscene {cutsceneName} not found");
+                return;
+            }
+            currentCutsceneGameObject = Instantiate(cutsceneGo, cutsceneContainer.transform, false);
+            
+            currentCutsceneScript = currentCutsceneGameObject.GetComponent<AbstractCutscene>();
+            
+            currentCutsceneScript.LaunchCutscene(playableDirector);
+            
+        }
+        
+        private void FinishCutscene()
+        {
+            Destroy(currentCutsceneGameObject);
+            currentCutsceneScript = null;
+            playableDirector.playableAsset = null;
         }
         
 
-
-        //------------------game utils methods (to add in cutscene class)----------
+        
         //Cutscene UI
         public void ShowCutsceneUI()
         {
+            //Debug.Log("ShowCutsceneUI");
             EventManager.Instance.CutsceneEvents.ShowCutsceneUI();
         }
 
@@ -204,24 +200,67 @@ namespace _Scripts.NarrativeAndCutscenes
         //set current cutscene sprites (dictionary) method (dict<dict,bool> ?) like in other places
         //add sprites in dictionary
         //display next not displayed sprite (in cutscene ui)
-        public void NextCutsceneImage()
+        public void NextCutsceneImage() 
         {
-            foreach (var pair in _cutscene1SpritesDictionary)
-            {
-                if (!pair.Value)
-                {
-                    EventManager.Instance.CutsceneEvents.SetCutsceneImage(pair.Key);
-                    EventManager.Instance.CutsceneEvents.ShowCutsceneImage();
-                    _cutscene1SpritesDictionary[pair.Key] = true;
-                    break; 
-                }
-            }
+            currentCutsceneScript.DisplayNextImage();
+        }
+        
+        public void NextCutsceneImageWithFade() 
+        {
+            currentCutsceneScript.DisplayNextImageWithFade();
         }
 
+        public void ShowCutsceneImage()
+        {
+            EventManager.Instance.CutsceneEvents.ShowCutsceneImage(false,0);
+        }
         public void HideCutsceneImage()
         {
-            EventManager.Instance.CutsceneEvents.HideCutsceneImage();
+            EventManager.Instance.CutsceneEvents.HideCutsceneImage(false,0);
         }
+        
+        public void ShowCutsceneImageWithFade()
+        {
+            EventManager.Instance.CutsceneEvents.ShowCutsceneImage(true,0.5f);
+        }
+        public void HideCutsceneImageWithFade()
+        {
+            EventManager.Instance.CutsceneEvents.HideCutsceneImage(true,0.5f);
+        }
+        
+        public void ShowCutsceneBackingPanel()
+        {
+            EventManager.Instance.CutsceneEvents.ShowBackingPanel(false,0);
+        }
+        
+        public void HideCutsceneBackingPanel()
+        {
+            EventManager.Instance.CutsceneEvents.HideBackingPanel(false,0);
+        }
+        
+        public void ShowCutsceneBackingPanelWithFade()
+        {
+            EventManager.Instance.CutsceneEvents.ShowBackingPanel(true,0.5f);
+        }
+        
+        public void HideCutsceneBackingPanelWithFade()
+        {
+            EventManager.Instance.CutsceneEvents.HideBackingPanel(true,0.5f);
+        }
+        
+        public void SetCurrentPlaceSpriteToCutsceneImage()
+        {
+            var placeSprite = EventManager.Instance.LocationsAndPlacesEvents.GetCurrentPlaceSprite();
+            EventManager.Instance.CutsceneEvents.SetCutsceneImage(placeSprite);
+            EventManager.Instance.CutsceneEvents.ShowCutsceneImage(false,0);
+        }
+        
+        public void SetCurrentPlaceSpriteToCutsceneImageWithFade() 
+        {
+            var placeSprite = EventManager.Instance.LocationsAndPlacesEvents.GetCurrentPlaceSprite();
+            currentCutsceneScript.DisplayCustomImageWithFade(placeSprite);
+        }
+
 
 
         //Timeline
@@ -272,12 +311,22 @@ namespace _Scripts.NarrativeAndCutscenes
         //utils
         public void DisableHotkeys()
         {
-            EventManager.Instance.InputEvents.HotkeysAreActive(false);
+            EventManager.Instance.InputEvents.SetHotkeysActive(false);
         }
         
         public void EnableHotkeys()
         {
-            EventManager.Instance.InputEvents.HotkeysAreActive(true);
+            EventManager.Instance.InputEvents.SetHotkeysActive(true);
+        }
+        
+        public void DisableInput()
+        {
+            EventManager.Instance.InputEvents.SetInputActive(false);
+        }
+        
+        public void EnableInput()
+        {
+            EventManager.Instance.InputEvents.SetInputActive(true);
         }
 
         public void InvokeStartCutsceneEvent()

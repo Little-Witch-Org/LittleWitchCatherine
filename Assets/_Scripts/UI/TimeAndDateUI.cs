@@ -1,7 +1,9 @@
-﻿using _Scripts.Enums;
+﻿using System;
+using _Scripts.Enums;
 using _Scripts.Managers;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace _Scripts.UI
 {
@@ -15,16 +17,22 @@ namespace _Scripts.UI
         [SerializeField] private TMP_Text yearText;
         [SerializeField] private TMP_Text timeOfDayText;
 
+        [SerializeField] private GameObject minuteArrow;
+        [SerializeField] private GameObject hourArrow;
+        private readonly float _minuteArrowAngleOffset = 72f;
+        private readonly float _hourArrowAngleOffset = 17f;
+
 
         private void OnEnable()
         {
             EventManager.Instance.TimeEvents.OnUpdateTimeOfDay += UpdateTimeOfDayText;
             EventManager.Instance.TimeEvents.OnTimeChange += ChangeTimeText;
             EventManager.Instance.TimeEvents.OnDateChange += ChangeDateText;
+            
+            EventManager.Instance.TimeEvents.OnMinutesAmountChanged += ChangeMinuteArrowAngle;
+            EventManager.Instance.TimeEvents.OnHoursAmountChanged += ChangeHourArrowAngle;
 
             //EventManager.Instance.InputEvents.OnMenuPressed += ToggleCheatMenu;
-
-
         }
 
         private void OnDisable()
@@ -32,11 +40,21 @@ namespace _Scripts.UI
             EventManager.Instance.TimeEvents.OnUpdateTimeOfDay -= UpdateTimeOfDayText;
             EventManager.Instance.TimeEvents.OnTimeChange -= ChangeTimeText;
             EventManager.Instance.TimeEvents.OnDateChange -= ChangeDateText;
+            
+            EventManager.Instance.TimeEvents.OnMinutesAmountChanged -= ChangeMinuteArrowAngle;
+            EventManager.Instance.TimeEvents.OnHoursAmountChanged -= ChangeHourArrowAngle;
 
             //EventManager.Instance.InputEvents.OnMenuPressed -= ToggleCheatMenu;
 
         }
-        
+
+        //set current time on the watch from start
+        private void Start()
+        {
+            ChangeMinuteArrowAngle(0);
+            ChangeHourArrowAngle(0);
+        }
+
 
         private void ChangeTimeText(string text)
         {
@@ -57,6 +75,33 @@ namespace _Scripts.UI
         private void UpdateTimeOfDayText(TimeOfDayEnum timeOfDayEnum)
         {
             timeOfDayText.SetText(timeOfDayEnum.ToString());
+        }
+
+        private void ChangeMinuteArrowAngle(int time) //not using param
+        {
+            
+            //Debug.Log($"minute changed = {time}");
+            //Debug.Log(TimeManager.Instance.GetMinutes());
+            
+            var currentMinutes = TimeManager.Instance.GetMinutes();
+            int minuteStepAngle = 6;
+            var targetAngle =  _minuteArrowAngleOffset - (minuteStepAngle * currentMinutes);
+            //Debug.Log(targetAngle);
+
+            minuteArrow.GetComponent<RectTransform>().localRotation = Quaternion.Euler(0f, 0f, targetAngle);
+        }
+
+        private void ChangeHourArrowAngle(int time)
+        {
+            //Debug.Log($"hour changed = {time}");
+            //Debug.Log(TimeManager.Instance.GetHours());
+            
+            var currentHours = TimeManager.Instance.GetHours();
+            int hourStepAngle = 30;
+            var targetAngle =  _hourArrowAngleOffset - (hourStepAngle * currentHours);
+            //Debug.Log(targetAngle);
+
+            hourArrow.GetComponent<RectTransform>().localRotation = Quaternion.Euler(0f, 0f, targetAngle);
         }
         
     }

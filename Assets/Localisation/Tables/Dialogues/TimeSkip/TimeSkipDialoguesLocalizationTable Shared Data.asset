@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: TimeSkipDialoguesLocalizationTable Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: TimeSkipDialoguesLocalizationTable
+  m_TableCollectionNameGuidString: 8783681e7787c014fae4e6042926fff7
+  m_Entries:
+  - m_Id: 681537581056
+    m_Key: dia_bed_skip_1_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 681592107008
+    m_Key: dia_bed_skip_1_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 681596301312
+    m_Key: dia_bed_skip_1_3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 681596301313
+    m_Key: dia_bed_skip_1_4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 367104541732864
+    m_Key: dia_bed_skip_1_5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 681596301314
+    m_Key: dia_table_skip_1_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 681596301315
+    m_Key: dia_table_skip_1_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 681596301316
+    m_Key: dia_table_skip_1_3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 681596301317
+    m_Key: dia_table_skip_1_4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 367104579481600
+    m_Key: dia_table_skip_1_5
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 2391438433092370582
+  references:
+    version: 2
+    RefIds:
+    - rid: 2391438433092370582
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1751226189090

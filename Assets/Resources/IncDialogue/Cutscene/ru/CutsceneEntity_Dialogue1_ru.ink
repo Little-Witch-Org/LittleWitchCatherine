@@ -9,6 +9,7 @@
 Во имя всех темных богов, тебя как такового не существует... исчезни из моего сна!
 Это еще большой вопрос, кто из нас более настоящий...
 Фа-аербо...
+~CompleteDialogueKnot(CharacterName, "CutsceneEntity_Dialogue1")
 ~ResumeCutscene()
 
 --> END

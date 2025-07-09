@@ -34,8 +34,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0.5, y: -2.9}
+  m_SizeDelta: {x: -1, y: -24}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6228346229534545252
 CanvasRenderer:
@@ -74,8 +74,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278197342
+  m_fontColor: {r: 0.3679245, g: 0.10815752, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -92,8 +92,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 16
-  m_fontSizeBase: 16
+  m_fontSize: 18
+  m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -174,7 +174,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -80}
-  m_SizeDelta: {x: 450, y: 25}
+  m_SizeDelta: {x: 2311.04, y: 52.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6346808190262958925
 CanvasRenderer:
@@ -204,8 +204,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 467556090, guid: a17f5df2b54151e4eabb1422a1e7b9a8, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -235,13 +235,13 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.6698113, g: 0.39067864, b: 0.23064256, a: 0}
-    m_HighlightedColor: {r: 0.6698113, g: 0.39067864, b: 0.23064256, a: 0.972549}
-    m_PressedColor: {r: 0.6698113, g: 0.39067864, b: 0.23064256, a: 0.972549}
-    m_SelectedColor: {r: 0.6698113, g: 0.39067864, b: 0.23064256, a: 0.972549}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 1, g: 0.95295036, b: 0.8632076, a: 1}
+    m_PressedColor: {r: 0.9056604, g: 0.06366213, b: 0.03844783, a: 1}
+    m_SelectedColor: {r: 0.29016998, g: 1, b: 0.023584902, a: 1}
+    m_DisabledColor: {r: 1, g: 0, b: 0.97956085, a: 0.5019608}
     m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
+    m_FadeDuration: 0
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}

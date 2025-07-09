@@ -32,6 +32,12 @@ MonoBehaviour:
     m_ReadOnly: 1
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8783681e7787c014fae4e6042926fff7
+    m_Address: Assets/Localisation/Tables/Dialogues/TimeSkip/TimeSkipDialoguesLocalizationTable
+      Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 91cb73469b8d1984eb0e75f784413866
     m_Address: Assets/Localisation/Tables/ReputationLocalizationTable Shared Data.asset
     m_ReadOnly: 1

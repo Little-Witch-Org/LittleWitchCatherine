@@ -9,5 +9,11 @@ namespace _Scripts.Events
         {
             OnCheckpointActivated?.Invoke(checkpointID);
         }
+        
+        public Action<bool> OnStoryModActivated;
+        public void StoryModActivated(bool isInStoryMod)
+        {
+            OnStoryModActivated?.Invoke(isInStoryMod);
+        }
     }
 }

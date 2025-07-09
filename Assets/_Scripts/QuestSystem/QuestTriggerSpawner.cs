@@ -10,7 +10,7 @@ namespace _Scripts.QuestSystem
 {
     /// <summary>
     ///Spawner OnStepCreated gets triggers for current step and instantiates disabled objects (quest step triggers)
-    ///In Update() spawner checks triggers prerequisites and compairs it with current game situation (location/place/time..)
+    ///In Update() spawner checks triggers prerequisites and compares it with current game situation (location/place/time..)
     ///Enables trigger object when it needs to
     ///Quest step trigger disable self after trigger activates
     ///When step is over (deleted), spawner deletes parent object which stores trigger objects (with triggers). Also delete links on deleted triggers. 

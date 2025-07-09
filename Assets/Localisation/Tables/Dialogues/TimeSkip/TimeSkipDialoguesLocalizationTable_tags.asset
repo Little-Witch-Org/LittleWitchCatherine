@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: TimeSkipDialoguesLocalizationTable_tags
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: tags
+  m_SharedData: {fileID: 11400000, guid: 8783681e7787c014fae4e6042926fff7, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 681537581056
+    m_Localized: '#speaker1name:Kat #portrait1:player_neutral'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 681592107008
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 681596301314
+    m_Localized: '#speaker1name:Kat #portrait1:player_neutral'
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

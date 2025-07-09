@@ -13,7 +13,7 @@ namespace _Scripts.NarrativeAndCutscenes.Checkpoints
             TimeManager.Instance.SetInitialTime(1,1,12,15,00);
             IsCheckpointActivated = true;
             //CutsceneController.Instance.LaunchCutscene("Chapter1_Cutscene1"); 
-            EventManager.Instance.CutsceneEvents.LaunchCutscene("Chapter1_Cutscene1");
+            EventManager.Instance.CutsceneEvents.LaunchCutscene("Chapter1IntroCutscene1");
         }
     }
 }

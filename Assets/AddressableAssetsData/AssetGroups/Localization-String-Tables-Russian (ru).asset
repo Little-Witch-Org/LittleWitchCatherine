@@ -33,6 +33,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-ru
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b685ee3de0e10844d9789d61249c41de
+    m_Address: TimeSkipDialoguesLocalizationTable_ru
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-ru
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d4c64e3794e10074eb728184a739fa68
     m_Address: CutsceneDialoguesLocalizationTable_ru
     m_ReadOnly: 1

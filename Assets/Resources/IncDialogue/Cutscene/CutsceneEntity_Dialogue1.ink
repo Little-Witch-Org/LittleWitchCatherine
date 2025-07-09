@@ -9,6 +9,7 @@ dia_cutscene_1_7
 dia_cutscene_1_8
 dia_cutscene_1_9
 dia_cutscene_1_10
+~CompleteDialogueKnot(CharacterName, "CutsceneEntity_Dialogue1")
 ~ResumeCutscene()
 
 --> END

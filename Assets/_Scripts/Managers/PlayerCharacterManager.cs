@@ -9,6 +9,7 @@ namespace _Scripts.Managers
     /// Stores Player character game values //todo need to handle exit on map (clear fields)
     /// todo add separated specific class with player stats ?
     /// todo add special player character log
+    /// todo change UpdateStat to add?
     /// </summary>
     public class PlayerCharacterManager : MonoBehaviour
     {
@@ -73,8 +74,8 @@ namespace _Scripts.Managers
             EventManager.Instance.PlayerStatsEvents.OnMoodUpdate += UpdateMood;
             EventManager.Instance.PlayerStatsEvents.OnEnergyUpdate += UpdateEnergy;
 
-            EventManager.Instance.TimeEvents.OnMinutesChanged += UpdateStatsBaseOnMinutes;
-            EventManager.Instance.TimeEvents.OnHoursChanged += UpdateStatsBaseOnHours;
+            EventManager.Instance.TimeEvents.OnMinutesAmountChanged += UpdateStatsBaseOnMinutesAmount;
+            EventManager.Instance.TimeEvents.OnHoursAmountChanged += UpdateStatsBaseOnHoursAmount;
         }
 
         private void OnDisable()
@@ -86,8 +87,8 @@ namespace _Scripts.Managers
             EventManager.Instance.PlayerStatsEvents.OnMoodUpdate -= UpdateMood;
             EventManager.Instance.PlayerStatsEvents.OnEnergyUpdate -= UpdateEnergy;
 
-            EventManager.Instance.TimeEvents.OnMinutesChanged -= UpdateStatsBaseOnMinutes;
-            EventManager.Instance.TimeEvents.OnHoursChanged -= UpdateStatsBaseOnHours;
+            EventManager.Instance.TimeEvents.OnMinutesAmountChanged -= UpdateStatsBaseOnMinutesAmount;
+            EventManager.Instance.TimeEvents.OnHoursAmountChanged -= UpdateStatsBaseOnHoursAmount;
         }
 
         private void InitializeDefaultValues()
@@ -209,7 +210,7 @@ namespace _Scripts.Managers
 
 
 
-        private void UpdateStatsBaseOnMinutes(int minutes)
+        private void UpdateStatsBaseOnMinutesAmount(int minutes)
         {
             _isUpdatingStatsBasedOnTime = true;
 
@@ -281,9 +282,9 @@ namespace _Scripts.Managers
             EventManager.Instance.PlayerStatsEvents.EnergyChanged(currentEnergy);
         }
 
-        private void UpdateStatsBaseOnHours(int hours)
+        private void UpdateStatsBaseOnHoursAmount(int hours)
         {
-            UpdateStatsBaseOnMinutes(hours * 60);
+            UpdateStatsBaseOnMinutesAmount(hours * 60);
         }
 
         private void CalculateStatsChangeRate()

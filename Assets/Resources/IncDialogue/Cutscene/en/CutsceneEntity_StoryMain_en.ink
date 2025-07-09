@@ -14,3 +14,5 @@ VAR CharacterName = "CutsceneEntity"
 
 
 INCLUDE CutsceneEntity_Dialogue1_en.ink
+INCLUDE CutsceneEntity_Dialogue2_en.ink
+

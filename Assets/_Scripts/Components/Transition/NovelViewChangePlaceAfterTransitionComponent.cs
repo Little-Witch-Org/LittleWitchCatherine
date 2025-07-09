@@ -15,14 +15,25 @@ namespace _Scripts.Components.Transition
         [SerializeField] private SpriteRenderer fadeImageRenderer;
 
         private Sequence _sequence;
-        private GameObject currentRoomInstance;
+        private GameObject _currentRoomInstance;
+
+        private void Start()
+        {
+            if (TransitionManager.Instance == null)
+            {
+                Debug.LogError("NovelViewChangePlaceAfterTransitionComponent can't find transition manager");
+                return;
+            }
+
+            ChangeView(); //use on start after scene transition (gets saved info from transition manager (on map)
+        }
 
         public void ChangeView()
         {
             //Delete place game object if it exists
-            if (currentRoomInstance != null)
+            if (_currentRoomInstance != null)
             {
-                Destroy(currentRoomInstance);
+                Destroy(_currentRoomInstance);
             }
             
             string mapName = "CatherineHouseMap";
@@ -38,7 +49,7 @@ namespace _Scripts.Components.Transition
             
             if (roomPrefab != null)
             {
-                currentRoomInstance = Instantiate(roomPrefab);
+                _currentRoomInstance = Instantiate(roomPrefab);
 
                 //Debug.Log("Loaded new room successfully");
                 //Debug.Log("invoke loaded location and place " + locationName + " " + placeName);
@@ -49,17 +60,6 @@ namespace _Scripts.Components.Transition
                 Debug.LogError($"Prefab '{prefabPath}' not found.");
             }
             
-        }
-
-        private void Start()
-        {
-            if (TransitionManager.Instance == null)
-            {
-                Debug.LogError("NovelViewChangePlaceAfterTransitionComponent can't find transition manager");
-                return;
-            }
-
-            ChangeView(); //use on start after scene transition (gets saved info from transition manager (on map)
         }
 
         private void OnEnable()
@@ -82,7 +82,7 @@ namespace _Scripts.Components.Transition
         {
             //Debug.Log("Change place with fade");
             //disable hotkeys (menu)
-            EventManager.Instance.InputEvents.HotkeysAreActive(false);
+            EventManager.Instance.InputEvents.SetHotkeysActive(false);
 
             _sequence = DOTween.Sequence();
 
@@ -104,7 +104,7 @@ namespace _Scripts.Components.Transition
             _sequence.Play().OnComplete(() =>
             {
                 //enable hotkeys (menu)
-                EventManager.Instance.InputEvents.HotkeysAreActive(true);
+                EventManager.Instance.InputEvents.SetHotkeysActive(true);
             });
             
         }

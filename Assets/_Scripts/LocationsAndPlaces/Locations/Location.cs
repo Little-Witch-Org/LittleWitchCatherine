@@ -16,7 +16,7 @@ namespace _Scripts.LocationsAndPlaces.Locations
         public TimeOfDayEnum TimeOfDayEnum { get;  set; }
         public List<Place> Places { get; protected set; }
 
-        public bool isLocationLocked{ get; set; }
+        public bool IsLocationLocked{ get; set; }
 
         protected Location(string name, TimeOfDayEnum timeOfDayEnum, List<Place> places)
         {

@@ -14,6 +14,7 @@ namespace _Scripts.Dialog_Ink
             story.BindExternalFunction("AdvanceQuest", (string questId) => AdvanceQuest(questId));
             story.BindExternalFunction("FinishQuest", (string questId) => FinishQuest(questId));
             story.BindExternalFunction("CompleteDialogueKnot", (string characterName, string dialogueKnotName) => CompleteDialogueKnot(characterName, dialogueKnotName));
+            story.BindExternalFunction("LaunchCutscene", (string cutsceneId) => LaunchCutscene(cutsceneId));
             story.BindExternalFunction("ResumeCutscene", () => ResumeCutscene());
             
             story.BindExternalFunction("AddMinutes",  (int minutes) =>
@@ -39,7 +40,18 @@ namespace _Scripts.Dialog_Ink
             story.UnbindExternalFunction("AdvanceQuest");
             story.UnbindExternalFunction("FinishQuest");
             story.UnbindExternalFunction("CompleteDialogueKnot");
+            story.UnbindExternalFunction("LaunchCutscene");
+            story.UnbindExternalFunction("ResumeCutscene");
+            
             story.UnbindExternalFunction("AddMinutes");
+            
+            
+            story.UnbindExternalFunction("UpdateHealth");
+            story.UnbindExternalFunction("UpdateSatiety");
+            story.UnbindExternalFunction("UpdateMood");
+            story.UnbindExternalFunction("UpdateEnergy");
+            
+            story.UnbindExternalFunction("UpdateReputation");
         }
         
         
@@ -63,6 +75,11 @@ namespace _Scripts.Dialog_Ink
         private void CompleteDialogueKnot(string characterName, string dialogueKnotName)
         {
             EventManager.Instance.DialogueEvents.CompleteDialogueKnot(characterName, dialogueKnotName);
+        }
+        
+        private void LaunchCutscene( string cutsceneId)
+        {
+            EventManager.Instance.CutsceneEvents.LaunchCutscene(cutsceneId);
         }
 
         private void ResumeCutscene()

@@ -131,7 +131,7 @@ namespace _Scripts.UI
             contentParent.SetActive(true);
         }
         
-        //---stats
+        //---stats //todo add buffer with waiting ~2 second and + or - stat to add (with positive / negative bar) when run fill animation. If new +- then stop animation and go to start
         //stats
         
         private float _lastHealth = 100f;

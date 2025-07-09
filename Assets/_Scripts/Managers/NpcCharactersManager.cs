@@ -39,7 +39,7 @@ namespace _Scripts.Managers
             EventManager.Instance.TransitionEvents.OnCurrentPlaceOnScreen += CheckSpawnConditions;
             EventManager.Instance.DialogueEvents.OnStartDialogueWithNpc += StartDialogueWithCurrentNpc;
             
-            EventManager.Instance.GameEvents.OnCheckpointActivated += DisableTestNPCs;
+            EventManager.Instance.GameEvents.OnStoryModActivated += DisableTestNPCs;
         }
         
         private void OnDisable()
@@ -47,7 +47,7 @@ namespace _Scripts.Managers
             EventManager.Instance.TransitionEvents.OnCurrentPlaceOnScreen -= CheckSpawnConditions;
             EventManager.Instance.DialogueEvents.OnStartDialogueWithNpc -= StartDialogueWithCurrentNpc;
             
-            EventManager.Instance.GameEvents.OnCheckpointActivated -= DisableTestNPCs;
+            EventManager.Instance.GameEvents.OnStoryModActivated -= DisableTestNPCs;
         }
         
 
@@ -119,6 +119,9 @@ namespace _Scripts.Managers
 
         private void StartDialogueWithCurrentNpc(string characterName)
         {
+            //Debug.Log(characterName);
+            StandaloneDialogueComponent foundComponent = null;
+
             //Debug.Log("Trying to start dialogue with current character "+characterName);
             foreach (var charObj in _npcCharacters)
             {
@@ -126,17 +129,28 @@ namespace _Scripts.Managers
                 if (charObj.GetComponent<NpcCharAbstract>().GetNpcName().Equals(characterName))
                 {
                     //Debug.Log("found npc and starting dialogue with " + characterName);
-                    charObj.GetComponent<StandaloneDialogueComponent>().StartDialogue(false);
+                    foundComponent = charObj.GetComponent<StandaloneDialogueComponent>();
+                    //charObj.GetComponent<StandaloneDialogueComponent>().StartDialogue(false);
                 }
+
+            }
+
+            if (foundComponent != null)
+            {
+
+                foundComponent.StartDialogue(false);
+            }
+            else
+            {
+                Debug.LogError($"Character name {characterName} not found in NpcCharactersManager characters list");
             }
         }
 
         //disable all dev npc if we start story mode
-        private void DisableTestNPCs(int checkpointID)
+        private void DisableTestNPCs(bool isInStoryMode)
         {
             //Debug.Log("npc "+checkpointID);
-            if (checkpointID == 1)
-            {
+            if (isInStoryMode)
                 foreach (var npc in npcCharactersContainer.transform.GetComponentsInChildren<NpcCharAbstract>())
                 {
                     if (npc.GetNpcName().Contains("Test"))
@@ -144,7 +158,7 @@ namespace _Scripts.Managers
                         npc.gameObject.SetActive(false);
                     }
                 }
-            }
+
         }
 
         private void CheckAutostartDialogueAndActivate(GameObject npcObject)
@@ -154,6 +168,10 @@ namespace _Scripts.Managers
             {
                 dialogueComponent.StartDialogue(false);
             }
+        }
+        
+        public List<GameObject> GetNpcCharacters(){
+            return _npcCharacters;
         }
     }
 }

@@ -18,13 +18,13 @@ namespace _Scripts.Service
             _camera = Camera.main;
         
             // Подписываемся на событие появления нового фона
-            EventManager.Instance.TransitionEvents.OnPlaceSpriteChanged += AdjustToNewBackground;
+            EventManager.Instance.LocationsAndPlacesEvents.OnPlaceSpriteChanged += AdjustToNewBackground;
         }
 
         private void OnDestroy()
         {
             // Отписываемся при уничтожении объекта
-            EventManager.Instance.TransitionEvents.OnPlaceSpriteChanged -= AdjustToNewBackground;
+            EventManager.Instance.LocationsAndPlacesEvents.OnPlaceSpriteChanged -= AdjustToNewBackground;
         }
 
         // Вызывается при появлении нового фона

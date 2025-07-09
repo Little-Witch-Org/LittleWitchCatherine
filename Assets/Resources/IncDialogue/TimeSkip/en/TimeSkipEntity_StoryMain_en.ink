@@ -1,0 +1,7 @@
+EXTERNAL LaunchCutscene(cutsceneId)
+
+
+
+INCLUDE TimeSkipEntity_TableReadingDialogue_en.ink
+INCLUDE TimeSkipEntity_BedReadingDialogue_en.ink
+

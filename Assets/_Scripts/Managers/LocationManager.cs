@@ -89,6 +89,9 @@ namespace _Scripts.Managers
             EventManager.Instance.LocationsAndPlacesEvents.OnSetPlacesLockState += SetPlacesLockState;
             EventManager.Instance.LocationsAndPlacesEvents.OnSetAllLocationsLockState += SetAllLocationsLockState;
             EventManager.Instance.LocationsAndPlacesEvents.OnSetLocationLockState += SetLocationLockState;
+            EventManager.Instance.LocationsAndPlacesEvents.OnGetPlaceState += GetPlaceState;
+            EventManager.Instance.LocationsAndPlacesEvents.OnSetPlaceState += SetPlaceState;
+            EventManager.Instance.LocationsAndPlacesEvents.OnSetPlaceStateAndApply += SetPlaceStateAndApply;
             
         }
 
@@ -101,6 +104,9 @@ namespace _Scripts.Managers
             EventManager.Instance.LocationsAndPlacesEvents.OnSetPlacesLockState -= SetPlacesLockState;
             EventManager.Instance.LocationsAndPlacesEvents.OnSetAllLocationsLockState -= SetAllLocationsLockState;
             EventManager.Instance.LocationsAndPlacesEvents.OnSetLocationLockState -= SetLocationLockState;
+            EventManager.Instance.LocationsAndPlacesEvents.OnGetPlaceState -= GetPlaceState;
+            EventManager.Instance.LocationsAndPlacesEvents.OnSetPlaceState -= SetPlaceState;
+            EventManager.Instance.LocationsAndPlacesEvents.OnSetPlaceStateAndApply -= SetPlaceStateAndApply;
         }
 
         /*public string GetCurrentLocation()
@@ -122,7 +128,7 @@ namespace _Scripts.Managers
         {
             if (_locationsDictionary.TryGetValue(locationName, out Location location))
             {
-                return location.isLocationLocked;
+                return location.IsLocationLocked;
             }
            
             throw new ArgumentException($"Location '{locationName}' not found in dictionary!");
@@ -194,7 +200,7 @@ namespace _Scripts.Managers
         {
             foreach (var pair in _locationsDictionary)
             {
-                pair.Value.isLocationLocked = isLocked;
+                pair.Value.IsLocationLocked = isLocked;
                 Debug.Log($"Location '{pair.Key}' is locked: {isLocked}");
             }
         }
@@ -203,13 +209,67 @@ namespace _Scripts.Managers
         {
             if (_locationsDictionary.TryGetValue(locationName, out Location location))
             {
-                location.isLocationLocked = isLocked;
+                location.IsLocationLocked = isLocked;
             }
             else
             {
                 Debug.LogWarning($"Location '{locationName}' not found in dictionary!");
             }
         }
+
+        private void SetPlaceState(string placeName, Enum state) //sets state to Place class
+        {
+            Place place = FindPlaceInAnyLocation(placeName);
+            place.SetPlaceState(state);
+        }
+
+        public Enum GetPlaceState(string placeName) //gets state from Place class
+        {
+            Place place = FindPlaceInAnyLocation(placeName);
+            return place.GetPlaceState();
+        }
+
+        public void SetPlaceStateAndApply(string placeName, Enum state) //sets state to Place class and changes sprite in component
+        {
+            SetPlaceState(placeName, state);
+            EventManager.Instance.LocationsAndPlacesEvents.UpdatePlaceStateSprite(placeName);
+        }
         
+        
+        
+        
+        
+        
+        //........................................
+
+        private void Execute1()
+        {
+            SetPlaceState("FFCorridor", FFCorridor.PlaceStateEnum.Custom1);
+            
+        }
+        
+        private void Execute2()
+        {
+            Debug.Log(GetPlaceState("FFCorridor"));
+            
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.V))
+            {
+                Execute1();
+            }
+
+            if (Input.GetKeyDown(KeyCode.B))
+            {
+                Execute2();
+            }
+            
+            if (Input.GetKeyDown(KeyCode.N))
+            {
+                SetPlaceStateAndApply("FFCorridor", FFCorridor.PlaceStateEnum.Custom1);
+            }
+        }
     }
 }

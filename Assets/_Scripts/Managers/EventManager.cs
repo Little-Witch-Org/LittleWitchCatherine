@@ -5,7 +5,14 @@ namespace _Scripts.Managers
 {
     /// <summary>
     /// Used as global events bus. Configured in project settings -> script execution order before Default Time to other scripts can subscribe in OnEnable
+    ///todo to add event style documentation and bring all events to united format 
     /// </summary>
+    //------------------
+    // _isActiveVariable
+    // OnVariableActiveChanged
+    // SetVariableActive
+    //------------------
+    //etc..
     public class EventManager : MonoBehaviour
     {
         public static EventManager Instance { get; private set; }

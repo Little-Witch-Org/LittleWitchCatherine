@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3659439189287301557
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5442000713337009938}
+  - component: {fileID: 7637562043404291176}
+  m_Layer: 0
+  m_Name: BedTimeSkipCutscene60
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5442000713337009938
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3659439189287301557}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.0486946, y: 0.10950562, z: 0.09420008}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7637562043404291176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3659439189287301557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd46e60a3ec54dfb8e58f3e4c5cd8653, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cutsceneName: BedTimeSkipCutscene60
+  timelineAsset: {fileID: 11400000, guid: 4ef1b458012332349b45ec365366329c, type: 2}
+  cutsceneSprites:
+  - {fileID: -2613018513809095099, guid: e9310f1bdb090524db1e8048a9f66e0d, type: 3}
+  - {fileID: -5974141907586778480, guid: 5b985b8bfc26d824fb3039f210a9ab86, type: 3}
+  - {fileID: 1398482750417688502, guid: 126133d3fc5e9ec41abc4aeb3cfe1c11, type: 3}
+  - {fileID: 2330640359541299331, guid: 7cd6baca17d66064199cfd6dbd939cc7, type: 3}
+  alternativeSprites:
+  - {fileID: -2047926063561948863, guid: c739d48a6404c254fa20cb061b276916, type: 3}
+  - {fileID: 4573210063295660503, guid: 035d5d514865e1049be11a9a18abbc27, type: 3}
+  - {fileID: -1354823165034641898, guid: 3223bef1650c0824fb9bcd5410e0c8fb, type: 3}
+  - {fileID: -7689027000888086140, guid: 3ec37009bef01344384f3474540eb58c, type: 3}

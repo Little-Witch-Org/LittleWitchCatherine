@@ -48,11 +48,14 @@ namespace _Scripts.Dialog_Ink
         [Header("Current Actual Dialogues")]
         [SerializeField] protected string currentActualStoryName;
         [SerializeField] protected string currentActualDialogueKnotName;
+        [SerializeField] protected string currentCustomDialogueKnotName;
 
         [Header("Ink Include Files (for names only)")]
         [SerializeField] private List<string> dialogueKnotNames; //was protected List<Object> inkIncludeFiles - and this fng engine deletes this objects in build... replaced by strings
+        [SerializeField] private List<string> customDialogueKnotNames;
 
         private Dictionary<string, bool> _dialogueKnotStates = new Dictionary<string, bool>(); // "dialogueKnotName" (string) + "isComplete" (bool) (for current dialogue knot)
+        private Dictionary<string, bool> _customDialogueKnotStates = new Dictionary<string, bool>();
         
         [Header("Misc")]
         [SerializeField]private string currentNpcName;
@@ -70,19 +73,26 @@ namespace _Scripts.Dialog_Ink
         {
             EventManager.Instance.DialogueEvents.OnCompleteDialogueKnot += CompleteDialogueKnotInDictionary;
             EventManager.Instance.DialogueEvents.OnSetDialogueAutoActivation += ToggleDialogueAutoActivation;
+            EventManager.Instance.DialogueEvents.OnUpdateDialogueStatesFromUI += UpdateDialogueStatesFromUI;
+            EventManager.Instance.DialogueEvents.OnSetCustomDialogueKnot += SetCustomDialogueKnot;
+            
 
         }
         private void OnDisable()
         {
             EventManager.Instance.DialogueEvents.OnCompleteDialogueKnot -= CompleteDialogueKnotInDictionary;
             EventManager.Instance.DialogueEvents.OnSetDialogueAutoActivation -= ToggleDialogueAutoActivation;
+            EventManager.Instance.DialogueEvents.OnUpdateDialogueStatesFromUI -= UpdateDialogueStatesFromUI;
+            EventManager.Instance.DialogueEvents.OnSetCustomDialogueKnot += SetCustomDialogueKnot;
         }
 
         //add list of knot names to dictionary
+
         private void InitializeDialogueStates()
         {
+            //default dialogue knots
             _dialogueKnotStates = new Dictionary<string, bool>();
-    
+            
             foreach (var knotName in dialogueKnotNames)
             {
                 if (!string.IsNullOrEmpty(knotName))
@@ -93,10 +103,26 @@ namespace _Scripts.Dialog_Ink
     
             if (_dialogueKnotStates.Count == 0)
             {
-                Debug.LogError("No dialogue knots configured!");
+                Debug.LogError($"No dialogue knots configured for {gameObject.name}");
+            }
+            
+            //custom dialogue knots
+            _customDialogueKnotStates = new Dictionary<string, bool>();
+            
+            foreach (var knotName in customDialogueKnotNames)
+            {
+                if (!string.IsNullOrEmpty(knotName))
+                {
+                    _customDialogueKnotStates[knotName] = false;
+                }
+            }
+            
+            if (_customDialogueKnotStates.Count == 0)
+            {
+                DialogDebug.Instance.Log($"No custom dialogue knots for {currentNpcName} character or entity");
             }
         }
-        
+
         /// /// <summary>
         /// Starts dialogue with input protection:
         /// 1. Locks input to prevent conflicting submissions (in ClickDialogueActivatorForNpc)
@@ -110,8 +136,16 @@ namespace _Scripts.Dialog_Ink
         /// </summary>
         public void StartDialogue(bool isCutsceneUI)
         {
-            // start after one frame (we handle mouse button situation after dialogue started)
-            StartCoroutine(StartDialogueDelayed(isCutsceneUI));
+            if (!String.IsNullOrEmpty(currentCustomDialogueKnotName))
+            {
+                //Debug.Log("Starting custom dialogue 3333333333333");
+                StartCoroutine(StartCustomDialogueDelayed());
+            }
+            else
+            {
+                // start after one frame (we handle mouse button situation after dialogue started)
+                StartCoroutine(StartDialogueDelayed(isCutsceneUI));
+            }
         }
 
         private IEnumerator StartDialogueDelayed(bool isCutsceneUI)
@@ -123,10 +157,41 @@ namespace _Scripts.Dialog_Ink
             yield return null;
             
             
-            EventManager.Instance.DialogueEvents.EnterDialogue(storyNameTemp, currentActualDialogueKnotName, isCutsceneUI);
+            EventManager.Instance.DialogueEvents.EnterDialogue(storyNameTemp, currentActualDialogueKnotName, isCutsceneUI);   
         }
 
+        //custom dialogues.
+
+        //have no queue. launches in priority if custom knot variable are not empty
+
+        private IEnumerator StartCustomDialogueDelayed()
+        {
+            if (_customDialogueKnotStates.Count == 0)
+            {
+                Debug.LogError($"No custom dialogue knots configured for {gameObject.name}");
+                yield break;
+            }
+            
+            //Apply language setting
+            string storyNameTemp = currentActualStoryName +"_"+ LocalizationManager.Instance.GetCurrentLanguageCode();
+            
+            // wait for next frame
+            yield return null;
+            
+            //Debug.Log(currentActualDialogueKnotName);
+            
+            EventManager.Instance.DialogueEvents.EnterDialogue(storyNameTemp, currentCustomDialogueKnotName, false);   
+        }
+
+
+        //todo сделать пропуск времени кастомными диалогами (отдельный лист и словарь) сделать так же методы завершения кастомного диалога, но без зарядки следующего. Использовать курент кастом диалог переменную.
+
+        //todo заряжать туда вручную Нужен ли словарь ? мб просто лист ? или всё таки отыгрыш если надо обозначать, если вдруг понадобится инфа об отыгранном ?
+
+        //todo add custom dialogues dictionary (and list in the component) and integrate it in system ? we can start it with priority in som circumstances (with high priority on click). Need new events and variables to save custom start dialogue state on click
+
         //invokes subscribed method for this GO if we match the name for this character. Also check the knot name variable. 
+
         private void CompleteDialogueKnotInDictionary(string characterName, string knotName)
         {
             DialogDebug.Instance.Log("Invoked CompleteDialogueKnotInDictionary method for \"" + gameObject.name +
@@ -150,9 +215,10 @@ namespace _Scripts.Dialog_Ink
                 DialogDebug.Instance.LogWarning("There is no dialogueKnotName \""+ knotName+"\" for \""+gameObject.name+"\" game object");
             }
         }
-        
-        
+
+
         //check for false "isComplete" flag for knot and set this knot as actual |knot order (must be 1,2,3..)
+
         private void SetNextCurrentDialogueKnot()
         {
             if (_dialogueKnotStates.Any(pair => !pair.Value))
@@ -167,7 +233,15 @@ namespace _Scripts.Dialog_Ink
                 // add new story name?
             }
         }
-        
+
+        private void SetCustomDialogueKnot(string npcName, string customDialogueKnot)
+        {
+            if (currentNpcName == npcName)
+            {
+                currentCustomDialogueKnotName = customDialogueKnot;
+            }
+        }
+
         //npc manager checks it and starts dialogue if this = true
         private void ToggleDialogueAutoActivation(string npcName, bool isActive)
         {
@@ -180,6 +254,22 @@ namespace _Scripts.Dialog_Ink
         public bool IsAutoActivationEnabled()
         {
             return isDialogueAutoActivationEnabled;
+        }
+
+        public Dictionary<string, bool> GetDialogueKnotStates()
+        {
+            return _dialogueKnotStates;
+        }
+
+        private void UpdateDialogueStatesFromUI(string npcName, string dialogName, bool isChecked )
+        {
+            if (npcName != currentNpcName)
+            {
+                return;
+            }
+            
+            _dialogueKnotStates[dialogName] = isChecked;
+            SetNextCurrentDialogueKnot();
         }
     }
 }

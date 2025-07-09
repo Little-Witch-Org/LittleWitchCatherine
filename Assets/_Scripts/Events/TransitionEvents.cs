@@ -64,12 +64,5 @@ namespace _Scripts.Events
             OnLoadedMap?.Invoke(map);
         }
         
-        
-        //used to signal novel camera that place image changed and need to adjust camera size
-        public event Action<SpriteRenderer> OnPlaceSpriteChanged;
-        public void PlaceSpriteChanged(SpriteRenderer spriteRenderer) 
-        {
-            OnPlaceSpriteChanged?.Invoke(spriteRenderer);
-        }
     }
 }

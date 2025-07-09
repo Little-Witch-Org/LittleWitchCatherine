@@ -611,8 +611,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99135e8dbe6b78b4b981e13cd4da81f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  placeName: 
-  placeStateSprites:
+  currentPlaceName: 
+  defaultStateSprites:
   - {fileID: 1164161836001856629, guid: f449ed56a1fd8e04f8f11a6e0a68be27, type: 3}
   - {fileID: -8574447994102866112, guid: 9342ba1e5cef6b74db16a9e53349378a, type: 3}
   - {fileID: 7912680722238531850, guid: 2c6b13f798fc47d4287118905d40502b, type: 3}

@@ -21,6 +21,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-tags
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d8e99adb89432e145a219c5fea98df38
+    m_Address: TimeSkipDialoguesLocalizationTable_tags
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-tags
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fd50bcf1991509f44b27d47cc2710746
     m_Address: MotherDialoguesLocalizationTable_tags
     m_ReadOnly: 1

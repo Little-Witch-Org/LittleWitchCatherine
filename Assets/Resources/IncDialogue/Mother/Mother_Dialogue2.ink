@@ -63,6 +63,7 @@ dia_mother_2_24
 
 =StandUp
 dia_mother_2_32
+~ResumeCutscene()
 ~StartQuest(Quest1GoDownToKitchenId)
 ~CompleteDialogueKnot(CharacterName, "Mother_Dialogue2")
 ->DONE

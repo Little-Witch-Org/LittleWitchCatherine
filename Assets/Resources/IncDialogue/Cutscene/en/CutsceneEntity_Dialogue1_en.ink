@@ -9,6 +9,7 @@ eng_7
 eng_8
 eng_9
 eng_10
+~CompleteDialogueKnot(CharacterName, "CutsceneEntity_Dialogue1")
 ~ResumeCutscene()
 
 --> END

@@ -66,7 +66,7 @@ namespace _Scripts.InventorySystem.ByGuide
         {
             ConfigureMenuBeforeDisplay(item);
             
-            EventManager.Instance.InventoryEvents.setContextMeniOpenStatus(true);
+            EventManager.Instance.InventoryEvents.SetContextMenuOpenStatus(true);
             
             LayoutRebuilder.ForceRebuildLayoutImmediate(backgroundTransform);
             
@@ -88,7 +88,7 @@ namespace _Scripts.InventorySystem.ByGuide
 
         public void HideContextMenu()
         {
-            EventManager.Instance.InventoryEvents.setContextMeniOpenStatus(false);
+            EventManager.Instance.InventoryEvents.SetContextMenuOpenStatus(false);
             
             _canvasGroup.alpha = 0;
             _canvasGroup.interactable = false;

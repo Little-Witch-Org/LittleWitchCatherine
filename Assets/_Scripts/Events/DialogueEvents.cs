@@ -64,6 +64,18 @@ namespace _Scripts.Events
             OnCompleteDialogueKnot?.Invoke(characterName, dialogueKnotName);
         }
         
+        public event Action OnSkipTypingText;
+        public void SkipTypingText()
+        {
+            OnSkipTypingText?.Invoke();
+        }
+        
+        public event Action OnChoiceButtonsAppears;
+        public void ChoiceButtonsAppears()
+        {
+            OnChoiceButtonsAppears?.Invoke();
+        }
+        
         
         //Utils
         public event Action<string> OnStartDialogueWithNpc;
@@ -78,6 +90,17 @@ namespace _Scripts.Events
             OnSetDialogueAutoActivation?.Invoke(npcName, isActive);
         }
         
+        public event Action<string, string, bool> OnUpdateDialogueStatesFromUI;
+        public void UpdateDialogueStatesFromUI(string npcName, string dialogueName , bool isChecked)
+        {
+            OnUpdateDialogueStatesFromUI?.Invoke(npcName, dialogueName, isChecked);
+        }
+        
+        public event Action<string, string> OnSetCustomDialogueKnot; //can be cleaned by set = ""
+        public void SetCustomDialogueKnot(string npcName, string customKnotName)
+        {
+            OnSetCustomDialogueKnot?.Invoke(npcName, customKnotName);
+        }
         
         
         //tags
@@ -109,6 +132,8 @@ namespace _Scripts.Events
         {
             OnTagChangeCurrentSpeaker?.Invoke(currentSpeaker);
         }
+
+        
     }
     
 }

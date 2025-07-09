@@ -8,6 +8,12 @@ namespace _Scripts.Managers
         public static InputManager Instance;
         
         private bool _isHotkeysActive = true;
+        
+        private bool _isSubmitActive = true;
+        
+        private bool _isSpaceActive = true;
+        
+        private bool _isInputActive = true;
 
 
         private void Awake()
@@ -25,53 +31,87 @@ namespace _Scripts.Managers
 
         private void OnEnable()
         {
-            EventManager.Instance.InputEvents.OnHotkeysAreActive += ToggleHotkeysAre;
+            EventManager.Instance.InputEvents.OnHotkeysActiveChanged += SetHotkeysActive;
+            EventManager.Instance.InputEvents.OnSubmitActiveChange += SetSubmitActive;
+            EventManager.Instance.InputEvents.OnSpaceActiveChanged += SetSpaceActive;
+            EventManager.Instance.InputEvents.OnInputActiveChanged += SetInputActive;
         }
         private void OnDisable()
         {
-            EventManager.Instance.InputEvents.OnHotkeysAreActive -= ToggleHotkeysAre;
+            EventManager.Instance.InputEvents.OnHotkeysActiveChanged -= SetHotkeysActive;
+            EventManager.Instance.InputEvents.OnSubmitActiveChange -= SetSubmitActive;
+            EventManager.Instance.InputEvents.OnSpaceActiveChanged -= SetSpaceActive;
+            EventManager.Instance.InputEvents.OnInputActiveChanged -= SetInputActive;
         }
 
-        private void ToggleHotkeysAre(bool state)
+        private void SetHotkeysActive(bool state)
         {
             _isHotkeysActive = state;
+        }
+
+        private void SetSubmitActive(bool state)
+        {
+            _isSubmitActive = state;
+        }
+        
+        private void SetSpaceActive(bool state)
+        {
+            _isSpaceActive = state;
+        }
+        private void SetInputActive(bool state)
+        {
+            _isInputActive = state;
         }
 
 
         private void Update()
         {
-            if (_isHotkeysActive)
+            if (_isInputActive)
             {
-                if (Input.GetKeyDown(KeyCode.Escape))
+
+                if (_isHotkeysActive)
                 {
-                    EventManager.Instance.InputEvents.MenuPressed();
+                    if (Input.GetKeyDown(KeyCode.Escape))
+                    {
+                        EventManager.Instance.InputEvents.MenuPressed();
+                    }
+
+                    if (Input.GetKeyDown(KeyCode.J))
+                    {
+                        EventManager.Instance.InputEvents.JournalPressed();
+                    }
+
+                    if (Input.GetKeyDown(KeyCode.C))
+                    {
+                        EventManager.Instance.InputEvents.StatsPressed();
+                    }
+
+                    if (Input.GetKeyDown(KeyCode.F))
+                    {
+                        EventManager.Instance.InputEvents.InteractPressed();
+                    }
+
+                    if (Input.GetKeyDown(KeyCode.I))
+                    {
+                        EventManager.Instance.InputEvents.PlayerInventoryPressed();
+                    }
                 }
 
-                if (Input.GetKeyDown(KeyCode.J))
+                if (Input.GetMouseButtonDown(0)) //lmb
                 {
-                    EventManager.Instance.InputEvents.JournalPressed();
-                }
-                
-                if (Input.GetKeyDown(KeyCode.C))
-                {
-                    EventManager.Instance.InputEvents.StatsPressed();
+                    if (_isSubmitActive)
+                    {
+                        EventManager.Instance.InputEvents.SubmitPressed();
+                    }
                 }
 
-                if (Input.GetKeyDown(KeyCode.F))
+                if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    EventManager.Instance.InputEvents.InteractPressed();
+                    if (_isSpaceActive)
+                    {
+                        EventManager.Instance.InputEvents.SpacePressed();
+                    }
                 }
-                
-                if (Input.GetKeyDown(KeyCode.I))
-                {
-                    EventManager.Instance.InputEvents.PlayerInventoryPressed();
-                }
-            }
-
-            if (Input.GetMouseButtonDown(0))
-            //if (Input.GetKeyDown(KeyCode.Space))
-            {
-                EventManager.Instance.InputEvents.SubmitPressed();
             }
         }
     }

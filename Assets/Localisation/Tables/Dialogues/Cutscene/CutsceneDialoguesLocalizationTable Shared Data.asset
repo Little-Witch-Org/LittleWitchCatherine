@@ -55,6 +55,10 @@ MonoBehaviour:
     m_Key: dia_cutscene_1_10
     m_Metadata:
       m_Items: []
+  - m_Id: 21216083705737216
+    m_Key: dia_cutscene_2_1
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

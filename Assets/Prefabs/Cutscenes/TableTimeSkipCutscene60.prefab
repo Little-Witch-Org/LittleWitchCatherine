@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3659439189287301557
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5442000713337009938}
+  - component: {fileID: 3802247343095255120}
+  m_Layer: 0
+  m_Name: TableTimeSkipCutscene60
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5442000713337009938
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3659439189287301557}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.0486946, y: 0.10950562, z: 0.09420008}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3802247343095255120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3659439189287301557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a150a24ba33c4fdc9bf26e0946e34879, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cutsceneName: TableTimeSkipCutscene60
+  timelineAsset: {fileID: 11400000, guid: 4ef1b458012332349b45ec365366329c, type: 2}
+  cutsceneSprites:
+  - {fileID: -9184130273088605548, guid: 232c300ba9d9bba40a3c6f0fc67b1027, type: 3}
+  - {fileID: 1107433647125455116, guid: 91f33ee26d81b0e43a2fc5286c4c7a04, type: 3}
+  - {fileID: 4415835315642932738, guid: cec918469233d6644927a0b57d23b52d, type: 3}
+  - {fileID: -2038811899735404056, guid: 3c0d89597aa212e4f8c5ecb47a470256, type: 3}
