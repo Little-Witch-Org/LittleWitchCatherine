@@ -1856,7 +1856,7 @@ TextureImporter:
         width: 2296
         height: 397
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1865,6 +1865,28 @@ TextureImporter:
       bones: []
       spriteID: 1b2e7ee17f9b72e4dbd3854898ca9448
       internalID: 481736378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChoiceButton5
+      rect:
+        serializedVersion: 2
+        x: 1513
+        y: 5365
+        width: 2726
+        height: 208
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7019714fb647f3040b35bbbea10f4d4c
+      internalID: -2024253606
       vertices: []
       indices: 
       edges: []
@@ -1888,6 +1910,7 @@ TextureImporter:
       ChoiceButton2: -814302027
       ChoiceButton3: 467556090
       ChoiceButton4: 983269837
+      ChoiceButton5: -2024253606
       CutsceneDialogueBackingPanel: 481736378
       DecorChain1: 6667663902933370103
       DecorChain2: 5740658310944814067

@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scene: 3
-  _locationName: Seesaw
+  locationName: Seesaw
 --- !u!114 &4416112638891471037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,7 +238,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 3ffc509c51489fa4d9f6d4d58f0bc2aa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -258,7 +258,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 142976357637470937, guid: 1a60fa2182320d848849768a4b3b45c5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -282,8 +282,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99135e8dbe6b78b4b981e13cd4da81f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  placeName: 
-  placeStateSprites:
+  currentPlaceName: 
+  defaultStateSprites:
   - {fileID: 142976357637470937, guid: 1a60fa2182320d848849768a4b3b45c5, type: 3}
   - {fileID: -1300165697257800415, guid: 25624cf9e32d3284a9ac178c05b1a675, type: 3}
   - {fileID: -5086677741237166091, guid: 2aa97aca7b2349a428712d08d36e3230, type: 3}

@@ -53,6 +53,18 @@ MonoBehaviour:
     m_Localized: T_FigureItem
     m_Metadata:
       m_Items: []
+  - m_Id: 19330226582065152
+    m_Localized: "\u0412\u0430\u0444\u043B\u044F"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19330226619813888
+    m_Localized: "\u0419\u043E\u0434 \u0438 \u043F\u043B\u0430\u0441\u0442\u044B\u0440\u044C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19330226619813889
+    m_Localized: "\u042D\u0441\u0441\u0435\u043D\u0446\u0438\u044F \u044D\u043C\u043E\u0446\u0438\u0439"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

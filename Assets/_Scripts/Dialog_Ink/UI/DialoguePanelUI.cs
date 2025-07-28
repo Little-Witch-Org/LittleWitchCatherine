@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using _Scripts.Enums;
 using _Scripts.Managers;
+using _Scripts.Service.Log;
 using Ink.Runtime;
 using JetBrains.Annotations;
 using TMPro;
@@ -14,6 +15,10 @@ using UnityEngine.UI;
 
 namespace _Scripts.Dialog_Ink.UI
 {
+    /// <summary>
+    /// Displays info (dialogue lines/choices/portraits/names etc) from dialogue system.
+    /// For portrait images can be used "Clean" tag value to hide portrait.
+    /// </summary>
     public class DialoguePanelUI : MonoBehaviour
     {
         [Header("Params")]
@@ -499,11 +504,11 @@ namespace _Scripts.Dialog_Ink.UI
             portrait1Image.color = Color.white;
             portrait2Image.color = Color.white;
             
-            setFirstSpeakerSpriteActive(false);
-            setSecondSpeakerSpriteActive(false);
+            SetFirstSpeakerSpriteActive(false);
+            SetSecondSpeakerSpriteActive(false);
         }
 
-        //tag events methods //todo handle null - add default stub 
+        //tag events methods 
         private void ChangeSpeaker1Name(string speakerNameTag)
         {
             //Debug.Log("ChangeSpeaker1Name: " + speakerNameTag);
@@ -519,14 +524,28 @@ namespace _Scripts.Dialog_Ink.UI
         
         private void ChangePortrait1(string portraitNameTag)
         {
-            setFirstSpeakerSpriteActive(true);
-            portrait1Image.sprite = GetPortraitSprite(portraitNameTag);
+            if (portraitNameTag.Equals("Clean"))
+            {
+                SetFirstSpeakerSpriteActive(false);
+            }
+            else
+            {
+                SetFirstSpeakerSpriteActive(true);
+                portrait1Image.sprite = GetPortraitSprite(portraitNameTag);
+            }
         }
 
         private void ChangePortrait2(string portraitNameTag)
         {
-            setSecondSpeakerSpriteActive(true);
-            portrait2Image.sprite = GetPortraitSprite(portraitNameTag);
+            if (portraitNameTag.Equals("Clean"))
+            {
+                SetSecondSpeakerSpriteActive(false);
+            }
+            else
+            {
+                SetSecondSpeakerSpriteActive(true);
+                portrait2Image.sprite = GetPortraitSprite(portraitNameTag);
+            }
         }
 
         /*private Sprite GetPortraitSprite(string portraitNameTag)
@@ -552,11 +571,15 @@ namespace _Scripts.Dialog_Ink.UI
             return null;
         }*/
 
-        [NotNull]
         private Sprite GetPortraitSprite(string portraitNameTag)
         {
             var portrait = _characterPortraits[portraitNameTag];
 
+            if (portrait == null)
+            {
+                DialogDebug.Instance.LogError("Portrait " + portraitNameTag + " was not found.");
+            }
+            
             return portrait;
         }
 
@@ -601,11 +624,11 @@ namespace _Scripts.Dialog_Ink.UI
             background.gameObject.SetActive(true);
         }
 
-        private void setFirstSpeakerSpriteActive(bool active)
+        private void SetFirstSpeakerSpriteActive(bool active)
         {
             portrait1Image.gameObject.SetActive(active);
         }
-        private void setSecondSpeakerSpriteActive(bool active)
+        private void SetSecondSpeakerSpriteActive(bool active)
         {
             portrait2Image.gameObject.SetActive(active);
         }

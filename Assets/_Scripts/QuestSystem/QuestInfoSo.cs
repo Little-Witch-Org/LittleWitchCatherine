@@ -11,12 +11,15 @@ namespace _Scripts.QuestSystem
         public string displayName;
         public string displayDescription;
         
+        [Header("Visibility in Quest Log")]
+        public bool isQuestVisible;
+        
         [Header("Requirements")]
-        public bool isQuestAvailable; //quest on/off
+        public bool isQuestAvailable; //quest on/off (even if no requirements)
         //todo add custom requirements - quest manager need to get ture or false. custom req class? how to add req update?
         //todo on quest point ?
         
-        public QuestInfoSo[] questPrerequisites;
+        public QuestInfoSo[] questPrerequisites; //can be added previous quests (so) to set sequence and dependencies 
        
         [Header("Steps")]
         public GameObject[] questStepPrefabs;

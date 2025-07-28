@@ -24,12 +24,14 @@ namespace _Scripts.Managers
         
         [SerializeField] private PlayerInventoryUI playerInventoryUI;
         [SerializeField] private StorageInventoryUI storageInventoryUI;
+        [SerializeField] private StorageUnderStairsInventoryUI storageUnderStairsInventoryUI;
 
         private IMenu CheatMenuUI => cheatMenuUI;
         private IMenu QuestLogMenuUI => questLogMenuUI;
         private IMenu PlayerStatsUI => playerStatsUI;
         private IMenu PlayerInventoryUI => playerInventoryUI;
         private IMenu StorageInventoryUI => storageInventoryUI;
+        private IMenu  StorageUnderStairsInventoryUI=> storageUnderStairsInventoryUI;
         private IMenu RelationsUI => relationsUI;
 
         //public GameObject cheatMenu;
@@ -63,6 +65,7 @@ namespace _Scripts.Managers
             //register inventories
             _inventoryMenus.Add(PlayerInventoryUI);
             _inventoryMenus.Add(StorageInventoryUI);
+            _inventoryMenus.Add(storageUnderStairsInventoryUI);
             
             //add journal menus
             _journalMenus.Add(questLogMenuUI);
@@ -76,6 +79,7 @@ namespace _Scripts.Managers
             EventManager.Instance.InputEvents.OnStatsPressed += ToggleStatsMenu;
             EventManager.Instance.InputEvents.OnPlayerInventoryPressed += TogglePlayerInventoryMenu;
             EventManager.Instance.InputEvents.OnStorageInventoryPressed += ToggleStorageInventoryMenu;
+            EventManager.Instance.InputEvents.OnStorageUnderStairsInventoryPressed += ToggleStorageUnderStairsInventoryMenu;
         }
 
         private void OnDisable()
@@ -84,7 +88,8 @@ namespace _Scripts.Managers
             EventManager.Instance.InputEvents.OnMenuPressed -= ToggleCheatMenu;
             EventManager.Instance.InputEvents.OnStatsPressed -= ToggleStatsMenu;
             EventManager.Instance.InputEvents.OnPlayerInventoryPressed -= TogglePlayerInventoryMenu;
-            EventManager.Instance.InputEvents.OnStorageInventoryPressed += ToggleStorageInventoryMenu;
+            EventManager.Instance.InputEvents.OnStorageInventoryPressed -= ToggleStorageInventoryMenu;
+            EventManager.Instance.InputEvents.OnStorageUnderStairsInventoryPressed -= ToggleStorageUnderStairsInventoryMenu;
         }
         
         private void ToggleSystemMenu(IMenu menu)
@@ -238,6 +243,7 @@ namespace _Scripts.Managers
         
         public void TogglePlayerInventoryMenu() => ToggleInventoryMenu(PlayerInventoryUI);
         public void ToggleStorageInventoryMenu() => ToggleInventoryMenu(StorageInventoryUI);
+        public void ToggleStorageUnderStairsInventoryMenu() => ToggleInventoryMenu(StorageUnderStairsInventoryUI);
 
         public void SwitchToQuestMenu() => SwitchJournalMenu(QuestLogMenuUI);
         public void SwitchToRelationsMenu() => SwitchJournalMenu(RelationsUI);

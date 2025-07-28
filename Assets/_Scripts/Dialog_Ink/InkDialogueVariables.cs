@@ -1,14 +1,18 @@
 ﻿using System.Collections.Generic;
+using _Scripts.Managers;
 using _Scripts.Service.Log;
 using Ink.Runtime;
 using UnityEngine;
 
 namespace _Scripts.Dialog_Ink
 {
+    //todo check what type of parameter can be passed throw this method (string/int/float/bool) add appropriate events
     public class InkDialogueVariables
     {
         private Dictionary<string, Ink.Runtime.Object> _variables;
 
+        
+        
         public InkDialogueVariables(Story story) 
         {
             // initialize the dictionary using the global variables in the story
@@ -22,11 +26,11 @@ namespace _Scripts.Dialog_Ink
         }
 
         //uses if variables changing inside ink story by story logic -> if so, we need to update it in _variables in script (map in manager)
-        public void SyncVariablesAndStartListening(Story story) 
+        public void SyncLocalToInkVariablesAndStartListening(Story story, string storyName)
         {
             // it's important that SyncVariablesToStory is before assigning the listener!
             SyncVariablesToStory(story);
-            story.variablesState.variableChangedEvent += UpdateVariableState;
+            story.variablesState.variableChangedEvent += UpdateVariableState; //accumulates current story variables to their _car list.
         }
 
         public void StopListening(Story story)
@@ -34,7 +38,7 @@ namespace _Scripts.Dialog_Ink
             story.variablesState.variableChangedEvent -= UpdateVariableState;
         }
 
-        //manually update variable (can use it to change dialogue behaviour (switch or something in ink)
+        //update variables in current variable dictionary
         public void UpdateVariableState(string name, Ink.Runtime.Object value)
         {
             // only maintain variables that were initialized from the globals ink file
@@ -46,6 +50,7 @@ namespace _Scripts.Dialog_Ink
             DialogDebug.Instance.Log("Updated dialogue variable: " + name + " = " + value);
         }
 
+        //update variables in current story file
         public void SyncVariablesToStory(Story story)
         {
             foreach (KeyValuePair<string, Ink.Runtime.Object> variable in _variables)

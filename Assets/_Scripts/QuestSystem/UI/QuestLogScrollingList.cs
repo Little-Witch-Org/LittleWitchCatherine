@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using _Scripts.Managers;
+using _Scripts.Service.Log;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -9,19 +11,20 @@ namespace _Scripts.QuestSystem.UI
     public class QuestLogScrollingList : MonoBehaviour
     {
 
-        [Header("Components")] [SerializeField]
-        private GameObject content;
-        
+        [Header("Components")] 
+        [SerializeField] private GameObject content;
+
         [Header("Rect Transforms")]
         [SerializeField] private RectTransform scrollRectTransform;
+
         [SerializeField] private RectTransform contentRectTransform;
-        
-        
-        
+
+
+
         [Header("Quest Log Button")]
         [SerializeField] private GameObject questLogButtonPrefab;
-        
-        private Dictionary<string, QuestLogButton> idToButtonMap = new Dictionary<string, QuestLogButton>();
+
+        private Dictionary<string, QuestLogButton> _idToButtonMap = new();
 
 
         // Below is code to test that the scrolling list is working as expected.
@@ -50,39 +53,58 @@ namespace _Scripts.QuestSystem.UI
             }
         }*/
 
-        public QuestLogButton CreateButtonIfNotExist(Quest quest, UnityAction selectAction)
+        //private void Start()
+        //{
+        //    UpdateQuestsVisibilityInUI();
+        //}
+
+        private void OnEnable()
+        {
+            EventManager.Instance.QuestEvents.OnUpdateQuestVisibilityInUI += UpdateQuestsVisibilityInUI;
+        }
+
+        private void OnDisable()
+        {
+            EventManager.Instance.QuestEvents.OnUpdateQuestVisibilityInUI -= UpdateQuestsVisibilityInUI;
+        }
+
+        public QuestLogButton
+            CreateButtonIfNotExist(Quest quest,
+                UnityAction selectAction) //todo disable button if quest is not visible. Add event to set visibility for quest
         {
             QuestLogButton questLogButton = null;
             //only create button if we haven't seen this quest id before
-            if (!idToButtonMap.ContainsKey(quest.InfoSo.Id))
+            if (!_idToButtonMap.ContainsKey(quest.InfoSo.Id))
             {
                 questLogButton = InstantiateQuestLogButton(quest, selectAction);
             }
             else
             {
-                questLogButton = idToButtonMap[quest.InfoSo.Id];
+                questLogButton = _idToButtonMap[quest.InfoSo.Id];
             }
+
             return questLogButton;
         }
-        
-        
+
+
         private QuestLogButton InstantiateQuestLogButton(Quest quest, UnityAction selectAction)
         {
             //create the button
-            QuestLogButton questLogButton = Instantiate(questLogButtonPrefab, content.transform).GetComponent<QuestLogButton>();
-            
+            QuestLogButton questLogButton =
+                Instantiate(questLogButtonPrefab, content.transform).GetComponent<QuestLogButton>();
+
             //game object name in the scene
             questLogButton.gameObject.name = quest.InfoSo.Id + "_button";
             //initialize and set up function for when the button is selected
             RectTransform buttonRectTransform = questLogButton.GetComponent<RectTransform>();
-            questLogButton.Initialize(quest.InfoSo.displayName, ()=>
+            questLogButton.Initialize(quest.InfoSo.displayName, () =>
             {
                 selectAction();
                 UpdateScrolling(buttonRectTransform);
             });
             //add to map to keep track of the new button
-            idToButtonMap[quest.InfoSo.Id] = questLogButton;
-            
+            _idToButtonMap[quest.InfoSo.Id] = questLogButton;
+
             return questLogButton;
         }
 
@@ -105,7 +127,7 @@ namespace _Scripts.QuestSystem.UI
                 );
             }
             // handle scrolling up
-            else if (buttonYMin < contentYMin) 
+            else if (buttonYMin < contentYMin)
             {
                 contentRectTransform.anchoredPosition = new Vector2(
                     contentRectTransform.anchoredPosition.x,
@@ -114,29 +136,65 @@ namespace _Scripts.QuestSystem.UI
             }
         }
 
-        //disable all dev quests if we launch story mode
-        public void DisableDevQuestsButtons()
+        public void UpdateQuestsVisibilityInUI()
         {
-                foreach (var questButton in contentRectTransform.gameObject.GetComponentsInChildren<QuestLogButton>())
+            foreach (var questButton in contentRectTransform.gameObject.GetComponentsInChildren<QuestLogButton>(
+                         includeInactive: true))
+            {
+                //get questId from button name
+                string[] buttonNameSplited = questButton.gameObject.name.Split("_button");
+                if (buttonNameSplited.Length != 2)
                 {
-                    if (questButton.gameObject.name.Contains("DevQuest"))
-                    {
-                        questButton.gameObject.SetActive(false);
-                    }
+                    QuestDebug.Instance.LogError($"Cant parse this button name: {buttonNameSplited}");
                 }
+
+                string questId = buttonNameSplited[0].Trim();
+
+                //get previous button active status
+                bool isPreviouslyActive = questButton.gameObject.activeInHierarchy;
+
+                //set status
+                var isVisible = EventManager.Instance.QuestEvents.RequestQuestByQuestId(questId).IsQuestVisible;
+                questButton.gameObject.SetActive(isVisible);
+
+                //Debug.Log(questId);
+                //Debug.Log(isVisible);
+                //Debug.Log(questButton.gameObject.name);
+
+                //put button on bottom in the list, if button status changed to active
+                if (!isPreviouslyActive && isVisible)
+                {
+                    questButton.gameObject.transform.SetAsLastSibling();
+                }
+            }
         }
 
-        //used for quest menu can select first quest button automatically (in story mode)
-        public Button GetFirstActiveButton()
+        //used to get first quest button 
+        private Button GetFirstActiveButton()
         {
-            foreach (var questLogButton in contentRectTransform.gameObject.GetComponentsInChildren<QuestLogButton>())
+            foreach (var questLogButton in content.gameObject.GetComponentsInChildren<QuestLogButton>())
             {
                 if (questLogButton.gameObject.activeSelf)
                 {
-                    return questLogButton.button;
+                    return questLogButton.Button;
                 }
             }
+
             return null;
+        }
+
+        //used to select first quest button 
+        public void SelectFirstActiveButton()
+        {
+            var button = GetFirstActiveButton();
+            if (button != null)
+            {
+                button.Select();
+            }
+            else
+            {
+                QuestDebug.Instance.LogError($"Can't select first active button");
+            }
         }
     }
 }

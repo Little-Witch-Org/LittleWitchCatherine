@@ -34,6 +34,12 @@ namespace _Scripts.Managers
         [SerializeField] private float currentMood;
         [SerializeField] private float currentEnergy;
 
+        public float CurrentHealth => currentHealth;
+        public float CurrentSatiety => currentSatiety;
+        public float CurrentMood => currentMood;
+        public float CurrentEnergy => currentEnergy;
+
+
         [Header("Stats ChangeRate")] //rate per minute
 
         [SerializeField]
@@ -69,10 +75,16 @@ namespace _Scripts.Managers
         {
             EventManager.Instance.TransitionEvents.OnCurrentPlaceOnScreen += UpdateCurrentPlaceOn;
 
+            EventManager.Instance.PlayerStatsEvents.OnSetHealth += SetHeath;
+            EventManager.Instance.PlayerStatsEvents.OnSetSatiety += SetSatiety;
+            EventManager.Instance.PlayerStatsEvents.OnSetMood += SetMood;
+            EventManager.Instance.PlayerStatsEvents.OnSetEnergy += SetEnergy;
+
             EventManager.Instance.PlayerStatsEvents.OnHealthUpdate += UpdateHeath;
             EventManager.Instance.PlayerStatsEvents.OnSatietyUpdate += UpdateSatiety;
             EventManager.Instance.PlayerStatsEvents.OnMoodUpdate += UpdateMood;
             EventManager.Instance.PlayerStatsEvents.OnEnergyUpdate += UpdateEnergy;
+            
 
             EventManager.Instance.TimeEvents.OnMinutesAmountChanged += UpdateStatsBaseOnMinutesAmount;
             EventManager.Instance.TimeEvents.OnHoursAmountChanged += UpdateStatsBaseOnHoursAmount;
@@ -81,6 +93,11 @@ namespace _Scripts.Managers
         private void OnDisable()
         {
             EventManager.Instance.TransitionEvents.OnLoadedPlace -= UpdateCurrentPlaceOn;
+            
+            EventManager.Instance.PlayerStatsEvents.OnSetHealth -= SetHeath;
+            EventManager.Instance.PlayerStatsEvents.OnSetSatiety -= SetSatiety;
+            EventManager.Instance.PlayerStatsEvents.OnSetMood -= SetMood;
+            EventManager.Instance.PlayerStatsEvents.OnSetEnergy -= SetEnergy;
 
             EventManager.Instance.PlayerStatsEvents.OnHealthUpdate -= UpdateHeath;
             EventManager.Instance.PlayerStatsEvents.OnSatietyUpdate -= UpdateSatiety;
@@ -145,8 +162,42 @@ namespace _Scripts.Managers
         {
             return currentLocation;
         }
+        
+        //-----------------------------STATS-----------------------------
+        
+        //--stats set //todo handle min or max
 
-        //stats
+        private void SetHeath(float health)
+        {
+            currentHealth = health;
+            EventManager.Instance.PlayerStatsEvents.HealthChanged(currentHealth);
+            CalculateStatsChangeRate();
+
+        }
+
+        private void SetSatiety(float satiety)
+        {
+            currentSatiety = satiety;
+            EventManager.Instance.PlayerStatsEvents.SatietyChanged(currentHealth);
+            CalculateStatsChangeRate();
+        }
+
+        private void SetMood(float mood)
+        {
+            currentMood = mood;
+            EventManager.Instance.PlayerStatsEvents.MoodChanged(currentHealth);
+            CalculateStatsChangeRate();
+        }
+
+        private void SetEnergy(float energy)
+        {
+            currentEnergy = energy;
+            EventManager.Instance.PlayerStatsEvents.EnergyChanged(currentHealth);
+            CalculateStatsChangeRate();
+        }
+
+        //--stats update
+        
         private void UpdateHeath(float health)
         {
             var startHealth = currentHealth;

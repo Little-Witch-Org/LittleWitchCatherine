@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 
 //todo add events and incapsulate
+//todo add move to current time form now method
 namespace _Scripts.Managers
 {
     public class TimeManager : MonoBehaviour
@@ -34,6 +35,13 @@ namespace _Scripts.Managers
             EventManager.Instance.TimeEvents.OnAddMinutes += AddMinutes;
             EventManager.Instance.TimeEvents.OnAddHours += AddHours;
             EventManager.Instance.TimeEvents.OnAddDays += AddDays;
+
+
+            EventManager.Instance.TimeEvents.OnSecondsSet += SecondsSet;
+            EventManager.Instance.TimeEvents.OnMinutesSet += MinutesSet;
+            EventManager.Instance.TimeEvents.OnHoursSet += HoursSet;
+            EventManager.Instance.TimeEvents.OnHoursSet += SetDays;
+            //EventManager.Instance.TimeEvents.OnDaysSet +=
         }
         private void OnDisable()
         {
@@ -41,6 +49,11 @@ namespace _Scripts.Managers
             EventManager.Instance.TimeEvents.OnAddMinutes -= AddMinutes;
             EventManager.Instance.TimeEvents.OnAddHours -= AddHours;
             EventManager.Instance.TimeEvents.OnAddDays -= AddDays;
+            
+            EventManager.Instance.TimeEvents.OnSecondsSet -= SecondsSet;
+            EventManager.Instance.TimeEvents.OnMinutesSet -= MinutesSet;
+            EventManager.Instance.TimeEvents.OnHoursSet -= HoursSet;
+            EventManager.Instance.TimeEvents.OnHoursSet -= SetDays;
         }
 
 
@@ -117,7 +130,42 @@ namespace _Scripts.Managers
             EventManager.Instance.TimeEvents.DateChange(formattedDate);
             EventManager.Instance.TimeEvents.TimeChange(formattedTime);
         }
-
+        
+        //--Set just sets current time without "time skip" events 
+        private void SecondsSet(int secondsToSet)
+        {
+            seconds = secondsToSet;
+            DetermineTimeOfDay();
+            UpdateFormattedDateTime();
+            EventManager.Instance.TimeEvents.SecondsSetChanged(secondsToSet);
+        }
+        
+        private void MinutesSet(int minutesToSet)
+        {
+            minutes = minutesToSet;
+            DetermineTimeOfDay();
+            UpdateFormattedDateTime();
+            EventManager.Instance.TimeEvents.MinutesSetChanged(minutesToSet);
+        }
+        
+        private void HoursSet(int hoursToSet)
+        {
+            hours = hoursToSet;
+            DetermineTimeOfDay();
+            UpdateFormattedDateTime();
+            EventManager.Instance.TimeEvents.HoursSetChanged(hoursToSet);
+        }
+        
+        private void SetDays(int daysToSet)
+        {
+            days = daysToSet;
+            DetermineTimeOfDay();
+            UpdateFormattedDateTime();
+            EventManager.Instance.TimeEvents.DaysSetChanged(daysToSet);
+        }
+        
+        //--Add invokes "time skip" events which used by stats class etc 
+        
         // Add seconds to the current time
         public void AddSeconds(int secondsToAdd)
         {

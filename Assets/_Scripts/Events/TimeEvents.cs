@@ -5,7 +5,31 @@ namespace _Scripts.Events
 {
     public class TimeEvents
     {
-        //update
+        //set
+        public event Action <int> OnSecondsSet;
+        public void SetSeconds(int seconds) 
+        {
+            OnSecondsSet?.Invoke(seconds);
+        }
+        
+        public event Action <int> OnMinutesSet;
+        public void SetMinutes(int minutes) 
+        {
+            OnMinutesSet?.Invoke(minutes);
+        }
+        
+        public event Action <int> OnHoursSet;
+        public void SetHours(int hours) 
+        {
+            OnHoursSet?.Invoke(hours);
+        }
+        public event Action <int> OnDaysSet;
+        public void SetDays(int days) 
+        {
+            OnDaysSet?.Invoke(days);
+        }
+        
+        //add
         public event Action <int> OnAddSeconds;
         public void AddSeconds(int seconds) 
         {
@@ -30,7 +54,29 @@ namespace _Scripts.Events
         }
         
         
+        //changed without time skip event
+        public event Action <int> OnSecondsSetChanged;
+        public void SecondsSetChanged(int seconds) 
+        {
+            OnSecondsSetChanged?.Invoke(seconds);
+        }
         
+        public event Action <int> OnMinutesSetChanged;
+        public void MinutesSetChanged(int minutes) 
+        {
+            OnMinutesSetChanged?.Invoke(minutes);
+        }
+        
+        public event Action <int> OnHoursSetChanged;
+        public void HoursSetChanged(int hours) 
+        {
+            OnHoursSetChanged?.Invoke(hours);
+        }
+        public event Action <int> OnDaysSetChanged;
+        public void DaysSetChanged(int days) 
+        {
+            OnDaysSetChanged?.Invoke(days);
+        }
         
         //changed (on what amount of units time was changed)
         public event Action <int> OnSecondsAmountChanged;

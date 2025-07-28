@@ -27,22 +27,28 @@ namespace _Scripts.Events
             OnFinishQuest?.Invoke(id);
         }
         
-        public event Action<Quest> OnQuestStateChange;
-        public void QuestStateChange(Quest quest) 
+        public event Action<Quest> OnQuestStateChanged;
+        public void QuestStateChanged(Quest quest) 
         {
-            OnQuestStateChange?.Invoke(quest);
+            OnQuestStateChanged?.Invoke(quest);
         }
         
-        public event Action<string, int, QuestStepValues> OnQuestStepValuesChange;
-        public void QuestStepValuesChange(string id, int stepIndex, QuestStepValues questStepValues) 
+        public event Action<string, int, QuestStepData> OnQuestStepDataChange;
+        public void ChangeQuestStepData(string id, int stepIndex, QuestStepData questStepData) 
         {
-            OnQuestStepValuesChange?.Invoke(id, stepIndex, questStepValues);
+            OnQuestStepDataChange?.Invoke(id, stepIndex, questStepData);
         }
         
         public event Func<QuestInfoSo,Quest> OnQuestByQuestInfoSoRequest; //todo change other events using this style
         public Quest RequestQuestByQuestInfoSo(QuestInfoSo questSo) 
         {
             return OnQuestByQuestInfoSoRequest?.Invoke(questSo);
+        }
+        
+        public event Func<string,Quest> OnQuestByQuestIdRequest;
+        public Quest RequestQuestByQuestId(string questId) 
+        {
+            return OnQuestByQuestIdRequest?.Invoke(questId);
         }
         
         public event Action<GameObject> OnQuestStepCreated;
@@ -58,9 +64,27 @@ namespace _Scripts.Events
         }
         
         public event Action<string,bool> OnQuestAvailabilityChange;
-        public void QuestAvailabilityChange(string questSoId, bool isAvailable) 
+        public void SetQuestAvailability(string questSoId, bool isAvailable) 
         {
             OnQuestAvailabilityChange?.Invoke(questSoId, isAvailable);
+        }
+        
+        public event Action<string,bool> OnQuestVisibilityChange;
+        public void SetQuestVisibility(string questSoId, bool isAvailable) 
+        {
+            OnQuestVisibilityChange?.Invoke(questSoId, isAvailable);
+        }
+        
+        public event Action OnUpdateQuestVisibilityInUI; //updates quest visibility in quest log
+        public void UpdateQuestVisibilityInUI() 
+        {
+            OnUpdateQuestVisibilityInUI?.Invoke();
+        }
+        
+        public event Action<string,bool> OnFinishCurrentQuestStep;
+        public void FinishCurrentQuestStep(string questId, bool isFailed) 
+        {
+            OnFinishCurrentQuestStep?.Invoke(questId, isFailed);
         }
 
         

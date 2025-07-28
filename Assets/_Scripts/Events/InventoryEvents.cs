@@ -1,4 +1,5 @@
 ﻿using System;
+using _Scripts.InventorySystem.ByGuide;
 
 namespace _Scripts.Events
 {
@@ -23,5 +24,17 @@ namespace _Scripts.Events
         {
             OnContextMenuOpenStatusSet?.Invoke(isOpened);
         }
+        
+        public event Action<string,string> OnAddItem;
+        public void AddItem(string itemNameOrID, string itemGridName)
+        {
+            OnAddItem?.Invoke(itemNameOrID, itemGridName);
+        }
+        public event Action<InventoryItem> OnItemUsed;
+        public void ItemUsed(InventoryItem item)
+        {
+            OnItemUsed?.Invoke(item);
+        }
+        
     }
 }

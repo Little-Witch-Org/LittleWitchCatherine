@@ -14,9 +14,13 @@ namespace _Scripts.Components.Transition
         [SerializeField] private BoxCollider2D clickBlocker;
         [SerializeField] private SpriteRenderer fadeImageRenderer;
 
+        private float _placeFadeDuration;
+        
         private Sequence _sequence;
         private GameObject _currentRoomInstance;
 
+        private bool _isInCutscene;
+        
         private void Start()
         {
             if (TransitionManager.Instance == null)
@@ -30,6 +34,9 @@ namespace _Scripts.Components.Transition
 
         public void ChangeView()
         {
+            //get fade duration
+            _placeFadeDuration= TransitionManager.Instance.GetPlaceFadeDuration();
+            
             //Delete place game object if it exists
             if (_currentRoomInstance != null)
             {
@@ -65,6 +72,8 @@ namespace _Scripts.Components.Transition
         private void OnEnable()
         {
             EventManager.Instance.TransitionEvents.OnPlaceTransitionPerform += ChangePlaceWithFade;
+            EventManager.Instance.CutsceneEvents.OnCutsceneStarted+= OnCutsceneStarted;
+            EventManager.Instance.CutsceneEvents.OnCutsceneFinished+= OnCutsceneFinished;
         }
 
         private void OnDisable()
@@ -82,7 +91,10 @@ namespace _Scripts.Components.Transition
         {
             //Debug.Log("Change place with fade");
             //disable hotkeys (menu)
-            EventManager.Instance.InputEvents.SetHotkeysActive(false);
+            if (!_isInCutscene)
+            {
+                EventManager.Instance.InputEvents.SetHotkeysActive(false);
+            }
 
             _sequence = DOTween.Sequence();
 
@@ -90,13 +102,13 @@ namespace _Scripts.Components.Transition
             _sequence.AppendCallback(() => { clickBlocker.enabled = true; });
 
             //fadein 
-            _sequence.Append(fadeImageRenderer.DOFade(1f, 0.5f).SetEase(Ease.OutCubic));
+            _sequence.Append(fadeImageRenderer.DOFade(1f, _placeFadeDuration).SetEase(Ease.OutCubic));
 
             //Change view
             _sequence.AppendCallback(ChangeView);
 
             //fadeout
-            _sequence.Append(fadeImageRenderer.DOFade(0f, 0.5f).SetEase(Ease.InCubic));
+            _sequence.Append(fadeImageRenderer.DOFade(0f, _placeFadeDuration).SetEase(Ease.InCubic));
 
             //disable box collider to prevent clicks on other colliders
             _sequence.AppendCallback(() => { clickBlocker.enabled = false; });
@@ -104,7 +116,10 @@ namespace _Scripts.Components.Transition
             _sequence.Play().OnComplete(() =>
             {
                 //enable hotkeys (menu)
-                EventManager.Instance.InputEvents.SetHotkeysActive(true);
+                if (!_isInCutscene)
+                {
+                    EventManager.Instance.InputEvents.SetHotkeysActive(true);
+                }
             });
             
         }
@@ -118,6 +133,16 @@ namespace _Scripts.Components.Transition
             {
                 _sequence.Kill();
             }
+        }
+
+        private void OnCutsceneStarted()
+        {
+            _isInCutscene = true;
+        }
+
+        private void OnCutsceneFinished()
+        {
+            _isInCutscene = false;
         }
     }
 

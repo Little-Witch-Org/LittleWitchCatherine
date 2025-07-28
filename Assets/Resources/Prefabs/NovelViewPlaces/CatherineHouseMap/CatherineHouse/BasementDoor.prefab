@@ -177,7 +177,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 3ffc509c51489fa4d9f6d4d58f0bc2aa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -197,7 +197,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: -4741369544540279507, guid: beadef3ae2a2f794b9fda22019790cee, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -221,13 +221,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99135e8dbe6b78b4b981e13cd4da81f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  placeName: 
-  placeStateSprites:
+  currentPlaceName: 
+  defaultStateSprites:
   - {fileID: -4741369544540279507, guid: beadef3ae2a2f794b9fda22019790cee, type: 3}
   - {fileID: -4741369544540279507, guid: beadef3ae2a2f794b9fda22019790cee, type: 3}
   - {fileID: -2734215681328259630, guid: 2c63ddfd4d6aa4f4481877a48ba8d39b, type: 3}
   - {fileID: -2734215681328259630, guid: 2c63ddfd4d6aa4f4481877a48ba8d39b, type: 3}
-  states: []
 --- !u!1 &7958982703952546745
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,12 +13,12 @@ namespace Resources.Quests.DevQuests.SecondDevQuest
             //handle auto fail option 
             if (IsPreviousFailed && failIfPreviousFailed)
             {
-                ChangeValues("Чердак не был посещён", "Я провалила задание, пора возвращаться.", true); //this is not displayed in log cause it hides by get full info method in quest
-                FinishQuesStep();
+                ChangeStepData("Чердак не был посещён", "Я провалила задание, пора возвращаться.", true); //this is not displayed in log cause it hides by get full info method in quest
+                FinishQuesStep(true);
             }
             else
             {
-                ChangeValues("Чердак не посещён", "Мне нужно сходить на чердак.", false);
+                ChangeStepData("Чердак не посещён", "Мне нужно сходить на чердак.", false);
             }
 
         }
@@ -27,26 +27,31 @@ namespace Resources.Quests.DevQuests.SecondDevQuest
         {
             if (isFailed)
             {
-                ChangeValues("Чердак не был посещён","Я спустилась в подвал вопреки запрета 2",true );
-                FinishQuesStep();
+                ChangeStepData("Чердак не был посещён","Я спустилась в подвал вопреки запрета 2",true );
+                FinishQuesStep(isFailed);
             }
             
             if (customParam == "AtticRoomVisited")
             {
-                ChangeValues("Чердак посещён","Я слазила на чердак, пора возвращаться!",false );
-                FinishQuesStep();
+                ChangeStepData("Чердак посещён","Я слазила на чердак, пора возвращаться!",false );
+                FinishQuesStep(isFailed);
             }
             
             
         }
 
         //set IsPreviousFailed value depending on previous step value
-        protected override void SetQuestStepState(QuestStepValues questStepValues)
+        protected override void InitializeQuestStepData(QuestStepData questStepData)
         {
-            if (questStepValues.isFailed)
+            if (questStepData.isFailed)
             {
                 IsPreviousFailed = true;
             }
+        }
+
+        protected override void InvokesOnFinishQuestStep(bool isFailed)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

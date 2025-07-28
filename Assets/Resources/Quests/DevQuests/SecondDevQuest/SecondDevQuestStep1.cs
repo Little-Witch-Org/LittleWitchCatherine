@@ -1,50 +1,58 @@
 using _Scripts.QuestSystem;
 using UnityEngine;
 
-public class SecondDevQuestStep1 : QuestStep
+namespace Resources.Quests.DevQuests.SecondDevQuest
 {
-    
-    [SerializeField]private bool isParentRoomVisited = false;
-    [SerializeField]private bool isBrotherRoomVisited = false;
-    
-    
-    protected override void Start()
+    public class SecondDevQuestStep1 : QuestStep
     {
-        failIfPreviousFailed = false;
-        base.Start();
+    
+        [SerializeField]private bool isParentRoomVisited = false;
+        [SerializeField]private bool isBrotherRoomVisited = false;
+    
+    
+        protected override void Start()
+        {
+            failIfPreviousFailed = false;
+            base.Start();
                 
-        ChangeValues("Посещены комнаты = 0/2", "Мне нужно сходить в комнату родителей и брата", false);
-    }
+            ChangeStepData("Посещены комнаты = 0/2", "Мне нужно сходить в комнату родителей и брата", false);
+        }
     
     
-    protected override void ActivateSubscribedMethodOnTrigger(string customParam, bool isFailed)
-    {
-        if (customParam == "ParentRoomVisited")
+        protected override void ActivateSubscribedMethodOnTrigger(string customParam, bool isFailed)
         {
-            isParentRoomVisited = true;
-            ChangeValues("Посещены комнаты = 1/2","Нужно сходить в комнату брата",false );
-        }
-        if (customParam == "BrotherRoomVisited")
-        {
-            isBrotherRoomVisited = true;
-            ChangeValues("Посещены комнаты = 1/2","Нужно сходить в комнату родителей",false );
-        }
-        if (isFailed)
-        {
-            ChangeValues("какие комнаты посещены уже не важно","Я спустилась в подвал вопреки запрета 1",true );
-            FinishQuesStep();
-        }
+            if (customParam == "ParentRoomVisited")
+            {
+                isParentRoomVisited = true;
+                ChangeStepData("Посещены комнаты = 1/2","Нужно сходить в комнату брата",false );
+            }
+            if (customParam == "BrotherRoomVisited")
+            {
+                isBrotherRoomVisited = true;
+                ChangeStepData("Посещены комнаты = 1/2","Нужно сходить в комнату родителей",false );
+            }
+            if (isFailed)
+            {
+                ChangeStepData("какие комнаты посещены уже не важно","Я спустилась в подвал вопреки запрета 1",true );
+                FinishQuesStep(true);
+            }
 
-        if (isParentRoomVisited && isBrotherRoomVisited)
-        {
-            ChangeValues("Посещены комнаты = 2/2","Обе комнаты посещены",false );
-            FinishQuesStep();
-        }
+            if (isParentRoomVisited && isBrotherRoomVisited)
+            {
+                ChangeStepData("Посещены комнаты = 2/2","Обе комнаты посещены",false );
+                FinishQuesStep(false);
+            }
         
-    }
+        }
 
-    protected override void SetQuestStepState(QuestStepValues questStepValues)
-    {
-        //no pre reqs
+        protected override void InitializeQuestStepData(QuestStepData questStepData)
+        {
+            //no pre reqs
+        }
+
+        protected override void InvokesOnFinishQuestStep(bool isFailed)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using _Scripts.Enums;
+using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -12,6 +13,15 @@ namespace _Scripts.Components.Transition
     /// </summary>
     public class CustomPlaceStatesComponent : MonoBehaviour
     {
+        [Header("ToD for copy to states")]
+        #pragma warning disable CS0414 //disable unused private members
+        [SerializeField] private string morning = "Morning";
+        [SerializeField] private string afternoon = "Afternoon";
+        [SerializeField] private string evening = "Evening";
+        [SerializeField] private string night = "Night";
+        #pragma warning restore CS0414
+        
+        
         [Serializable]
         private class PlaceState
         {
@@ -20,15 +30,15 @@ namespace _Scripts.Components.Transition
 
             public Sprite customPlaceStateSprite;
         }
-
+        [Header("Custom Place States")]
         [SerializeField] private List<PlaceState> customStates = new();
-        [SerializeField] private SpriteRenderer placeSpriteRenderer;
+        //[SerializeField] private SpriteRenderer placeSpriteRenderer;
 
         private Dictionary<string, Sprite> _stateSpriteMap;
 
         private void Awake()
         {
-            placeSpriteRenderer = GetComponent<SpriteRenderer>();
+            //placeSpriteRenderer = GetComponent<SpriteRenderer>();
 
             _stateSpriteMap = new Dictionary<string, Sprite>();
             foreach (var pair in customStates)
@@ -37,7 +47,7 @@ namespace _Scripts.Components.Transition
             }
         }
         
-        public void SetCustomPlaceStateSprite(TimeOfDayEnum timeOfDayEnum, string stateName)
+        public Sprite GetCustomPlaceStateSprite(TimeOfDayEnum timeOfDayEnum, string stateName)
         {
             //string stateKeyBase = stateName;
             string stateKeyComposite = $"{stateName}_{timeOfDayEnum}";
@@ -45,8 +55,7 @@ namespace _Scripts.Components.Transition
             // Сначала ищем точное совпадение (например, Custom1_Night)
             if (_stateSpriteMap.TryGetValue(stateKeyComposite, out Sprite sprite))
             {
-                placeSpriteRenderer.sprite = sprite;
-                return;
+                return sprite;
             }
 
             // Если точного совпадения нет, ищем по шаблону в порядке времени суток
@@ -63,14 +72,15 @@ namespace _Scripts.Components.Transition
                 string keyToCheck = $"{stateName}_{time}";
                 if (_stateSpriteMap.TryGetValue(keyToCheck, out sprite))
                 {
-                    placeSpriteRenderer.sprite = sprite;
                     Debug.Log($"Set fallback sprite for {stateName} (using {time} variant)");
-                    return;
+                    return sprite;
+                    
                 }
             }
 
             // Если вообще ничего не нашли
             Debug.LogWarning($"No sprite found for state {stateName} (any time of day)");
+            return null;
         }
         
 

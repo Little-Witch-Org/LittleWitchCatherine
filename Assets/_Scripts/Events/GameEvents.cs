@@ -4,6 +4,11 @@ namespace _Scripts.Events
 {
     public class GameEvents
     {
+        public Action<int> OnActivateCheckpoint;
+        public void ActivateCheckpoint(int checkpointID)
+        {
+            OnActivateCheckpoint?.Invoke(checkpointID);
+        }
         public Action<int> OnCheckpointActivated;
         public void CheckpointActivated(int checkpointID)
         {

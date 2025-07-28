@@ -9,24 +9,24 @@ namespace _Scripts.QuestSystem.UI
 {
     public class QuestLogButton : MonoBehaviour, ISelectHandler
     {
-        public Button button{get; private set;}
-        private TMP_Text buttonText;
-        private UnityAction OnSelectAction;
+        public Button Button{get; private set;}
+        private TMP_Text _questNameText;
+        private UnityAction _onSelectAction;
 
 
         //need to initialize manually
         public void Initialize(string displayName, UnityAction sendAction)
         {
-            button = GetComponent<Button>();
-            buttonText = GetComponentInChildren<TMP_Text>(); //assign using code (not in inspector)
+            Button = GetComponent<Button>();
+            _questNameText = GetComponentInChildren<TMP_Text>(); //assign using code (not in inspector)
         
-            buttonText.text = displayName;
-            OnSelectAction = sendAction;
+            _questNameText.text = displayName;
+            _onSelectAction = sendAction;
         }
     
         public void OnSelect(BaseEventData eventData)
         {
-            OnSelectAction();
+            _onSelectAction();
         }
     
         public void SetState(QuestStateEnum stateEnum)
@@ -34,22 +34,22 @@ namespace _Scripts.QuestSystem.UI
             switch (stateEnum)
             {
                 case QuestStateEnum.RequirementsNotMet:
-                    buttonText.color = Color.grey;
+                    _questNameText.color = Color.grey;
                     break;
                 case QuestStateEnum.CanStart:
-                    buttonText.color = Color.white;
+                    _questNameText.color = Color.white;
                     break;
                 case QuestStateEnum.InProgress:
-                    buttonText.color = Color.yellow;
+                    _questNameText.color = Color.yellow;
                     break;
                 case QuestStateEnum.CanFinish:
-                    buttonText.color = Color.yellow;
+                    _questNameText.color = Color.yellow;
                     break;
                 case QuestStateEnum.Finished:
-                    buttonText.color = Color.green;
+                    _questNameText.color = Color.green;
                     break;
                 case QuestStateEnum.Failed:
-                    buttonText.color = Color.red;
+                    _questNameText.color = Color.red;
                     break;
                 default:
                     Debug.LogWarning("Quest State not recognized by switch statement: " + stateEnum);
@@ -59,7 +59,7 @@ namespace _Scripts.QuestSystem.UI
 
         public string GetButtonText()
         {
-            return buttonText.text;
+            return _questNameText.text;
         }
     }
 }

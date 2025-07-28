@@ -16,8 +16,11 @@ EXTERNAL UpdateEnergy(int)
 
 EXTERNAL UpdateReputation(string, int)
 
+EXTERNAL ActivateCheckpoint(int)
 
-//global variables
+EXTERNAL AddItem(string,string)
+
+//global variables 
 VAR CharacterName = "Mother"
 //quest 1 (number in this story)
 VAR Quest1GoDownToKitchenId = "Quest1GoDownToKitchen" //current quest used in this story + ID (for external quest events)

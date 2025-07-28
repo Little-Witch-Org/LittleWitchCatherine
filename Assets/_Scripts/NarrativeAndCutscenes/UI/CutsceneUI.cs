@@ -8,7 +8,7 @@ using UnityEngine.UI;
 namespace _Scripts.NarrativeAndCutscenes.UI
 {
     /// <summary>
-    /// Show cutscene images from storyProgressManager
+    /// Show cutscene images from storyProgressManager.
     /// </summary>
     public class CutsceneUI : MonoBehaviour
     {
@@ -20,9 +20,6 @@ namespace _Scripts.NarrativeAndCutscenes.UI
         [SerializeField] private GameObject cutsceneImageGoTop;//alternative image used for transparent animations
         [SerializeField] private Image cutsceneImageTop;
         
-        //todo change to cutsceneImageBottom and cutsceneImageTop. add transparent change (bottom is old image. Top image fadeout (turn on with alpha=0) -> bottom = top -> top disables
-
-
         private void OnEnable()
         {
             EventManager.Instance.CutsceneEvents.OnShowCutsceneUI += ShowUI;
@@ -89,7 +86,11 @@ namespace _Scripts.NarrativeAndCutscenes.UI
             }
             else
             {
-                FadeOut(cutsceneImageBottom, fadeDuration);
+                cutsceneImageGoBottom.SetActive(true);
+                var color = cutsceneImageBottom.color;
+                color.a = 0;
+                cutsceneImageBottom.color = color;
+                FadeIn(cutsceneImageBottom, fadeDuration);
             }
         }
         private void HideCutsceneImage(bool isFadeIn, float fadeDuration)
@@ -100,7 +101,11 @@ namespace _Scripts.NarrativeAndCutscenes.UI
             }
             else
             {
-                FadeIn(cutsceneImageBottom, fadeDuration);
+                cutsceneImageGoBottom.SetActive(true);
+                var color = cutsceneImageBottom.color;
+                color.a = 1;
+                cutsceneImageBottom.color = color;
+                FadeOut(cutsceneImageBottom, fadeDuration);
             }
         }
 
@@ -108,7 +113,9 @@ namespace _Scripts.NarrativeAndCutscenes.UI
         {
             if (!isFadeIn)
             {
-                backingPanel.color = new Color(0f, 0f, 0f, 1f);
+                var color = backingPanel.color;
+                color.a = 1;
+                backingPanel.color = color;
             }
             else
             {
@@ -120,7 +127,9 @@ namespace _Scripts.NarrativeAndCutscenes.UI
         {
             if (!isFadeOut)
             {
-                backingPanel.color = new Color(0f, 0f, 0f, 0f);
+                var color = backingPanel.color;
+                color.a = 0;
+                backingPanel.color = color;
             }
             else
             {
@@ -131,13 +140,13 @@ namespace _Scripts.NarrativeAndCutscenes.UI
         private void SwitchImageWithFade(Sprite spriteBottom, Sprite spriteTop)
         {
             KillCurrentSequence();
-
-            Debug.Log(spriteBottom.name);
-            Debug.Log(spriteTop.name);
+            
             SetCutsceneImage(spriteBottom);
             ShowCutsceneImage(false, 0);
 
-
+            //var color = cutsceneImageTop.color;
+            //color.a = 0;
+            //cutsceneImageTop.color = color;
             cutsceneImageTop.color = new Color(1f, 1f, 1f, 0f);
             cutsceneImageGoTop.SetActive(true);
             cutsceneImageTop.sprite = spriteTop;
@@ -146,7 +155,7 @@ namespace _Scripts.NarrativeAndCutscenes.UI
             _sequence = DOTween.Sequence();
 
             _sequence
-                .Append(cutsceneImageTop.DOFade(1f, 2f).SetEase(Ease.Linear))
+                .Append(cutsceneImageTop.DOFade(1f, 1.5f).SetEase(Ease.Linear))
                 .OnComplete(() =>
                 {
                     SetCutsceneImage(spriteTop);
@@ -169,12 +178,12 @@ namespace _Scripts.NarrativeAndCutscenes.UI
         private void FadeIn(Image image, float duration)
         {
             KillCurrentTween();
-            _tween = image.DOFade(0f, duration).SetEase(Ease.Linear).Play();
+            _tween = image.DOFade(1f, duration).SetEase(Ease.Linear).Play();
         }
         private void FadeOut(Image image, float duration)
         {
             KillCurrentTween();
-            _tween = image.DOFade(1f, duration).SetEase(Ease.Linear).Play();
+            _tween = image.DOFade(0f, duration).SetEase(Ease.Linear).Play();
         }
 
 
@@ -187,8 +196,8 @@ namespace _Scripts.NarrativeAndCutscenes.UI
                 _tween.Kill();
             }
         }
-        
-        public bool InSequenceAnimation() => _sequence != null && _sequence.active;
+
+        private bool InSequenceAnimation() => _sequence != null && _sequence.active;
 
         private void KillCurrentSequence()
         {

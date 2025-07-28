@@ -46,12 +46,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc678e0b783e4d438acacabf5c44b7d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  npcName: TimeSkipEntity
+  npcName: TimeSkipEntityBed
+  npcBody: {fileID: 3216729772916680538}
   currentLocationName: CatherineHouse
   currentPlaceName: CatherineRoom
-  npcBody: {fileID: 3216729772916680538}
   maxReputation: 0
   currentReputation: 0
+  isPositionIgnored: 0
 --- !u!114 &5854909871884316314
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,14 +66,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentActualStoryName: TimeSkipEntity_StoryMain
-  currentActualDialogueKnotName: 
-  currentCustomDialogueKnotName: 
   dialogueKnotNames:
   - null
   customDialogueKnotNames:
   - TimeSkipEntity_BedReadingDialogue
-  currentNpcName: 
   isDialogueAutoActivationEnabled: 0
+  isUsingOriginalStoryFile: 0
+  currentActualDialogueKnotName: 
+  currentCustomDialogueKnotName: 
+  currentNpcName: 
 --- !u!1 &3216729772916680538
 GameObject:
   m_ObjectHideFlags: 0

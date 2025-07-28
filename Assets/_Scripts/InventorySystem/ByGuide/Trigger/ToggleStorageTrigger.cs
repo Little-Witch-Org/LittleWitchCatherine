@@ -9,5 +9,10 @@ namespace _Scripts.InventorySystem.ByGuide.Trigger
         {
             EventManager.Instance.InputEvents.StorageInventoryPressed();
         }
+        
+        public void ToggleStorageUnderStairs()
+        {
+            EventManager.Instance.InputEvents.StorageUnderStairsInventoryPressed();
+        }
     }
 }

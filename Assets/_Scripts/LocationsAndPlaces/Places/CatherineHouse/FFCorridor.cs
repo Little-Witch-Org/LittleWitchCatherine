@@ -1,4 +1,5 @@
 ﻿using System;
+using _Scripts.Enums;
 using UnityEngine;
 
 namespace _Scripts.LocationsAndPlaces.Places.CatherineHouse
@@ -9,7 +10,8 @@ namespace _Scripts.LocationsAndPlaces.Places.CatherineHouse
         {
             Default,
             Custom1,
-            Custom2
+            Custom2,
+            BrokenDoor
         }
         
         public FFCorridor()

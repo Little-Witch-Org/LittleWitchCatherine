@@ -29,8 +29,11 @@ namespace _Scripts.UI
             EventManager.Instance.TimeEvents.OnTimeChange += ChangeTimeText;
             EventManager.Instance.TimeEvents.OnDateChange += ChangeDateText;
             
-            EventManager.Instance.TimeEvents.OnMinutesAmountChanged += ChangeMinuteArrowAngle;
+            EventManager.Instance.TimeEvents.OnMinutesAmountChanged += ChangeArrowAngle;
             EventManager.Instance.TimeEvents.OnHoursAmountChanged += ChangeHourArrowAngle;
+            
+            EventManager.Instance.TimeEvents.OnMinutesSetChanged += ChangeArrowAngle;
+            EventManager.Instance.TimeEvents.OnHoursSetChanged += ChangeHourArrowAngle;
 
             //EventManager.Instance.InputEvents.OnMenuPressed += ToggleCheatMenu;
         }
@@ -41,8 +44,11 @@ namespace _Scripts.UI
             EventManager.Instance.TimeEvents.OnTimeChange -= ChangeTimeText;
             EventManager.Instance.TimeEvents.OnDateChange -= ChangeDateText;
             
-            EventManager.Instance.TimeEvents.OnMinutesAmountChanged -= ChangeMinuteArrowAngle;
+            EventManager.Instance.TimeEvents.OnMinutesAmountChanged -= ChangeArrowAngle;
             EventManager.Instance.TimeEvents.OnHoursAmountChanged -= ChangeHourArrowAngle;
+            
+            EventManager.Instance.TimeEvents.OnMinutesSetChanged -= ChangeArrowAngle;
+            EventManager.Instance.TimeEvents.OnHoursSetChanged -= ChangeHourArrowAngle;
 
             //EventManager.Instance.InputEvents.OnMenuPressed -= ToggleCheatMenu;
 
@@ -51,7 +57,7 @@ namespace _Scripts.UI
         //set current time on the watch from start
         private void Start()
         {
-            ChangeMinuteArrowAngle(0);
+            ChangeArrowAngle(0);
             ChangeHourArrowAngle(0);
         }
 
@@ -77,7 +83,7 @@ namespace _Scripts.UI
             timeOfDayText.SetText(timeOfDayEnum.ToString());
         }
 
-        private void ChangeMinuteArrowAngle(int time) //not using param
+        private void ChangeArrowAngle(int time) //not using param
         {
             
             //Debug.Log($"minute changed = {time}");

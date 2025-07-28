@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scene: 3
-  _locationName: Greenhouse
+  locationName: Greenhouse
 --- !u!114 &6401159777693256618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -352,7 +352,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 3ffc509c51489fa4d9f6d4d58f0bc2aa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -372,7 +372,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: -3013984456771355593, guid: ef0727d06a2281e488c343e070423af3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -396,8 +396,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99135e8dbe6b78b4b981e13cd4da81f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  placeName: 
-  placeStateSprites:
+  currentPlaceName: 
+  defaultStateSprites:
   - {fileID: -3013984456771355593, guid: ef0727d06a2281e488c343e070423af3, type: 3}
   - {fileID: -8460161932709749620, guid: 3d333ab8c23a5c84fbfba7e88103f1b1, type: 3}
   - {fileID: 8499831849869085697, guid: 6b71ff8afb07efe4698e3330c2e4148d, type: 3}

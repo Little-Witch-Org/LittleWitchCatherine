@@ -11,7 +11,7 @@ using UnityEngine.Serialization;
 namespace _Scripts.QuestSystem
 {
     /// <summary>
-    /// Triggers quest step progress using event (in case of "separate quest step and trigger" logic). Need script with some logic that activates this trigger. //todo add dialogue trigger by event
+    /// Triggers quest step progress using event (in case of "separate quest step and trigger" logic). Need script with some logic that activates this trigger.
     /// Automatically find and invoke quest step trigger event by using quest step name 
     /// </summary>
     public class QuestStepTrigger : MonoBehaviour
@@ -22,8 +22,8 @@ namespace _Scripts.QuestSystem
         [SerializeField] private string customParam = "param not implemented for this step"; //For Quest Step logic to handle
         [SerializeField] private bool isFailedParam = false; //For Quest Step logic to handle
 
-
-        [Header("Trigger Appear Conditions")] [SerializeField]
+        //todo add ignore enable condition for trigger object be enabled all time 
+        [Header("Trigger Enable Conditions")] [SerializeField]
         public string locationName;
         public string placeName;
         //time
@@ -32,6 +32,8 @@ namespace _Scripts.QuestSystem
         
         [Header("Trigger parameters")]    
         [SerializeField] public bool disableAfterTrigger = true; //disabling trigger object after activation
+        
+        [Header("Dynamic variables")]   
         [SerializeField] public bool isTriggered; //handle single trigger for object. Also, spawner checks this field to prevent additional activation 
         //todo add option to multi-trigger ?
         

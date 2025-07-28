@@ -31,22 +31,23 @@ namespace _Scripts.Managers
 
         private void OnEnable()
         {
-            EventManager.Instance.InputEvents.OnHotkeysActiveChanged += SetHotkeysActive;
-            EventManager.Instance.InputEvents.OnSubmitActiveChange += SetSubmitActive;
-            EventManager.Instance.InputEvents.OnSpaceActiveChanged += SetSpaceActive;
-            EventManager.Instance.InputEvents.OnInputActiveChanged += SetInputActive;
+            EventManager.Instance.InputEvents.OnSetHotkeysActive += SetHotkeysActive;
+            EventManager.Instance.InputEvents.OnSetSubmitActive += SetSubmitActive;
+            EventManager.Instance.InputEvents.OnSetSpaceActive += SetSpaceActive;
+            EventManager.Instance.InputEvents.OnSetInputActive += SetInputActive;
         }
         private void OnDisable()
         {
-            EventManager.Instance.InputEvents.OnHotkeysActiveChanged -= SetHotkeysActive;
-            EventManager.Instance.InputEvents.OnSubmitActiveChange -= SetSubmitActive;
-            EventManager.Instance.InputEvents.OnSpaceActiveChanged -= SetSpaceActive;
-            EventManager.Instance.InputEvents.OnInputActiveChanged -= SetInputActive;
+            EventManager.Instance.InputEvents.OnSetHotkeysActive -= SetHotkeysActive;
+            EventManager.Instance.InputEvents.OnSetSubmitActive -= SetSubmitActive;
+            EventManager.Instance.InputEvents.OnSetSpaceActive -= SetSpaceActive;
+            EventManager.Instance.InputEvents.OnSetInputActive -= SetInputActive;
         }
 
         private void SetHotkeysActive(bool state)
         {
             _isHotkeysActive = state;
+            //Debug.Log($"set hotkeys active {state}");
         }
 
         private void SetSubmitActive(bool state)

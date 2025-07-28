@@ -353,22 +353,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d42e49bc4fb078646bf10c77b67739b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1121511032422233903}
-        m_TargetAssemblyTypeName: _Scripts.Components.TransitionComponents.NovelViewSetPlaceAndLocationToTransitionComponent,
-          Assembly-CSharp
-        m_MethodName: SelectPlace
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &2837422772842283688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -497,22 +481,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d42e49bc4fb078646bf10c77b67739b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3347578166018362923}
-        m_TargetAssemblyTypeName: _Scripts.Components.TransitionComponents.NovelViewSetPlaceAndLocationToTransitionComponent,
-          Assembly-CSharp
-        m_MethodName: SelectPlace
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &3347578166018362923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -627,22 +595,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d42e49bc4fb078646bf10c77b67739b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1396353452854328516}
-        m_TargetAssemblyTypeName: _Scripts.Components.TransitionComponents.NovelViewSetPlaceAndLocationToTransitionComponent,
-          Assembly-CSharp
-        m_MethodName: SelectPlace
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1396353452854328516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -718,7 +670,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 3ffc509c51489fa4d9f6d4d58f0bc2aa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -738,7 +690,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: -793972863706645488, guid: b8ef004a50873e343b8ee5ce3ba30ff4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -762,8 +714,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99135e8dbe6b78b4b981e13cd4da81f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  placeName: 
-  placeStateSprites:
+  currentPlaceName: 
+  defaultStateSprites:
   - {fileID: -793972863706645488, guid: b8ef004a50873e343b8ee5ce3ba30ff4, type: 3}
   - {fileID: -5971899793274706039, guid: 7139fa7c9008d664db90bae7065a71f2, type: 3}
   - {fileID: -6806978223551211064, guid: f1710668ffcb3c64bbfe963a919ab5af, type: 3}
@@ -968,22 +920,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d42e49bc4fb078646bf10c77b67739b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6019014573721332422}
-        m_TargetAssemblyTypeName: _Scripts.Components.TransitionComponents.NovelViewSetPlaceAndLocationToTransitionComponent,
-          Assembly-CSharp
-        m_MethodName: SelectPlace
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &6019014573721332422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1198,22 +1134,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d42e49bc4fb078646bf10c77b67739b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5673557408092465870}
-        m_TargetAssemblyTypeName: _Scripts.Components.TransitionComponents.NovelViewSetPlaceAndLocationToTransitionComponent,
-          Assembly-CSharp
-        m_MethodName: SelectPlace
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &5673557408092465870
 MonoBehaviour:
   m_ObjectHideFlags: 0

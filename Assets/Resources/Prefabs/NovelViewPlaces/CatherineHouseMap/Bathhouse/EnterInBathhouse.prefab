@@ -332,7 +332,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scene: 3
-  _locationName: Bathhouse
+  locationName: Bathhouse
 --- !u!114 &8352961515380555149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -571,7 +571,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 3ffc509c51489fa4d9f6d4d58f0bc2aa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -591,7 +591,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 1818955929764396760, guid: af4d06d2a8922a449af464b232b54e49, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -615,8 +615,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99135e8dbe6b78b4b981e13cd4da81f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  placeName: 
-  placeStateSprites:
+  currentPlaceName: 
+  defaultStateSprites:
   - {fileID: -7040924606235293479, guid: 81d3133d9a452ab469e70a03647cae86, type: 3}
   - {fileID: 1818955929764396760, guid: af4d06d2a8922a449af464b232b54e49, type: 3}
   - {fileID: -2392380573581572247, guid: 495618ede1dba8a428c7a85dabee2103, type: 3}

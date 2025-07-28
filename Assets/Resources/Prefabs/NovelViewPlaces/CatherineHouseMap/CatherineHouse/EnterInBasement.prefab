@@ -386,7 +386,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scene: 3
-  _locationName: CatherineHouse
+  locationName: CatherineHouse
 --- !u!114 &969509355280277421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -458,7 +458,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 3ffc509c51489fa4d9f6d4d58f0bc2aa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -478,7 +478,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: -9081958586860200148, guid: ae6343693176dfe48b9833a7887de8ad, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -502,8 +502,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99135e8dbe6b78b4b981e13cd4da81f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  placeName: 
-  placeStateSprites:
+  currentPlaceName: 
+  defaultStateSprites:
   - {fileID: -9081958586860200148, guid: ae6343693176dfe48b9833a7887de8ad, type: 3}
   - {fileID: 8143539896818451227, guid: caedc841be8795643ab8e54a7c7da739, type: 3}
   - {fileID: -2863215353954390557, guid: 5fa13737702f29141ae8130456ac1704, type: 3}

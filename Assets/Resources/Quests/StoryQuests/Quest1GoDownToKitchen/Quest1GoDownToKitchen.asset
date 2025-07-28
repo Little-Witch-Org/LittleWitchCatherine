@@ -20,6 +20,7 @@ MonoBehaviour:
     \u0412\u043E\u0437\u043C\u043E\u0436\u043D\u043E \u0441\u0442\u043E\u0438\u0442
     \u0432\u044B\u0431\u0440\u0430\u0442\u044C \u0432 \u0447\u0451\u043C \u0438\u0434\u0442\u0438
     ?"
+  isQuestVisible: 1
   isQuestAvailable: 1
   questPrerequisites: []
   questStepPrefabs:

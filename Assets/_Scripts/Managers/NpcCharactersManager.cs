@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using _Scripts.Characters.NPC;
 using _Scripts.Dialog_Ink;
 using UnityEngine;
@@ -10,7 +12,7 @@ namespace _Scripts.Managers
     /// <summary>
     /// Script contains all npc characters (for novel view now).
     /// Enables and disables npc (body) according to conditions (place/time etc) using events
-    /// todo add place changer for npc (npc script must contain change place logic - time etc) appear/disappear from screen using events
+    /// NPC move methods.
     /// </summary>
     public class NpcCharactersManager : MonoBehaviour
     {
@@ -18,7 +20,9 @@ namespace _Scripts.Managers
         
         [SerializeField] private List<GameObject> npcCharacterPrefabs;
         [SerializeField] private GameObject npcCharactersContainer;
-        private List<GameObject>  _npcCharacters = new List<GameObject>();
+        private List<GameObject>  _npcCharacters = new ();
+
+        private Coroutine _autoStartDialogueCoroutine;
 
         private void Awake()
         {
@@ -40,6 +44,11 @@ namespace _Scripts.Managers
             EventManager.Instance.DialogueEvents.OnStartDialogueWithNpc += StartDialogueWithCurrentNpc;
             
             EventManager.Instance.GameEvents.OnStoryModActivated += DisableTestNPCs;
+            
+            EventManager.Instance.NpcEvents.OnSetNpcIgnoredStatus +=SetNpcIgnoredPositionStatus;
+            EventManager.Instance.NpcEvents.OnMoveNpc +=MoveNpc;
+
+            EventManager.Instance.NpcEvents.OnDeleteNpc += DeleteNpcCharacter;
         }
         
         private void OnDisable()
@@ -48,6 +57,17 @@ namespace _Scripts.Managers
             EventManager.Instance.DialogueEvents.OnStartDialogueWithNpc -= StartDialogueWithCurrentNpc;
             
             EventManager.Instance.GameEvents.OnStoryModActivated -= DisableTestNPCs;
+            
+            EventManager.Instance.NpcEvents.OnSetNpcIgnoredStatus -=SetNpcIgnoredPositionStatus;
+            EventManager.Instance.NpcEvents.OnMoveNpc -=MoveNpc;
+            
+            EventManager.Instance.NpcEvents.OnDeleteNpc -= DeleteNpcCharacter;
+
+            
+            if (_autoStartDialogueCoroutine != null)
+            {
+                StopCoroutine(_autoStartDialogueCoroutine);
+            }
         }
         
 
@@ -67,8 +87,8 @@ namespace _Scripts.Managers
         {
             
             //OnScreen - current location manager location (char might be in another place)
-            var currentOnScreenLocation = TransitionManager.Instance.GetCurrentLocation();
-            var currentOnScreenPlace = TransitionManager.Instance.GetCurrentPlace();
+            //var currentOnScreenLocation = TransitionManager.Instance.GetCurrentLocation();
+            //var currentOnScreenPlace = TransitionManager.Instance.GetCurrentPlace();
 
             
             //check all Npc's
@@ -80,34 +100,40 @@ namespace _Scripts.Managers
                 //Debug.Log(npcObject.GetComponent<NpcCharAbstract>().GetCurrentLocationName());
                 //Debug.Log(npcObject.GetComponent<NpcCharAbstract>().GetCurrentPlaceName());
                 
-                //enable/disable npc according to scene state
-                if (npcLocation.Equals(currentOnScreenLocation) &&
-                    npcPlace.Equals(currentOnScreenPlace))
+                //enable/disable npc body according to scene state (and if isPositionIgnored = false)
+                if (npcLocation.Equals(location) &&
+                    npcPlace.Equals(place) && !npcObject.GetComponent<NpcCharAbstract>().GetPositionIgnored())
                 {
                     
                     //Debug.LogFormat("Npc character \"{0}\"enabled",npcObject.GetComponent<NpcCharAbstract>().GetNpcName());
-                    EnableNpc(npcObject);
+                    EnableNpcBody(npcObject);
                     
-                    //activate dialogue if autoactivation is enabled
-                    CheckAutostartDialogueAndActivate(npcObject);
                 }
                 else
                 {
-                    if (npcObject.GetComponent<NpcCharAbstract>().IsNpcActive())
+                    if (npcObject.GetComponent<NpcCharAbstract>().GetNpcBodyIsActive())
                     {
                         //Debug.LogFormat("Npc character \"{0}\"disabled",npcObject.GetComponent<NpcCharAbstract>().GetNpcName());
-                        DisableNpc(npcObject);
+                        DisableNpcBody(npcObject);
                     }
+                }
+
+                //activate dialogue if auto activate option is true and player in current location/place
+                if (npcLocation.Equals(location) &&
+                    npcPlace.Equals(place))
+                {
+                    //activate dialogue if auto dialogue activation is enabled
+                    _autoStartDialogueCoroutine= StartCoroutine(CheckAutostartDialogueAndActivateDelayed(npcObject));
                 }
             }
         }
 
-        private void EnableNpc(GameObject npcObject)
+        private void EnableNpcBody(GameObject npcObject)
         {
             npcObject.GetComponent<NpcCharAbstract>().EnableBody();
         }
 
-        private void DisableNpc(GameObject npcObject)
+        private void DisableNpcBody(GameObject npcObject)
         {
             npcObject.GetComponent<NpcCharAbstract>().DisableBody();
         }
@@ -161,11 +187,15 @@ namespace _Scripts.Managers
 
         }
 
-        private void CheckAutostartDialogueAndActivate(GameObject npcObject)
+        private IEnumerator CheckAutostartDialogueAndActivateDelayed(GameObject npcObject)
         {
+            //get place change fade (out) animation duration
+            var duration = TransitionManager.Instance.GetPlaceFadeDuration();
+            
             var dialogueComponent = npcObject.GetComponent<StandaloneDialogueComponent>();
             if (dialogueComponent.IsAutoActivationEnabled())
             {
+                yield return new WaitForSeconds(duration+0.1f);//(+0.1) handles race condition with "enable hotkeys" after transition
                 dialogueComponent.StartDialogue(false);
             }
         }
@@ -173,5 +203,69 @@ namespace _Scripts.Managers
         public List<GameObject> GetNpcCharacters(){
             return _npcCharacters;
         }
+
+        //using linq
+        private void SetNpcIgnoredPositionStatus(string npcName, bool status)
+        {
+            GetNpcCharacters()
+                .Select(npc => npc.GetComponent<NpcCharAbstract>())
+                .FirstOrDefault(npc => npc != null && npc.GetNpcName() == npcName)?
+                .SetPositionIgnored(status);
+            
+            //if invokes in current location
+            var currentOnScreenLocation = TransitionManager.Instance.GetCurrentLocation();
+            var currentOnScreenPlace = TransitionManager.Instance.GetCurrentPlace();
+            CheckSpawnConditions(currentOnScreenLocation, currentOnScreenPlace);
+        }
+
+        //using foreach
+        /*private void SetNpcIgnoredPositionStatus(string npcName, bool status)
+        {
+            foreach (var npc in GetNpcCharacters())
+            {
+                var npcChar = npc.GetComponent<NpcCharAbstract>();
+                if (npcChar != null && npcChar.GetNpcName() == npcName)
+                {
+                    npcChar.SetPositionIgnored(status);
+                    return;  // Выходим после нахождения нужного NPC
+                }
+            }
+        }*/
+
+        public void DeleteNpcCharacter(String npcName)
+        {
+            var npcGo = _npcCharacters.Find(n => n.GetComponent<NpcCharAbstract>().GetNpcName().Equals(npcName));
+            if (npcGo != null)
+            {
+                _npcCharacters.Remove(npcGo);
+                Destroy(npcGo);
+            }
+            else
+            {
+                Debug.LogError($"NPC character {npcName} not found. Cant delete this character.");
+            }
+        }
+
+        //sets new place and location for npc and update spawning
+        public void MoveNpc(string npcName, string location, string place)
+        {
+            var npc = GetNpcCharacters()
+                .Select(npc => npc.GetComponent<NpcCharAbstract>())
+                .FirstOrDefault(npc => npc != null && npc.GetNpcName() == npcName);
+
+            if (npc == null)
+            {
+                Debug.LogError($"NPC character {npcName} not found. Cant move this character.");
+                return;
+            }
+            
+            npc.SetLocationAndPlace(location, place);
+            
+            //if invokes in current location
+            var currentOnScreenLocation = TransitionManager.Instance.GetCurrentLocation();
+            var currentOnScreenPlace = TransitionManager.Instance.GetCurrentPlace();
+            CheckSpawnConditions(currentOnScreenLocation, currentOnScreenPlace);
+        }
+
     }
 }

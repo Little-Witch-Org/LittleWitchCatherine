@@ -1,5 +1,6 @@
 ﻿using System;
 using _Scripts.Enums;
+using UnityEngine;
 
 namespace _Scripts.Events
 {
@@ -22,27 +23,28 @@ namespace _Scripts.Events
 
         
         //Block inputs
-        public event Action<bool> OnHotkeysActiveChanged;
+        public event Action<bool> OnSetHotkeysActive;
         public void SetHotkeysActive(bool toggle) 
         {
-            OnHotkeysActiveChanged?.Invoke(toggle);
+            //Debug.Log($"Hotkeys isActive = {toggle}");
+            OnSetHotkeysActive?.Invoke(toggle);
         }
         
-        public event Action<bool> OnSubmitActiveChange;
+        public event Action<bool> OnSetSubmitActive;
         public void SetSubmitActive(bool toggle) 
         {
-            OnSubmitActiveChange?.Invoke(toggle);
+            OnSetSubmitActive?.Invoke(toggle);
         }
-        public event Action<bool> OnSpaceActiveChanged;
+        public event Action<bool> OnSetSpaceActive;
         public void SetSpaceActive(bool toggle) 
         {
-            OnSpaceActiveChanged?.Invoke(toggle);
+            OnSetSpaceActive?.Invoke(toggle);
         }
         
-        public event Action<bool> OnInputActiveChanged;
+        public event Action<bool> OnSetInputActive;
         public void SetInputActive(bool toggle) 
         {
-            OnInputActiveChanged?.Invoke(toggle);
+            OnSetInputActive?.Invoke(toggle);
         }
         
         
@@ -97,6 +99,12 @@ namespace _Scripts.Events
         public void StorageInventoryPressed() 
         {
             OnStorageInventoryPressed?.Invoke();
+        }
+        
+        public event Action OnStorageUnderStairsInventoryPressed;
+        public void StorageUnderStairsInventoryPressed() 
+        {
+            OnStorageUnderStairsInventoryPressed?.Invoke();
         }
         
         

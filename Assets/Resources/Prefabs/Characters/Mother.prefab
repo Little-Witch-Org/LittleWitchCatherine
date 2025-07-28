@@ -47,11 +47,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   npcName: Mother
+  npcBody: {fileID: 8052998939026669753}
   currentLocationName: CatherineHouse
   currentPlaceName: Kitchen
-  npcBody: {fileID: 8052998939026669753}
   maxReputation: 0
   currentReputation: 0
+  isPositionIgnored: 0
 --- !u!114 &1026683554588651329
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,14 +66,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentActualStoryName: Mother_StoryMain
-  currentActualDialogueKnotName: 
   dialogueKnotNames:
   - Mother_Dialogue1
   - Mother_Dialogue2
   - Mother_Dialogue3
   - Mother_Dialogue4
-  currentNpcName: 
+  - Mother_Dialogue5
+  customDialogueKnotNames: []
   isDialogueAutoActivationEnabled: 0
+  isUsingOriginalStoryFile: 1
+  currentActualDialogueKnotName: 
+  currentCustomDialogueKnotName: 
+  currentNpcName: 
 --- !u!1 &8052998939026669753
 GameObject:
   m_ObjectHideFlags: 0
@@ -233,3 +238,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf50d441da9b49858e3791143eb75657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  npcName: 
+  customDialogueKnot: 
+  isUsingCustomDialogue: 0

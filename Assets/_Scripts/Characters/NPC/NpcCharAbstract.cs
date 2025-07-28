@@ -19,14 +19,24 @@ namespace _Scripts.Characters.NPC
         //start point of dialogues and quests. Click on npc  (or trigger inner dialogue) -> open actual dialogue from component -> start quest if it actual (quest point must subscribe?)
 
         [SerializeField] protected string npcName;
-        [SerializeField] protected string currentLocationName;
-        [SerializeField] protected string currentPlaceName;
+        
 
         [SerializeField] protected GameObject npcBody;
         
+       
+
+        [Header("Dynamic variables")]
+        [Header("Position (location\\place)")]
+        [SerializeField] protected string currentLocationName;
+        [SerializeField] protected string currentPlaceName;
+        
+        [Header("Reputation")]
         [SerializeField] protected float maxReputation;
         [SerializeField] protected float currentReputation;
 
+        [Header("Misc")]
+        [SerializeField] protected bool isPositionIgnored;//body will not appear without position
+        
         private void Start()
         {
             maxReputation = 100;
@@ -37,11 +47,13 @@ namespace _Scripts.Characters.NPC
         private void OnEnable()
         {
             EventManager.Instance.ReputationEvents.OnUpdateReputation += UpdateReputation;
+            EventManager.Instance.ReputationEvents.OnSetReputation += SetReputation;
         }
         
         private void OnDisable()
         {
             EventManager.Instance.ReputationEvents.OnUpdateReputation -= UpdateReputation;
+            EventManager.Instance.ReputationEvents.OnSetReputation -= SetReputation;
         }
 
         public string GetNpcName()
@@ -59,6 +71,12 @@ namespace _Scripts.Characters.NPC
             return currentPlaceName;
         }
 
+        public void SetLocationAndPlace(string locationName, string placeName)
+        {
+            currentLocationName = locationName;
+            currentPlaceName = placeName;
+        }
+
         public void EnableBody()
         {
             npcBody.SetActive(true);
@@ -69,12 +87,32 @@ namespace _Scripts.Characters.NPC
             npcBody.SetActive(false);
         }
 
-        public bool IsNpcActive()
+        public bool GetNpcBodyIsActive()
         {
             return npcBody.activeSelf;
         }
         
-        //rep
+        public bool GetPositionIgnored()
+        {
+            return isPositionIgnored;
+        }
+        
+        public void SetPositionIgnored(bool value)
+        {
+            isPositionIgnored = value;
+        }
+        
+        //--------REPUTATION--------
+        private void SetReputation(string npc, float reputation)
+        {
+            if (npcName.Equals(npc))
+            {
+                currentReputation = Math.Clamp(reputation, 0, maxReputation);
+                Debug.Log($"Reputation for {npc} set -> {reputation}.");
+                EventManager.Instance.ReputationEvents.ReputationChanged(npcName,currentReputation);
+            }
+        }
+        
         private void UpdateReputation(string npc, float reputation)
         {
             if (npcName.Equals(npc))
@@ -84,8 +122,6 @@ namespace _Scripts.Characters.NPC
                 Debug.Log($"Reputation for {npc} updated {startReputation} -> {currentReputation} ({reputation}).");
                 EventManager.Instance.ReputationEvents.ReputationChanged(npcName,currentReputation);
             }
-            
-            
         }
     }
 }

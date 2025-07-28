@@ -994,7 +994,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 3ffc509c51489fa4d9f6d4d58f0bc2aa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1014,7 +1014,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 4122368939242026475, guid: 046a6c3118aa8ee49867344f00b61e5f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1038,8 +1038,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99135e8dbe6b78b4b981e13cd4da81f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  placeName: 
-  placeStateSprites:
+  currentPlaceName: 
+  defaultStateSprites:
   - {fileID: 4122368939242026475, guid: 046a6c3118aa8ee49867344f00b61e5f, type: 3}
   - {fileID: -1513337470438484083, guid: 48019e56801b1994a8f2b40c0486008e, type: 3}
   - {fileID: 170545468854105644, guid: 65df0b9343af59245ad24b615f52f9b5, type: 3}
@@ -1059,7 +1059,14 @@ MonoBehaviour:
   customStates:
   - placeStateString: Custom1_Morning
     customPlaceStateSprite: {fileID: -616578124913644144, guid: b4d0098133c5e6c48813103a42f3739d, type: 3}
-  placeSpriteRenderer: {fileID: 0}
+  - placeStateString: BrokenDoor_Morning
+    customPlaceStateSprite: {fileID: 5560494400516212942, guid: db5abe882dba63f4fb5ce52214e19e7c, type: 3}
+  - placeStateString: BrokenDoor_Afternoon
+    customPlaceStateSprite: {fileID: 218561287196049233, guid: 2a55cc97aec872047b22b92cd0af3aed, type: 3}
+  - placeStateString: BrokenDoor_Evening
+    customPlaceStateSprite: {fileID: 3173230040963394923, guid: 987f0a8e2207f3e4b9ad6e8094761a25, type: 3}
+  - placeStateString: BrokenDoor_Night
+    customPlaceStateSprite: {fileID: -4273230449901634477, guid: bd844a23928b8f74ebd3db4eafe8944b, type: 3}
 --- !u!1 &7299240430955962556
 GameObject:
   m_ObjectHideFlags: 0

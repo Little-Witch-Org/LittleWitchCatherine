@@ -3,12 +3,39 @@
 namespace _Scripts.Events
 {
     /// <summary>
-    /// {1} Update {1} -> {2} OnUpdate / Changed {2} -> {3} OnChanged {3} //todo change other events using this style
+    /// {1} Update {1} -> {2} OnUpdate / Changed {2} -> {3} OnChanged {3} //todo change other events using this style (use set (set is current value - like true/false. Update like add + or -)
     /// </summary>
     public class PlayerStatsEvents
     {
+        //---set stat (sets current value)
         
-        //---update stat
+        public event Action<float> OnSetHealth;
+        public void SetHealth(float health) 
+        {
+            OnSetHealth?.Invoke(health);
+        }
+        
+        public event Action<float> OnSetSatiety;
+        public void SetSatiety(float Satiety) 
+        {
+            OnSetSatiety?.Invoke(Satiety);
+        }
+        
+        
+        public event Action<float> OnSetMood;
+        public void SetMood(float mood) 
+        {
+            OnSetMood?.Invoke(mood);
+        }
+        
+        public event Action<float> OnSetEnergy;
+        public void SetEnergy(float energy) 
+        {
+            OnSetEnergy?.Invoke(energy);
+        }
+        
+        
+        //---update stat (add (+ or -) value to current stat)
         public event Action<float> OnHealthUpdate;
         public void UpdateHealth(float health) 
         {
@@ -60,6 +87,7 @@ namespace _Scripts.Events
         {
             OnEnergyChanged?.Invoke(currentEnergy);
         }
+        
         
         //rate
         public event Action<float,float,float,float> OnStatsChangeRateChanged;

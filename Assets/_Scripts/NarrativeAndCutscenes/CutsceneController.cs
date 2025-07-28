@@ -66,7 +66,7 @@ namespace _Scripts.NarrativeAndCutscenes
         
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
+            /*if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 Debug.Log("1");
                 LaunchCutscene("TableTimeSkipCutscene10");
@@ -109,7 +109,7 @@ namespace _Scripts.NarrativeAndCutscenes
             {
                 LaunchIntroCutscene();
                 Debug.Log("k0");
-            }*/
+            }#1#
             
             if (Input.GetKeyDown(KeyCode.Keypad7))
             {
@@ -156,7 +156,7 @@ namespace _Scripts.NarrativeAndCutscenes
             {
                 EventManager.Instance.DialogueEvents.SetDialogueAutoActivation("Mother", true);
                 Debug.Log("auto activate mother dialogue");
-            }
+            }*/
         }
         
         

@@ -15,7 +15,7 @@ namespace _Scripts.Managers
 {
     
     /// <summary>
-    /// Stores locations and places. Manage their conditions.
+    /// Stores locations and places. Manage their conditions. todo add location debug logger
     /// </summary>
     public class LocationManager : MonoBehaviour
     {   
@@ -92,7 +92,9 @@ namespace _Scripts.Managers
             EventManager.Instance.LocationsAndPlacesEvents.OnGetPlaceState += GetPlaceState;
             EventManager.Instance.LocationsAndPlacesEvents.OnSetPlaceState += SetPlaceState;
             EventManager.Instance.LocationsAndPlacesEvents.OnSetPlaceStateAndApply += SetPlaceStateAndApply;
-            
+            EventManager.Instance.LocationsAndPlacesEvents.OnSetPlaceStateAndApplyWithFade +=
+                SetPlaceStateAndApplyWithFade;
+
         }
 
         private void OnDisable()
@@ -107,6 +109,8 @@ namespace _Scripts.Managers
             EventManager.Instance.LocationsAndPlacesEvents.OnGetPlaceState -= GetPlaceState;
             EventManager.Instance.LocationsAndPlacesEvents.OnSetPlaceState -= SetPlaceState;
             EventManager.Instance.LocationsAndPlacesEvents.OnSetPlaceStateAndApply -= SetPlaceStateAndApply;
+            EventManager.Instance.LocationsAndPlacesEvents.OnSetPlaceStateAndApplyWithFade -=
+                SetPlaceStateAndApplyWithFade;
         }
 
         /*public string GetCurrentLocation()
@@ -229,10 +233,16 @@ namespace _Scripts.Managers
             return place.GetPlaceState();
         }
 
-        public void SetPlaceStateAndApply(string placeName, Enum state) //sets state to Place class and changes sprite in component
+        public void SetPlaceStateAndApply(string placeName, Enum state) //sets state to Place class and changes sprite (custom or default) in component
         {
             SetPlaceState(placeName, state);
-            EventManager.Instance.LocationsAndPlacesEvents.UpdatePlaceStateSprite(placeName);
+            EventManager.Instance.LocationsAndPlacesEvents.UpdatePlaceStateSprite(placeName,false);
+        }
+        
+        public void SetPlaceStateAndApplyWithFade(string placeName, Enum state) //sets state to Place class and changes sprite (custom or default) in component using fade effect
+        {
+            SetPlaceState(placeName, state);
+            EventManager.Instance.LocationsAndPlacesEvents.UpdatePlaceStateSprite(placeName,true);
         }
         
         
@@ -242,7 +252,7 @@ namespace _Scripts.Managers
         
         //........................................
 
-        private void Execute1()
+        /*private void Execute1()
         {
             SetPlaceState("FFCorridor", FFCorridor.PlaceStateEnum.Custom1);
             
@@ -258,18 +268,26 @@ namespace _Scripts.Managers
         {
             if (Input.GetKeyDown(KeyCode.V))
             {
-                Execute1();
+                EventManager.Instance.TimeEvents.AddHours(6);
+                EventManager.Instance.LocationsAndPlacesEvents.UpdatePlaceStateSprite("FFCorridor",false);
             }
 
             if (Input.GetKeyDown(KeyCode.B))
             {
-                Execute2();
+                EventManager.Instance.TimeEvents.AddHours(6);
+                EventManager.Instance.LocationsAndPlacesEvents.UpdatePlaceStateSprite("FFCorridor",true);
             }
             
             if (Input.GetKeyDown(KeyCode.N))
             {
                 SetPlaceStateAndApply("FFCorridor", FFCorridor.PlaceStateEnum.Custom1);
             }
-        }
+            
+            if (Input.GetKeyDown(KeyCode.M))
+            {
+                SetPlaceStateAndApplyWithFade("FFCorridor", FFCorridor.PlaceStateEnum.Custom1);
+            }
+        }*/
+        
     }
 }

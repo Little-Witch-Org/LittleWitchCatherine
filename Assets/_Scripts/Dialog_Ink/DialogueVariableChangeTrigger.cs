@@ -16,7 +16,7 @@ namespace _Scripts.Dialog_Ink
 
         public void UpdateStoryVariable()
         {
-            EventManager.Instance.DialogueEvents.UpdateInkDialogueVariable(storyName, variableName, new StringValue(variableValue));
+            EventManager.Instance.DialogueEvents.UpdateInkDialogueVariable(storyName, variableName, variableValue);
             Debug.Log("story var updated");
         }
     }

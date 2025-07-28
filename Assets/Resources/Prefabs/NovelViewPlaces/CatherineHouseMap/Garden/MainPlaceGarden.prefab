@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scene: 3
-  _locationName: Garden
+  locationName: Garden
 --- !u!114 &8352961515380555149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,7 +237,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 3ffc509c51489fa4d9f6d4d58f0bc2aa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -257,7 +257,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: -254772519032979966, guid: 00a20fd5d1b8bd6449d5d8614acad8c4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -281,8 +281,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99135e8dbe6b78b4b981e13cd4da81f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  placeName: 
-  placeStateSprites:
+  currentPlaceName: 
+  defaultStateSprites:
   - {fileID: -1531061510568825769, guid: 1d14b5727450a794ab47380c31c8e839, type: 3}
   - {fileID: -254772519032979966, guid: 00a20fd5d1b8bd6449d5d8614acad8c4, type: 3}
   - {fileID: 5110536759353925941, guid: 58f552aad0c4a7a408dc3061fea2e3d7, type: 3}

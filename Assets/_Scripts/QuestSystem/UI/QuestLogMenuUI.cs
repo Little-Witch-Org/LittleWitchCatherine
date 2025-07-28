@@ -19,35 +19,34 @@ namespace _Scripts.QuestSystem.UI
         [SerializeField] private QuestLogScrollingList scrollingList;
         [SerializeField] private TMP_Text questDisplayNameText;
 
-        [SerializeField]
-        private TMP_Text questStatusText; // print previous and current quest step statuses + quest status
+        [SerializeField] private TMP_Text questStepsData; // print previous and current quest step objectives / progress
 
         [SerializeField] private TMP_Text rewardText;
 
         //[SerializeField] private TMP_Text levelRequirementsText;
         [SerializeField] private TMP_Text questRequirementsText;
-        [SerializeField] private TMP_Text questStateText;
+        [SerializeField] private TMP_Text questState;
 
         [SerializeField] private Button questLogButton;
 
         private Button _firstSelectedButton;
-
+        
         private void OnEnable()
         {
-            EventManager.Instance.QuestEvents.OnQuestStateChange += QuestStateChange;
+            EventManager.Instance.QuestEvents.OnQuestStateChanged += QuestStateChanged;
 
-            EventManager.Instance.QuestEvents.OnQuestStateChange += HighlightQuestButton;
+            EventManager.Instance.QuestEvents.OnQuestStateChanged += HighlightQuestButton;
             
-            EventManager.Instance.GameEvents.OnCheckpointActivated += DisableDevQuests;
+            //EventManager.Instance.GameEvents.OnStoryModActivated += SetupQuestsForStoryMode;
         }
 
         private void OnDisable()
         {
-            EventManager.Instance.QuestEvents.OnQuestStateChange -= QuestStateChange;
+            EventManager.Instance.QuestEvents.OnQuestStateChanged -= QuestStateChanged;
 
-            EventManager.Instance.QuestEvents.OnQuestStateChange -= HighlightQuestButton;
+            EventManager.Instance.QuestEvents.OnQuestStateChanged -= HighlightQuestButton;
             
-            EventManager.Instance.GameEvents.OnCheckpointActivated -= DisableDevQuests;
+            //EventManager.Instance.GameEvents.OnStoryModActivated -= SetupQuestsForStoryMode;
         }
         
 
@@ -55,17 +54,15 @@ namespace _Scripts.QuestSystem.UI
         public void ShowMenu()
         {
             contentParent.SetActive(true);
-            //GameEventsManager_Test.Instance.playerEvents.DisablePlayerMovement();
-            // note - this needs to happen after the content parent is set active,
-            // or else the onSelectAction won't work as expected
-            if (_firstSelectedButton != null)
-            {
-                //Debug.Log(_firstSelectedButton.gameObject.GetComponent<QuestLogButton>().GetButtonText());
-                _firstSelectedButton.Select(); //todo to disable?
-            }
+            
+            EventManager.Instance.QuestEvents.UpdateQuestVisibilityInUI();
+            
+            scrollingList.SelectFirstActiveButton();
 
             //ColorUtility.TryParseHtmlString("#6F2502", out var customColor); //reset highlighted color to default
             questLogButton.image.color = Color.white;
+            
+            //select first active quest
         }
 
         public void HideMenu()
@@ -76,21 +73,21 @@ namespace _Scripts.QuestSystem.UI
         }
 
         //change button color according to quest state.
-        private void QuestStateChange(Quest quest)
+        private void QuestStateChanged(Quest quest)
         {
             // add the button to the scrolling list if not already added
-            QuestLogButton questLogButton =
+            QuestLogButton button =
                 scrollingList.CreateButtonIfNotExist(quest, () => { SetQuestLogInfo(quest); });
 
             // initialize the first selected button if not already so that it's
             // always the top button
-            if (_firstSelectedButton == null)
-            {
-                _firstSelectedButton = questLogButton.button;
-            }
+            //if (_firstSelectedButton == null)
+            //{
+            //    _firstSelectedButton = questLogButton.button;
+            //}
 
             // set the button color based on quest stateEnum
-            questLogButton.SetState(quest.StateEnum);
+            button.SetState(quest.StateEnum);
 
         }
 
@@ -100,7 +97,7 @@ namespace _Scripts.QuestSystem.UI
             questDisplayNameText.text = quest.InfoSo.displayDescription;
 
             // status
-            questStatusText.text = quest.GetFullStatusText();
+            questStepsData.text = quest.GetFullStepsData();
 
             // requirements
             //levelRequirementsText.text = "Is quest available = " + quest.InfoSo.isQuestAvailable;
@@ -114,7 +111,7 @@ namespace _Scripts.QuestSystem.UI
             rewardText.text = quest.InfoSo.reward;
 
             //set quest state text
-            questStateText.text = quest.StateEnum.ToString();
+            questState.text = quest.StateEnum.ToString();
         }
 
         private void HighlightQuestButton(Quest quest)
@@ -123,17 +120,18 @@ namespace _Scripts.QuestSystem.UI
             //questLogButton.image.DOColor(Color.yellow, 0.5f).Play();
         }
 
-        //disable all dev quests if we launch story mode
-        private void DisableDevQuests(int checkpointId)
+        /*//disable all dev quests if we launch story mode. Update quest visibility
+        private void SetupQuestsForStoryMode(bool param)
         {
             //Debug.Log("Disabling Dev Quests");
-            if (checkpointId == 1)
+            if (param)
             {
-                scrollingList.DisableDevQuestsButtons();
+                scrollingList.DisableDevQuests();
+                scrollingList.UpdateQuestsVisibilityInUI();
                 _firstSelectedButton = scrollingList.GetFirstActiveButton();
                 _firstSelectedButton.Select();
             }
-        }
+        }*/
     }
 
 

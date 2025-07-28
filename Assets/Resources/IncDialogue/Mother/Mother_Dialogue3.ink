@@ -22,15 +22,17 @@ dia_mother_3_5
 =toEat
 *[dia_mother_3_10]
     ~UpdateSatiety(5)
-    ~UpdateMood(10)
+    ~UpdateMood(10) 
     dia_mother_3_11
     -> continue_dialogue
 *[dia_mother_3_12]
     ~ randomRoll = RANDOM(1, 100)
     { randomRoll <= 60:
     dia_mother_3_13
+    ~AddItem("inventory_item_id_1_4","main")
+    ~AddItem("inventory_item_id_1_4","main")
     dia_mother_3_14 
-    -> continue_dialogue
+    -> autumnCleaning
     - else:
     dia_mother_3_15
     dia_mother_3_16
@@ -40,6 +42,8 @@ dia_mother_3_5
 =continue_dialogue
 *[dia_mother_3_17]
     ~UpdateReputation("Mother", -3)
+    ~AddItem("inventory_item_id_1_4","main")
+    ~AddItem("inventory_item_id_1_4","main")
     dia_mother_3_18
     ->autumnCleaning
 *dia_mother_3_19
@@ -70,5 +74,6 @@ dia_mother_3_38
 dia_mother_3_39
 dia_mother_3_40
 dia_mother_3_41
+dia_mother_3_42
 ~CompleteDialogueKnot(CharacterName, "Mother_Dialogue3")
 -->END

@@ -64,12 +64,18 @@ namespace _Scripts.Events
         {
             OnSetPlaceStateAndApply?.Invoke(placeName, placeState);
         }
-        
-        public event Action<string> OnUpdatePlaceStateSprite;
+        public event Action<string, Enum> OnSetPlaceStateAndApplyWithFade;
 
-        public void UpdatePlaceStateSprite(string placeName)
+        public void SetPlaceStateAndApplyWithFade(string placeName, Enum placeState)
         {
-            OnUpdatePlaceStateSprite?.Invoke(placeName);
+            OnSetPlaceStateAndApplyWithFade?.Invoke(placeName, placeState);
+        }
+        
+        public event Action<string,bool> OnUpdatePlaceStateSprite;
+
+        public void UpdatePlaceStateSprite(string placeName, bool setWithFade)
+        {
+            OnUpdatePlaceStateSprite?.Invoke(placeName,setWithFade);
         }
 
     }

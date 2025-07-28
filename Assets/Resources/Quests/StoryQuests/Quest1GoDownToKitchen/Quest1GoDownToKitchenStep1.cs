@@ -2,9 +2,8 @@
 using _Scripts.Managers;
 using _Scripts.QuestSystem;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
-namespace Resources.Quests.StoryQuests.Mother.Quest_1_GoDownToKitchen
+namespace Resources.Quests.StoryQuests.Quest1GoDownToKitchen
 {
     public class Quest1GoDownToKitchenStep1: QuestStep
     {
@@ -14,7 +13,7 @@ namespace Resources.Quests.StoryQuests.Mother.Quest_1_GoDownToKitchen
             failIfPreviousFailed = false;
             base.Start();
                 
-            ChangeValues("Зайти в гардеробную и переодеться", "Спуститься на кухню на завтрак", false);
+            ChangeStepData("Зайти в гардеробную и переодеться", "Спуститься на кухню на завтрак", false);
         }
         
         
@@ -24,7 +23,7 @@ namespace Resources.Quests.StoryQuests.Mother.Quest_1_GoDownToKitchen
             {
                 Debug.Log("DressingRoomVisited");
                 
-                ChangeValues("Я переоделась к завтраку", "Спуститься на кухню на завтрак", false);
+                ChangeStepData("<s>Зайти в гардеробную и переодеться</s>", "Спуститься на кухню на завтрак", false);
                 TimeManager.Instance.AddMinutes(15);
             }
             
@@ -32,22 +31,14 @@ namespace Resources.Quests.StoryQuests.Mother.Quest_1_GoDownToKitchen
             {
                 Debug.Log("KitchenVisited");
                 
-                ChangeValues("", "Я спустилась на кухню", false);
+                ChangeStepData("", "<s>Спуститься на кухню на завтрак</s>", false);
                 TimeManager.Instance.AddMinutes(5);
                 
-                Debug.Log("quest 1 step 1 - unlocking all places (and location exits) except way to kitchen and dressing room");
-                
-                EventManager.Instance.LocationsAndPlacesEvents.SetAllPlacesLockState("CatherineHouse", false);
-                EventManager.Instance.LocationsAndPlacesEvents.SetAllLocationsLockState(false);
-                
-                //disable auto activation dialogue with mother
-                EventManager.Instance.DialogueEvents.SetDialogueAutoActivation("Mother", false);
-                
-                FinishQuesStep();
+                FinishQuesStep(false);
             }
         }
 
-        protected override void SetQuestStepState(QuestStepValues questStepValues)
+        protected override void InitializeQuestStepData(QuestStepData questStepData)
         {
             Debug.Log("quest 1 step 1 - locking all places (and location exits) except way to kitchen and dressing room");
 
@@ -66,6 +57,29 @@ namespace Resources.Quests.StoryQuests.Mother.Quest_1_GoDownToKitchen
             
             //enable auto activation dialogue with mother
             EventManager.Instance.DialogueEvents.SetDialogueAutoActivation("Mother", true);
+            
+        }
+
+        protected override void InvokesOnFinishQuestStep(bool isFailed)
+        {
+            Debug.Log("quest 1 step 1 - unlocking all places (and location exits) except way to kitchen and dressing room");
+                
+            EventManager.Instance.LocationsAndPlacesEvents.SetAllPlacesLockState("CatherineHouse", false);
+            EventManager.Instance.LocationsAndPlacesEvents.SetAllLocationsLockState(false);
+                
+            //disable auto activation dialogue with mother
+            EventManager.Instance.DialogueEvents.SetDialogueAutoActivation("Mother", false);
+            
+            //start 2nd quest
+            EventManager.Instance.QuestEvents.StartQuest("Quest2CleanLivingroomFixClavecin");
+                
+            //make next quests visible
+            EventManager.Instance.QuestEvents.SetQuestVisibility("Quest2CleanLivingroomFixClavecin",true);
+            EventManager.Instance.QuestEvents.SetQuestVisibility("Quest3GetGreeneryFromGarden",true);
+            EventManager.Instance.QuestEvents.SetQuestVisibility("Quest4ChangeStormCrystalOnBathhouse",true);
+            EventManager.Instance.QuestEvents.SetQuestVisibility("Quest5CheckThePit",true);
+            EventManager.Instance.QuestEvents.SetQuestVisibility("Quest6CleanTheMapFromGreyMoss",true);
+            EventManager.Instance.QuestEvents.SetQuestVisibility("Quest7ComToDinnerAtSevenPM",true);
         }
     }
 }

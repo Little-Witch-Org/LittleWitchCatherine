@@ -47,9 +47,7 @@ namespace _Scripts.Dialog_Ink
         
         [Header("Current Actual Dialogues")]
         [SerializeField] protected string currentActualStoryName;
-        [SerializeField] protected string currentActualDialogueKnotName;
-        [SerializeField] protected string currentCustomDialogueKnotName;
-
+        
         [Header("Ink Include Files (for names only)")]
         [SerializeField] private List<string> dialogueKnotNames; //was protected List<Object> inkIncludeFiles - and this fng engine deletes this objects in build... replaced by strings
         [SerializeField] private List<string> customDialogueKnotNames;
@@ -58,10 +56,15 @@ namespace _Scripts.Dialog_Ink
         private Dictionary<string, bool> _customDialogueKnotStates = new Dictionary<string, bool>();
         
         [Header("Misc")]
+        [SerializeField] private bool isDialogueAutoActivationEnabled; 
+        [SerializeField] private bool isUsingOriginalStoryFile; //used to test (new) dialogues and avoid localization sequence (add and parse tables\generate localization files). !! Need to add original story file in dia manager. Knot name doesn't use localized postfix (cause original and localized stories contain the same knot names)
+        
+        [Header("Dynamic variables")]
+        [SerializeField] protected string currentActualDialogueKnotName;
+        [SerializeField] protected string currentCustomDialogueKnotName;
         [SerializeField]private string currentNpcName;
-        [SerializeField]private bool isDialogueAutoActivationEnabled;
 
-        protected virtual void Start() //change to start cause of dialogueDebug sometimes initialized after this (in awake) //todo add lazy initialization to dialogueDibug ?
+        protected void Start() //changed from awake to start cause of dialogueDebug sometimes initialized after this. //todo add lazy initialization to dialogueDibug ?
         {
             InitializeDialogueStates();
             currentNpcName = GetComponent<NpcCharAbstract>().GetNpcName();
@@ -72,7 +75,7 @@ namespace _Scripts.Dialog_Ink
         private void OnEnable()
         {
             EventManager.Instance.DialogueEvents.OnCompleteDialogueKnot += CompleteDialogueKnotInDictionary;
-            EventManager.Instance.DialogueEvents.OnSetDialogueAutoActivation += ToggleDialogueAutoActivation;
+            EventManager.Instance.DialogueEvents.OnSetDialogueAutoActivation += SetDialogueAutoActivation;
             EventManager.Instance.DialogueEvents.OnUpdateDialogueStatesFromUI += UpdateDialogueStatesFromUI;
             EventManager.Instance.DialogueEvents.OnSetCustomDialogueKnot += SetCustomDialogueKnot;
             
@@ -81,13 +84,12 @@ namespace _Scripts.Dialog_Ink
         private void OnDisable()
         {
             EventManager.Instance.DialogueEvents.OnCompleteDialogueKnot -= CompleteDialogueKnotInDictionary;
-            EventManager.Instance.DialogueEvents.OnSetDialogueAutoActivation -= ToggleDialogueAutoActivation;
+            EventManager.Instance.DialogueEvents.OnSetDialogueAutoActivation -= SetDialogueAutoActivation;
             EventManager.Instance.DialogueEvents.OnUpdateDialogueStatesFromUI -= UpdateDialogueStatesFromUI;
             EventManager.Instance.DialogueEvents.OnSetCustomDialogueKnot += SetCustomDialogueKnot;
         }
 
         //add list of knot names to dictionary
-
         private void InitializeDialogueStates()
         {
             //default dialogue knots
@@ -150,20 +152,29 @@ namespace _Scripts.Dialog_Ink
 
         private IEnumerator StartDialogueDelayed(bool isCutsceneUI)
         {
-            //Apply language setting
-            string storyNameTemp = currentActualStoryName +"_"+ LocalizationManager.Instance.GetCurrentLanguageCode();
-            
+            string storyNameTemp = "";
+            if (!isUsingOriginalStoryFile)
+            {
+                //Apply language setting
+                storyNameTemp =
+                    currentActualStoryName + "_" + LocalizationManager.Instance.GetCurrentLanguageCode();
+            }
+            else
+            {
+                storyNameTemp =
+                    currentActualStoryName;
+            }
+
             // wait for next frame
             yield return null;
-            
-            
-            EventManager.Instance.DialogueEvents.EnterDialogue(storyNameTemp, currentActualDialogueKnotName, isCutsceneUI);   
+
+
+            EventManager.Instance.DialogueEvents.EnterDialogue(storyNameTemp, currentActualDialogueKnotName,
+                isCutsceneUI);
         }
 
         //custom dialogues.
-
-        //have no queue. launches in priority if custom knot variable are not empty
-
+        //have no queue (dictionary +  "isComplete" var). Launches in priority if custom knot variable are not empty. Can be used for repeating custom dialogs.
         private IEnumerator StartCustomDialogueDelayed()
         {
             if (_customDialogueKnotStates.Count == 0)
@@ -173,8 +184,19 @@ namespace _Scripts.Dialog_Ink
             }
             
             //Apply language setting
-            string storyNameTemp = currentActualStoryName +"_"+ LocalizationManager.Instance.GetCurrentLanguageCode();
-            
+            // storyNameTemp = currentActualStoryName +"_"+ LocalizationManager.Instance.GetCurrentLanguageCode();
+            string storyNameTemp = "";
+            if (!isUsingOriginalStoryFile)
+            {
+                //Apply language setting
+                storyNameTemp =
+                    currentActualStoryName + "_" + LocalizationManager.Instance.GetCurrentLanguageCode();
+            }
+            else
+            {
+                storyNameTemp =
+                    currentActualStoryName;
+            }
             // wait for next frame
             yield return null;
             
@@ -183,15 +205,8 @@ namespace _Scripts.Dialog_Ink
             EventManager.Instance.DialogueEvents.EnterDialogue(storyNameTemp, currentCustomDialogueKnotName, false);   
         }
 
-
-        //todo сделать пропуск времени кастомными диалогами (отдельный лист и словарь) сделать так же методы завершения кастомного диалога, но без зарядки следующего. Использовать курент кастом диалог переменную.
-
-        //todo заряжать туда вручную Нужен ли словарь ? мб просто лист ? или всё таки отыгрыш если надо обозначать, если вдруг понадобится инфа об отыгранном ?
-
-        //todo add custom dialogues dictionary (and list in the component) and integrate it in system ? we can start it with priority in som circumstances (with high priority on click). Need new events and variables to save custom start dialogue state on click
-
+        
         //invokes subscribed method for this GO if we match the name for this character. Also check the knot name variable. 
-
         private void CompleteDialogueKnotInDictionary(string characterName, string knotName)
         {
             DialogDebug.Instance.Log("Invoked CompleteDialogueKnotInDictionary method for \"" + gameObject.name +
@@ -218,7 +233,6 @@ namespace _Scripts.Dialog_Ink
 
 
         //check for false "isComplete" flag for knot and set this knot as actual |knot order (must be 1,2,3..)
-
         private void SetNextCurrentDialogueKnot()
         {
             if (_dialogueKnotStates.Any(pair => !pair.Value))
@@ -243,7 +257,7 @@ namespace _Scripts.Dialog_Ink
         }
 
         //npc manager checks it and starts dialogue if this = true
-        private void ToggleDialogueAutoActivation(string npcName, bool isActive)
+        private void SetDialogueAutoActivation(string npcName, bool isActive)
         {
             if (currentNpcName.Equals(npcName))
             {
@@ -261,7 +275,7 @@ namespace _Scripts.Dialog_Ink
             return _dialogueKnotStates;
         }
 
-        private void UpdateDialogueStatesFromUI(string npcName, string dialogName, bool isChecked )
+        private void UpdateDialogueStatesFromUI(string npcName, string dialogName, bool isChecked ) //update from cheat menu
         {
             if (npcName != currentNpcName)
             {

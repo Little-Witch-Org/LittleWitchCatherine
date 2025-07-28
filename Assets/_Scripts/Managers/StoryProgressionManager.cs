@@ -43,9 +43,18 @@ namespace _Scripts.Managers
             InitializeCheckpoints();
         }
 
+        private void OnEnable()
+        {
+            EventManager.Instance.GameEvents.OnActivateCheckpoint += ActivateCheckpoint;
+        }
+        private void OnDisable()
+        {
+            EventManager.Instance.GameEvents.OnActivateCheckpoint -= ActivateCheckpoint;
+        }
 
         public void InitializeCheckpoints() {
             _checkpoints.Add(1,new Checkpoint1());
+            _checkpoints.Add(2,new Checkpoint2());
         }
 
         public void ActivateCheckpoint(int id) {
@@ -54,9 +63,6 @@ namespace _Scripts.Managers
             }
 
             _currentCheckpointID = id;
-            
-            // disable dev npc
-            // disable displaying not met quests (buttons in ui)
             EventManager.Instance.GameEvents.CheckpointActivated(_currentCheckpointID);
         }
         

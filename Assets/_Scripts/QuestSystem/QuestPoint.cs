@@ -7,7 +7,7 @@ namespace _Scripts.QuestSystem
 {
     /// <summary>
     /// Point (place/Character/Trigger) for starting or finishing quest
-    /// TODO since we use dialogue to start/finish quests. This can be used for "map scene and collider trigger of player char model". But we also can trigger dialogue =)
+    /// TODO since we use dialogue to start/finish quests. This can be used for "map scene and collider trigger of player char model". But we also can trigger dialogue =) | redundant cause we can cover all needs by dialogues\triggers
     /// </summary>
     public class QuestPoint : MonoBehaviour
     {
@@ -41,13 +41,13 @@ namespace _Scripts.QuestSystem
 
         private void OnEnable()
         {
-            EventManager.Instance.QuestEvents.OnQuestStateChange += QuestIconStateChange;
+            EventManager.Instance.QuestEvents.OnQuestStateChanged += QuestIconStateChanged;
             //EventManager.Instance.InputEvents.OnSubmitPressed += SubmitPressed;
         }
 
         private void OnDisable()
         {
-            EventManager.Instance.QuestEvents.OnQuestStateChange -= QuestIconStateChange;
+            EventManager.Instance.QuestEvents.OnQuestStateChanged -= QuestIconStateChanged;
             //EventManager.Instance.InputEvents.OnSubmitPressed -= SubmitPressed;
 
         }
@@ -98,7 +98,7 @@ namespace _Scripts.QuestSystem
 
         }
 
-        private void QuestIconStateChange(Quest quest)
+        private void QuestIconStateChanged(Quest quest)
         {
             //only update the quest state if this point has the corresponding quest
             if (quest.InfoSo.Id.Equals(questId))
@@ -127,7 +127,7 @@ namespace _Scripts.QuestSystem
         
         private void UpdateQuestStateOnStart()
         {
-            QuestIconStateChange(EventManager.Instance.QuestEvents.RequestQuestByQuestInfoSo(questInfoForPoint));
+            QuestIconStateChanged(EventManager.Instance.QuestEvents.RequestQuestByQuestInfoSo(questInfoForPoint));
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using DG.Tweening;
+﻿using _Scripts.Enums;
+using _Scripts.Managers;
+using DG.Tweening;
 using UnityEngine;
 
 namespace _Scripts.Components.Transition
@@ -27,6 +29,11 @@ namespace _Scripts.Components.Transition
 
         private void Update()
         {
+            if (!EventManager.Instance.InputEvents.GetInputEventContext().Equals(InputEventContext.Default))
+            {
+                return;
+            }
+
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 Show();

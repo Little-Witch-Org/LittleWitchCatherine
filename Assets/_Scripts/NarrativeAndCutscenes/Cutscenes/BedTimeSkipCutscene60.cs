@@ -7,18 +7,19 @@ using UnityEngine.Playables;
 
 namespace _Scripts.NarrativeAndCutscenes.Cutscenes
 {
-    public class BedTimeSkipCutscene60:AbstractCutscene
+    public class BedTimeSkipCutscene60 : AbstractCutscene
     {
 
         [SerializeField] public List<Sprite> alternativeSprites;
-        
+
         private bool _isShowOriginalSprites;
 
         private new void Awake()
         {
             base.Awake();
-            _isShowOriginalSprites  = Random.value > 0.5f;
+            _isShowOriginalSprites = Random.value > 0.5f;
         }
+
         public override void LaunchCutscene(PlayableDirector director)
         {
             base.LaunchCutscene(director);
@@ -27,7 +28,7 @@ namespace _Scripts.NarrativeAndCutscenes.Cutscenes
 
         private IEnumerator AddStatsDelayed()
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(4f);
             EventManager.Instance.TimeEvents.AddMinutes(60);
             EventManager.Instance.PlayerStatsEvents.UpdateEnergy(30);
             EventManager.Instance.PlayerStatsEvents.UpdateMood(30);
@@ -35,7 +36,16 @@ namespace _Scripts.NarrativeAndCutscenes.Cutscenes
 
         public override void DisplayNextImage()
         {
+            DisplayMethod(false);
+        }
 
+        public override void DisplayNextImageWithFade()
+        {
+            DisplayMethod(true);
+        }
+
+        private void DisplayMethod(bool useDisplayWithFade)
+        {
             List<Sprite> tempSpriteList;
 
             if (_isShowOriginalSprites)
@@ -47,39 +57,75 @@ namespace _Scripts.NarrativeAndCutscenes.Cutscenes
                 tempSpriteList = alternativeSprites;
             }
 
+            var currentPlaceSprite = EventManager.Instance.LocationsAndPlacesEvents.GetCurrentPlaceSprite();
             TimeOfDayEnum timeOfDay = LocationManager.Instance.GetLocationTimeOfDayState("CatherineRoom");
 
             switch (timeOfDay)
             {
                 case TimeOfDayEnum.Morning:
                 {
-                    EventManager.Instance.CutsceneEvents.SetCutsceneImage(tempSpriteList[0]);
-                    EventManager.Instance.CutsceneEvents.ShowCutsceneImage(false,0);
-                    EventManager.Instance.LocationsAndPlacesEvents.UpdatePlaceStateSprite("CatherineRoom");
+                    if (useDisplayWithFade)
+                    {
+                        EventManager.Instance.CutsceneEvents.SwitchImageWithFade(currentPlaceSprite, tempSpriteList[0]);
+
+                    }
+                    else
+                    {
+                        EventManager.Instance.CutsceneEvents.SetCutsceneImage(tempSpriteList[0]);
+                        EventManager.Instance.CutsceneEvents.ShowCutsceneImage(false, 0);
+                    }
+
                     break;
                 }
                 case TimeOfDayEnum.Afternoon:
                 {
-                    EventManager.Instance.CutsceneEvents.SetCutsceneImage(tempSpriteList[1]);
-                    EventManager.Instance.CutsceneEvents.ShowCutsceneImage(false,0);
-                    EventManager.Instance.LocationsAndPlacesEvents.UpdatePlaceStateSprite("CatherineRoom");
+                    if (useDisplayWithFade)
+                    {
+                        EventManager.Instance.CutsceneEvents.SwitchImageWithFade(currentPlaceSprite, tempSpriteList[1]);
+
+                    }
+                    else
+                    {
+                        EventManager.Instance.CutsceneEvents.SetCutsceneImage(tempSpriteList[1]);
+                        EventManager.Instance.CutsceneEvents.ShowCutsceneImage(false, 0);
+                    }
+
                     break;
                 }
                 case TimeOfDayEnum.Evening:
                 {
-                    EventManager.Instance.CutsceneEvents.SetCutsceneImage(tempSpriteList[2]);
-                    EventManager.Instance.CutsceneEvents.ShowCutsceneImage(false,0);
-                    EventManager.Instance.LocationsAndPlacesEvents.UpdatePlaceStateSprite("CatherineRoom");
+                    if (useDisplayWithFade)
+                    {
+                        EventManager.Instance.CutsceneEvents.SwitchImageWithFade(currentPlaceSprite, tempSpriteList[2]);
+
+                    }
+                    else
+                    {
+                        EventManager.Instance.CutsceneEvents.SetCutsceneImage(tempSpriteList[2]);
+                        EventManager.Instance.CutsceneEvents.ShowCutsceneImage(false, 0);
+                    }
+
                     break;
                 }
                 case TimeOfDayEnum.Night:
                 {
-                    EventManager.Instance.CutsceneEvents.SetCutsceneImage(tempSpriteList[3]);
-                    EventManager.Instance.CutsceneEvents.ShowCutsceneImage(false,0);
-                    EventManager.Instance.LocationsAndPlacesEvents.UpdatePlaceStateSprite("CatherineRoom");
+                    if (useDisplayWithFade)
+                    {
+                        EventManager.Instance.CutsceneEvents.SwitchImageWithFade(currentPlaceSprite, tempSpriteList[3]);
+
+                    }
+                    else
+                    {
+                        EventManager.Instance.CutsceneEvents.SetCutsceneImage(tempSpriteList[3]);
+                        EventManager.Instance.CutsceneEvents.ShowCutsceneImage(false, 0);
+                    }
+
                     break;
                 }
             }
+
+            EventManager.Instance.LocationsAndPlacesEvents.UpdatePlaceStateSprite("CatherineRoom", false);
+
         }
 
     }

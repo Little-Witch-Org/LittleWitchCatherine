@@ -11,13 +11,13 @@
                 failIfPreviousFailed = false;
                 base.Start();
                 
-                ChangeValues("Кружок не нажат", "Сходить в оранжерею и нажать на кружок", false);
+                ChangeStepData("Кружок не нажат", "Сходить в оранжерею и нажать на кружок", false);
             }
 
             private void UpdateStep()
             {
-                ChangeValues("Кружок нажат", "Задача выполнена, пора возвращаться",false);
-                FinishQuesStep();
+                ChangeStepData("Кружок нажат", "Задача выполнена, пора возвращаться",false);
+                FinishQuesStep(false);
             }
 
 
@@ -26,9 +26,14 @@
                 UpdateStep();
             }
 
-            protected override void SetQuestStepState(QuestStepValues questStepValues)
+            protected override void InitializeQuestStepData(QuestStepData questStepData)
             {
                 //no implementation (nothing to load)
+            }
+
+            protected override void InvokesOnFinishQuestStep(bool isFailed)
+            {
+                throw new System.NotImplementedException();
             }
         }
     }

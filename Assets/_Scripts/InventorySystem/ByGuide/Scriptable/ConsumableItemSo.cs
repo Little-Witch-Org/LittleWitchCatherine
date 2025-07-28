@@ -14,6 +14,9 @@ namespace _Scripts.InventorySystem.ByGuide.Scriptable
         
         [Header("Consumable")] 
         [SerializeField] protected bool canUse;
+        [SerializeField] protected bool isDeleteAfterUse;
+        [SerializeField] protected bool isNewItemSpawnAfterUse;
+        [SerializeField] protected ItemDataSo itemToSpawn;
         
         private const string HealthColumn = "item_health";
         private const string SatietyColumn = "item_satiety";
@@ -47,6 +50,21 @@ namespace _Scripts.InventorySystem.ByGuide.Scriptable
         public bool CanUseItem()
         {
             return canUse;
+        }
+        
+        public bool IsDeleteAfterUse()
+        {
+            return isDeleteAfterUse;
+        }
+
+        public bool IsNewItemSpawnAfterUse()
+        {
+            return isNewItemSpawnAfterUse;
+        }
+
+        public ItemDataSo GerNewItemToSpawn()
+        {
+            return itemToSpawn;
         }
 
         public void UseItem()

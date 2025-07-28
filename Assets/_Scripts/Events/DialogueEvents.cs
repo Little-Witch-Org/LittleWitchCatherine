@@ -51,12 +51,38 @@ namespace _Scripts.Events
             OnUpdateChoiceIndex?.Invoke(choiceIndex);
         }
 
+        //----update story variable----
+        // Базовое событие
         public event Action<string, string, Ink.Runtime.Object> OnUpdateInkDialogueVariable;
 
-        public void UpdateInkDialogueVariable(string storyName, string varName, Ink.Runtime.Object varValue)
+        // overload (also can be implemented using 'object value' and switch case int/bool/etc,,,
+        public void UpdateInkDialogueVariable(string storyName, string varName, string value)
         {
-            OnUpdateInkDialogueVariable?.Invoke(storyName, varName, varValue);
+            OnUpdateInkDialogueVariable?.Invoke(storyName, varName, new StringValue(value));
         }
+
+        public void UpdateInkDialogueVariable(string storyName, string varName, int value)
+        {
+            OnUpdateInkDialogueVariable?.Invoke(storyName, varName, new IntValue(value));
+        }
+
+        public void UpdateInkDialogueVariable(string storyName, string varName, float value)
+        {
+            OnUpdateInkDialogueVariable?.Invoke(storyName, varName, new FloatValue(value));
+        }
+
+        public void UpdateInkDialogueVariable(string storyName, string varName, bool value)
+        {
+            OnUpdateInkDialogueVariable?.Invoke(storyName, varName, new BoolValue(value));
+        }
+
+        // null
+        public void UpdateInkDialogueVariable(string storyName, string varName)
+        {
+            OnUpdateInkDialogueVariable?.Invoke(storyName, varName, new StringValue(null));
+        }
+        
+        //---------------
         
         public event Action<string, string> OnCompleteDialogueKnot;
         public void CompleteDialogueKnot(string characterName, string dialogueKnotName)
@@ -100,6 +126,12 @@ namespace _Scripts.Events
         public void SetCustomDialogueKnot(string npcName, string customKnotName)
         {
             OnSetCustomDialogueKnot?.Invoke(npcName, customKnotName);
+        }
+        
+        public event Action OnSyncVariables;
+        public void SyncVariables()
+        {
+            OnSyncVariables?.Invoke();
         }
         
         

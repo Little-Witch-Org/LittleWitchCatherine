@@ -19,19 +19,19 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 397983170031616
-    m_Localized: item description
+    m_Localized: item descr eng
     m_Metadata:
       m_Items: []
   - m_Id: 397983170031617
-    m_Localized: item description
+    m_Localized: item descr eng
     m_Metadata:
       m_Items: []
   - m_Id: 397983170031618
-    m_Localized: item description
+    m_Localized: item descr eng
     m_Metadata:
       m_Items: []
   - m_Id: 397983174225921
-    m_Localized: item description
+    m_Localized: item descr eng
     m_Metadata:
       m_Items: []
   - m_Id: 1899295216889856
@@ -48,6 +48,18 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 1899295216889859
     m_Localized: T_FigureItem
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19330226582065152
+    m_Localized: item descr eng
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19330226619813888
+    m_Localized: item descr eng
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19330226619813889
+    m_Localized: item descr eng
     m_Metadata:
       m_Items: []
   references:

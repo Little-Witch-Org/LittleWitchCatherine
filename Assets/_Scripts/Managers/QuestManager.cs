@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using _Scripts.Enums;
 using _Scripts.QuestSystem;
+using _Scripts.QuestSystem.UI;
 using _Scripts.Service.Log;
 using UnityEngine;
 
@@ -13,7 +14,7 @@ namespace _Scripts.Managers
         [SerializeField] private bool loadQuestState = false; //use quest load
         
         //all quests
-        private Dictionary<string, Quest> questMap;
+        private Dictionary<string, Quest> _questMap;
 
         //quest requirements
         private int _currentPlayerLevel;
@@ -23,7 +24,7 @@ namespace _Scripts.Managers
             if (Instance == null)
             {
                 //initializes quest "list" with all (pre created) quests from resources folder
-                questMap = CreateQuestMap();
+                _questMap = CreateQuestMap();
                 
                 Instance = this;
                 DontDestroyOnLoad(gameObject);
@@ -49,12 +50,16 @@ namespace _Scripts.Managers
 
             //GameEventsManager_Test.Instance.ExpEventsTest.OnPlayerLevelChange += PlayerLevelChange; //for test prereq
 
-            EventManager.Instance.QuestEvents.OnQuestStepValuesChange +=
-                QuestStepValuesChange; //for saving needs
+            EventManager.Instance.QuestEvents.OnQuestStepDataChange +=
+                QuestStepDataChange; //change values for current quest step
 
             EventManager.Instance.QuestEvents.OnQuestByQuestInfoSoRequest += GetQuestFromMap;
+            EventManager.Instance.QuestEvents.OnQuestByQuestIdRequest += GetQuestById;
             
             EventManager.Instance.QuestEvents.OnQuestAvailabilityChange += ChangeQuestAvailability;
+            EventManager.Instance.QuestEvents.OnQuestVisibilityChange += ChangeQuestVisibility;
+            
+            EventManager.Instance.QuestEvents.OnFinishCurrentQuestStep += FinishCurrentQuestStep;
 
         }
 
@@ -66,18 +71,22 @@ namespace _Scripts.Managers
 
             //GameEventsManager_Test.Instance.ExpEventsTest.OnPlayerLevelChange -= PlayerLevelChange; //for test prereq
 
-            EventManager.Instance.QuestEvents.OnQuestStepValuesChange -=
-                QuestStepValuesChange; //for saving needs
+            EventManager.Instance.QuestEvents.OnQuestStepDataChange -=
+                QuestStepDataChange; //for saving needs
             
             EventManager.Instance.QuestEvents.OnQuestByQuestInfoSoRequest -= GetQuestFromMap;
+            EventManager.Instance.QuestEvents.OnQuestByQuestIdRequest -= GetQuestById;
             EventManager.Instance.QuestEvents.OnQuestAvailabilityChange -= ChangeQuestAvailability;
+            EventManager.Instance.QuestEvents.OnQuestVisibilityChange -= ChangeQuestVisibility;
+            
+            EventManager.Instance.QuestEvents.OnFinishCurrentQuestStep -= FinishCurrentQuestStep;
         }
 
         private void Start()
         {
             
             
-            foreach (Quest quest in questMap.Values)
+            foreach (Quest quest in _questMap.Values)
             {
                 //initialize any loaded quest steps
                 if (quest.StateEnum == QuestStateEnum.InProgress)
@@ -85,34 +94,51 @@ namespace _Scripts.Managers
                     quest.InstantiateCurrentQuestStep(this.transform);
                 }
                 //broadcast the initial stateEnum of all quest on startup
-                EventManager.Instance.QuestEvents.QuestStateChange(quest);
+                EventManager.Instance.QuestEvents.QuestStateChanged(quest);
             }
         }
 
-        private void Update()
+        //quest state used almost to update info in UI
+        private void Update() //todo refactor this to event based ?
         {
             //loop through ALL quests
-            foreach (Quest quest in questMap.Values)
+            foreach (Quest quest in _questMap.Values)
             {
                 //if quest has status "not met" and we're now meeting the requirements, switch to canStart stateEnum
                 if (quest.StateEnum == QuestStateEnum.RequirementsNotMet && CheckRequirementsMet(quest))
                 {
                     ChangeQuestState(quest.InfoSo.Id, QuestStateEnum.CanStart);
                 }
+                
+                //change CanStart to RNM (if we disable quest)
+                if (quest.StateEnum == QuestStateEnum.CanStart && !CheckRequirementsMet(quest))
+                {
+                    ChangeQuestState(quest.InfoSo.Id, QuestStateEnum.RequirementsNotMet);
+                }
             }
         }
         
-        //manual method for change availability of questOS
-        private void ChangeQuestAvailability(string questSoId,bool isAvailable)
+        //manual method for change availability of quest
+        private void ChangeQuestAvailability(string questId,bool isAvailable)
         {
-            GetQuestById(questSoId).IsQuestAvailable = isAvailable;
+            GetQuestById(questId).IsQuestAvailable = isAvailable;
+        }
+        
+        //manual method for change visibility of Quest
+        private void ChangeQuestVisibility(string quesId,bool isVisible)
+        {
+            var quest = GetQuestById(quesId);
+            
+            quest.IsQuestVisible = isVisible;
+
+            EventManager.Instance.QuestEvents.UpdateQuestVisibilityInUI();
         }
         
         //get Quest from map by questInfoSo
         private Quest GetQuestFromMap(QuestInfoSo questSoParam)
         {
             //Debug.Log("provided parameter questSO: " + questSoParam);
-            foreach (Quest quest in questMap.Values)
+            foreach (Quest quest in _questMap.Values)
             {
                 //Debug.Log(quest.InfoSo);
                 if (quest.InfoSo.Id == questSoParam.Id)
@@ -124,7 +150,7 @@ namespace _Scripts.Managers
             Debug.LogError(questSoParam.Id + " is not found");
             return null;
         }
-
+       
         private bool CheckRequirementsMet(Quest quest)
         {
             //check is questSo is available (on/off)
@@ -152,13 +178,24 @@ namespace _Scripts.Managers
         {
             Quest quest = GetQuestById(id);
             quest.StateEnum = stateEnum;
-            EventManager.Instance.QuestEvents.QuestStateChange(quest);
+            EventManager.Instance.QuestEvents.QuestStateChanged(quest);
         }
 
-        //instantiating quest step from prefab (into quest manager)
+        //Instantiating quest step from prefab (into quest manager). Any existed quest can be started from event and avoid RNM(+available) state, but check warnings!
         private void StartQuest(string id)
         {
             Quest quest = GetQuestById(id);
+
+            if (!quest.IsQuestVisible)
+            {
+                QuestDebug.Instance.LogWarning($"Quest {id} is not visible!");
+            }
+            
+            if (quest.StateEnum.Equals(QuestStateEnum.RequirementsNotMet)) //
+            {
+                QuestDebug.Instance.LogWarning($"Quest {id} requirements not met!");
+            }
+            
             quest.InstantiateCurrentQuestStep(this.transform);
             ChangeQuestState(quest.InfoSo.Id, QuestStateEnum.InProgress);
             QuestDebug.Instance.Log("Start quest: " + id);
@@ -168,27 +205,32 @@ namespace _Scripts.Managers
         {
             Quest quest = GetQuestById(id);
 
-            //move on to the next step
-            quest.MoveToNextStep();
+            //move on to the next step index
+            quest.IncrementQuestStepIndex();
 
             //if there are more steps, instantiate the next one
             if (quest.IsCurrentStepExists())
             {
-                quest.InstantiateCurrentQuestStep(this.transform);
+                quest.InstantiateCurrentQuestStep(this.transform); //if invokes autoFail without delay, it may be some issues with AdvanceQuest logs priority
+                QuestDebug.Instance.Log($"Quest advanced: {id} with new step {quest.GetCurrentQuestStepGameObject()?.GetComponent<QuestStep>().name}");
             }
             else
             {
+                QuestDebug.Instance.Log($"Quest advanced: {id}. No new steps found. Quest can be finished" );
                 ChangeQuestState(quest.InfoSo.Id, QuestStateEnum.CanFinish);
             }
-
-
-            QuestDebug.Instance.Log("Advance quest: " + id);
         }
 
         //todo add partial finish option
+        //Finishes quest. Quest must be finished manually from any place after all steps have been finished.
         private void FinishQuest(string id)
         {
             Quest quest = GetQuestById(id);
+            
+            if (!quest.StateEnum.Equals(QuestStateEnum.CanFinish)) //
+            {
+                QuestDebug.Instance.LogWarning($"Quest {id} is not in CanFinish state!");
+            }
             
             //check failed steps
             var questData = quest.GetQuestData();
@@ -201,7 +243,7 @@ namespace _Scripts.Managers
                 }
             }
             
-            Debug.Log("Failed steps count: " + failedStepsCount);
+            QuestDebug.Instance.Log($"Failed steps count: {failedStepsCount} for quest {id}");
 
             if (failedStepsCount == 0)
             {
@@ -254,7 +296,7 @@ namespace _Scripts.Managers
 
         private Quest GetQuestById(string id)
         {
-            Quest quest = questMap[id];
+            Quest quest = _questMap[id];
 
             if (quest == null)
             {
@@ -264,23 +306,36 @@ namespace _Scripts.Managers
             return quest;
         }
 
-        private void QuestStepValuesChange(string id, int stepIndex, QuestStepValues questStepValues)
+        private void QuestStepDataChange(string id, int stepIndex, QuestStepData questStepData)
         {
             Quest quest = GetQuestById(id);
-            quest.StoreQuestStepInfoValues(questStepValues, stepIndex);
+            quest.StoreQuestStepValues(questStepData, stepIndex);
             ChangeQuestState(id, quest.StateEnum);
+        }
+
+        private void FinishCurrentQuestStep(string questId, bool isFailed)
+        {
+            Quest quest = GetQuestById(questId);
+            var step = quest.GetCurrentQuestStepGameObject()?.GetComponent<QuestStep>();
+            if (step == null)
+            {
+                QuestDebug.Instance.LogError("Current quest step doesn't exist: " + questId); //handles method invocation if quest already finished.
+                return;
+            }
+
+            step.FinishQuesStep(isFailed);
         }
         
         private void OnApplicationQuit()
         {
-            foreach (Quest quest in questMap.Values)
+            foreach (Quest quest in _questMap.Values)
             {
                 /*QuestData questData = quest.GetQuestData();
                 Debug.Log(quest.InfoSo.Id);
                 Debug.Log("stateEnum = " + questData.stateEnum);
                 Debug.Log("index = " + questData.questStepIndex);
         
-                foreach (QuestStepValues stepState in questData.questStepValues)
+                foreach (QuestStepData stepState in questData.questStepValues)
                 {
                     Debug.Log("step stateEnum = " + stepState.stateEnum);
                 }*/

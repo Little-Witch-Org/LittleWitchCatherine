@@ -1,6 +1,7 @@
 using System;
 using _Scripts.Enums;
 using _Scripts.Service.Log;
+using JetBrains.Annotations;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -8,7 +9,8 @@ using Object = UnityEngine.Object;
 namespace _Scripts.QuestSystem
 {
     /// <summary>
-    ///Represents quest entity which contain QuestInfoSo and current quest status. Is contained in the dictionary of the quest manager.
+    /// Represents quest entity which contain QuestInfoSo and current quest status. Is contained in the dictionary of the quest manager.
+    /// Quest step data are separated from steps. Data for current step can be reach by using step index.
     /// </summary>
     public class Quest
     {
@@ -17,39 +19,44 @@ namespace _Scripts.QuestSystem
         
         //initializes from QuestSo and used in runtime(in QuestSo this variable value is serializable and must not be changed)
         public bool IsQuestAvailable;
+        
+        public bool IsQuestVisible;
     
         //stateEnum InfoSo
         public QuestStateEnum StateEnum;
     
         private int _currentQuestStepIndex;
+        
+        private GameObject _currentQuestStepGameObject;
     
-        private QuestStepValues[] _questStepInfoValues;
+        private readonly QuestStepData[] _questStepData;
 
         public Quest(QuestInfoSo questInfoSo)
         {
             this.InfoSo = questInfoSo;
             this.IsQuestAvailable = questInfoSo.isQuestAvailable;
+            this.IsQuestVisible = questInfoSo.isQuestVisible;
             this.StateEnum = QuestStateEnum.RequirementsNotMet;
             this._currentQuestStepIndex = 0;
-            this._questStepInfoValues = new QuestStepValues[InfoSo.questStepPrefabs.Length];
+            this._questStepData = new QuestStepData[InfoSo.questStepPrefabs.Length];
 
-            for (int i = 0; i < _questStepInfoValues.Length; i++)//initialising states for every quest steps
+            for (int i = 0; i < _questStepData.Length; i++)//initialising states for every quest steps
             {
-                _questStepInfoValues[i] = new QuestStepValues();
+                _questStepData[i] = new QuestStepData();
             }
         }
     
         //for load needs
-        public Quest(QuestInfoSo questInfoSo, QuestStateEnum questStateEnum, int currentQuestStepIndex, QuestStepValues[] questStepInfoValues)
+        public Quest(QuestInfoSo questInfoSo, QuestStateEnum questStateEnum, int currentQuestStepIndex, QuestStepData[] questStepData)
         {
             this.InfoSo = questInfoSo;
             this.StateEnum = questStateEnum;
             this._currentQuestStepIndex = currentQuestStepIndex;
-            this._questStepInfoValues = questStepInfoValues;
+            this._questStepData = questStepData;
 
             // if the quest step states and prefabs are different lengths,
             // something has changed during development and the saved data is out of sync.
-            if (this._questStepInfoValues.Length != this.InfoSo.questStepPrefabs.Length)
+            if (this._questStepData.Length != this.InfoSo.questStepPrefabs.Length)
             {
                 Debug.LogWarning("Quest Step Prefabs and Quest Step States are "
                                  + "of different lengths. This indicates something changed "
@@ -58,7 +65,7 @@ namespace _Scripts.QuestSystem
             }
         }
 
-        public void MoveToNextStep()
+        public void IncrementQuestStepIndex()
         {
             _currentQuestStepIndex++; //this option can be higher than last quest step. Aware!
         }
@@ -74,23 +81,32 @@ namespace _Scripts.QuestSystem
             GameObject questStepPrefab = GetCurrentQuestStepPrefab();
             if (questStepPrefab != null)
             {
-                QuestStep questStep = Object.Instantiate(questStepPrefab, parentTransform).GetComponent<QuestStep>();
+                //set current active step (so we can interact with it)
+                _currentQuestStepGameObject = Object.Instantiate(questStepPrefab, parentTransform);
+                QuestStep questStep = _currentQuestStepGameObject.GetComponent<QuestStep>();
                 
                 //handle previous quest step failed situation
                 if (_currentQuestStepIndex > 0)
                 {
-                    if (_questStepInfoValues[_currentQuestStepIndex - 1].isFailed)
+                    if (_questStepData[_currentQuestStepIndex - 1].isFailed)
                     {
-                        //invokes in this method in current frame before QuestStep.Start() in frame after instantiation 
-                        questStep.InitializeQuestStep(InfoSo.Id, _currentQuestStepIndex, new QuestStepValues("","",true)); // set fail value if previous failed
+                        QuestDebug.Instance.Log($"InstantiateCurrentQuestStep index:{_currentQuestStepIndex} with previous isFailed");
+                        //invokes in this method in current frame before QuestStep.Start(). QuestStep.Start() invokes in next frame.
+                        questStep.InitializeQuestStep(InfoSo.Id, _currentQuestStepIndex, new QuestStepData("","",true)); // set fail value if previous failed. Can be handled in current quest step.
                         
                         return;
                     }
                 }
-                QuestDebug.Instance.Log("InstantiateCurrentQuestStep -  set default value");
-                questStep.InitializeQuestStep(InfoSo.Id, _currentQuestStepIndex, _questStepInfoValues[_currentQuestStepIndex]); //_questStepInfoValues[_currentQuestStepIndex] for load needs
+                QuestDebug.Instance.Log($"InstantiateCurrentQuestStep index:{_currentQuestStepIndex} Default data");
+                questStep.InitializeQuestStep(InfoSo.Id, _currentQuestStepIndex, _questStepData[_currentQuestStepIndex]); //_questStepData[_currentQuestStepIndex] for load needs
             }
 
+        }
+
+        [CanBeNull]
+        public GameObject GetCurrentQuestStepGameObject()
+        {
+            return _currentQuestStepGameObject;
         }
 
         private GameObject GetCurrentQuestStepPrefab()
@@ -108,13 +124,13 @@ namespace _Scripts.QuestSystem
             return questStepPrefab;
         }
     
-        public void StoreQuestStepInfoValues(QuestStepValues questStepValues, int stepIndex)
+        public void StoreQuestStepValues(QuestStepData questStepData, int stepIndex)
         {
-            if (stepIndex < _questStepInfoValues.Length)
+            if (stepIndex < _questStepData.Length)
             {
-                _questStepInfoValues[stepIndex].state = questStepValues.state;
-                _questStepInfoValues[stepIndex].status = questStepValues.status;
-                _questStepInfoValues[stepIndex].isFailed = questStepValues.isFailed;
+                _questStepData[stepIndex].stepProgress = questStepData.stepProgress;
+                _questStepData[stepIndex].stepObjective = questStepData.stepObjective;
+                _questStepData[stepIndex].isFailed = questStepData.isFailed;
             
             }
             else 
@@ -126,11 +142,16 @@ namespace _Scripts.QuestSystem
     
         public QuestData GetQuestData()
         {
-            return new QuestData(StateEnum, _currentQuestStepIndex, _questStepInfoValues);
+            return new QuestData(StateEnum, _currentQuestStepIndex, _questStepData);
+        }
+        
+        public int GetCurrentStepIndex()
+        {
+            return _currentQuestStepIndex;
         }
     
         //For UI - get quest step values (from previous and current) and print it in UI.
-        public string GetFullStatusText()
+        public string GetFullStepsData()
         {
             string fullStatus = "";
             
@@ -141,29 +162,29 @@ namespace _Scripts.QuestSystem
                 return String.Empty;
             }
 
-            // display all previous quests with colors
+            // display all previous steps  with colors
             bool isSomeOfPreviousStepIsFailed = false;
             for (int i = 0; i < _currentQuestStepIndex; i++)
             {
-                if (!_questStepInfoValues[i].isFailed){
+                if (!_questStepData[i].isFailed){
                     if (i == InfoSo.questStepPrefabs.Length-1) //handle step state display for last step
                     {
-                        fullStatus += "<color=green><b>" + _questStepInfoValues[i].status + "</b></color>\n";
-                        fullStatus += "<color=green><i>" + _questStepInfoValues[i].state + "</i></color>\n";
+                        fullStatus += "<color=green><b>" + _questStepData[i].stepObjective+ "</b></color>\n";
+                        fullStatus += "<color=green><i>" + _questStepData[i].stepProgress+ "</i></color>\n";
                     }
                     else
                     {
-                        fullStatus += "<color=green><b>" + _questStepInfoValues[i].status + "</b></color>\n";
+                        fullStatus += "<color=green><b>" + _questStepData[i].stepObjective+ "</b></color>\n";
                     }
                 }
                 else if(!isSomeOfPreviousStepIsFailed)
                 {
-                    fullStatus += "<color=red><b>" + _questStepInfoValues[i].status + "</b></color>\n";
+                    fullStatus += "<color=red><b>" + _questStepData[i].stepObjective+ "</b></color>\n";
                     isSomeOfPreviousStepIsFailed = true;
                 }
                 else
                 {
-                    //this empty space hides auto fail option from step (SetQuestStepState)
+                    //this empty space hides auto fail option from step (InitializeQuestStepData)
                 }
                 
                 
@@ -173,9 +194,13 @@ namespace _Scripts.QuestSystem
             if (IsCurrentStepExists()&&!isSomeOfPreviousStepIsFailed) 
             {
 
-                fullStatus += "<color=yellow><b>" + _questStepInfoValues[_currentQuestStepIndex].status + "</b></color>\n";
-                fullStatus += "<color=yellow><i>" + _questStepInfoValues[_currentQuestStepIndex].state + "</i></color>\n";
+                fullStatus += "<color=yellow><b>" + _questStepData[_currentQuestStepIndex].stepObjective+ "</b></color>\n";
+                fullStatus += "<color=yellow><i>" + _questStepData[_currentQuestStepIndex].stepProgress+ "</i></color>\n";
 
+            }
+            else
+            {
+               //if previous fails - don't print step states for current step in ui
             }
 
 

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using _Scripts.InventorySystem.ByGuide.Interfaces;
+using _Scripts.InventorySystem.ByGuide.Scriptable;
 using _Scripts.Managers;
 using TMPro;
 using UnityEngine;
@@ -27,6 +28,7 @@ namespace _Scripts.InventorySystem.ByGuide
         private CanvasGroup _canvasGroup;
         
         private InventoryItem _currentItem;
+        private string _parentGridName; //contains grid name to which items belongs
 
         void Awake()
         {
@@ -62,8 +64,15 @@ namespace _Scripts.InventorySystem.ByGuide
         }
 
 
-        public void ShowContextMenu(InventoryItem item)
+        private string ExtractParentGridName(string gridName)
         {
+            return gridName.Split('(')[0].Trim();
+        }
+
+        public void ShowContextMenu(InventoryItem item, string currentItemGridName)
+        {
+            _parentGridName = ExtractParentGridName(currentItemGridName);
+                
             ConfigureMenuBeforeDisplay(item);
             
             EventManager.Instance.InventoryEvents.SetContextMenuOpenStatus(true);
@@ -86,24 +95,26 @@ namespace _Scripts.InventorySystem.ByGuide
         }
 
 
-        public void HideContextMenu()
+        private void HideContextMenu()
         {
             EventManager.Instance.InventoryEvents.SetContextMenuOpenStatus(false);
             
             _canvasGroup.alpha = 0;
             _canvasGroup.interactable = false;
             _canvasGroup.blocksRaycasts = false;
+
+            _parentGridName = "";
         }
 
         private void ConfigureMenuBeforeDisplay(InventoryItem item)
         {
             _currentItem = item;
             
-            Debug.Log(item);
-            Debug.Log(item.itemData.itemId);
-            Debug.Log(item.itemData is IUsableItem);
+            //Debug.Log(item);
+            //Debug.Log(item.itemData.itemId);
+            //Debug.Log(item.itemData is IUsableItem);
             
-            //add localized text to buttons
+            //----add localized text to buttons
             
             //clear button listeners
             useItemButton.onClick.RemoveAllListeners();
@@ -149,9 +160,39 @@ namespace _Scripts.InventorySystem.ByGuide
             if (_currentItem.itemData is IUsableItem usable)
             {
                 usable.UseItem();
+
+                if (_currentItem.itemData is ConsumableItemSo consumableItemSo)
+                {
+                    if (consumableItemSo.IsDeleteAfterUse())
+                    {
+                        InventoryManager.Instance.RemoveItem(_currentItem);
+                        if (consumableItemSo.IsNewItemSpawnAfterUse())
+                        {
+                            var newItem = consumableItemSo.GerNewItemToSpawn();
+                            if (newItem != null)
+                            {
+                                StartCoroutine(SpawnNewItemNextFrame(newItem));
+                            }
+                            else
+                            {
+                                Debug.LogWarning($"Item {_currentItem.itemData.itemId} has no spawnable item");
+                            }
+                        }
+                    }
+
+                    EventManager.Instance.InventoryEvents.ItemUsed(_currentItem);
+                }
             }
 
             HideContextMenu();
+        }
+        
+        private IEnumerator SpawnNewItemNextFrame(ItemDataSo newItem)
+        {
+            yield return null; // 1 frame to spawn in the same place (in no other slots) //todo spawn in same slot ?? need to get position
+            Debug.Log(_currentItem.itemData.itemId);
+            Debug.Log(_parentGridName);
+            EventManager.Instance.InventoryEvents.AddItem(newItem.itemId, _parentGridName); 
         }
 
         private void OnDeleteItem()

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2168269484694772987}
   - component: {fileID: 3760628456369157125}
   - component: {fileID: 2392302352006647187}
+  - component: {fileID: -4220904621233780704}
   m_Layer: 0
   m_Name: LivingRoom
   m_TagString: Untagged
@@ -58,7 +59,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 3ffc509c51489fa4d9f6d4d58f0bc2aa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -78,7 +79,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 990101232980773227, guid: 471e912e7fcaf8a45bf8659a3e1e91c9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -102,12 +103,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99135e8dbe6b78b4b981e13cd4da81f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  placeName: 
-  placeStateSprites:
+  currentPlaceName: 
+  defaultStateSprites:
   - {fileID: 990101232980773227, guid: 471e912e7fcaf8a45bf8659a3e1e91c9, type: 3}
   - {fileID: 7267733445362498626, guid: 06eb2792a0977e04b8f81bb4a35c1947, type: 3}
   - {fileID: 8030934675127439443, guid: 5453ef2adfe5fe74b9af4526ae480b30, type: 3}
   - {fileID: 324115806743803882, guid: a68140f8b4c042d49ba2667aeb08a7a1, type: 3}
+--- !u!114 &-4220904621233780704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7132937731223879731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b7fedb11414489db1ed6c5175cf69a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  morning: Morning
+  afternoon: Afternoon
+  evening: Evening
+  night: Night
+  customStates:
+  - placeStateString: MessUnbrokenClavi_Morning
+    customPlaceStateSprite: {fileID: -3931344392710416148, guid: c3fce9d83da3cc24ab7dda12d2a4717b, type: 3}
+  - placeStateString: MessBrokenClavi_Morning
+    customPlaceStateSprite: {fileID: 2451817089508663648, guid: f63b5d83ce9d49b46bec3b754e2a6775, type: 3}
+  - placeStateString: CleanedBrokenClavi_Morning
+    customPlaceStateSprite: {fileID: 244297667028821056, guid: 25ad25db859294c41a7825357e3f357d, type: 3}
+  - placeStateString: CleanedBrokenClavi_Afternoon
+    customPlaceStateSprite: {fileID: 6108167673255564796, guid: ff1470fbc63a3d649a2c8a5a9eeba0cb, type: 3}
+  - placeStateString: CleanedBrokenClavi_Evening
+    customPlaceStateSprite: {fileID: -3298030403438658502, guid: 73fe17730cd73a448ba6ce48b5845e0d, type: 3}
+  - placeStateString: CleanedBrokenClavi_Night
+    customPlaceStateSprite: {fileID: 7109130871797746567, guid: ffa131112e3a6af42bcd17b91919afd5, type: 3}
 --- !u!1 &7958982703952546745
 GameObject:
   m_ObjectHideFlags: 0
@@ -260,22 +290,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d42e49bc4fb078646bf10c77b67739b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7704000959707377980}
-        m_TargetAssemblyTypeName: _Scripts.Components.TransitionComponents.NovelViewSetPlaceAndLocationToTransitionComponent,
-          Assembly-CSharp
-        m_MethodName: SelectPlace
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &7704000959707377980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -389,22 +403,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d42e49bc4fb078646bf10c77b67739b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4656717954529445641}
-        m_TargetAssemblyTypeName: _Scripts.Components.TransitionComponents.NovelViewSetPlaceAndLocationToTransitionComponent,
-          Assembly-CSharp
-        m_MethodName: SelectPlace
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &4656717954529445641
 MonoBehaviour:
   m_ObjectHideFlags: 0

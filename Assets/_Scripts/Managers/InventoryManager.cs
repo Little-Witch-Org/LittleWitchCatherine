@@ -19,9 +19,7 @@ namespace _Scripts.Managers
     public class InventoryManager : MonoBehaviour
     {
         public static InventoryManager Instance;
-
-        [SerializeField] private ItemGrid selectedItemGrid;
-
+        
         public ItemGrid SelectedItemGrid
         {
             get => selectedItemGrid;
@@ -34,7 +32,7 @@ namespace _Scripts.Managers
 
         [Header("Dynamic fields")] [SerializeField]
         private InventoryItem selectedItem;
-
+        [SerializeField] private ItemGrid selectedItemGrid;
         [SerializeField] private RectTransform selectedItemRectTransform;
         [SerializeField] private InventoryItem overlapItem;
         [SerializeField] private InventoryItem itemToHighlight;
@@ -52,14 +50,21 @@ namespace _Scripts.Managers
 
         [SerializeField] PlayerInventoryUI playerInventoryUI;
         [SerializeField] StorageInventoryUI storageInventoryUI;
+        [SerializeField] StorageUnderStairsInventoryUI storageUnderStairsInventoryUI;
 
         private ItemGrid _playerMainGrid;
         private ItemGrid _playerMagicGrid;
         private ItemGrid _playerPotionGrid;
+        
         private ItemGrid _playerStorageGrid;
+        
+        private ItemGrid _storageUnderStairsGrid;
 
         private GameObject _playerInventoryContentParent;
+        
         private GameObject _storageInventoryContentParent;
+        
+        private GameObject _storageUnderStairsInventoryContentParent;
         
         private Transform _playerInventoryItemBufferTransform; //for items to add in background
 
@@ -70,12 +75,12 @@ namespace _Scripts.Managers
 
         private bool _isContextMenuShown;
 
-        private List<InventoryItem> _inventoryItemsList; //all items in inventories
+        private List<InventoryItem> _inventoryItemsList; //all items in inventories //todo add option currentGrid?
         private List<ItemGrid> _itemGridsList; //all grids
         
         private bool _submitPressed;
         
-        private Vector2Int? _selectedItemPreviousPosition; //used to return item if inventory was closed (todo to check with rotated item)
+        private Vector2Int? _selectedItemPreviousPosition; //used to return item if inventory was closed
         [CanBeNull] private ItemGrid _selectedPreviousItemGrid;
         
         private void Awake()
@@ -98,6 +103,8 @@ namespace _Scripts.Managers
             EventManager.Instance.TransitionEvents.OnPlaceTransitionTrigger += OnTransition;
             EventManager.Instance.InventoryEvents.OnContextMenuOpenStatusSet += SetContextMenuStatus;
             EventManager.Instance.GameEvents.OnStoryModActivated += OnStoryModActivated;
+
+            EventManager.Instance.InventoryEvents.OnAddItem += AddItemInBackground;
         }
 
         private void OnDisable()
@@ -107,13 +114,13 @@ namespace _Scripts.Managers
             EventManager.Instance.TransitionEvents.OnPlaceTransitionTrigger -= OnTransition;
             EventManager.Instance.InventoryEvents.OnContextMenuOpenStatusSet -= SetContextMenuStatus;
             EventManager.Instance.GameEvents.OnStoryModActivated -= OnStoryModActivated;
+            
+            EventManager.Instance.InventoryEvents.OnAddItem -= AddItemInBackground;
         }
 
         private void Start()
         {
             Initialize();
-            
-            
         }
 
         private void Initialize()
@@ -123,14 +130,20 @@ namespace _Scripts.Managers
             _playerMainGrid = playerInventoryUI.GetPlayerMainItemGrid();
             _playerMagicGrid = playerInventoryUI.GetPlayerMagicItemGrid();
             _playerPotionGrid = playerInventoryUI.getPlayerPotionGrid();
+            
             _playerStorageGrid = storageInventoryUI.GetStorageItemGrid();
+            
+            _storageUnderStairsGrid = storageUnderStairsInventoryUI.GetStorageItemGrid();
 
-            _itemGridsList = new List<ItemGrid>
+            _itemGridsList = new List<ItemGrid>() //todo check grid  object in ui on unic names
             {
                 _playerMainGrid,
                 _playerMagicGrid,
                 _playerPotionGrid,
-                _playerStorageGrid
+                
+                _playerStorageGrid,
+                
+                _storageUnderStairsGrid,
             };
             
 
@@ -140,6 +153,8 @@ namespace _Scripts.Managers
             _playerInventoryItemBufferTransform = playerInventoryUI.GetItemBufferContainerTransform();
             
             _storageInventoryContentParent = storageInventoryUI.GetContentParent();
+            
+            _storageUnderStairsInventoryContentParent = storageUnderStairsInventoryUI.GetContentParent();
 
             //grids must be initialized (activate Start() in ItemGrid class) for correct work 
             InitializeAllInventories();
@@ -169,6 +184,7 @@ namespace _Scripts.Managers
             List<GameObject> contentParentGameObjects = new List<GameObject>();
             contentParentGameObjects.Add(_playerInventoryContentParent);
             contentParentGameObjects.Add(_storageInventoryContentParent);
+            contentParentGameObjects.Add(_storageUnderStairsInventoryContentParent);
 
             foreach (var contentParentObjects in contentParentGameObjects)
             {
@@ -187,16 +203,6 @@ namespace _Scripts.Managers
 
         private void Update()
         {
-            
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                SpawnRandomItem();
-            }
-            if (Input.GetKeyDown(KeyCode.T))
-            {
-                SpawnAllItems();
-            }
-
             if (selectedItem != null)
             {
                 ItemIconDrag(); //can drag if item selected and inventory closed (but cant place it) //todo mb if inventory closed -> return item ? 
@@ -218,7 +224,7 @@ namespace _Scripts.Managers
 
             //if all closed
             if (!_playerInventoryContentParent.gameObject
-                    .activeInHierarchy && !_storageInventoryContentParent.gameObject.activeInHierarchy)
+                    .activeInHierarchy && !_storageInventoryContentParent.gameObject.activeInHierarchy && !_storageUnderStairsInventoryContentParent.gameObject.activeInHierarchy)
             {
                 {
                     //Debug.Log("Inventory closed - reset state");
@@ -268,9 +274,9 @@ namespace _Scripts.Managers
         }
 
 
-        public void AddItemInBackground(string itemNameOrID, string itemGridName) //todo to handle finding by name (when structure will be added)
+        private void AddItemInBackground(string itemNameOrID, string itemGridName) //todo to handle finding item by name (when structure will be added)
         {
-            // find item
+            // find item by id
             ItemDataSo itemData = itemsSo.Find(x => x.itemId == itemNameOrID);
 
             if (itemData == null)
@@ -279,7 +285,7 @@ namespace _Scripts.Managers
                 return;
             }
 
-            //find grid by name (ignore register)
+            //find grid by name (ignore register) //todo handle more than 1 grid result
             ItemGrid gridToAdd = _itemGridsList.Find(x =>
                 x.gameObject.name.Contains(itemGridName, StringComparison.OrdinalIgnoreCase)
             );
@@ -604,6 +610,15 @@ namespace _Scripts.Managers
             {
                 storageInventoryUI.gameObject.transform.SetAsLastSibling();
             }
+            
+            if (currentDraggingWindow.GetComponent<StorageUnderStairsInventoryUI>() != null)
+            {
+                storageUnderStairsInventoryUI.gameObject.transform.SetAsLastSibling();
+            }
+            
+            
+            
+            
             _isInventoryWindowDragging = isDragging;
 
         }
@@ -636,7 +651,9 @@ namespace _Scripts.Managers
             //_submitPressed = true;
             
             
-                if (!_playerInventoryContentParent.gameObject.activeInHierarchy && !_storageInventoryContentParent.gameObject.activeInHierarchy) return; //duplicates functional (cascade of checks) in update method. Cn be extracted and used with other methods to reed of Update()
+                if (!_playerInventoryContentParent.gameObject.activeInHierarchy 
+                    && !_storageInventoryContentParent.gameObject.activeInHierarchy
+                    && !_storageUnderStairsInventoryContentParent.gameObject.activeInHierarchy) return; //duplicates functional (cascade of checks) in update method. Cn be extracted and used with other methods to reed of Update()
                 if (_isInventoryWindowDragging) return;
                 if (selectedItemGrid == null) return;
 
@@ -654,7 +671,7 @@ namespace _Scripts.Managers
             if (itemToOnHover != null)
             {
                 itemTooltipController.HideTooltip();
-               contextMenuController.ShowContextMenu(itemToOnHover);
+               contextMenuController.ShowContextMenu(itemToOnHover,SelectedItemGrid.ToString());
             }
         }
 
@@ -665,6 +682,7 @@ namespace _Scripts.Managers
             //Debug.Log("place trans");
             playerInventoryUI.HideMenu();
             storageInventoryUI.HideMenu();
+            storageUnderStairsInventoryUI.HideMenu();
         }
 
         private void OnTransition(SceneNamesEnum a) 
@@ -672,6 +690,7 @@ namespace _Scripts.Managers
             //Debug.Log("scene trans");
             playerInventoryUI.HideMenu();
             storageInventoryUI.HideMenu();
+            storageUnderStairsInventoryUI.HideMenu();
         }
 
 

@@ -3,6 +3,9 @@ using System.Linq;
 
 namespace _Scripts.NarrativeAndCutscenes.Checkpoints
 {
+    /// <summary>
+    /// todo need to separate the logic of what should be in quests and what should be in checkpoints
+    /// </summary>
     public abstract class Checkpoint
     {
         public int CheckpointID { get; protected set; }

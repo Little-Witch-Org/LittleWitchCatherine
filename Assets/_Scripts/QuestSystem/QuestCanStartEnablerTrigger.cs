@@ -31,7 +31,7 @@ namespace _Scripts.QuestSystem
         {
             if (CanChangeQuestAvailability())
             {
-                EventManager.Instance.QuestEvents.QuestAvailabilityChange(questInfo.Id, isAvailable);
+                EventManager.Instance.QuestEvents.SetQuestAvailability(questInfo.Id, isAvailable);
             }
         }
 

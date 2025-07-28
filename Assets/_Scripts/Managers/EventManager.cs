@@ -29,6 +29,8 @@ namespace _Scripts.Managers
         public PlayerStatsEvents PlayerStatsEvents;
         public ReputationEvents ReputationEvents;
         public InventoryEvents InventoryEvents;
+        public NpcEvents NpcEvents;
+        public BattleEvents BattleEvents;
     
         private void Awake()
         {
@@ -63,6 +65,8 @@ namespace _Scripts.Managers
             PlayerStatsEvents = new PlayerStatsEvents();
             ReputationEvents = new ReputationEvents();
             InventoryEvents = new InventoryEvents();
+            NpcEvents = new NpcEvents();
+            BattleEvents = new BattleEvents();
         }
     }
 }

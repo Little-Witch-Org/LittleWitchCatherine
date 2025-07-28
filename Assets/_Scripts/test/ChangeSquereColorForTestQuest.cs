@@ -13,11 +13,11 @@ namespace _Scripts.test
 
         private void OnEnable()
         {
-            EventManager.Instance.QuestEvents.OnQuestStateChange += ChangeColor;
+            EventManager.Instance.QuestEvents.OnQuestStateChanged += ChangedColor;
         }
         private void OnDisable()
         {
-            EventManager.Instance.QuestEvents.OnQuestStateChange -= ChangeColor;
+            EventManager.Instance.QuestEvents.OnQuestStateChanged -= ChangedColor;
         }
 
         private void Start()
@@ -26,7 +26,7 @@ namespace _Scripts.test
         }
 
 
-        private void ChangeColor(Quest quest)
+        private void ChangedColor(Quest quest)
         {
             if (quest.InfoSo.Id.Contains("Second") && quest.StateEnum == QuestStateEnum.CanStart)
             {

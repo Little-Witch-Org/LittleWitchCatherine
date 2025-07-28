@@ -152,22 +152,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d42e49bc4fb078646bf10c77b67739b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4789135841285302527}
-        m_TargetAssemblyTypeName: _Scripts.Components.TransitionComponents.NovelViewSetPlaceAndLocationToTransitionComponent,
-          Assembly-CSharp
-        m_MethodName: SelectPlace
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &4789135841285302527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -239,7 +223,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 3ffc509c51489fa4d9f6d4d58f0bc2aa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -259,7 +243,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 650300573655896623, guid: cfda08389f5353043881ecbbc30fb46b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -283,8 +267,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99135e8dbe6b78b4b981e13cd4da81f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  placeName: 
-  placeStateSprites:
+  currentPlaceName: 
+  defaultStateSprites:
   - {fileID: 650300573655896623, guid: cfda08389f5353043881ecbbc30fb46b, type: 3}
   - {fileID: 650300573655896623, guid: cfda08389f5353043881ecbbc30fb46b, type: 3}
   - {fileID: 8314505674309494592, guid: 8657c4f355887fc4c95d95ed21566d7a, type: 3}

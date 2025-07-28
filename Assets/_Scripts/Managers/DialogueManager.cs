@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using _Scripts.Dialog_Ink;
 using _Scripts.Enums;
@@ -7,6 +8,7 @@ using _Scripts.Service.Log;
 using Ink.Runtime;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.Serialization;
 
 namespace _Scripts.Managers
@@ -18,7 +20,7 @@ namespace _Scripts.Managers
         [Header("Ink Story")] [SerializeField] private TextAsset[] inkJson;
 
         private Dictionary<string, Story>
-            _storiesMap = new Dictionary<string, Story>(); // all initialized stories (from json's)
+            _storiesMap = new Dictionary<string, Story>(); // all initialized stories (from json's) | if we want to use "isUseOriginalKnot" option from standalone component, we must add original (not localized) file in this list
 
         private Dictionary<Story, string>
             _storyToName =
@@ -33,15 +35,20 @@ namespace _Scripts.Managers
 
         private int _currentChoiceIndex = -1;
 
-        [SerializeField] private bool _dialoguePlaying = false;
 
         private InkExternalFunctions _inkExternalFunctions;
 
         private bool
             _cutsceneMode; //using this to set cutscene parameter in methods (almost for ui) //todo don't like a lot this cutscene realisation throw all system (think need to separate it)
 
+        private List<String> _localesList = new(); //first is "" for original story file
+        
+        private string _currentPlayingStoryName;
+
+        [Header("Dynamic variables")] [SerializeField]
+        private bool dialoguePlaying = false;
+
         //skip text flags
-        [Header("Dynamic variables")]
         [SerializeField] private bool isSkippingText;
         [SerializeField] private bool isSkipBlocked;
         [SerializeField] private bool isContinueInProgress;
@@ -63,6 +70,7 @@ namespace _Scripts.Managers
             if (Instance == null)
             {
                 InitializeStoriesAndVariables();
+                InitializeLocalesForSync();
                 Instance = this;
                 DontDestroyOnLoad(gameObject);
 
@@ -105,6 +113,13 @@ namespace _Scripts.Managers
             }
         }
 
+        private void InitializeLocalesForSync()
+        {
+            _localesList.Add("");
+            _localesList.Add("_ru");
+            _localesList.Add("_en");
+        }
+
         private void OnDestroy()
         {
             if (_storiesMap != null)
@@ -122,7 +137,7 @@ namespace _Scripts.Managers
             EventManager.Instance.InputEvents.OnSubmitPressed += SubmitPressed;
             EventManager.Instance.DialogueEvents.OnUpdateChoiceIndex += UpdateChoiceIndex;
             EventManager.Instance.DialogueEvents.OnUpdateInkDialogueVariable += UpdateVariableValueForStory;
-            EventManager.Instance.QuestEvents.OnQuestStateChange += QuestStateChangeForDialogue;
+            //EventManager.Instance.QuestEvents.OnQuestStateChanged += QuestStateChangedForDialogue;
             EventManager.Instance.InputEvents.OnSpacePressed += SkipDialogueText;
             EventManager.Instance.DialogueEvents.OnChoiceButtonsAppears += OnChoiceButtonsAppears;
         }
@@ -133,14 +148,14 @@ namespace _Scripts.Managers
             EventManager.Instance.InputEvents.OnSubmitPressed -= SubmitPressed;
             EventManager.Instance.DialogueEvents.OnUpdateChoiceIndex -= UpdateChoiceIndex;
             EventManager.Instance.DialogueEvents.OnUpdateInkDialogueVariable -= UpdateVariableValueForStory;
-            EventManager.Instance.QuestEvents.OnQuestStateChange -= QuestStateChangeForDialogue;
+            //EventManager.Instance.QuestEvents.OnQuestStateChanged -= QuestStateChangedForDialogue;
             EventManager.Instance.InputEvents.OnSpacePressed -= SkipDialogueText;
             EventManager.Instance.DialogueEvents.OnChoiceButtonsAppears -= OnChoiceButtonsAppears;
         }
 
         //scripts can update variables map (updates quest state variables)
         //listens quest state changes, finds in variables key that contains quest name, get value and update variable value in appropriate story
-        private void QuestStateChangeForDialogue(Quest quest)
+        /*private void QuestStateChangedForDialogue(Quest quest) //todo do we need this ?
         {
             //if (quest.InfoSo.Id + "State" == "SecondDevQuestState")
             //{
@@ -153,7 +168,7 @@ namespace _Scripts.Managers
                 if (pair.Value.GetVariables().ContainsKey(quest.InfoSo.Id + "State"))
                 {
                     UpdateVariableValueForStory(pair.Key, quest.InfoSo.Id + "State",
-                        new StringValue(quest.StateEnum.ToString()));
+                        quest.StateEnum.ToString());
                 }
 
             }
@@ -161,7 +176,7 @@ namespace _Scripts.Managers
             //EventManager.Instance.DialogueEvents.UpdateInkDialogueVariable_old(
             //quest.InfoSo.Id + "State",
             //new StringValue(quest.StateEnum.ToString()));
-        }
+        }*/
 
 
         private void UpdateChoiceIndex(int choiceIndex)
@@ -177,50 +192,14 @@ namespace _Scripts.Managers
             _cutsceneMode = isCutsceneUI;
 
             //don't start dialogue if already started
-            if (_dialoguePlaying)
+            if (dialoguePlaying)
             {
                 return;
             }
-
-            /*
-            //---------------------------test---------------------------------------
-
-            if (_storyCurrent == null)
-            {
-                Debug.Log("Story is null");
-                //initialize actual story variables from dialogue component before start dialogue
-                _storyCurrent = new Story(inkJson.text);
-
-                _inkExternalFunctions = new InkExternalFunctions();
-                _inkExternalFunctions.Bind(_storyCurrent);
-
-                _inkDialogueVariablesCurrent = new InkDialogueVariables(_storyCurrent);
-                //-------------
-            }
-
-            //Debug.Log("first check = "+ _storyCurrent.variablesState.GetVariableWithName("FirstDialogueFirstNpc_1_main_var"));
-            //_storyCurrent.variablesState["FirstDialogueFirstNpc_1_main_var"] = "new state";
-            //Debug.Log("second check = "+ _storyCurrent.variablesState.GetVariableWithName("FirstDialogueFirstNpc_1_main_var"));
-            if(!_storyCurrent.variablesState["FirstDialogueFirstNpc_1_main_var"].Equals(1)){
-                Debug.Log("checking saving variable value in story runtime");
-                UpdateInkDialogueVariable_old("FirstDialogueFirstNpc_1_main_var", new StringValue("1"));
-            }
-            else
-            {
-                Debug.Log("value was updated previously");
-                Debug.Log("stored value is  =" + _storyCurrent.variablesState["FirstDialogueFirstNpc_1_main_var"]);
-            }
-
-
-            //--------------------------------------------------------------------
-            */
-
-            //UpdateVariableValueForStory("FirstDialogueNpc_main", "FirstDialogueFirstNpc_1_main_var", new StringValue("1"));
-
-
-
-
-            _dialoguePlaying = true;
+            
+            dialoguePlaying = true;
+            
+            _currentPlayingStoryName = storyName;
 
             //inform other parts of system that  we've started dialogue
             if (_cutsceneMode)
@@ -238,8 +217,14 @@ namespace _Scripts.Managers
             //disable hotkeys (menus) during dialogue
             EventManager.Instance.InputEvents.SetHotkeysActive(false);
 
+            if (!_storiesMap.TryGetValue(storyName, out var value))
+            {
+                DialogDebug.Instance.LogError($"Story {storyName} not found");
+                return;
+            }
+            
             //assigning current story variable (depending on provided param from dialogue starter)
-            _storyCurrent = _storiesMap[storyName];
+            _storyCurrent = value;
             DialogDebug.Instance.Log("Current story name - " + _storyToName[_storyCurrent]);
 
             //jump to the knot
@@ -254,24 +239,120 @@ namespace _Scripts.Managers
 
             //update variables for current story and start listening for variables change (if implemented var change by ink inner logic)
             _inkDialogueVariablesCurrent = _variablesMap[storyName];
-            _inkDialogueVariablesCurrent.SyncVariablesAndStartListening(_storyCurrent);
+            _inkDialogueVariablesCurrent.SyncLocalToInkVariablesAndStartListening(_storyCurrent,storyName);
 
             //kick off the story
             ContinueOrExitStory();
         }
 
-        private void UpdateVariableValueForStory(string storyName, string variableName, Ink.Runtime.Object value)
+        /*private void UpdateVariableValueForStoryOld(string storyName, string variableName, string valueAsString) //todo add sync method for all story languages.
         {
             if (_storiesMap.TryGetValue(storyName, out Story targetStory))
             {
-                _variablesMap[storyName].UpdateVariableState(variableName, value);
+                _variablesMap[storyName].UpdateVariableState(variableName, new StringValue(valueAsString)); //converting string to StringValue for using as Ink.Runtime.Object
                 _variablesMap[storyName].SyncVariablesToStory(targetStory);
             }
             else
             {
                 DialogDebug.Instance.LogWarning($"Story with name {storyName} not found.");
             }
+        }*/
+        
+        private void UpdateVariableValueForStory(string storyName, string variableName, Ink.Runtime.Object valueAsObject)
+        {
+            var originalStoryNameArr = storyName.Split("_");
+            string originalStoryName = originalStoryNameArr[0]+"_"+originalStoryNameArr[1]; //NpcName + StoryMain
+            
+            SyncVariableBetweenStoryLocalizations(originalStoryName, variableName, valueAsObject);
         }
+        
+        //synchronization of variables between all story localizations regardless of current localization (ru -> original/eng/etc...) / (en original/ru/etc...) / etc... 
+        private void SyncVariableBetweenStoryLocalizations(string storyName, string variableName, Ink.Runtime.Object valueAsObject)
+        {
+
+            foreach (var locale in _localesList)
+            {
+                if (_storiesMap.TryGetValue(storyName+locale, out Story targetStory))
+                {
+                    _variablesMap[storyName+locale].UpdateVariableState(variableName, valueAsObject); //converting string to StringValue for using as Ink.Runtime.Object
+                    
+                    //We don't actually need this function here, cause enter dialogue method uses SyncLocalToInkVariablesAndStartListening which updates variables from map->current story dictionary->
+                    //-> current story variables. This is some duplication of logic of a kind. But not a big problem.
+                    _variablesMap[storyName+locale].SyncVariablesToStory(targetStory); 
+                }
+                else
+                {
+                    DialogDebug.Instance.LogWarning($"Story with name {storyName+locale} not found.");
+                }
+            }
+        }
+
+        //gets accumulated variables for the current story during dialogue playing and synchronizes between all story localizations after end of current dialogue
+        private void SyncVariablesForLocalizations()
+        {
+            var originalStoryNameArr = _currentPlayingStoryName.Split("_");
+            string originalStoryName = originalStoryNameArr[0] + "_" + originalStoryNameArr[1]; //NpcName + StoryMain
+
+
+            //variables that we will use to update others
+            var donorVariables = _variablesMap[_currentPlayingStoryName];
+
+            foreach (var locale in _localesList)
+            {
+
+                if (_variablesMap.ContainsKey(originalStoryName+locale))
+                {
+                    _variablesMap[originalStoryName+locale] = donorVariables;
+                }
+            }
+
+            _currentPlayingStoryName = "";
+        }
+
+
+        //sync test
+        /*private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                Debug.Log("-----------------------Original---------------------------");
+                var vars = _variablesMap["Mother_StoryMain"].GetVariables();
+                Debug.Log($"story = Mother_StoryMain");
+                foreach (var pair in vars)
+                {
+                    Debug.Log(pair.Key + " - " + pair.Value);    
+                }
+                Debug.Log("--------------------------ru------------------------------");
+                vars = _variablesMap["Mother_StoryMain_ru"].GetVariables();
+                Debug.Log($"story = Mother_StoryMain_ru");
+                foreach (var pair in vars)
+                {
+                    Debug.Log(pair.Key + " - " + pair.Value);    
+                }
+                Debug.Log("--------------------------en------------------------------");
+                vars = _variablesMap["Mother_StoryMain_en"].GetVariables();
+                Debug.Log($"story = Mother_StoryMain_en");
+                foreach (var pair in vars)
+                {
+                    Debug.Log(pair.Key + " - " + pair.Value);    
+                }
+                Debug.Log("--------------------------Original------------------------------");
+                
+            }
+
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                UpdateVariableValueForStory("Mother_StoryMain", "SleepCount", "1");
+            }
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                UpdateVariableValueForStory("Mother_StoryMain_ru", "SleepCount", "2");
+            }
+            if (Input.GetKeyDown(KeyCode.D))
+            {
+                UpdateVariableValueForStory("Mother_StoryMain_en", "SleepCount", "3");
+            }
+        }*/
 
         /*private void ContinueOrExitStory()
         {
@@ -376,7 +457,7 @@ namespace _Scripts.Managers
 
         }*/
 
-       
+
 
         private void ContinueOrExitStory()
         {
@@ -437,9 +518,10 @@ namespace _Scripts.Managers
                         {
                             EventManager.Instance.DialogueEvents.SkipTypingText();
                             isSkippingTypingTextAnimation = false;
-                            isTypingAnimationSkipped = true;// activates if typing skipped and full text + choices on the screen 
+                            isTypingAnimationSkipped =
+                                true; // activates if typing skipped and full text + choices on the screen 
                         }
-                        
+
                         // Обычное отображение диалога
                         isSkippingText = false;
                         EventManager.Instance.DialogueEvents.DisplayDialogue(dialogueLine,
@@ -465,26 +547,27 @@ namespace _Scripts.Managers
 
         private void OnChoiceButtonsAppears()
         {
-            isTypingAnimationSkipped = true; //activates when choice appears (handle skipping text by lmb -> choice displayed and typing skipped -> SkipDialogueText)
+            isTypingAnimationSkipped =
+                true; //activates when choice appears (handle skipping text by lmb -> choice displayed and typing skipped -> SkipDialogueText)
         }
-        
+
         private void SubmitPressed(InputEventContext context)
         {
-            
+
             //if contest isn't dialogue -> don't register button here
             if (!context.Equals(InputEventContext.Dialogue) && !isSkippingText)
             {
                 return;
             }
-            
+
             ContinueOrExitStory();
         }
 
-        
+
         private void SkipDialogueText()
         {
-            if (!_dialoguePlaying) return;
-            
+            if (!dialoguePlaying) return;
+
             if (!isSkippingTypingTextAnimation)
             {
                 if (isSkipBlocked)
@@ -495,14 +578,15 @@ namespace _Scripts.Managers
                         EventManager.Instance.DialogueEvents.SkipTypingText();
                         isTypingAnimationSkipped = true; //activates when typing text with choices
                     }
+
                     //Debug.Log("Skip blocked - choices are present");
                     return;
                 }
-                
+
                 //Debug.Log("skipped activated in default state ~~~~~~~");
                 isSkippingTypingTextAnimation = true;
             }
-            
+
             /*if (!_isSkippingTypingTextAnimation)
             {
                 if (_isSkipBlocked && !_isTypingAnimationSkipped)
@@ -514,13 +598,13 @@ namespace _Scripts.Managers
 
                 else if(!_isSkipBlocked)
                 {
-                    
+
                     Debug.Log("skipped activated in default state ~~~~~~~");
                     _isSkippingTypingTextAnimation = true;
                 }
             }
-            
-            
+
+
             // Если пропуск заблокирован (например, при выборе вариантов)
             if (_isSkipBlocked)
             {
@@ -538,21 +622,21 @@ namespace _Scripts.Managers
             {
                 isSkippingText = true;
                 ContinueOrExitStory();
-                
+
             }
-            
+
         }
 
         private void HandleTags(List<string> currentTags)
         {
             // Loop for each tag in line and handle it accordingly
-            foreach (var tag in currentTags)
+            foreach (var dialogTag in currentTags)
             {
                 // parse the tag 
-                string[] splitTag = tag.Split(':');
+                string[] splitTag = dialogTag.Split(':');
                 if (splitTag.Length != 2)
                 {
-                    DialogDebug.Instance.LogError($"Tag could not be appropriately parsed: {tag}");
+                    DialogDebug.Instance.LogError($"Tag could not be appropriately parsed: {dialogTag}");
                 }
 
                 string tagKey = splitTag[0].Trim();
@@ -581,7 +665,7 @@ namespace _Scripts.Managers
                         EventManager.Instance.DialogueEvents.TagChangeCurrentSpeaker(tagValue);
                         break;
                     default:
-                        DialogDebug.Instance.LogWarning($"Tag could not currently being handled: {tag}");
+                        DialogDebug.Instance.LogWarning($"Tag could not currently being handled: {dialogTag}");
                         break;
                 }
             }
@@ -589,14 +673,14 @@ namespace _Scripts.Managers
 
         private void ExitDialogue()
         {
-  
+
             DialogDebug.Instance.Log("Exit dialogue for story - " + _storyToName[_storyCurrent]);
 
             //reset all states
             isSkippingText = false;
             isSkipBlocked = false;
             isContinueInProgress = false;
-            _dialoguePlaying = false;
+            dialoguePlaying = false;
             isSkippingTypingTextAnimation = false;
             isTypingAnimationSkipped = false;
 
@@ -612,6 +696,9 @@ namespace _Scripts.Managers
 
             //stop listening for variables
             _inkDialogueVariablesCurrent.StopListening(_storyCurrent);
+            
+            //sync dialogue variables
+            SyncVariablesForLocalizations();
 
             //reset story state
             _storyCurrent.ResetState();
@@ -621,7 +708,5 @@ namespace _Scripts.Managers
         {
             return dialogueLine.Trim().Equals("") || dialogueLine.Trim().Equals("\n");
         }
-        
-       
     }
 }

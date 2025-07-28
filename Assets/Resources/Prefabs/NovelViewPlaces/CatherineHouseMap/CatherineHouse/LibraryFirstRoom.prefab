@@ -99,22 +99,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d42e49bc4fb078646bf10c77b67739b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3061328344739839491}
-        m_TargetAssemblyTypeName: _Scripts.Components.TransitionComponents.NovelViewSetPlaceAndLocationToTransitionComponent,
-          Assembly-CSharp
-        m_MethodName: SelectPlace
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &3061328344739839491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -281,22 +265,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d42e49bc4fb078646bf10c77b67739b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 715845735338528209}
-        m_TargetAssemblyTypeName: _Scripts.Components.TransitionComponents.NovelViewSetPlaceAndLocationToTransitionComponent,
-          Assembly-CSharp
-        m_MethodName: SelectPlace
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &715845735338528209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -369,7 +337,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 3ffc509c51489fa4d9f6d4d58f0bc2aa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -389,7 +357,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 450476395204358690, guid: af60f2710d78e8b479d21a8db4752d53, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -413,8 +381,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99135e8dbe6b78b4b981e13cd4da81f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  placeName: 
-  placeStateSprites:
+  currentPlaceName: 
+  defaultStateSprites:
   - {fileID: 450476395204358690, guid: af60f2710d78e8b479d21a8db4752d53, type: 3}
   - {fileID: -7648218616198237705, guid: e6ccb9c38f4b36d458cb2be7869f256e, type: 3}
   - {fileID: 8180596942696152216, guid: 380586d3009d6644d8a7879dad68a5c9, type: 3}

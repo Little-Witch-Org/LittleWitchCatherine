@@ -9,9 +9,9 @@ namespace _Scripts.QuestSystem
     {
         public QuestStateEnum stateEnum;
         public int questStepIndex;
-        public QuestStepValues[] questStepValues;
+        public QuestStepData[] questStepValues;
 
-        public QuestData(QuestStateEnum stateEnum, int questStepIndex, QuestStepValues[] questStepValues)
+        public QuestData(QuestStateEnum stateEnum, int questStepIndex, QuestStepData[] questStepValues)
         {
             this.stateEnum = stateEnum;
             this.questStepIndex = questStepIndex;

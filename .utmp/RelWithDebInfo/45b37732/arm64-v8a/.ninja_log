@@ -1,0 +1,12 @@
+# ninja log v5
+147	672	7738792024187860	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	de4b36687b4c0d38
+674	1335	7738792030658768	F:/Unity Projects/LittleWitch/LittleWitchCatherine/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/45b37732/obj/arm64-v8a/libswappywrapper.so	1f7b871f21b9bd32
+41	2516	7738792042681245	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	28d13dd2f2f31ab0
+91	2628	7738792043897722	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	e6c0f1c41bc193a2
+28	2640	7738792044007702	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	32ceda199eee93b7
+58	2675	7738792044372866	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	7c47cff859683af3
+14	2744	7738792045048634	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	629d2fccc52f5669
+114	2836	7738792045963796	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	4fbc236960ebb972
+74	2981	7738792047404631	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	28d5b53dd58b9a92
+1	3102	7738792048605443	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	b5dc33e845870852
+3102	3495	7738792052555212	F:/Unity Projects/LittleWitch/LittleWitchCatherine/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/45b37732/obj/arm64-v8a/libgame.so	485b45fa7d43654f

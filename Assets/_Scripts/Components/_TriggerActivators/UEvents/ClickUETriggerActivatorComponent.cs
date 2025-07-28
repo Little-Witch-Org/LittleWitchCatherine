@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using _Scripts.Enums;
+using _Scripts.Managers;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
@@ -11,7 +13,12 @@ namespace _Scripts.Components._TriggerActivators.UEvents
         
         private void OnMouseDown()
         {
-            onClick?.Invoke();
+            if (EventSystem.current.IsPointerOverGameObject()) return;
+            
+            if (EventManager.Instance.InputEvents.GetInputEventContext().Equals(InputEventContext.Default))
+            {
+                onClick?.Invoke();
+            }
         }
         
         

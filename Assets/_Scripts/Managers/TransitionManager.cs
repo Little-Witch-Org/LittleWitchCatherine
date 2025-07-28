@@ -28,6 +28,9 @@ namespace _Scripts.Managers
         [SerializeField] private string currentLocation;
         [SerializeField] private string currenPlace; //todo change to prefab link of place ?
         
+        
+        [SerializeField] private float placeFadeDuration=0.5f;
+        
 
         private void Awake()
         {
@@ -52,6 +55,8 @@ namespace _Scripts.Managers
             
             EventManager.Instance.TransitionEvents.OnChangeScene += ChangeScene;
             
+            EventManager.Instance.TransitionEvents.OnTeleportPlayerBetweenPlaces += TeleportPlayerBetweenPlaces;
+            
         }
 
         private void OnDisable()
@@ -61,6 +66,8 @@ namespace _Scripts.Managers
             EventManager.Instance.TransitionEvents.OnLoadedPlace -= UpdateCurrentLocationAndPlace;
             
             EventManager.Instance.TransitionEvents.OnChangeScene -= ChangeScene;
+            
+            EventManager.Instance.TransitionEvents.OnTeleportPlayerBetweenPlaces -= TeleportPlayerBetweenPlaces;
         }
         
         private void Initialize()
@@ -145,6 +152,16 @@ namespace _Scripts.Managers
             
             //invoke method for player and npc
             EventManager.Instance.TransitionEvents.CurrentPlaceOnScreen(location, place);
+        }
+
+        private void TeleportPlayerBetweenPlaces(string location, string place)
+        {
+            EventManager.Instance.TransitionEvents.PlaceTransitionTrigger(location, place);
+        }
+
+        public float GetPlaceFadeDuration()
+        {
+            return placeFadeDuration;
         }
     }
 }

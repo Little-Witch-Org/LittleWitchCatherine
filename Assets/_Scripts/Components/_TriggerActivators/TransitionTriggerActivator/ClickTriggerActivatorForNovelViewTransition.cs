@@ -32,7 +32,7 @@ namespace _Scripts.Components._TriggerActivators.TransitionTriggerActivator
             {
                 novelComponent.SelectPlace();
             }
-            else if (gameObject.TryGetComponent<ChangeSceneTriggerComponent>(out var sceneTriggerComponent))
+            else if (gameObject.TryGetComponent<ChangeSceneComponent>(out var sceneTriggerComponent))
             {
                 sceneTriggerComponent.ChangeSceneTrigger();
                 gameObject.GetComponent<StorePreviousPositionPointComponent>().SetPreviousPositionPointName(); //handle multiple entrances
